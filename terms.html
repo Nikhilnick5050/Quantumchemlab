@@ -1,1203 +1,1216 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Development Team | Quantum Chemistry Lab</title>
+    <title>Terms of Service | Quantum Chemistry Lab</title>
+    <meta name="description" content="Terms and Conditions for Quantum Chemistry Lab Chemical Database">
+    <meta name="keywords" content="terms of service, terms and conditions, legal, chemistry database">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #1d4ed8;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+            
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #0a0a14;
-            --secondary: #12121f;
-            --accent: #00ff88;
-            --accent-glow: rgba(0, 255, 136, 0.3);
-            --purple: #9d4edd;
-            --cyan: #00d9ff;
-            --pink: #ff00aa;
-            --gold: #ffd700;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --neon-shadow: 0 0 20px var(--accent-glow);
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-primary);
             background: var(--primary);
-            color: white;
+            color: var(--text-primary);
+            line-height: 1.7;
             overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
-        }
-
-        .team-hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(circle at 20% 50%, rgba(18, 18, 31, 0.8) 0%, rgba(10, 10, 20, 1) 100%);
-        }
-
-        .quantum-text {
-            font-size: 8rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--accent), var(--cyan), var(--purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            letter-spacing: 5px;
-            text-shadow: 
-                0 0 30px var(--accent-glow),
-                0 0 60px rgba(0, 217, 255, 0.3),
-                0 0 90px rgba(157, 78, 221, 0.2);
-            animation: textGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes textGlow {
-            0% {
-                filter: drop-shadow(0 0 10px var(--accent));
-            }
-            100% {
-                filter: drop-shadow(0 0 25px var(--accent)) drop-shadow(0 0 35px var(--purple));
-            }
-        }
-
-        .team-title {
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, #fff, var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        .team-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            border-radius: 2px;
-        }
-
-        .floating-particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: float 15s infinite linear;
-            opacity: 0.3;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(100px, 100px) rotate(90deg);
-            }
-            50% {
-                transform: translate(200px, 0) rotate(180deg);
-            }
-            75% {
-                transform: translate(100px, -100px) rotate(270deg);
-            }
-        }
-
-        .team-section {
-            padding: 8rem 2rem;
-            position: relative;
-            background: var(--secondary);
-            z-index: 2;
         }
 
         .container {
-            max-width: 1400px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 1.5rem;
         }
 
-        .section-intro {
-            text-align: center;
-            margin-bottom: 6rem;
+        /* ===== HEADER STYLES ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 5px var(--accent));
+            }
+            50% { 
+                filter: drop-shadow(0 0 15px var(--accent));
+            }
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
             position: relative;
+            transition: var(--transition-fast);
         }
 
-        .intro-text {
-            font-size: 1.5rem;
-            color: #a0a0c0;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             position: relative;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
+            overflow: hidden;
         }
 
-        .intro-text::before {
+        .hero-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, transparent, var(--accent), transparent);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            z-index: 0;
         }
 
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .team-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 25px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-            isolation: isolate;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            padding: 2px;
-            background: linear-gradient(45deg, var(--accent), var(--purple), var(--cyan));
-            border-radius: 25px;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: -1;
-        }
-
-        .team-card:hover::before {
-            opacity: 1;
-        }
-
-        .team-card:hover {
-            transform: translateY(-20px) scale(1.02);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                0 0 60px var(--accent-glow);
-        }
-
-        .card-header {
-            padding: 2rem 2rem 0;
-            position: relative;
-        }
-
-        .member-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border: 4px solid transparent;
-            background: linear-gradient(45deg, var(--accent), var(--purple)) border-box;
-            box-shadow: 0 0 30px var(--accent-glow);
-        }
-
-        .member-image::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, var(--accent), var(--purple), var(--cyan));
-            border-radius: 50%;
-            z-index: -1;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .member-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .member-name {
-            font-size: 2.2rem;
+        .hero-content {
             text-align: center;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #fff, var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .member-role {
-            text-align: center;
-            color: var(--accent);
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .member-desc {
-            color: #b0b0d0;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .expertise {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .skill-tag {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(0, 255, 136, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 0 0 25px 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 800px;
+            margin: 0 auto;
             position: relative;
-            overflow: hidden;
-        }
-
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .social-link:hover::before {
-            left: 100%;
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .social-link.github:hover {
-            background: #333;
-            color: white;
-        }
-
-        .social-link.linkedin:hover {
-            background: #0077b5;
-            color: white;
-        }
-
-        .social-link.whatsapp:hover {
-            background: #25d366;
-            color: white;
-        }
-
-        .social-link.phone:hover {
-            background: var(--purple);
-            color: white;
-        }
-
-        .achievements {
-            margin-top: 6rem;
-            text-align: center;
-        }
-
-        .achievements-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, var(--gold), #ff9500);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .achievement-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 2.5rem;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .achievement-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-
-        .achievement-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--accent), var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .achievement-text {
-            color: #b0b0d0;
-            font-size: 1.1rem;
-        }
-
-        .timeline {
-            margin-top: 8rem;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            display: flex;
-            margin-bottom: 4rem;
-            position: relative;
-            opacity: 0;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            flex: 1;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            margin: 0 2rem;
-            position: relative;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--accent);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 20px var(--accent);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content::before {
-            right: -30px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::before {
-            left: -30px;
-        }
-
-        .timeline-date {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .tech-stack {
-            margin-top: 8rem;
-            text-align: center;
-        }
-
-        .tech-icons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .tech-icon {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            font-size: 2.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .tech-icon:hover {
-            transform: translateY(-10px) scale(1.1);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px var(--accent-glow);
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 4rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--accent), var(--purple));
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             z-index: 1;
         }
 
-        .back-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-light), #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
         }
 
-        .back-link:hover::before {
-            left: 100%;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
         }
 
-        .back-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        .last-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 0.5rem 1.5rem;
+            color: var(--accent-light);
+            font-size: 0.9rem;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* ===== MAIN CONTENT LAYOUT ===== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            padding: 3rem 0;
         }
 
-        @keyframes floatUpDown {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        /* ===== SIDEBAR NAVIGATION ===== */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
         }
 
-        .floating {
-            animation: floatUpDown 3s ease-in-out infinite;
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .quantum-text {
-                font-size: 4rem;
-            }
-            
-            .team-title {
-                font-size: 2.5rem;
-            }
-            
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline::before {
-                left: 30px;
-            }
-            
-            .timeline-item {
-                flex-direction: row !important;
-                margin-left: 60px;
-            }
-            
-            .timeline-content::before {
-                left: -40px !important;
-                right: auto !important;
-            }
+        .sidebar-title i {
+            color: var(--accent);
         }
 
-        /* Special Effects */
-        .scan-line {
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            font-size: 0.95rem;
+        }
+
+        .nav-item a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-primary);
+        }
+
+        .nav-item a.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .nav-item a i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* ===== TERMS CONTENT SECTIONS ===== */
+        .terms-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .terms-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            transition: var(--transition-normal);
+        }
+
+        .terms-section:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .section-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ===== NOTICE BOXES ===== */
+        .notice-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .notice-header i {
+            color: var(--warning);
+            font-size: 1.2rem;
+        }
+
+        .notice-title {
+            font-weight: 600;
+            color: var(--warning);
+        }
+
+        .notice-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box .notice-header i {
+            color: var(--danger);
+        }
+
+        .warning-box .notice-title {
+            color: var(--danger);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box .notice-header i {
+            color: var(--accent);
+        }
+
+        .info-box .notice-title {
+            color: var(--accent);
+        }
+
+        /* ===== CONSENT SECTION ===== */
+        .consent-section {
+            background: var(--secondary);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-top: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .consent-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            transition: var(--transition-fast);
+        }
+
+        .consent-checkbox:hover {
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .consent-checkbox label {
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            min-width: 160px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--secondary);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-text i {
+            color: #ef4444;
+            margin: 0 0.25rem;
+        }
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            z-index: 1000;
-            animation: scan 3s linear infinite;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 999;
         }
 
-        @keyframes scan {
-            0% {
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sidebar {
+                position: relative;
                 top: 0;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
             }
         }
 
-        .hologram-effect {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hologram-effect::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(0, 255, 136, 0.1) 50%,
-                transparent 70%
-            );
-            animation: hologram 4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes hologram {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
             }
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
+            
+            .hero-section {
+                padding: 6rem 0 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .terms-section {
+                padding: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-section {
+                padding: 1.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .main-header,
+            .sidebar,
+            .back-to-top,
+            .main-footer,
+            .action-buttons,
+            .consent-section {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .main-content {
+                display: block !important;
+                padding: 0 !important;
+            }
+            
+            .terms-section {
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 0 2rem 0 !important;
+                break-inside: avoid;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Scan Line Effect -->
-    <div class="scan-line"></div>
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-atom logo-icon"></i>
+                    <span class="logo-text">Quantum<span>Chem</span></span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="chemicals.html" class="nav-link">Chemicals</a>
+                    <a href="privacy.html" class="nav-link">Privacy</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
     <!-- Hero Section -->
-    <section class="team-hero">
-        <div class="floating-particles" id="particles"></div>
-        <h1 class="quantum-text" id="quantumText">QuantumChem TEAM</h1>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section">
+    <section class="hero-section" id="hero">
         <div class="container">
-            <!-- Section Intro -->
-            <div class="section-intro">
-                <h2 class="team-title">The Visionaries Behind Quantum Chemistry Lab</h2>
-                <div class="intro-text">
-                    Meet the extraordinary minds pioneering the future of chemical informatics. 
-                    Our team combines cutting-edge technology with deep scientific expertise 
-                    to revolutionize how we understand and interact with chemical data.
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Terms of Service</h1>
+                <p class="hero-subtitle">Please read these terms and conditions carefully before using Quantum Chemistry Lab services</p>
+                <div class="last-updated">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Last Updated: December 2025</span>
                 </div>
-            </div>
-
-            <!-- Team Members Grid -->
-            <div class="team-grid">
-                <!-- Member 1 -->
-                <div class="team-card" id="member1">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/6c/8f/65/6c8f65f299050228d55403231afd2f8b.jpg" alt="Nikhil Shinde">
-                        </div>
-                        <h3 class="member-name">Nikhil Shinde</h3>
-                        <div class="member-role">Project Lead & Backend Architect</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Mastermind behind the Quantum Chemistry Database architecture. 
-                            With expertise in distributed systems and chemical informatics, 
-                            Nikhil orchestrates the seamless integration of complex algorithms 
-                            with intuitive user interfaces.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Backend Development</span>
-                            <span class="skill-tag">Database Design</span>
-                            <span class="skill-tag">Chemical Informatics</span>
-                            <span class="skill-tag">System Architecture</span>
-                            <span class="skill-tag">API Development</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Nikhilnick5050" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/nikhil-shinde-286937367" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/918623947038" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+918623947038" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 2 -->
-                <div class="team-card" id="member2">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/c8/3c/e0/c83ce0a9c72ee9933c8fee416b5d531b.jpg" alt="Aniket Khope">
-                        </div>
-                        <h3 class="member-name">Aniket Khope</h3>
-                        <div class="member-role">Data Scientist & Research Lead</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Pioneering machine learning applications in chemical prediction 
-                            and safety analysis. Aniket's algorithms power the intelligent 
-                            features that make our platform truly revolutionary.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Machine Learning</span>
-                            <span class="skill-tag">Data Analysis</span>
-                            <span class="skill-tag">Predictive Modeling</span>
-                            <span class="skill-tag">Statistical Analysis</span>
-                            <span class="skill-tag">AI Integration</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/aniketkhope2106-spec" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/aniket-khope" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/919730318530" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+919730318530" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 3 -->
-                <div class="team-card" id="member3">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/14/cd/98/14cd988dd7a60ed6917180946faefab7.jpg" alt="Om Malge">
-                        </div>
-                        <h3 class="member-name">Om Malge</h3>
-                        <div class="member-role">Frontend Developer & UI/UX Designer</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Creates immersive, intuitive interfaces that transform complex 
-                            chemical data into beautiful, interactive visualizations. Om 
-                            bridges the gap between scientific complexity and user-friendly design.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">UI/UX Design</span>
-                            <span class="skill-tag">Frontend Development</span>
-                            <span class="skill-tag">3D Visualization</span>
-                            <span class="skill-tag">Interactive Design</span>
-                            <span class="skill-tag">Animation</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/ommalghe" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/om-malghe-85a58239a" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/917715007222" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+917715007222" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 4 -->
-                <div class="team-card" id="member4">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/a4/6b/fd/a46bfd6706f0c888f37747995e742137.jpg" alt="Piyush Waghmare">
-                        </div>
-                        <h3 class="member-name">Piyush Waghmare</h3>
-                        <div class="member-role">Content Specialist & Documentation</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Ensures clarity, accuracy, and accessibility of all scientific 
-                            content. Piyush transforms complex chemical concepts into 
-                            comprehensive documentation and user-friendly guides.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Technical Writing</span>
-                            <span class="skill-tag">Documentation</span>
-                            <span class="skill-tag">Content Strategy</span>
-                            <span class="skill-tag">Quality Assurance</span>
-                            <span class="skill-tag">User Training</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/piyushwaghmare9" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/piyush-waghmare-aa0151381/" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/918624980508" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+918624980508" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Achievements -->
-            <div class="achievements">
-                <h3 class="achievements-title">Our Collective Achievements</h3>
-                <div class="achievements-grid">
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="achievement-number">100+</div>
-                        <div class="achievement-text">Chemicals in Database</div>
-                    </div>
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-code-branch"></i>
-                        </div>
-                        <div class="achievement-number">15K+</div>
-                        <div class="achievement-text">Lines of Code</div>
-                    </div>
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="achievement-number">500+</div>
-                        <div class="achievement-text">Active Researchers</div>
-                    </div>
-                </div>
-            </div>
-
-       
-
-            <!-- Tech Stack -->
-            <div class="tech-stack">
-                <h3 class="achievements-title">Technologies We Master</h3>
-                <div class="tech-icons">
-                    <div class="tech-icon">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <div class="tech-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <div class="tech-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <div class="tech-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="tech-icon">
-                        <i class="fab fa-node-js"></i>
-                    </div>
-                    <div class="tech-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Back Link -->
-            <div style="text-align: center; margin-top: 6rem;">
-                <a href="chemical.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Main Platform
-                </a>
             </div>
         </div>
     </section>
 
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar" data-aos="fade-right">
+                <h3 class="sidebar-title"><i class="fas fa-bookmark"></i> Table of Contents</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#introduction" class="active"><i class="fas fa-chevron-right"></i> Introduction</a></li>
+                    <li class="nav-item"><a href="#acceptance"><i class="fas fa-chevron-right"></i> Acceptance</a></li>
+                    <li class="nav-item"><a href="#license"><i class="fas fa-chevron-right"></i> Use License</a></li>
+                    <li class="nav-item"><a href="#accounts"><i class="fas fa-chevron-right"></i> User Accounts</a></li>
+                    <li class="nav-item"><a href="#content"><i class="fas fa-chevron-right"></i> User Content</a></li>
+                    <li class="nav-item"><a href="#prohibited"><i class="fas fa-chevron-right"></i> Prohibited Uses</a></li>
+                    <li class="nav-item"><a href="#liability"><i class="fas fa-chevron-right"></i> Liability</a></li>
+                    <li class="nav-item"><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </aside>
+
+            <!-- Terms Content -->
+            <div class="terms-content" data-aos="fade-up" data-aos-delay="100">
+                <!-- Introduction -->
+                <section id="introduction" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h2 class="section-title">1. Introduction</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        Welcome to Quantum Chemistry Lab ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, services, and applications (collectively, the "Services").
+                    </p>
+                    
+                    <p class="section-text">
+                        Quantum Chemistry Lab is an advanced chemical database platform providing comprehensive information about laboratory chemicals, safety protocols, and research tools for educational and research purposes.
+                    </p>
+                    
+                    <div class="notice-box">
+                        <div class="notice-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h4 class="notice-title">Important Notice</h4>
+                        </div>
+                        <p class="notice-text">
+                            These Terms constitute a legally binding agreement between you and Quantum Chemistry Lab. By accessing or using our Services, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Services.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Acceptance -->
+                <section id="acceptance" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 class="section-title">2. Acceptance of Terms</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        By accessing or using the Services, you confirm that:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">You are at least 18 years of age or have parental/guardian consent</li>
+                        <li style="margin-bottom: 0.5rem;">You have the legal capacity to enter into a binding agreement</li>
+                        <li style="margin-bottom: 0.5rem;">You will comply with all applicable laws and regulations</li>
+                        <li>You accept all terms and conditions herein</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-ban"></i>
+                            <h4 class="notice-title">Prohibited Access</h4>
+                        </div>
+                        <p class="notice-text">
+                            Access to certain chemical information may be restricted based on geographic location, user credentials, or intended use. We reserve the right to restrict access to any part of our Services at our discretion.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Use License -->
+                <section id="license" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h2 class="section-title">3. Use License</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">3.1 Grant of License</h3>
+                    <p class="section-text">
+                        Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Access and use the Services for personal, educational, or research purposes</li>
+                        <li style="margin-bottom: 0.5rem;">View, download, and print chemical information for non-commercial use</li>
+                        <li>Use our database for academic research and laboratory reference</li>
+                    </ul>
+                    
+                    <h3 class="section-subtitle">3.2 Restrictions</h3>
+                    <p class="section-text">
+                        You may not:
+                    </p>
+                    
+                    <ol style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Modify, copy, or create derivative works of the Services</li>
+                        <li style="margin-bottom: 0.5rem;">Use the Services for any commercial purpose without our express written consent</li>
+                        <li style="margin-bottom: 0.5rem;">Attempt to decompile or reverse engineer any software contained in our Services</li>
+                        <li style="margin-bottom: 0.5rem;">Remove any copyright or other proprietary notations</li>
+                        <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+                    </ol>
+                </section>
+
+                <!-- User Accounts -->
+                <section id="accounts" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h2 class="section-title">4. User Accounts</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        To access certain features of the Services, you may be required to create an account. You agree to:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Provide accurate, current, and complete information during registration</li>
+                        <li style="margin-bottom: 0.5rem;">Maintain and promptly update your account information</li>
+                        <li style="margin-bottom: 0.5rem;">Maintain the security of your password and accept all risks of unauthorized access</li>
+                        <li>Take responsibility for all activities that occur under your account</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="notice-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h4 class="notice-title">Account Types</h4>
+                        </div>
+                        <p class="notice-text">
+                            We offer different account types: Student Accounts for basic educational access, Researcher Accounts for academic institutions, and Institutional Accounts for universities and laboratories. Each type has specific features and limitations.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- User Content -->
+                <section id="content" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h2 class="section-title">5. User Content</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">5.1 Content Ownership</h3>
+                    <p class="section-text">
+                        You retain ownership of any content you submit, post, or display ("User Content") on or through the Services. By submitting User Content, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and display such content in connection with the Services.
+                    </p>
+                    
+                    <h3 class="section-subtitle">5.2 Content Guidelines</h3>
+                    <p class="section-text">
+                        You are solely responsible for your User Content and the consequences of posting or publishing it. You represent and warrant that your content does not violate any third-party rights, including intellectual property rights, and complies with all applicable laws.
+                    </p>
+                </section>
+
+                <!-- Prohibited Uses -->
+                <section id="prohibited" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h2 class="section-title">6. Prohibited Uses</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        You agree not to use the Services for any purpose that is unlawful or prohibited by these Terms. Prohibited uses include, but are not limited to:
+                    </p>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-skull-crossbones"></i>
+                            <h4 class="notice-title">Chemical Safety Violations</h4>
+                        </div>
+                        <p class="notice-text">
+                            You may not use our Services to create illegal or dangerous substances, bypass safety protocols or regulations, misuse chemical information for harmful purposes, or ignore safety warnings and precautions.
+                        </p>
+                    </div>
+                    
+                    <p class="section-text">
+                        Additional restrictions include using any automated means to access the Services, interfering with service performance, attempting unauthorized access to our systems, or using the Services to transmit malicious code.
+                    </p>
+                </section>
+
+                <!-- Liability -->
+                <section id="liability" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="section-title">7. Limitation of Liability</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">7.1 Disclaimer of Warranties</h3>
+                    <p class="section-text">
+                        The Services are provided "as is" and "as available" without any warranties of any kind, either express or implied. We do not warrant that the Services will be uninterrupted, error-free, or meet your specific requirements.
+                    </p>
+                    
+                    <h3 class="section-subtitle">7.2 Limitation of Liability</h3>
+                    <p class="section-text">
+                        To the maximum extent permitted by law, Quantum Chemistry Lab shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+                    </p>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4 class="notice-title">Chemical Safety Disclaimer</h4>
+                        </div>
+                        <p class="notice-text">
+                            <strong>CRITICAL WARNING:</strong> Chemical information provided on our platform is for educational and research purposes only. We are not responsible for injuries or damages resulting from the use of chemical information, incorrect application of safety procedures, laboratory accidents, or regulatory violations by users.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section id="contact" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h2 class="section-title">8. Contact Information</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        If you have any questions about these Terms, please contact us:
+                    </p>
+                    
+                    <div class="info-box">
+                        <div class="notice-header">
+                            <i class="fas fa-building"></i>
+                            <h4 class="notice-title">Quantum Chemistry Lab Legal Department</h4>
+                        </div>
+                        <p class="notice-text">
+                            For legal inquiries, copyright issues, or terms-related questions:<br>
+                            Email: legal@quantumchemlab.com<br>
+                            Phone: +91-20-XXXX-XXXX<br>
+                            Address: PCCOE, Pune, Maharashtra
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Consent Section -->
+                <div class="consent-section" aria-label="Terms of Service consent section">
+                    <h3 class="consent-title">Final Acceptance</h3>
+                    <p class="section-text">
+                        By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.
+                    </p>
+                    
+                    <div class="consent-checkbox">
+                        <input type="checkbox" id="consentCheckbox">
+                        <label for="consentCheckbox">I accept the Terms of Service</label>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="printBtn" aria-label="Print the Terms of Service">
+                            <i class="fas fa-print"></i>
+                            Print Terms
+                        </button>
+                        <button class="btn btn-secondary" id="downloadBtn" aria-label="Download the Terms of Service as a PDF">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2025 Quantum Chemistry Lab. All rights reserved.<br>
+                    Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE, Pune
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-        // Quantum Text Animation
-        const quantumText = document.getElementById('quantumText');
-        gsap.from(quantumText, {
-            duration: 2,
-            text: "",
-            ease: "power2.inOut",
-            onComplete: () => {
-                gsap.to(quantumText, {
-                    duration: 3,
-                    scale: 1.1,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut"
-                });
-            }
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
         });
 
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = `${Math.random() * 10 + 2}px`;
-                particle.style.height = particle.style.width;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, 255, ${Math.random() * 0.5 + 0.2})`;
-                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(particle);
-            }
-        }
-
-        // Animate team cards on scroll
-        gsap.utils.toArray('.team-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                delay: i * 0.2,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        // Timeline animation
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                },
-                x: i % 2 === 0 ? -100 : 100,
-                opacity: 0,
-                duration: 1,
-                delay: i * 0.3,
-                ease: "power2.out"
-            });
-        });
-
-        // Achievement counters animation
-        gsap.utils.toArray('.achievement-number').forEach(number => {
-            const target = parseInt(number.textContent);
-            const obj = { value: 0 };
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            const backToTop = document.getElementById('backToTop');
             
-            ScrollTrigger.create({
-                trigger: number,
-                start: "top 80%",
-                onEnter: () => {
-                    gsap.to(obj, {
-                        value: target,
-                        duration: 2,
-                        ease: "power2.out",
-                        onUpdate: () => {
-                            number.textContent = Math.floor(obj.value) + (number.textContent.includes('+') ? '+' : '');
-                        }
-                    });
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                backToTop.classList.add('visible');
+            } else {
+                header.style.boxShadow = 'none';
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Terms navigation highlighting
+        const sections = document.querySelectorAll('.terms-section');
+        const navLinks = document.querySelectorAll('.nav-item a');
+        
+        function highlightNavLink() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightNavLink);
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-item a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
 
-        // Tech icons hover animation
-        gsap.utils.toArray('.tech-icon').forEach(icon => {
-            icon.addEventListener('mouseenter', () => {
-                gsap.to(icon, {
-                    rotation: 360,
-                    duration: 0.5,
-                    ease: "back.out(1.7)"
-                });
+        // Check if consent is given
+        function requireConsent() {
+            return document.getElementById('consentCheckbox').checked;
+        }
+
+        // Print functionality
+        document.getElementById('printBtn').addEventListener('click', function() {
+            if (!requireConsent()) {
+                alert("Please accept the Terms of Service before printing.");
+                return;
+            }
+            window.print();
+        });
+
+        // PDF download functionality
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            if (!requireConsent()) {
+                alert("Please accept the Terms of Service before downloading.");
+                return;
+            }
+
+            // Initialize jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set document properties
+            doc.setProperties({
+                title: 'Quantum Chemistry Lab - Terms of Service',
+                subject: 'Terms and Conditions',
+                author: 'Quantum Chemistry Lab',
+                keywords: 'terms, service, chemistry, database',
+                creator: 'Quantum Chemistry Lab'
             });
             
-            icon.addEventListener('mouseleave', () => {
-                gsap.to(icon, {
-                    rotation: 0,
-                    duration: 0.5,
-                    ease: "back.out(1.7)"
+            // Add title
+            doc.setFontSize(20);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Terms of Service', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Quantum Chemistry Lab', 105, 30, { align: 'center' });
+            doc.text('Last Updated: December 2024', 105, 35, { align: 'center' });
+            
+            // Get all text content from terms sections
+            let pdfContent = '';
+            const sections = document.querySelectorAll('.terms-section');
+            
+            sections.forEach((section, index) => {
+                const title = section.querySelector('.section-title')?.textContent || '';
+                const paragraphs = section.querySelectorAll('.section-text');
+                
+                pdfContent += title + '\n\n';
+                
+                paragraphs.forEach(p => {
+                    pdfContent += p.textContent + '\n\n';
                 });
-            });
-        });
-
-        // Social links animation
-        gsap.utils.toArray('.social-link').forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                gsap.to(link, {
-                    scale: 1.2,
-                    rotation: 10,
-                    duration: 0.3,
-                    ease: "back.out(1.7)"
+                
+                // Add notice box content
+                const notices = section.querySelectorAll('.notice-box, .warning-box, .info-box');
+                notices.forEach(notice => {
+                    const noticeTitle = notice.querySelector('.notice-title')?.textContent || '';
+                    const noticeText = notice.querySelector('.notice-text')?.textContent || '';
+                    
+                    if (noticeTitle) pdfContent += '⚠️ ' + noticeTitle + '\n';
+                    if (noticeText) pdfContent += noticeText + '\n\n';
                 });
+                
+                pdfContent += '\n';
             });
             
-            link.addEventListener('mouseleave', () => {
-                gsap.to(link, {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.3,
-                    ease: "back.out(1.7)"
-                });
-            });
-        });
-
-        // Background pulse animation
-        gsap.to('body', {
-            backgroundPosition: '0% 0%',
-            backgroundSize: '400% 400%',
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        // Scan line animation
-        const scanLine = document.querySelector('.scan-line');
-        gsap.to(scanLine, {
-            top: "100vh",
-            duration: 3,
-            repeat: -1,
-            ease: "none",
-            delay: Math.random() * 3
-        });
-
-        // Skill tags animation
-        gsap.utils.toArray('.skill-tag').forEach((tag, i) => {
-            gsap.from(tag, {
-                scrollTrigger: {
-                    trigger: tag,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                scale: 0,
-                rotation: 180,
-                duration: 0.5,
-                delay: i * 0.1,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        // Member images animation
-        gsap.utils.toArray('.member-image').forEach((image, i) => {
-            gsap.from(image, {
-                scrollTrigger: {
-                    trigger: image,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                scale: 0,
-                rotation: 360,
-                duration: 1,
-                delay: i * 0.2,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        // Page entrance animation
-        gsap.from('body', {
-            opacity: 0,
-            duration: 1,
-            ease: "power2.inOut"
-        });
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
+            // Add consent statement
+            pdfContent += '\n\n---\n';
+            pdfContent += 'By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.\n\n';
+            pdfContent += '© 2025 Quantum Chemistry Lab. All rights reserved.';
             
-            // Add floating animation to team cards
-            gsap.utils.toArray('.team-card').forEach(card => {
-                gsap.to(card, {
-                    y: -10,
-                    duration: 2,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: Math.random() * 2
-                });
-            });
-        });
-
-        // Mouse follower effect
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+            // Configure text
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
             
-            gsap.to('.team-hero', {
-                backgroundPosition: `${x * 100}% ${y * 100}%`,
-                duration: 0.5,
-                ease: "power2.out"
-            });
-        });
-
-        // Add hologram effect to team cards on hover
-        document.querySelectorAll('.team-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.classList.add('hologram-effect');
+            // Split text into pages
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const margin = 20;
+            const maxWidth = pageWidth - (margin * 2);
+            
+            const lines = doc.splitTextToSize(pdfContent, maxWidth);
+            
+            // Add text to PDF with pagination
+            let yPosition = 50;
+            const lineHeight = 7;
+            
+            lines.forEach((line, index) => {
+                // Check if we need a new page
+                if (yPosition > 270) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+                
+                // Add section headers in bold
+                if (line.match(/^\d+\.\s+/)) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(line, margin, yPosition);
+                    doc.setFont('helvetica', 'normal');
+                } else if (line.includes('⚠️')) {
+                    // Style notices
+                    doc.setTextColor(245, 158, 11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(line.replace('⚠️ ', ''), margin, yPosition);
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFont('helvetica', 'normal');
+                } else {
+                    doc.text(line, margin, yPosition);
+                }
+                
+                yPosition += lineHeight;
             });
             
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('hologram-effect');
-            });
+            // Add page numbers
+            const pageCount = doc.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Page ${i} of ${pageCount}`, pageWidth - 30, 285);
+            }
+            
+            // Save the PDF
+            doc.save('Quantum-Chemistry-Lab-Terms-of-Service.pdf');
+            
+            // Show success message
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+            downloadBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            setTimeout(() => {
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.style.background = '';
+            }, 2000);
         });
 
-        // Text reveal animation for descriptions
-        gsap.utils.toArray('.member-desc').forEach(desc => {
-            gsap.from(desc, {
-                scrollTrigger: {
-                    trigger: desc,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                text: "",
-                duration: 2,
-                ease: "power2.inOut",
-                delay: 0.5
+        // Update current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.querySelector('.footer-text');
+            if (yearElement) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+            
+            // Auto-accept checkbox when user scrolls to bottom
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.innerHeight + window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                
+                if (scrollPosition >= pageHeight - 100) {
+                    document.getElementById('consentCheckbox').checked = true;
+                }
             });
         });
     </script>
