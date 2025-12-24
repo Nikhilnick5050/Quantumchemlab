@@ -5,13 +5,14 @@ const User = require("../models/User");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+/* ---------- GOOGLE LOGIN ---------- */
 router.post("/google", async (req, res) => {
   try {
     const { token } = req.body;
 
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
 
     const payload = ticket.getPayload();
@@ -20,20 +21,35 @@ router.post("/google", async (req, res) => {
       { email: payload.email },
       {
         name: payload.name,
+        email: payload.email,
         picture: payload.picture,
-        lastLogin: new Date()
+        provider: "google",
       },
       { upsert: true, new: true }
     );
 
-    res.status(200).json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(401).json({ message: "Google authentication failed" });
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ message: "Google login failed" });
+  }
+});
+
+/* ---------- MANUAL REGISTER ---------- */
+router.post("/register", async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { email },
+      { name, email, provider: "local" },
+      { upsert: true, new: true }
+    );
+
+    res.json(user);
+  } catch (err) {
+    res.status(400).json({ message: "Registration failed" });
   }
 });
 
 module.exports = router;
-router.get("/google/callback", (req, res) => {
-  res.send("Google OAuth callback OK");
-});
