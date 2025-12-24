@@ -1,12 +1,7 @@
-import mongoose from "mongoose";
+import clientPromise from "../lib/mongodb";
 
-const UserSchema = new mongoose.Schema(
-  {
-    username: { type: String, required: true },
-    email: { type: String, required: true },
-  },
-  { timestamps: true }
-);
-
-export default mongoose.models.User ||
-  mongoose.model("User", UserSchema);
+export async function getUserCollection() {
+  const client = await clientPromise;
+  const db = client.db("quantumchem");
+  return db.collection("users");
+}

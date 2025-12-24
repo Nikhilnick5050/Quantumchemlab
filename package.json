@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.0.0"
   }
 }
