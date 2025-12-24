@@ -2,13 +2,13 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors"); // ✅ FIX 1
+const cors = require("cors");
 
-const authRoutes = require("./auth"); // ✅ FIX 2 (path inside api folder)
+const authRoutes = require("../routes/auth");
 
 const app = express();
 
-/* ---------- MIDDLEWARE ---------- */
+/* MIDDLEWARE */
 app.use(express.json());
 
 app.use(
@@ -21,19 +21,20 @@ app.use(
   })
 );
 
-/* ---------- HEALTH CHECK ---------- */
+/* HEALTH CHECK */
 app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "API running" });
+  res.status(200).json({ status: "API working on Vercel" });
 });
 
-/* ---------- ROUTES ---------- */
+/* ROUTES */
 app.use("/api/auth", authRoutes);
 
-/* ---------- DATABASE ---------- */
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB error:", err));
+/* DATABASE (safe for serverless) */
+if (mongoose.connection.readyState === 0) {
+  mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch(err => console.error("MongoDB error:", err));
+}
 
-/* ---------- EXPORT (NO LISTEN) ---------- */
+/* EXPORT (CRITICAL) */
 module.exports = app;
