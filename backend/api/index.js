@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 const authRoutes = require("../routes/auth");
 
@@ -21,20 +22,30 @@ app.use(
   })
 );
 
-/* HEALTH CHECK */
+/* STATIC FILES */
+app.use(express.static(path.join(__dirname, "../../public")));
+
+/* ROOT */
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../public/index.html"));
+});
+
+/* HEALTH */
 app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "API working on Vercel" });
+  res.json({ status: "OK" });
 });
 
 /* ROUTES */
 app.use("/api/auth", authRoutes);
 
-/* DATABASE (safe for serverless) */
+/* DB */
 if (mongoose.connection.readyState === 0) {
   mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error("MongoDB error:", err));
+    .catch(console.error);
 }
 
-/* EXPORT (CRITICAL) */
-module.exports = app;
+/* 🔴 REQUIRED FOR VERCEL */
+module.exports = (req, res) => {
+  app(req, res);
+};
