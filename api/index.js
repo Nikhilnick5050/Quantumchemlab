@@ -1,3 +1,4 @@
-const app = require("../backend/server");
-
-module.exports = app;
+// api/index.js
+export default function handler(req, res) {
+  res.status(200).json({ ok: true });
+}
