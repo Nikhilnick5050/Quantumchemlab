@@ -8,8 +8,11 @@ const authRoutes = require("../routes/auth");
 
 const app = express();
 
-/* ---------- MIDDLEWARE ---------- */
+/* ===============================
+   MIDDLEWARE
+================================ */
 app.use(express.json());
+
 app.use(
   cors({
     origin: [
@@ -21,21 +24,37 @@ app.use(
   })
 );
 
-/* ---------- HEALTH CHECK ---------- */
+/* ===============================
+   HEALTH CHECK (TEST API)
+================================ */
 app.get("/api/health", (req, res) => {
-  res.json({ status: "API working" });
+  res.status(200).json({
+    success: true,
+    message: "API is working 🚀"
+  });
 });
 
-/* ---------- AUTH ROUTES ---------- */
+/* ===============================
+   AUTH ROUTES
+================================ */
 app.use("/api/auth", authRoutes);
 
-/* ---------- DATABASE ---------- */
+/* ===============================
+   DATABASE CONNECTION
+   (Vercel-safe: connect once)
+================================ */
 if (mongoose.connection.readyState === 0) {
   mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error(err));
+    .connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log("✅ MongoDB connected"))
+    .catch((err) => console.error("❌ MongoDB error:", err));
 }
 
-/* ---------- EXPORT FOR VERCEL ---------- */
+/* ===============================
+   EXPORT APP FOR VERCEL
+   ❌ NO app.listen()
+================================ */
 module.exports = app;
