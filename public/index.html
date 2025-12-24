@@ -5,38 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Quantum Chem Laboratory | Login</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<!-- Google Identity Services -->
+<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
-/* ===== YOUR DESIGN (UNCHANGED) ===== */
+/* ===== DESIGN UNCHANGED ===== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{min-height:100vh;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#1a1f3c,#2d1b5e)}
 .login-container{width:900px;height:560px;background:#fff;border-radius:16px;display:flex;overflow:hidden;box-shadow:0 25px 45px rgba(0,0,0,.35)}
 .login-left{width:50%;padding:50px;color:#fff;background:linear-gradient(135deg,#1a1f3c,#3a2a7a);display:flex;flex-direction:column}
 .login-right{width:50%;padding:45px}
 .login-right h2{text-align:center;margin-bottom:25px;color:#3a2a7a}
-.login-type-btn{flex:1;padding:10px;border-radius:25px;border:2px solid #e9ecef;background:#f8f9fa;cursor:pointer}
-.login-type-btn.active{background:#8a7dff;color:#fff;border-color:#8a7dff}
-.login-types{display:flex;gap:10px;margin-bottom:20px}
-.form-container{display:none}
-.form-container.active{display:block}
 .input-box{position:relative;margin-bottom:18px}
 .input-box i{position:absolute;top:50%;left:18px;transform:translateY(-50%);color:#888}
 .input-box input{width:100%;padding:15px 15px 15px 48px;border-radius:30px;border:1px solid #ddd}
 .btn{width:100%;padding:15px;border:none;border-radius:30px;cursor:pointer;font-weight:500;margin-bottom:14px}
 .login-btn{background:linear-gradient(135deg,#3a2a7a,#8a7dff);color:#fff}
 .skip-btn{background:#f3f3f3}
-#googleRegisterBtn,#googleLoginBtn{display:flex;justify-content:center;align-items:center;min-height:50px;border:1px solid #ddd;border-radius:30px;background:#fff}
-.or-divider{text-align:center;margin:20px 0;color:#666;position:relative}
-.or-divider::before,.or-divider::after{content:'';position:absolute;top:50%;width:45%;height:1px;background:#ddd}
-.or-divider::before{left:0}.or-divider::after{right:0}
+.social-text{text-align:center;font-size:13px;margin-bottom:10px;color:#666}
+#googleBtn{display:flex;justify-content:center}
+.footer{text-align:center;font-size:13px;margin-top:15px;color:#666}
+.footer a{color:#3a2a7a;text-decoration:none;font-weight:500}
 </style>
 </head>
 
@@ -44,99 +36,100 @@ body{min-height:100vh;display:flex;justify-content:center;align-items:center;bac
 
 <div class="login-container">
 
-<!-- LEFT -->
 <div class="login-left">
   <h1>Welcome to Quantum Chemical Database</h1>
   <p>Secure login for quantum chemistry research.</p>
 </div>
 
-<!-- RIGHT -->
 <div class="login-right">
-<h2>Access QuantumChem</h2>
 
-<div class="login-types">
-  <button class="login-type-btn active" data-type="register">Register</button>
-  <button class="login-type-btn" data-type="login">Login</button>
+<h2>User Login</h2>
+
+<!-- GOOGLE LOGIN -->
+<div id="googleBtn"></div>
+
+<div class="social-text">OR</div>
+
+<div class="input-box">
+  <i class="fa fa-user"></i>
+  <input type="text" id="name" placeholder="Full Name">
 </div>
 
-<!-- REGISTER -->
-<div id="registerForm" class="form-container active">
-  <div id="googleRegisterBtn"></div>
-  <div class="or-divider">OR</div>
-
-  <div class="input-box">
-    <i class="fa fa-user"></i>
-    <input type="text" placeholder="Full Name">
-  </div>
-
-  <div class="input-box">
-    <i class="fa fa-envelope"></i>
-    <input type="email" placeholder="Email">
-  </div>
-
-  <button class="btn login-btn">Register & Continue</button>
-  <button class="btn skip-btn" id="guestRegister">Continue without Login</button>
+<div class="input-box">
+  <i class="fa fa-envelope"></i>
+  <input type="email" id="email" placeholder="Email">
 </div>
 
-<!-- LOGIN -->
-<div id="loginForm" class="form-container">
-  <div id="googleLoginBtn"></div>
-  <div class="or-divider">OR</div>
+<button class="btn login-btn" id="manualLogin">Continue</button>
 
-  <div class="input-box">
-    <i class="fa fa-envelope"></i>
-    <input type="email" placeholder="Email">
-  </div>
+<button class="btn skip-btn" id="guest">Continue without Login</button>
 
-  <button class="btn login-btn">Login & Continue</button>
-  <button class="btn skip-btn" id="guestLogin">Continue without Login</button>
-</div>
+<p class="footer">
+  Your name & email are stored securely
+</p>
 
 </div>
 </div>
 
 <script>
-const GOOGLE_CLIENT_ID =
-"218198449116-9v2lugk6mab4ra5p9vu94g164e3e3973.apps.googleusercontent.com";
+/* ================= CONFIG ================= */
+const GOOGLE_CLIENT_ID = "218198449116-9v21ugk6mab4ra5p9vu94g164e3e3973.apps.googleusercontent.com";
 
-const API_BASE_URL =
+const API_BASE =
 location.hostname === "localhost"
 ? "http://localhost:5000/api"
 : "https://quantumchem-api.vercel.app/api";
 
-function initGoogle() {
+/* ================= GOOGLE LOGIN ================= */
+window.onload = () => {
   google.accounts.id.initialize({
     client_id: GOOGLE_CLIENT_ID,
-    callback: handleGoogleLogin,
+    callback: handleGoogleLogin
   });
 
   google.accounts.id.renderButton(
-    document.getElementById("googleRegisterBtn"),
+    document.getElementById("googleBtn"),
     { theme: "outline", size: "large", width: 320 }
   );
-
-  google.accounts.id.renderButton(
-    document.getElementById("googleLoginBtn"),
-    { theme: "outline", size: "large", width: 320 }
-  );
-}
+};
 
 async function handleGoogleLogin(response) {
-  const res = await fetch(${API_BASE_URL}/auth/google, {
+  const res = await fetch(${API_BASE}/auth/google, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token: response.credential }),
+    body: JSON.stringify({ token: response.credential })
   });
 
   const user = await res.json();
-  alert("Welcome " + user.name);
   localStorage.setItem("quantumchem_user", JSON.stringify(user));
   window.location.href = "chemical.html";
 }
 
-/* IMPORTANT */
-window.onload = () => {
-  initGoogle();
+/* ================= MANUAL LOGIN ================= */
+document.getElementById("manualLogin").onclick = async () => {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+
+  if (!name || !email) {
+    alert("Enter name and email");
+    return;
+  }
+
+  const res = await fetch(${API_BASE}/auth/register, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email })
+  });
+
+  const user = await res.json();
+  localStorage.setItem("quantumchem_user", JSON.stringify(user));
+  window.location.href = "chemical.html";
+};
+
+/* ================= GUEST ================= */
+document.getElementById("guest").onclick = () => {
+  localStorage.setItem("quantumchem_user", JSON.stringify({ guest: true }));
+  window.location.href = "chemical.html";
 };
 </script>
 
