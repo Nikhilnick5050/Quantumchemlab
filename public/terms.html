@@ -1,0 +1,1224 @@
+]<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Quantum Chemistry Lab</title>
+    <meta name="description" content="Terms and Conditions for Quantum Chemistry Lab Chemical Database">
+    <meta name="keywords" content="terms of service, terms and conditions, legal, chemistry database">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #1d4ed8;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+            
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 5px var(--accent));
+            }
+            50% { 
+                filter: drop-shadow(0 0 15px var(--accent));
+            }
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-light), #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .last-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 0.5rem 1.5rem;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        /* ===== MAIN CONTENT LAYOUT ===== */
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            padding: 3rem 0;
+        }
+
+        /* ===== SIDEBAR NAVIGATION ===== */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-title i {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            font-size: 0.95rem;
+        }
+
+        .nav-item a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-primary);
+        }
+
+        .nav-item a.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .nav-item a i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* ===== TERMS CONTENT SECTIONS ===== */
+        .terms-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .terms-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            transition: var(--transition-normal);
+        }
+
+        .terms-section:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .section-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ===== NOTICE BOXES ===== */
+        .notice-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .notice-header i {
+            color: var(--warning);
+            font-size: 1.2rem;
+        }
+
+        .notice-title {
+            font-weight: 600;
+            color: var(--warning);
+        }
+
+        .notice-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box .notice-header i {
+            color: var(--danger);
+        }
+
+        .warning-box .notice-title {
+            color: var(--danger);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box .notice-header i {
+            color: var(--accent);
+        }
+
+        .info-box .notice-title {
+            color: var(--accent);
+        }
+
+        /* ===== CONSENT SECTION ===== */
+        .consent-section {
+            background: var(--secondary);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-top: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .consent-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            transition: var(--transition-fast);
+        }
+
+        .consent-checkbox:hover {
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .consent-checkbox label {
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            min-width: 160px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--secondary);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-text i {
+            color: #ef4444;
+            margin: 0 0.25rem;
+        }
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-section {
+                padding: 6rem 0 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .terms-section {
+                padding: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-section {
+                padding: 1.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .main-header,
+            .sidebar,
+            .back-to-top,
+            .main-footer,
+            .action-buttons,
+            .consent-section {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .main-content {
+                display: block !important;
+                padding: 0 !important;
+            }
+            
+            .terms-section {
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 0 2rem 0 !important;
+                break-inside: avoid;
+            }
+        }
+    </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-atom logo-icon"></i>
+                    <span class="logo-text">Quantum<span>Chem</span></span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="chemicals.html" class="nav-link">Chemicals</a>
+                    <a href="privacy.html" class="nav-link">Privacy</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Terms of Service</h1>
+                <p class="hero-subtitle">Please read these terms and conditions carefully before using Quantum Chemistry Lab services</p>
+                <div class="last-updated">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Last Updated: December 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar" data-aos="fade-right">
+                <h3 class="sidebar-title"><i class="fas fa-bookmark"></i> Table of Contents</h3>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#introduction" class="active"><i class="fas fa-chevron-right"></i> Introduction</a></li>
+                    <li class="nav-item"><a href="#acceptance"><i class="fas fa-chevron-right"></i> Acceptance</a></li>
+                    <li class="nav-item"><a href="#license"><i class="fas fa-chevron-right"></i> Use License</a></li>
+                    <li class="nav-item"><a href="#accounts"><i class="fas fa-chevron-right"></i> User Accounts</a></li>
+                    <li class="nav-item"><a href="#content"><i class="fas fa-chevron-right"></i> User Content</a></li>
+                    <li class="nav-item"><a href="#prohibited"><i class="fas fa-chevron-right"></i> Prohibited Uses</a></li>
+                    <li class="nav-item"><a href="#liability"><i class="fas fa-chevron-right"></i> Liability</a></li>
+                    <li class="nav-item"><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </aside>
+
+            <!-- Terms Content -->
+            <div class="terms-content" data-aos="fade-up" data-aos-delay="100">
+                <!-- Introduction -->
+                <section id="introduction" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h2 class="section-title">1. Introduction</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        Welcome to Quantum Chemistry Lab ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, services, and applications (collectively, the "Services").
+                    </p>
+                    
+                    <p class="section-text">
+                        Quantum Chemistry Lab is an advanced chemical database platform providing comprehensive information about laboratory chemicals, safety protocols, and research tools for educational and research purposes.
+                    </p>
+                    
+                    <div class="notice-box">
+                        <div class="notice-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h4 class="notice-title">Important Notice</h4>
+                        </div>
+                        <p class="notice-text">
+                            These Terms constitute a legally binding agreement between you and Quantum Chemistry Lab. By accessing or using our Services, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Services.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Acceptance -->
+                <section id="acceptance" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 class="section-title">2. Acceptance of Terms</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        By accessing or using the Services, you confirm that:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">You are at least 18 years of age or have parental/guardian consent</li>
+                        <li style="margin-bottom: 0.5rem;">You have the legal capacity to enter into a binding agreement</li>
+                        <li style="margin-bottom: 0.5rem;">You will comply with all applicable laws and regulations</li>
+                        <li>You accept all terms and conditions herein</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-ban"></i>
+                            <h4 class="notice-title">Prohibited Access</h4>
+                        </div>
+                        <p class="notice-text">
+                            Access to certain chemical information may be restricted based on geographic location, user credentials, or intended use. We reserve the right to restrict access to any part of our Services at our discretion.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Use License -->
+                <section id="license" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h2 class="section-title">3. Use License</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">3.1 Grant of License</h3>
+                    <p class="section-text">
+                        Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Access and use the Services for personal, educational, or research purposes</li>
+                        <li style="margin-bottom: 0.5rem;">View, download, and print chemical information for non-commercial use</li>
+                        <li>Use our database for academic research and laboratory reference</li>
+                    </ul>
+                    
+                    <h3 class="section-subtitle">3.2 Restrictions</h3>
+                    <p class="section-text">
+                        You may not:
+                    </p>
+                    
+                    <ol style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Modify, copy, or create derivative works of the Services</li>
+                        <li style="margin-bottom: 0.5rem;">Use the Services for any commercial purpose without our express written consent</li>
+                        <li style="margin-bottom: 0.5rem;">Attempt to decompile or reverse engineer any software contained in our Services</li>
+                        <li style="margin-bottom: 0.5rem;">Remove any copyright or other proprietary notations</li>
+                        <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+                    </ol>
+                </section>
+
+                <!-- User Accounts -->
+                <section id="accounts" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h2 class="section-title">4. User Accounts</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        To access certain features of the Services, you may be required to create an account. You agree to:
+                    </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Provide accurate, current, and complete information during registration</li>
+                        <li style="margin-bottom: 0.5rem;">Maintain and promptly update your account information</li>
+                        <li style="margin-bottom: 0.5rem;">Maintain the security of your password and accept all risks of unauthorized access</li>
+                        <li>Take responsibility for all activities that occur under your account</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <div class="notice-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h4 class="notice-title">Account Types</h4>
+                        </div>
+                        <p class="notice-text">
+                            We offer different account types: Student Accounts for basic educational access, Researcher Accounts for academic institutions, and Institutional Accounts for universities and laboratories. Each type has specific features and limitations.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- User Content -->
+                <section id="content" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h2 class="section-title">5. User Content</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">5.1 Content Ownership</h3>
+                    <p class="section-text">
+                        You retain ownership of any content you submit, post, or display ("User Content") on or through the Services. By submitting User Content, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and display such content in connection with the Services.
+                    </p>
+                    
+                    <h3 class="section-subtitle">5.2 Content Guidelines</h3>
+                    <p class="section-text">
+                        You are solely responsible for your User Content and the consequences of posting or publishing it. You represent and warrant that your content does not violate any third-party rights, including intellectual property rights, and complies with all applicable laws.
+                    </p>
+                </section>
+
+                <!-- Prohibited Uses -->
+                <section id="prohibited" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h2 class="section-title">6. Prohibited Uses</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        You agree not to use the Services for any purpose that is unlawful or prohibited by these Terms. Prohibited uses include, but are not limited to:
+                    </p>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-skull-crossbones"></i>
+                            <h4 class="notice-title">Chemical Safety Violations</h4>
+                        </div>
+                        <p class="notice-text">
+                            You may not use our Services to create illegal or dangerous substances, bypass safety protocols or regulations, misuse chemical information for harmful purposes, or ignore safety warnings and precautions.
+                        </p>
+                    </div>
+                    
+                    <p class="section-text">
+                        Additional restrictions include using any automated means to access the Services, interfering with service performance, attempting unauthorized access to our systems, or using the Services to transmit malicious code.
+                    </p>
+                </section>
+
+                <!-- Liability -->
+                <section id="liability" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h2 class="section-title">7. Limitation of Liability</h2>
+                    </div>
+                    
+                    <h3 class="section-subtitle">7.1 Disclaimer of Warranties</h3>
+                    <p class="section-text">
+                        The Services are provided "as is" and "as available" without any warranties of any kind, either express or implied. We do not warrant that the Services will be uninterrupted, error-free, or meet your specific requirements.
+                    </p>
+                    
+                    <h3 class="section-subtitle">7.2 Limitation of Liability</h3>
+                    <p class="section-text">
+                        To the maximum extent permitted by law, Quantum Chemistry Lab shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+                    </p>
+                    
+                    <div class="warning-box">
+                        <div class="notice-header">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4 class="notice-title">Chemical Safety Disclaimer</h4>
+                        </div>
+                        <p class="notice-text">
+                            <strong>CRITICAL WARNING:</strong> Chemical information provided on our platform is for educational and research purposes only. We are not responsible for injuries or damages resulting from the use of chemical information, incorrect application of safety procedures, laboratory accidents, or regulatory violations by users.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section id="contact" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h2 class="section-title">8. Contact Information</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        If you have any questions about these Terms, please contact us:
+                    </p>
+                    
+                    <div class="info-box">
+                        <div class="notice-header">
+                            <i class="fas fa-building"></i>
+                            <h4 class="notice-title">Quantum Chemistry Lab Legal Department</h4>
+                        </div>
+                        <p class="notice-text">
+                            For legal inquiries, copyright issues, or terms-related questions:<br>
+                            Email: quantumchem25@gmail.com<br>
+                            Phone: +91-8623947038<br>
+                            Address: PCCOE, Pune, Maharashtra
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Consent Section -->
+                <div class="consent-section" aria-label="Terms of Service consent section">
+                    <h3 class="consent-title">Final Acceptance</h3>
+                    <p class="section-text">
+                        By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.
+                    </p>
+                    
+                    <div class="consent-checkbox">
+                        <input type="checkbox" id="consentCheckbox">
+                        <label for="consentCheckbox">I accept the Terms of Service</label>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="printBtn" aria-label="Print the Terms of Service">
+                            <i class="fas fa-print"></i>
+                            Print Terms
+                        </button>
+                        <button class="btn btn-secondary" id="downloadBtn" aria-label="Download the Terms of Service as a PDF">
+                            <i class="fas fa-download"></i>
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    © 2025 Quantum Chemistry Lab. All rights reserved.<br>
+                    Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE, Pune
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('mainHeader');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                backToTop.classList.add('visible');
+            } else {
+                header.style.boxShadow = 'none';
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Terms navigation highlighting
+        const sections = document.querySelectorAll('.terms-section');
+        const navLinks = document.querySelectorAll('.nav-item a');
+        
+        function highlightNavLink() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightNavLink);
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-item a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Check if consent is given
+        function requireConsent() {
+            return document.getElementById('consentCheckbox').checked;
+        }
+
+        // Print functionality
+        document.getElementById('printBtn').addEventListener('click', function() {
+            if (!requireConsent()) {
+                alert("Please accept the Terms of Service before printing.");
+                return;
+            }
+            window.print();
+        });
+
+        // PDF download functionality
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            if (!requireConsent()) {
+                alert("Please accept the Terms of Service before downloading.");
+                return;
+            }
+
+            // Initialize jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set document properties
+            doc.setProperties({
+                title: 'Quantum Chemistry Lab - Terms of Service',
+                subject: 'Terms and Conditions',
+                author: 'Quantum Chemistry Lab',
+                keywords: 'terms, service, chemistry, database',
+                creator: 'Quantum Chemistry Lab'
+            });
+            
+            // Add title
+            doc.setFontSize(20);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Terms of Service', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Quantum Chemistry Lab', 105, 30, { align: 'center' });
+            doc.text('Last Updated: December 2024', 105, 35, { align: 'center' });
+            
+            // Get all text content from terms sections
+            let pdfContent = '';
+            const sections = document.querySelectorAll('.terms-section');
+            
+            sections.forEach((section, index) => {
+                const title = section.querySelector('.section-title')?.textContent || '';
+                const paragraphs = section.querySelectorAll('.section-text');
+                
+                pdfContent += title + '\n\n';
+                
+                paragraphs.forEach(p => {
+                    pdfContent += p.textContent + '\n\n';
+                });
+                
+                // Add notice box content
+                const notices = section.querySelectorAll('.notice-box, .warning-box, .info-box');
+                notices.forEach(notice => {
+                    const noticeTitle = notice.querySelector('.notice-title')?.textContent || '';
+                    const noticeText = notice.querySelector('.notice-text')?.textContent || '';
+                    
+                    if (noticeTitle) pdfContent += '⚠️ ' + noticeTitle + '\n';
+                    if (noticeText) pdfContent += noticeText + '\n\n';
+                });
+                
+                pdfContent += '\n';
+            });
+            
+            // Add consent statement
+            pdfContent += '\n\n---\n';
+            pdfContent += 'By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.\n\n';
+            pdfContent += '© 2025 Quantum Chemistry Lab. All rights reserved.';
+            
+            // Configure text
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            
+            // Split text into pages
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const margin = 20;
+            const maxWidth = pageWidth - (margin * 2);
+            
+            const lines = doc.splitTextToSize(pdfContent, maxWidth);
+            
+            // Add text to PDF with pagination
+            let yPosition = 50;
+            const lineHeight = 7;
+            
+            lines.forEach((line, index) => {
+                // Check if we need a new page
+                if (yPosition > 270) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+                
+                // Add section headers in bold
+                if (line.match(/^\d+\.\s+/)) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(line, margin, yPosition);
+                    doc.setFont('helvetica', 'normal');
+                } else if (line.includes('⚠️')) {
+                    // Style notices
+                    doc.setTextColor(245, 158, 11);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(line.replace('⚠️ ', ''), margin, yPosition);
+                    doc.setTextColor(0, 0, 0);
+                    doc.setFont('helvetica', 'normal');
+                } else {
+                    doc.text(line, margin, yPosition);
+                }
+                
+                yPosition += lineHeight;
+            });
+            
+            // Add page numbers
+            const pageCount = doc.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Page ${i} of ${pageCount}`, pageWidth - 30, 285);
+            }
+            
+            // Save the PDF
+            doc.save('Quantum-Chemistry-Lab-Terms-of-Service.pdf');
+            
+            // Show success message
+            const downloadBtn = document.getElementById('downloadBtn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+            downloadBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            setTimeout(() => {
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.style.background = '';
+            }, 2000);
+        });
+
+        // Update current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.querySelector('.footer-text');
+            if (yearElement) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+            
+            // Auto-accept checkbox when user scrolls to bottom
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.innerHeight + window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                
+                if (scrollPosition >= pageHeight - 100) {
+                    document.getElementById('consentCheckbox').checked = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

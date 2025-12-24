@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Chemistry Lab | Disclaimer</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Disclaimer for Quantum Chemistry Lab - Advanced Chemical Database">
+    <meta name="keywords" content="chemistry, laboratory, disclaimer, legal, chemicals, safety">
+    <meta name="author" content="Chemistry Research Team">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #1d4ed8;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #0ea5e9;
+            --success: #10b981;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            
+            /* Glass Effect */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Typography */
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--primary);
+            color: #f8fafc;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-secondary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: none;
+            outline: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== HEADER ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-brand .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-brand i {
+            font-size: 2rem;
+            color: var(--accent);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px var(--accent)); }
+            50% { filter: drop-shadow(0 0 15px var(--accent)); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo-text h1 span {
+            color: var(--accent);
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            padding: 10rem 0 6rem;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .disclaimer-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-left: 4px solid var(--danger);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box i {
+            color: var(--danger);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .important-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-left: 4px solid var(--warning);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .important-box i {
+            color: var(--warning);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-left: 4px solid var(--info);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-box i {
+            color: var(--info);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== TERMS LIST ===== */
+        .terms-list {
+            margin: 2rem 0;
+        }
+
+        .term-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .term-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .term-number {
+            width: 36px;
+            height: 36px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--secondary);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .footer-description {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            padding-left: 0.5rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom i {
+            color: #ef4444;
+            margin: 0 0.25rem;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-section {
+                padding: 8rem 0 4rem;
+            }
+            
+            .content-section {
+                padding: 4rem 0;
+            }
+            
+            .disclaimer-content {
+                padding: 2rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .term-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h1>Quantum<span>Chem</span></h1>
+                            <p class="logo-subtitle">Laboratory Database</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <a href="index.html" class="btn-outline">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Database
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <div class="hero-badge">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Legal Notice</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="gradient-text">Disclaimer</span>
+                </h1>
+                
+                <p class="section-subtitle" style="font-size: 1.25rem; color: #cbd5e1;">
+                    Important legal information about the use of Quantum Chemistry Lab database
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="disclaimer-content" data-aos="fade-up">
+                <div class="warning-box">
+                    <i class="fas fa-radiation-alt"></i>
+                    <h3>⚠️ Important Warning</h3>
+                    <p>
+                        The information provided in this database is for <strong>EDUCATIONAL AND RESEARCH PURPOSES ONLY</strong>. 
+                        It is NOT intended to be used as professional advice or for practical laboratory applications 
+                        without proper supervision by qualified professionals.
+                    </p>
+                </div>
+
+                <h2>General Disclaimer</h2>
+                <p>
+                    This Quantum Chemistry Lab database is an academic project developed by students of 
+                    PCCOE, Pune. While we strive to provide accurate and up-to-date information about 
+                    laboratory chemicals, we make no representations or warranties of any kind, express 
+                    or implied, about the completeness, accuracy, reliability, suitability, or availability 
+                    with respect to the information contained in this database.
+                </p>
+
+                <div class="important-box">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <h3>🚫 No Liability for Chemical Handling</h3>
+                    <p>
+                        The creators, contributors, and affiliated institutions of this database 
+                        <strong>SHALL NOT BE HELD LIABLE</strong> for any damages, injuries, or losses 
+                        resulting from the use, misuse, or misinterpretation of information provided 
+                        in this database. Chemical handling requires professional training and should 
+                        only be performed under appropriate supervision.
+                    </p>
+                </div>
+
+                <h2>Terms of Use</h2>
+                
+                <div class="terms-list">
+                    <div class="term-item">
+                        <div class="term-number">1</div>
+                        <div>
+                            <h3>Educational Purpose Only</h3>
+                            <p>
+                                This database is intended for educational and informational purposes. 
+                                It should not be used as a substitute for professional chemical safety 
+                                training, Material Safety Data Sheets (MSDS), or official laboratory 
+                                protocols.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-number">2</div>
+                        <div>
+                            <h3>Professional Consultation Required</h3>
+                            <p>
+                                Always consult with qualified chemists, safety officers, or laboratory 
+                                supervisors before handling any chemicals. Follow institutional safety 
+                                protocols and wear appropriate personal protective equipment (PPE).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-number">3</div>
+                        <div>
+                            <h3>Accuracy of Information</h3>
+                            <p>
+                                While we endeavor to keep the information up-to-date and correct, we 
+                                make no representations or warranties of any kind about the accuracy 
+                                of chemical properties, safety data, or handling recommendations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-number">4</div>
+                        <div>
+                            <h3>External Links</h3>
+                            <p>
+                                Our database may contain links to external websites. We have no control 
+                                over the nature, content, and availability of those sites. The inclusion 
+                                of any links does not necessarily imply a recommendation or endorsement 
+                                of the views expressed within them.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-number">5</div>
+                        <div>
+                            <h3>Intellectual Property</h3>
+                            <p>
+                                All content, design, and code of this database are protected by copyright. 
+                                Chemical data compiled from publicly available sources may be subject to 
+                                their respective copyrights and usage terms.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>🔬 Safety First</h3>
+                    <p>
+                        When working with chemicals, always: 
+                        <strong>Read MSDS sheets, Use proper ventilation, Wear appropriate PPE, 
+                        Follow institutional protocols, and Have emergency equipment readily available.</strong>
+                    </p>
+                </div>
+
+                <h2>Limitation of Liability</h2>
+                <p>
+                    In no event shall Quantum Chemistry Lab, its developers, contributors, or 
+                    affiliated institutions be liable for any direct, indirect, incidental, 
+                    special, exemplary, or consequential damages (including, but not limited to, 
+                    procurement of substitute goods or services; loss of use, data, or profits; 
+                    or business interruption) however caused and on any theory of liability, 
+                    whether in contract, strict liability, or tort (including negligence or 
+                    otherwise) arising in any way out of the use of this database.
+                </p>
+
+                <h2>Acceptance of Terms</h2>
+                <p>
+                    By accessing and using the Quantum Chemistry Lab database, you acknowledge 
+                    that you have read, understood, and agree to be bound by this disclaimer. 
+                    If you do not agree with any part of this disclaimer, you must not use 
+                    this database.
+                </p>
+
+                <div class="warning-box">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>📄 Official Documentation Required</h3>
+                    <p>
+                        For laboratory work, always refer to: 
+                        <strong>Official Material Safety Data Sheets (MSDS), Manufacturer's instructions, 
+                        Institutional safety manuals, and Government regulations (OSHA, EPA, etc.)</strong>
+                    </p>
+                </div>
+
+                <h2>Contact for Corrections</h2>
+                <p>
+                    If you find any inaccuracies in our database or have concerns about specific 
+                    information, please contact us immediately at: 
+                    <strong>chemistry.team@pccoepune.org</strong>
+                </p>
+                <p>
+                    We are committed to maintaining accurate information and will review any 
+                    concerns promptly.
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="index.html" class="btn-primary" style="margin-right: 1rem;">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+                <a href="privacy.html" class="btn-outline">
+                    <i class="fas fa-shield-alt"></i>
+                    View Privacy Policy
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h2>Quantum<span>Chem</span></h2>
+                            <p>Advanced Chemical Database</p>
+                        </div>
+                    </a>
+                    <p class="footer-description">
+                        A comprehensive platform for chemical research, safety management, 
+                        and scientific collaboration. For educational purposes only.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.html#Chemicals">Chemicals</a></li>
+                            <li><a href="acknowledgement.html">Acknowledgements</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="security.html">Security</a></li>
+                            <li><a href="disclaimer.html">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="sources.html">Sources</a></li>
+                            <li><a href="acknowledgement.html">Acknowledgement</a></li>
+                            <li><a href="tutorials.html">Tutorials</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #64748b;">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    For educational purposes only. Use chemicals with proper supervision.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Back to Top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        if (backToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Add current year to copyright
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.querySelector('.footer-bottom p');
+            if (yearElement) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Chemistry Lab | Acknowledgements</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Acknowledgements for Quantum Chemistry Lab - Advanced Chemical Database Project">
+    <meta name="keywords" content="chemistry, laboratory, acknowledgements, research, team, PCCOE">
+    <meta name="author" content="Chemistry Research Team">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #0ea5e9;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            
+            /* Glass Effect */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Typography */
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--primary);
+            color: #f8fafc;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-secondary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== HEADER ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .nav-brand .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-brand i {
+            font-size: 2rem;
+            color: var(--accent);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px var(--accent)); }
+            50% { filter: drop-shadow(0 0 15px var(--accent)); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .logo-text h1 span {
+            color: var(--accent);
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            padding: 8rem 0 6rem;
+            overflow: hidden;
+            background: var(--gradient-dark);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 0.5rem 1rem;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        .hero-title {
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            color: #cbd5e1;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== SPECIAL THANKS SECTION ===== */
+        .special-thanks-section {
+            background: var(--secondary);
+        }
+
+        .thanks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .thanks-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thanks-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .thanks-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .thanks-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .thanks-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .thanks-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        /* ===== TEAM SECTION ===== */
+        .team-section {
+            background: var(--primary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: var(--transition-normal);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent);
+            border: 3px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .team-role {
+            color: var(--accent);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .team-description {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .team-contact {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            max-width: 120px;
+        }
+
+        .contact-btn.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .contact-btn.phone {
+            background: var(--accent);
+            color: white;
+        }
+
+        .contact-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            background: var(--secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .contact-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .contact-buttons .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-buttons .btn.whatsapp {
+            background: #25D366;
+        }
+
+        /* ===== GITHUB SECTION ===== */
+        .github-section {
+            background: var(--primary);
+        }
+
+        .github-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .github-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+        }
+
+        .profiles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-normal);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .profile-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .profile-role {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background: var(--secondary);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .footer-description {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            padding-left: 0.5rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom i {
+            color: #ef4444;
+            margin: 0 0.25rem;
+        }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-5px);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            
+            .content-section {
+                padding: 4rem 0;
+            }
+            
+            .thanks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profiles-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h1>Quantum<span>Chem</span></h1>
+                            <p class="logo-subtitle">Laboratory Database</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <a href="index.html" class="btn-outline">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Database
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>With Gratitude</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="gradient-text">Acknowledgements</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Recognizing the contributions and support that made the Quantum Chemistry Lab possible
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Thanks Section -->
+    <section class="content-section special-thanks-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Special Thanks</h2>
+                <p class="section-subtitle">For invaluable guidance</p>
+            </div>
+            
+            <div class="thanks-grid">
+                <div class="thanks-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="thanks-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="thanks-title">Dr. Amol Kharche</h3>
+                    <p style="color: #94a3b8;">
+                       We express our sincere and heartfelt gratitude to our Project Guide and Mentor, Dr. Amol Kharche, for the invaluable guidance, continuous support, and constant encouragement provided throughout the development of this project. His profound expertise in chemistry and strong command of quantum chemical principles played a crucial role in shaping the conceptual framework and technical direction of this work. His clear explanations of complex topics helped us strengthen our fundamentals and approach the subject with confidence and clarity. Through his constructive feedback and insightful suggestions, we were able to refine our methodology, improve accuracy, and enhance the overall quality of the project. His emphasis on scientific discipline, ethical research practices, and academic rigor ensured that this project met institutional and university standards. He consistently motivated us to think analytically, explore beyond conventional learning, and apply theoretical knowledge to practical and computational aspects of chemistry. His patience in addressing our doubts, guidance during challenges, and encouragement during critical phases of the project were instrumental in the successful completion of this project. This work stands as a reflection of his dedication to education, commitment to student development, and passion for chemistry, and we consider ourselves fortunate to have completed this project under his esteemed mentorship.
+                    </p>
+                </div>
+                
+                
+        </div>
+    </section>
+
+    <!-- Project Team Section -->
+    <section class="content-section team-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Project Team</h2>
+                <p class="section-subtitle">The dedicated individuals behind this initiative</p>
+            </div>
+            
+           
+
+    <!-- GitHub Section -->
+    <section class="content-section github-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="github-title">Development Team</h2>
+                <p class="github-subtitle">Connect with the developers on GitHub</p>
+            </div>
+            
+            <div class="profiles-container">
+                <!-- Nikhil Shinde -->
+                <div class="profile-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fab fa-github profile-icon"></i>
+                    <h3 class="profile-name">Nikhil Shinde</h3>
+                    <p class="profile-role">Project Lead</p>
+                </div>
+                
+                <!-- Aniket Khope -->
+                <div class="profile-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fab fa-github profile-icon"></i>
+                    <h3 class="profile-name">Aniket Khope</h3>
+                    <p class="profile-role">Data Researcher</p>
+                </div>
+                
+                <!-- Om Malge -->
+                <div class="profile-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fab fa-github profile-icon"></i>
+                    <h3 class="profile-name">Om Malge</h3>
+                    <p class="profile-role">Frontend Developer</p>
+                </div>
+                
+                <!-- Piyush Waghmare -->
+                <div class="profile-card" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fab fa-github profile-icon"></i>
+                    <h3 class="profile-name">Piyush Waghmare</h3>
+                    <p class="profile-role">Content Specialist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h2>Quantum<span>Chem</span></h2>
+                            <p>Advanced Chemical Database</p>
+                        </div>
+                    </a>
+                    <p class="footer-description">
+                        A comprehensive platform for chemical research, safety management, 
+                        and scientific collaboration developed by PCCOE Chemistry Research Team.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.html#Chemicals">Chemicals</a></li>
+                            <li><a href="acknowledgement.html">Acknowledgements</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="sources.html">Sources</a></li>
+                            <li><a href="acknowledgement.html">Acknowledgement</a></li>
+                            <li><a href="tutorials.html">Tutorials</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Team</h4>
+                        <ul>
+                            <li><a href="#team">Project Team</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                            <li><a href="#github">GitHub Profiles</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Back to Top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        if (backToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
