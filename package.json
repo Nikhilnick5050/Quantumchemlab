@@ -1,7 +1,8 @@
 {
-  "name": "quantumchemlab-root",
+  "name": "quantumchemlab",
   "private": true,
-  "scripts": {
-    "start": "node backend/server.js"
+  "type": "module",
+  "dependencies": {
+    "mongodb": "^7.0.0"
   }
 }
