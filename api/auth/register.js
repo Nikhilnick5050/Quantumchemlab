@@ -1,6 +1,5 @@
+import clientPromise from "../../lib/mongodb";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import clientPromise from "../../../lib/mongodb.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -18,31 +17,23 @@ export default async function handler(req, res) {
     const db = client.db("quantumchem");
     const users = db.collection("users");
 
-    const existingUser = await users.findOne({ email });
-    if (existingUser) {
+    const exists = await users.findOne({ email });
+    if (exists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(password, 10);
 
-    const result = await users.insertOne({
+    await users.insertOne({
       username,
       email,
-      password: hashedPassword,
+      password: hashed,
       createdAt: new Date(),
     });
 
-    const token = jwt.sign(
-      { userId: result.insertedId, email },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    res.status(201).json({
-      message: "User registered successfully",
-      token,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(201).json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message });
   }
 }
