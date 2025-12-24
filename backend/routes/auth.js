@@ -34,3 +34,6 @@ router.post("/google", async (req, res) => {
 });
 
 module.exports = router;
+router.get("/google/callback", (req, res) => {
+  res.send("Google OAuth callback OK");
+});
