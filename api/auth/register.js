@@ -11,11 +11,7 @@ export default async function handler(req, res) {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET not defined");
+      return res.status(400).json({ message: "All fields required" });
     }
 
     const client = await clientPromise;
@@ -37,7 +33,7 @@ export default async function handler(req, res) {
     });
 
     const token = jwt.sign(
-      { userId: result.insertedId.toString(), email },
+      { userId: result.insertedId, email },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
@@ -47,7 +43,6 @@ export default async function handler(req, res) {
       token,
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: error.message });
   }
 }
