@@ -1,25 +1,39 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Vercel-Admin-Quantumchem:Nikhil%405049@quantumchem.jbgfxv6.mongodb.net/?appName=Quantumchem";
+require("dotenv").config();
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const authRoutes = require("./routes/auth");
+
+const app = express();
+
+/* 🔥 REQUIRED */
+app.use(express.json());
+
+/* 🔥 CORS */
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://quantumchem.site"
+  ]
+}));
+
+/* 🔥 DATABASE */
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ MongoDB Error:", err));
+
+/* 🔥 TEST ROUTE */
+app.get("/", (req, res) => {
+  res.send("Backend running successfully");
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+/* 🔥 AUTH ROUTES */
+app.use("/auth", authRoutes);
+
+/* 🔥 SERVER */
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
