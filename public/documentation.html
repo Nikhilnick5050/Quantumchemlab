@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Quantum Chemistry Lab</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Comprehensive documentation for the Quantum Chemistry Laboratory Database project">
+    <meta name="keywords" content="project documentation, technical guide, user manual">
+    <meta name="author" content="Chemistry Research Team, PCCOE">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .main-header {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-brand i {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .logo-text h1 span {
+            color: var(--accent);
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        /* Hero */
+        .page-hero {
+            padding: 8rem 0 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-secondary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Documentation Layout */
+        .documentation-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section h4 {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-light);
+        }
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .nav-link i {
+            font-size: 0.8rem;
+            width: 16px;
+        }
+
+        /* Main Content */
+        .documentation-content {
+            padding-right: 2rem;
+        }
+
+        .doc-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .doc-section h2 {
+            font-family: var(--font-secondary);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .doc-section h3 {
+            font-family: var(--font-secondary);
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin: 2rem 0 1rem;
+        }
+
+        .doc-section h4 {
+            font-family: var(--font-secondary);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .doc-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .doc-section ul, .doc-section ol {
+            color: var(--text-secondary);
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .doc-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards */
+        .feature-card {
+            background: var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .feature-card h4 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-comment {
+            color: #6b7280;
+        }
+
+        .code-keyword {
+            color: #60a5fa;
+        }
+
+        .code-string {
+            color: #34d399;
+        }
+
+        .code-number {
+            color: #f59e0b;
+        }
+
+        /* Tables */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .doc-table th,
+        .doc-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .doc-table th {
+            background: var(--secondary);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .doc-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--secondary);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom i {
+            color: #ef4444;
+            margin: 0 0.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .page-hero {
+                padding: 6rem 0 2rem;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .documentation-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            .documentation-content {
+                padding-right: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doc-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h1>Quantum<span>Chem</span></h1>
+                            <p class="logo-subtitle">Laboratory Database</p>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Project Documentation</h1>
+            <p>Comprehensive technical documentation for the Quantum Chemistry Laboratory Database project</p>
+        </div>
+    </section>
+
+    <!-- Documentation Layout -->
+    <div class="container">
+        <div class="documentation-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Documentation Guide</h3>
+                </div>
+                
+                <div class="sidebar-nav">
+                    <div class="nav-section">
+                        <h4>Introduction</h4>
+                        <div class="nav-links">
+                            <a href="#overview" class="nav-link active">
+                                <i class="fas fa-home"></i>
+                                Overview
+                            </a>
+                            <a href="#objectives" class="nav-link">
+                                <i class="fas fa-bullseye"></i>
+                                Objectives
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-section">
+                        <h4>Resources</h4>
+                        <div class="nav-links">
+                            <a href="#institutional" class="nav-link">
+                                <i class="fas fa-university"></i>
+                                Institutional Resources
+                            </a>
+                            <a href="#databases" class="nav-link">
+                                <i class="fas fa-database"></i>
+                                Chemical Databases
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-section">
+                        <h4>Technical</h4>
+                        <div class="nav-links">
+                            <a href="#methodology" class="nav-link">
+                                <i class="fas fa-clipboard-list"></i>
+                                Methodology
+                            </a>
+                            <a href="#features" class="nav-link">
+                                <i class="fas fa-cogs"></i>
+                                Features
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-section">
+                        <h4>Reference</h4>
+                        <div class="nav-links">
+                            <a href="#guide" class="nav-link">
+                                <i class="fas fa-book"></i>
+                                User Guide
+                            </a>
+                            <a href="#maintenance" class="nav-link">
+                                <i class="fas fa-tools"></i>
+                                Maintenance
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="documentation-content">
+                <!-- Overview Section -->
+                <section id="overview" class="doc-section">
+                    <h2>Project Overview</h2>
+                    <p>The Quantum Chemistry Laboratory Database is an academic project developed at Pimpri Chinchwad College of Engineering (PCCOE) to create a comprehensive digital repository of chemical information with a focus on quantum chemical properties and laboratory safety data.</p>
+                    
+                    <div class="feature-card">
+                        <h4>Project Scope</h4>
+                        <p>This project encompasses the development of a web-based chemical database platform that integrates verified chemical data with educational resources for academic and research purposes.</p>
+                    </div>
+                </section>
+
+                <!-- Objectives Section -->
+                <section id="objectives" class="doc-section">
+                    <h2>Project Objectives</h2>
+                    
+                    <h3>Primary Objectives</h3>
+                    <ul>
+                        <li>Create a comprehensive chemical database with verified quantum chemical properties</li>
+                        <li>Integrate laboratory safety information and handling guidelines</li>
+                        <li>Develop an intuitive user interface for educational use</li>
+                        <li>Implement robust search and filtering capabilities</li>
+                        <li>Ensure data accuracy through multiple verification sources</li>
+                    </ul>
+                    
+                    <h3>Educational Goals</h3>
+                    <ul>
+                        <li>Support undergraduate chemistry education</li>
+                        <li>Provide practical laboratory reference materials</li>
+                        <li>Demonstrate quantum chemistry principles through interactive examples</li>
+                        <li>Facilitate research and project work in chemical sciences</li>
+                    </ul>
+                </section>
+
+                <!-- Institutional Resources Section -->
+                <section id="institutional" class="doc-section">
+                    <h2>Institutional Resources</h2>
+                    
+                    <h3>PCCOE Laboratory Manuals</h3>
+                    <p>The project extensively references official PCCOE Chemistry Laboratory Manuals for:</p>
+                    <ul>
+                        <li>Experimental procedures and protocols</li>
+                        <li>Safety norms and handling guidelines</li>
+                        <li>Data recording and documentation standards</li>
+                        <li>Quality control measures</li>
+                    </ul>
+                    
+                    <h3>Faculty Guidance</h3>
+                    <p>Under the mentorship of Dr. Amol Kharche, the project received guidance in:</p>
+                    <ul>
+                        <li>Theoretical framework development</li>
+                        <li>Scientific methodology implementation</li>
+                        <li>Data analysis and interpretation</li>
+                        <li>Research ethics and standards</li>
+                    </ul>
+                    
+                    <h3>Academic Infrastructure</h3>
+                    <p>The project utilized PCCOE's academic resources including:</p>
+                    <div class="feature-card">
+                        <h4>Laboratory Facilities</h4>
+                        <ul>
+                            <li>Advanced Chemistry Laboratory</li>
+                            <li>Computational workstations</li>
+                            <li>Research equipment and instruments</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>Digital Resources</h4>
+                        <ul>
+                            <li>Institutional library access</li>
+                            <li>Online academic databases</li>
+                            <li>Software licenses for research</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Chemical Databases Section -->
+                <section id="databases" class="doc-section">
+                    <h2>Chemical Databases</h2>
+                    
+                    <h3>PubChem Database</h3>
+                    <p>The U.S. National Library of Medicine's PubChem database was utilized for:</p>
+                    
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Data Type</th>
+                                <th>Usage</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Molecular Structures</td>
+                                <td>Primary reference</td>
+                                <td>Structural validation</td>
+                            </tr>
+                            <tr>
+                                <td>Electronic Properties</td>
+                                <td>Data extraction</td>
+                                <td>Quantum chemical analysis</td>
+                            </tr>
+                            <tr>
+                                <td>Safety Information</td>
+                                <td>Reference check</td>
+                                <td>Laboratory safety guidelines</td>
+                            </tr>
+                            <tr>
+                                <td>Bioactivity Data</td>
+                                <td>Supplementary reference</td>
+                                <td>Chemical applications</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>ChemSpider Database</h3>
+                    <p>ChemSpider was used for additional verification and validation:</p>
+                    <ul>
+                        <li>Molecular structure validation</li>
+                        <li>Cross-referencing chemical properties</li>
+                        <li>Supplementary data verification</li>
+                        <li>Property comparison and analysis</li>
+                    </ul>
+                </section>
+
+                <!-- Methodology Section -->
+                <section id="methodology" class="doc-section">
+                    <h2>Research Methodology</h2>
+                    
+                    <h3>Development Process</h3>
+                    <ol>
+                        <li>
+                            <strong>Requirement Analysis:</strong>
+                            <p>Identification of academic needs and database requirements based on PCCOE curriculum and laboratory needs.</p>
+                        </li>
+                        <li>
+                            <strong>Data Collection:</strong>
+                            <p>Systematic gathering of chemical data from verified sources including PubChem and ChemSpider.</p>
+                        </li>
+                        <li>
+                            <strong>Data Verification:</strong>
+                            <p>Cross-referencing and validation of collected data against multiple authoritative sources.</p>
+                        </li>
+                        <li>
+                            <strong>System Development:</strong>
+                            <p>Implementation of database structure and user interface following modern web standards.</p>
+                        </li>
+                        <li>
+                            <strong>Testing & Validation:</strong>
+                            <p>Rigorous testing of database functionality and data accuracy.</p>
+                        </li>
+                    </ol>
+                    
+                    <h3>Quality Assurance</h3>
+                    <div class="feature-card">
+                        <h4>Data Quality Measures</h4>
+                        <ul>
+                            <li>Multiple source verification for each chemical entry</li>
+                            <li>Peer review of database entries</li>
+                            <li>Regular updates and maintenance schedule</li>
+                            <li>User feedback incorporation mechanism</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="doc-section">
+                    <h2>System Features</h2>
+                    
+                    <h3>Core Features</h3>
+                    <div class="feature-card">
+                        <h4>Chemical Database</h4>
+                        <ul>
+                            <li>Comprehensive chemical information storage</li>
+                            <li>Structured data organization</li>
+                            <li>Multiple search and filter options</li>
+                            <li>Detailed chemical property display</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>Safety Information</h4>
+                        <ul>
+                            <li>Laboratory safety guidelines</li>
+                            <li>Handling precautions</li>
+                            <li>Storage requirements</li>
+                            <li>Emergency procedures</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>Educational Resources</h4>
+                        <ul>
+                            <li>Chemical property explanations</li>
+                            <li>Laboratory procedure guides</li>
+                            <li>Safety protocol documentation</li>
+                            <li>Research methodology examples</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Technical Features</h3>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Description</th>
+                                <th>Technology</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Responsive Design</td>
+                                <td>Mobile-friendly interface</td>
+                                <td>CSS Grid & Flexbox</td>
+                            </tr>
+                            <tr>
+                                <td>Search Functionality</td>
+                                <td>Advanced chemical search</td>
+                                <td>JavaScript</td>
+                            </tr>
+                            <tr>
+                                <td>Data Management</td>
+                                <td>Structured data storage</td>
+                                <td>JSON Database</td>
+                            </tr>
+                            <tr>
+                                <td>User Interface</td>
+                                <td>Interactive elements</td>
+                                <td>HTML5 & CSS3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- User Guide Section -->
+                <section id="guide" class="doc-section">
+                    <h2>User Guide</h2>
+                    
+                    <h3>Getting Started</h3>
+                    <ol>
+                        <li>Navigate to the Chemical Database section</li>
+                        <li>Use the search bar to find specific chemicals</li>
+                        <li>Apply filters to narrow down results</li>
+                        <li>Click on chemical cards for detailed information</li>
+                        <li>Utilize the safety information for laboratory guidance</li>
+                    </ol>
+                    
+                    <h3>Search Features</h3>
+                    <div class="feature-card">
+                        <h4>Search Options</h4>
+                        <ul>
+                            <li><strong>Name Search:</strong> Search by chemical common name or IUPAC name</li>
+                            <li><strong>Formula Search:</strong> Search by chemical formula</li>
+                            <li><strong>Property Search:</strong> Search by specific chemical properties</li>
+                            <li><strong>Category Filter:</strong> Filter by chemical type (acid, base, organic, etc.)</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Data Interpretation</h3>
+                    <p>The database provides detailed chemical information including:</p>
+                    <ul>
+                        <li>Molecular structure and formula</li>
+                        <li>Physical and chemical properties</li>
+                        <li>Safety and handling information</li>
+                        <li>Laboratory applications and uses</li>
+                        <li>Quantum chemical properties where applicable</li>
+                    </ul>
+                </section>
+
+                <!-- Maintenance Section -->
+                <section id="maintenance" class="doc-section">
+                    <h2>Maintenance & Updates</h2>
+                    
+                    <h3>Data Updates</h3>
+                    <p>The database follows a structured maintenance schedule:</p>
+                    <ul>
+                        <li>Quarterly review of all chemical entries</li>
+                        <li>Monthly verification of safety information</li>
+                        <li>Regular updates from source databases</li>
+                        <li>User-reported error correction</li>
+                    </ul>
+                    
+                    <h3>Technical Maintenance</h3>
+                    <div class="feature-card">
+                        <h4>System Updates</h4>
+                        <ul>
+                            <li>Regular security updates</li>
+                            <li>Performance optimization</li>
+                            <li>Browser compatibility checks</li>
+                            <li>Mobile responsiveness testing</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Future Development</h3>
+                    <p>Planned enhancements for the database include:</p>
+                    <ul>
+                        <li>Expansion of chemical database entries</li>
+                        <li>Integration of molecular visualization tools</li>
+                        <li>Enhanced search algorithms</li>
+                        <li>Mobile application development</li>
+                        <li>API development for external access</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Documentation</h4>
+                    <ul>
+
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="sources.html">Sources</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>External Links</h4>
+                    <ul>
+                        <li><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank">PubChem</a></li>
+                        <li><a href="http://www.chemspider.com" target="_blank">ChemSpider</a></li>
+                        <li><a href="https://pccoepune.com" target="_blank">PCCOE</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Support</a></li>
+                       
+                        <li><a href="#">Report Issues</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | Pimpri Chinchwad College of Engineering</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #94a3b8;">This documentation is part of the Quantum Chemistry Laboratory Database project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update active nav link on scroll
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            function updateActiveNav() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollY >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Smooth scrolling for nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Update active class
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Scroll to section
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active nav on scroll
+            window.addEventListener('scroll', updateActiveNav);
+        });
+    </script>
+</body>
+</html>
