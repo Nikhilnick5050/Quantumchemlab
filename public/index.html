@@ -6,22 +6,18 @@
 <title>QuantumChem | Login</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI,Tahoma,sans-serif;
-}
 body{
+  margin:0;
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   background:linear-gradient(135deg,#1a1f3c,#2d1b5e);
+  font-family:Segoe UI,Tahoma,sans-serif;
 }
-.login-box,.welcome-box{
+.login-box{
   width:420px;
-  background:white;
+  background:#fff;
   padding:40px;
   border-radius:16px;
   box-shadow:0 20px 40px rgba(0,0,0,.35);
@@ -44,17 +40,16 @@ p{
   cursor:pointer;
   font-weight:600;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   gap:10px;
 }
 .google-btn:hover{background:#f5f5f5;}
 .divider{
-  text-align:center;
   margin:25px 0;
+  text-align:center;
   color:#888;
 }
-label{font-weight:500;}
 input{
   width:100%;
   padding:13px;
@@ -80,29 +75,12 @@ input{
   margin-top:10px;
   background:#f1f1f1;
 }
-#welcomeBox{display:none;text-align:center;}
-#loader{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  color:white;
-  font-size:20px;
-  font-weight:600;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
 </style>
 </head>
 
 <body>
 
-<div id="loader">Signing you in securely…</div>
-
-<!-- LOGIN BOX -->
-<div class="login-box" id="loginBox">
+<div class="login-box">
   <h1>QuantumChem Lab</h1>
   <p>Secure access for researchers</p>
 
@@ -123,17 +101,6 @@ input{
   <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
 </div>
 
-<!-- WELCOME SCREEN -->
-<div class="welcome-box" id="welcomeBox">
-  <h1>Welcome 👋</h1>
-  <h2 id="welcomeName" style="margin-top:10px;color:#3a2a7a;"></h2>
-  <p>You are now logged in to QuantumChem Laboratory</p>
-
-  <button class="btn primary" style="margin-top:25px;" onclick="enterLab()">
-    Enter QuantumChem Lab
-  </button>
-</div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -149,76 +116,55 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-/* SHOW WELCOME */
-function showWelcome(name){
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("welcomeBox").style.display="block";
-  document.getElementById("welcomeName").innerText =
-    Welcome ${name} to QuantumChem;
-}
-
 /* GOOGLE LOGIN */
 window.googleLogin = async () => {
-  loader.style.display="flex";
-  try{
-    const res = await signInWithPopup(auth,provider);
-    const u = res.user;
+  const result = await signInWithPopup(auth, provider);
+  const u = result.user;
 
-    localStorage.setItem("qc_user",JSON.stringify({
-      uid:u.uid,
-      name:u.displayName,
-      email:u.email,
-      provider:"google",
-      logged:true
-    }));
+  localStorage.setItem("qc_user", JSON.stringify({
+    uid: u.uid,
+    name: u.displayName,
+    email: u.email,
+    provider: "google",
+    logged: true
+  }));
 
-    loader.style.display="none";
-    showWelcome(u.displayName);
-  }catch(e){
-    loader.style.display="none";
-    alert("Google login failed");
-  }
+  location.href = "chemical.html";
 };
 
 /* MANUAL LOGIN */
 window.manualLogin = () => {
-  const n=name.value.trim();
-  const e=email.value.trim();
-  if(!n||!e){alert("Enter name and email");return;}
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  if(!name || !email){ alert("Enter name & email"); return; }
 
-  localStorage.setItem("qc_user",JSON.stringify({
-    uid:"manual_"+Date.now(),
-    name:n,
-    email:e,
-    provider:"manual",
-    logged:true
+  localStorage.setItem("qc_user", JSON.stringify({
+    uid: "manual_"+Date.now(),
+    name,
+    email,
+    provider: "manual",
+    logged: true
   }));
 
-  showWelcome(n);
+  location.href = "chemical.html";
 };
 
 /* GUEST LOGIN */
 window.guestLogin = () => {
-  localStorage.setItem("qc_user",JSON.stringify({
+  localStorage.setItem("qc_user", JSON.stringify({
     uid:"guest",
-    name:"Guest User",
+    name:"Guest",
     email:"guest@quantumchem.site",
     provider:"guest",
     logged:true
   }));
-  showWelcome("Guest User");
-};
-
-/* ENTER LAB */
-window.enterLab = () => {
   location.href="chemical.html";
 };
 
-/* AUTO WELCOME */
-const saved = localStorage.getItem("qc_user");
-if(saved){
-  const u=JSON.parse(saved);
-  if(u.logged) showWelcome(u.name);
+/* AUTO REDIRECT */
+const existing = localStorage.getItem("qc_user");
+if(existing && JSON.parse(existing).logged){
+  location.href="chemical.html";
 }
 </script>
 
