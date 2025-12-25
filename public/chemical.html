@@ -26,7 +26,24 @@
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
+    <div id="welcomeBar" style="
+padding:15px;
+background:#3a2a7a;
+color:white;
+font-size:18px;
+font-weight:600;">
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("qc_user"));
+if(!user){
+  location.href="index.html";
+}else{
+  document.getElementById("welcomeBar").innerText =
+    Welcome ${user.name} 👋 to QuantumChem Laboratory;
+}
+</script>
     <!-- Styles -->
     <style>
         /* ===== RESET & BASE STYLES ===== */
