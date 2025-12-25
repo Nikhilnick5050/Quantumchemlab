@@ -3,107 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuantumChem | Login</title>
+<title>QuantumChem Lab | Login</title>
 
 <style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
 body{
-  margin:0;
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#1a1f3c,#2d1b5e);
-  font-family:Segoe UI,Tahoma,sans-serif;
+  background:linear-gradient(135deg,#0f1029,#2b1f5c);
 }
-.login-box{
-  width:420px;
+.card{
+  width:380px;
   background:#fff;
-  padding:40px;
   border-radius:16px;
+  padding:35px;
   box-shadow:0 20px 40px rgba(0,0,0,.35);
 }
-h1{
-  text-align:center;
-  color:#3a2a7a;
-}
-p{
-  text-align:center;
-  color:#777;
-  margin-bottom:25px;
-}
-.google-btn{
+h1{text-align:center;color:#2b1f5c}
+p{text-align:center;color:#666;margin-bottom:25px}
+button{
   width:100%;
   padding:14px;
   border-radius:10px;
-  border:1px solid #ddd;
-  background:#fff;
-  cursor:pointer;
+  border:none;
+  font-size:15px;
   font-weight:600;
+  cursor:pointer;
+}
+.google{
+  background:#fff;
+  border:1px solid #ddd;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   gap:10px;
 }
-.google-btn:hover{background:#f5f5f5;}
-.divider{
-  margin:25px 0;
-  text-align:center;
-  color:#888;
-}
+.google:hover{background:#f6f6f6}
+.divider{text-align:center;margin:20px 0;color:#888}
 input{
   width:100%;
-  padding:13px;
-  margin-top:6px;
-  margin-bottom:15px;
+  padding:12px;
   border-radius:8px;
   border:1px solid #ddd;
-}
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
+  margin-bottom:15px;
 }
 .primary{
-  background:linear-gradient(135deg,#3a2a7a,#8a7dff);
-  color:white;
+  background:linear-gradient(135deg,#3a2a7a,#7d6bff);
+  color:#fff;
 }
 .secondary{
+  background:#eee;
   margin-top:10px;
-  background:#f1f1f1;
+}
+#welcome{
+  display:none;
+  text-align:center;
+}
+#welcome h2{color:#2b1f5c}
+.loading{
+  display:none;
+  text-align:center;
+  margin-top:15px;
+  color:#555;
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="card">
+
+<!-- LOGIN -->
+<div id="loginBox">
   <h1>QuantumChem Lab</h1>
   <p>Secure access for researchers</p>
 
-  <button class="google-btn" onclick="googleLogin()">
+  <button class="google" onclick="googleLogin()">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
     Continue with Google
   </button>
 
   <div class="divider">OR</div>
 
-  <label>Full Name</label>
-  <input id="name" placeholder="Enter your name">
+  <input id="name" placeholder="Full name">
+  <input id="email" type="email" placeholder="Email">
 
-  <label>Email</label>
-  <input id="email" type="email" placeholder="Enter your email">
+  <button class="primary" onclick="manualLogin()">Continue</button>
+  <button class="secondary" onclick="guestLogin()">Continue as Guest</button>
 
-  <button class="btn primary" onclick="manualLogin()">Continue</button>
-  <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
+  <div class="loading" id="loading">Signing in…</div>
+</div>
+
+<!-- WELCOME -->
+<div id="welcome">
+  <h2 id="welcomeText"></h2>
+  <p>Session active</p>
+  <button onclick="logout()">End Session</button>
+</div>
+
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut }
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
@@ -116,56 +121,55 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+/* 🔒 IMPORTANT: clear any old session on load */
+sessionStorage.clear();
+
+/* UI helpers */
+function showWelcome(name){
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("welcome").style.display="block";
+  document.getElementById("welcomeText").innerText =
+    Welcome ${name} to QuantumChem;
+}
+
+function loading(v){
+  document.getElementById("loading").style.display = v ? "block" : "none";
+}
+
 /* GOOGLE LOGIN */
-window.googleLogin = async () => {
-  const result = await signInWithPopup(auth, provider);
-  const u = result.user;
-
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: u.uid,
-    name: u.displayName,
-    email: u.email,
-    provider: "google",
-    logged: true
-  }));
-
-  location.href = "chemical.html";
+window.googleLogin = async ()=>{
+  try{
+    loading(true);
+    const res = await signInWithPopup(auth, provider);
+    showWelcome(res.user.displayName);
+    loading(false);
+  }catch(e){
+    loading(false);
+    alert("Google login failed");
+  }
 };
 
 /* MANUAL LOGIN */
-window.manualLogin = () => {
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  if(!name || !email){ alert("Enter name & email"); return; }
-
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: "manual_"+Date.now(),
-    name,
-    email,
-    provider: "manual",
-    logged: true
-  }));
-
-  location.href = "chemical.html";
+window.manualLogin = ()=>{
+  const name=document.getElementById("name").value.trim();
+  const email=document.getElementById("email").value.trim();
+  if(!name||!email){
+    alert("Enter name & email");
+    return;
+  }
+  showWelcome(name);
 };
 
-/* GUEST LOGIN */
-window.guestLogin = () => {
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid:"guest",
-    name:"Guest",
-    email:"guest@quantumchem.site",
-    provider:"guest",
-    logged:true
-  }));
-  location.href="chemical.html";
+/* GUEST */
+window.guestLogin = ()=>{
+  showWelcome("Guest");
 };
 
-/* AUTO REDIRECT */
-const existing = localStorage.getItem("qc_user");
-if(existing && JSON.parse(existing).logged){
-  location.href="chemical.html";
-}
+/* LOGOUT */
+window.logout = async ()=>{
+  await signOut(auth);
+  location.reload();
+};
 </script>
 
 </body>
