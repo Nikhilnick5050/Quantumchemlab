@@ -80,7 +80,7 @@ input{
   <h1>QuantumChem Lab</h1>
   <p>Secure access for researchers</p>
 
-  <button class="google" onclick="googleLogin()">
+  <button id="googleBtn" class="google">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
     Continue with Google
   </button>
@@ -90,8 +90,8 @@ input{
   <input id="name" placeholder="Full name">
   <input id="email" type="email" placeholder="Email">
 
-  <button class="primary" onclick="manualLogin()">Continue</button>
-  <button class="secondary" onclick="guestLogin()">Continue as Guest</button>
+  <button id="manualBtn" class="primary">Continue</button>
+  <button id="guestBtn" class="secondary">Continue as Guest</button>
 
   <div class="loading" id="loading">Signing in…</div>
 </div>
@@ -99,17 +99,17 @@ input{
 <!-- WELCOME -->
 <div id="welcome">
   <h2 id="welcomeText"></h2>
-  <p>Session active</p>
-  <button onclick="logout()">End Session</button>
+  <p>Session active (reload = logout)</p>
 </div>
 
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut }
+import { getAuth, GoogleAuthProvider, signInWithPopup }
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+/* 🔐 Firebase config */
 const firebaseConfig = {
   apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
   authDomain: "quantumchem-f8db7.firebaseapp.com",
@@ -121,36 +121,39 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-/* 🔒 IMPORTANT: clear any old session on load */
-sessionStorage.clear();
+/* UI refs */
+const loginBox = document.getElementById("loginBox");
+const welcomeBox = document.getElementById("welcome");
+const welcomeText = document.getElementById("welcomeText");
+const loading = document.getElementById("loading");
 
-/* UI helpers */
+const googleBtn = document.getElementById("googleBtn");
+const manualBtn = document.getElementById("manualBtn");
+const guestBtn = document.getElementById("guestBtn");
+
+/* helpers */
 function showWelcome(name){
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("welcome").style.display="block";
-  document.getElementById("welcomeText").innerText =
-    Welcome ${name} to QuantumChem;
+  loginBox.style.display="none";
+  welcomeBox.style.display="block";
+  welcomeText.innerText = Welcome ${name} to QuantumChem;
 }
 
-function loading(v){
-  document.getElementById("loading").style.display = v ? "block" : "none";
-}
-
-/* GOOGLE LOGIN */
-window.googleLogin = async ()=>{
+/* 🔵 GOOGLE LOGIN */
+googleBtn.addEventListener("click", async ()=>{
   try{
-    loading(true);
+    loading.style.display="block";
     const res = await signInWithPopup(auth, provider);
     showWelcome(res.user.displayName);
-    loading(false);
+    loading.style.display="none";
   }catch(e){
-    loading(false);
+    loading.style.display="none";
     alert("Google login failed");
+    console.error(e);
   }
-};
+});
 
-/* MANUAL LOGIN */
-window.manualLogin = ()=>{
+/* 🟢 MANUAL LOGIN */
+manualBtn.addEventListener("click", ()=>{
   const name=document.getElementById("name").value.trim();
   const email=document.getElementById("email").value.trim();
   if(!name||!email){
@@ -158,18 +161,12 @@ window.manualLogin = ()=>{
     return;
   }
   showWelcome(name);
-};
+});
 
-/* GUEST */
-window.guestLogin = ()=>{
+/* 🟡 GUEST LOGIN */
+guestBtn.addEventListener("click", ()=>{
   showWelcome("Guest");
-};
-
-/* LOGOUT */
-window.logout = async ()=>{
-  await signOut(auth);
-  location.reload();
-};
+});
 </script>
 
 </body>
