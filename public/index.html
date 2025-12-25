@@ -62,12 +62,6 @@ input{
   text-align:center;
 }
 #welcome h2{color:#2b1f5c}
-.loading{
-  display:none;
-  text-align:center;
-  margin-top:15px;
-  color:#555;
-}
 </style>
 </head>
 
@@ -75,12 +69,11 @@ input{
 
 <div class="card">
 
-<!-- LOGIN -->
 <div id="loginBox">
   <h1>QuantumChem Lab</h1>
   <p>Secure access for researchers</p>
 
-  <button id="googleBtn" class="google">
+  <button class="google" onclick="googleLogin()">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
     Continue with Google
   </button>
@@ -90,83 +83,67 @@ input{
   <input id="name" placeholder="Full name">
   <input id="email" type="email" placeholder="Email">
 
-  <button id="manualBtn" class="primary">Continue</button>
-  <button id="guestBtn" class="secondary">Continue as Guest</button>
-
-  <div class="loading" id="loading">Signing in…</div>
+  <button class="primary" onclick="manualLogin()">Continue</button>
+  <button class="secondary" onclick="guestLogin()">Continue as Guest</button>
 </div>
 
-<!-- WELCOME -->
 <div id="welcome">
   <h2 id="welcomeText"></h2>
-  <p>Session active (reload = logout)</p>
+  <p>Welcome to QuantumChem</p>
 </div>
 
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup }
-from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+<!-- 🔥 FIREBASE COMPAT SDK (NO MODULES) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-/* 🔐 Firebase config */
-const firebaseConfig = {
+<script>
+/* Firebase config */
+firebase.initializeApp({
   apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
   authDomain: "quantumchem-f8db7.firebaseapp.com",
-  projectId: "quantumchem-f8db7",
-  appId: "1:393952510354:web:e4845a3635cecca1aa814b"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-/* UI refs */
-const loginBox = document.getElementById("loginBox");
-const welcomeBox = document.getElementById("welcome");
-const welcomeText = document.getElementById("welcomeText");
-const loading = document.getElementById("loading");
-
-const googleBtn = document.getElementById("googleBtn");
-const manualBtn = document.getElementById("manualBtn");
-const guestBtn = document.getElementById("guestBtn");
-
-/* helpers */
-function showWelcome(name){
-  loginBox.style.display="none";
-  welcomeBox.style.display="block";
-  welcomeText.innerText = Welcome ${name} to QuantumChem;
-}
-
-/* 🔵 GOOGLE LOGIN */
-googleBtn.addEventListener("click", async ()=>{
-  try{
-    loading.style.display="block";
-    const res = await signInWithPopup(auth, provider);
-    showWelcome(res.user.displayName);
-    loading.style.display="none";
-  }catch(e){
-    loading.style.display="none";
-    alert("Google login failed");
-    console.error(e);
-  }
+  projectId: "quantumchem-f8db7"
 });
 
-/* 🟢 MANUAL LOGIN */
-manualBtn.addEventListener("click", ()=>{
+const auth = firebase.auth();
+
+/* UI helpers */
+function showWelcome(name){
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("welcome").style.display="block";
+  document.getElementById("welcomeText").innerText =
+    "Welcome " + name + " to QuantumChem";
+}
+
+/* GOOGLE LOGIN */
+function googleLogin(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(res=>{
+      showWelcome(res.user.displayName);
+    })
+    .catch(err=>{
+      alert("Google login failed");
+      console.error(err);
+    });
+}
+
+/* MANUAL LOGIN */
+function manualLogin(){
   const name=document.getElementById("name").value.trim();
   const email=document.getElementById("email").value.trim();
   if(!name||!email){
-    alert("Enter name & email");
+    alert("Enter name and email");
     return;
   }
   showWelcome(name);
-});
+}
 
-/* 🟡 GUEST LOGIN */
-guestBtn.addEventListener("click", ()=>{
+/* GUEST LOGIN */
+function guestLogin(){
   showWelcome("Guest");
-});
+}
 </script>
 
 </body>
