@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,53 +118,87 @@ const provider = new GoogleAuthProvider();
 
 /* GOOGLE LOGIN */
 window.googleLogin = async () => {
-  const result = await signInWithPopup(auth, provider);
-  const u = result.user;
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const u = result.user;
 
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: u.uid,
-    name: u.displayName,
-    email: u.email,
-    provider: "google",
-    logged: true
-  }));
+    localStorage.setItem("qc_user", JSON.stringify({
+      uid: u.uid,
+      name: u.displayName,
+      email: u.email,
+      provider: "google",
+      logged: true,
+      photoURL: u.photoURL
+    }));
 
-  location.href = "chemical.html";
+    window.location.href = "chemical.html";
+  } catch (error) {
+    console.error("Google login error:", error);
+    alert("Login failed. Please try again.");
+  }
 };
 
-/* MANUAL LOGIN */
+/* MANUAL LOGIN - FIXED */
 window.manualLogin = () => {
+  // FIXED: Get elements by their correct IDs
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
-  if(!name || !email){ alert("Enter name & email"); return; }
+  
+  if(!name || !email){ 
+    alert("Enter name & email"); 
+    return; 
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
 
   localStorage.setItem("qc_user", JSON.stringify({
-    uid: "manual_"+Date.now(),
+    uid: "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
     name,
     email,
     provider: "manual",
     logged: true
   }));
 
-  location.href = "chemical.html";
+  window.location.href = "chemical.html";
 };
 
-/* GUEST LOGIN */
+/* GUEST LOGIN - FIXED */
 window.guestLogin = () => {
   localStorage.setItem("qc_user", JSON.stringify({
-    uid:"guest",
-    name:"Guest",
-    email:"guest@quantumchem.site",
-    provider:"guest",
-    logged:true
+    uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
+    name: "Guest User",
+    email: "guest@quantumchem.site",
+    provider: "guest",
+    logged: true
   }));
-  location.href="chemical.html";
+  window.location.href = "chemical.html";
 };
 
-/* AUTO REDIRECT */
+/* REMOVED AUTO REDIRECT - This was causing the issue */
+// const existing = localStorage.getItem("qc_user");
+// if(existing && JSON.parse(existing).logged){
+//   location.href="chemical.html";
+// }
+
+/* Optional: Show welcome back message if user exists */
 const existing = localStorage.getItem("qc_user");
-if(existing && JSON.parse(existing).logged){
-  location.href="chemical.html";
+if(existing) {
+  try {
+    const user = JSON.parse(existing);
+    console.log("Welcome back:", user.name);
+    // You can add a welcome message here if you want
+  } catch(e) {
+    // Clear invalid data
+    localStorage.removeItem("qc_user");
+  }
 }
 </script>
 
