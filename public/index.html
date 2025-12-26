@@ -25,11 +25,22 @@ body{
 h1{
   text-align:center;
   color:#3a2a7a;
+  margin-bottom:10px;
 }
 p{
   text-align:center;
   color:#777;
   margin-bottom:25px;
+}
+.welcome-back {
+  text-align:center;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:20px;
+  font-weight:600;
+  display:none;
 }
 .google-btn{
   width:100%;
@@ -43,12 +54,37 @@ p{
   justify-content:center;
   align-items:center;
   gap:10px;
+  margin-bottom:10px;
 }
 .google-btn:hover{background:#f5f5f5;}
 .divider{
   margin:25px 0;
   text-align:center;
   color:#888;
+  position:relative;
+}
+.divider::before {
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:40%;
+  height:1px;
+  background:#ddd;
+}
+.divider::after {
+  content:"";
+  position:absolute;
+  right:0;
+  top:50%;
+  width:40%;
+  height:1px;
+  background:#ddd;
+}
+label{
+  display:block;
+  margin-top:10px;
+  font-weight:500;
 }
 input{
   width:100%;
@@ -57,6 +93,7 @@ input{
   margin-bottom:15px;
   border-radius:8px;
   border:1px solid #ddd;
+  font-size:16px;
 }
 .btn{
   width:100%;
@@ -66,6 +103,11 @@ input{
   font-size:16px;
   font-weight:600;
   cursor:pointer;
+  transition:all 0.3s;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 .primary{
   background:linear-gradient(135deg,#3a2a7a,#8a7dff);
@@ -74,6 +116,7 @@ input{
 .secondary{
   margin-top:10px;
   background:#f1f1f1;
+  color:#333;
 }
 </style>
 </head>
@@ -83,6 +126,11 @@ input{
 <div class="login-box">
   <h1>QuantumChem Lab</h1>
   <p>Secure access for researchers</p>
+  
+  <!-- WELCOME BACK MESSAGE -->
+  <div id="welcomeBack" class="welcome-back">
+    Welcome back, User! 
+  </div>
 
   <button class="google-btn" onclick="googleLogin()">
     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
@@ -131,6 +179,9 @@ window.googleLogin = async () => {
       photoURL: u.photoURL
     }));
 
+    // Also set a session cookie that expires when browser closes
+    document.cookie = "qc_session=true; path=/";
+    
     window.location.href = "chemical.html";
   } catch (error) {
     console.error("Google login error:", error);
@@ -138,9 +189,8 @@ window.googleLogin = async () => {
   }
 };
 
-/* MANUAL LOGIN - FIXED */
+/* MANUAL LOGIN */
 window.manualLogin = () => {
-  // FIXED: Get elements by their correct IDs
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
   
@@ -152,7 +202,6 @@ window.manualLogin = () => {
     return; 
   }
 
-  // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if(!emailRegex.test(email)) {
     alert("Please enter a valid email address");
@@ -166,11 +215,13 @@ window.manualLogin = () => {
     provider: "manual",
     logged: true
   }));
-
+  
+  document.cookie = "qc_session=true; path=/";
+  
   window.location.href = "chemical.html";
 };
 
-/* GUEST LOGIN - FIXED */
+/* GUEST LOGIN */
 window.guestLogin = () => {
   localStorage.setItem("qc_user", JSON.stringify({
     uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
@@ -179,32 +230,39 @@ window.guestLogin = () => {
     provider: "guest",
     logged: true
   }));
+  
+  document.cookie = "qc_session=true; path=/";
+  
   window.location.href = "chemical.html";
 };
 
-/* REMOVED AUTO REDIRECT - This was causing the issue */
-// const existing = localStorage.getItem("qc_user");
-// if(existing && JSON.parse(existing).logged){
-//   location.href="chemical.html";
-// }
-
-/* Optional: Show welcome back message if user exists */
-const existing = localStorage.getItem("qc_user");
-if(existing) {
-  try {
-    const user = JSON.parse(existing);
-    console.log("Welcome back:", user.name);
-    // You can add a welcome message here if you want
-  } catch(e) {
-    // Clear invalid data
-    localStorage.removeItem("qc_user");
+/* SHOW WELCOME BACK MESSAGE */
+function showWelcomeBack() {
+  const existing = localStorage.getItem("qc_user");
+  if(existing) {
+    try {
+      const user = JSON.parse(existing);
+      const welcomeBackElement = document.getElementById('welcomeBack');
+      
+      if(welcomeBackElement && user.name) {
+        welcomeBackElement.textContent = `Welcome back, ${user.name}! `;
+        welcomeBackElement.style.display = 'block';
+        
+        // Auto-fill for manual login users
+        if(user.provider === "manual") {
+          document.getElementById('name').value = user.name;
+          document.getElementById('email').value = user.email;
+        }
+      }
+    } catch(e) {
+      localStorage.removeItem("qc_user");
+    }
   }
 }
+
+// Run when page loads
+document.addEventListener('DOMContentLoaded', showWelcomeBack);
 </script>
- <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>

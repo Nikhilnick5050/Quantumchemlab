@@ -1987,6 +1987,8 @@ if(!user){
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
+   <script src="auth-check.js"></script>
+    
     <!-- Preloader -->
     <div class="preloader">
         <div class="molecule-loader">
@@ -2347,74 +2349,7 @@ if(!user){
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- JavaScript --><!-- Add this at the VERY TOP of chemical.html, right after <body> tag -->
-<script>
-// Check if user is logged in
-const userData = localStorage.getItem("qc_user");
-if(!userData) {
-    // If no user data, redirect to login page
-    window.location.href = "index.html";
-} else {
-    try {
-        const user = JSON.parse(userData);
-        if(!user.logged) {
-            window.location.href = "index.html";
-        } else {
-            // Create welcome bar
-            const welcomeBar = document.createElement('div');
-            welcomeBar.id = 'welcomeBar';
-            welcomeBar.style.cssText = `
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                padding: 12px 20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                font-family: 'Segoe UI', system-ui, sans-serif;
-            `;
-            
-            welcomeBar.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="font-weight: bold;">Welcome, ${user.name}!</div>
-                    <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px; font-size: 12px;">
-                        ${user.provider.charAt(0).toUpperCase() + user.provider.slice(1)}
-                    </span>
-                </div>
-                <button onclick="logoutUser()" 
-                        style="background: rgba(255,255,255,0.2); 
-                               border: 1px solid rgba(255,255,255,0.3);
-                               color: white;
-                               padding: 8px 16px;
-                               border-radius: 6px;
-                               cursor: pointer;">
-                    Logout
-                </button>
-            `;
-            
-            document.body.insertBefore(welcomeBar, document.body.firstChild);
-            
-            // Add logout function
-            window.logoutUser = () => {
-                localStorage.removeItem("qc_user");
-                window.location.href = "index.html";
-            };
-        }
-    } catch(e) {
-        window.location.href = "index.html";
-    }
-}
-</script>
-
-<!-- Add this CSS to your chemical.html <style> section -->
-<style>
-#welcomeBar button:hover {
-    background: rgba(255,255,255,0.3) !important;
-}
-</style>
+    <!-- JavaScript -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize AOS
@@ -21668,7 +21603,10 @@ if(!userData) {
                 default: return 'info-circle';
             }
         }
+           
     </script>
+
+    
 </body>
 </html>
 
