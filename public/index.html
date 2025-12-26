@@ -1,174 +1,336 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuantumChem | Login</title>
-
-<style>
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#1a1f3c,#2d1b5e);
-  font-family:Segoe UI,Tahoma,sans-serif;
-}
-.login-box{
-  width:420px;
-  background:#fff;
-  padding:40px;
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);
-}
-h1{
-  text-align:center;
-  color:#3a2a7a;
-}
-p{
-  text-align:center;
-  color:#777;
-  margin-bottom:25px;
-}
-.google-btn{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  background:#fff;
-  cursor:pointer;
-  font-weight:600;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-.google-btn:hover{background:#f5f5f5;}
-.divider{
-  margin:25px 0;
-  text-align:center;
-  color:#888;
-}
-input{
-  width:100%;
-  padding:13px;
-  margin-top:6px;
-  margin-bottom:15px;
-  border-radius:8px;
-  border:1px solid #ddd;
-}
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-}
-.primary{
-  background:linear-gradient(135deg,#3a2a7a,#8a7dff);
-  color:white;
-}
-.secondary{
-  margin-top:10px;
-  background:#f1f1f1;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumChem | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1f3c, #2d1b5e);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        
+        .login-box {
+            width: 420px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #3a2a7a;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+        
+        .google-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        
+        .google-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .divider {
+            margin: 25px 0;
+            text-align: center;
+            color: #888;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .divider::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            margin-top: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+        
+        .primary {
+            background: linear-gradient(135deg, #3a2a7a, #8a7dff);
+            color: white;
+        }
+        
+        .secondary {
+            background: #f1f1f1;
+            color: #333;
+        }
+        
+        .welcome-back {
+            text-align: center;
+            color: #3a2a7a;
+            background: #f0f0ff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="login-box">
+        <h1>QuantumChem Lab</h1>
+        <p>Secure access for researchers</p>
+        
+        <!-- Welcome back message -->
+        <div id="welcomeBack" class="welcome-back"></div>
+        
+        <button class="google-btn" onclick="googleLogin()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" alt="Google">
+            Continue with Google
+        </button>
 
-<div class="login-box">
-  <h1>QuantumChem Lab</h1>
-  <p>Secure access for researchers</p>
+        <div class="divider">OR</div>
 
-  <button class="google-btn" onclick="googleLogin()">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-    Continue with Google
-  </button>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        
+        <button class="btn primary" onclick="manualLogin()">Continue</button>
+        <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
+    </div>
 
-  <div class="divider">OR</div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+        import { 
+            getAuth, 
+            GoogleAuthProvider, 
+            signInWithPopup
+        } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  <label>Full Name</label>
-  <input id="name" placeholder="Enter your name">
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
+            authDomain: "quantumchem-f8db7.firebaseapp.com",
+            projectId: "quantumchem-f8db7",
+            storageBucket: "quantumchem-f8db7.appspot.com",
+            messagingSenderId: "393952510354",
+            appId: "1:393952510354:web:e4845a3635cecca1aa814b"
+        };
 
-  <label>Email</label>
-  <input id="email" type="email" placeholder="Enter your email">
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
 
-  <button class="btn primary" onclick="manualLogin()">Continue</button>
-  <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
-</div>
+        /* SAVE USER TO DATABASE */
+        async function saveUserToDatabase(userData) {
+            try {
+                const userRef = doc(db, "users", userData.uid);
+                await setDoc(userRef, {
+                    uid: userData.uid,
+                    name: userData.name,
+                    email: userData.email,
+                    provider: userData.provider,
+                    lastLogin: serverTimestamp(),
+                    createdAt: serverTimestamp(),
+                    photoURL: userData.photoURL || null
+                }, { merge: true });
+                
+                console.log("User saved to database:", userData.email);
+                return true;
+            } catch (error) {
+                console.error("Error saving user to database:", error);
+                return false;
+            }
+        }
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+        /* GOOGLE LOGIN */
+        window.googleLogin = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                const userData = {
+                    uid: user.uid,
+                    name: user.displayName,
+                    email: user.email,
+                    provider: "google",
+                    photoURL: user.photoURL,
+                    logged: true
+                };
+                
+                // Save user to localStorage
+                localStorage.setItem("qc_user", JSON.stringify(userData));
+                
+                // Save user to Firestore database
+                await saveUserToDatabase(userData);
+                
+                // Redirect to main page
+                window.location.href = "chemical.html";
+            } catch (error) {
+                console.error("Google login error:", error);
+                alert("Google login failed: " + error.message);
+            }
+        };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
-  authDomain: "quantumchem-f8db7.firebaseapp.com",
-  projectId: "quantumchem-f8db7",
-  appId: "1:393952510354:web:e4845a3635cecca1aa814b"
-};
+        /* MANUAL LOGIN - FIXED IDS */
+        window.manualLogin = async () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if(!name || !email) { 
+                alert("Please enter both name and email"); 
+                return; 
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                return;
+            }
+            
+            const userId = "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
+            
+            const userData = {
+                uid: userId,
+                name: name,
+                email: email,
+                provider: "manual",
+                logged: true,
+                photoURL: null
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem("qc_user", JSON.stringify(userData));
+            
+            // Save user to Firestore database
+            await saveUserToDatabase(userData);
+            
+            // Redirect to main page
+            window.location.href = "chemical.html";
+        };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+        /* GUEST LOGIN */
+        window.guestLogin = async () => {
+            const guestId = "guest_" + Date.now();
+            
+            const userData = {
+                uid: guestId,
+                name: "Guest User",
+                email: "guest@quantumchem.site",
+                provider: "guest",
+                logged: true,
+                photoURL: null
+            };
+            
+            // Save user to localStorage
+            localStorage.setItem("qc_user", JSON.stringify(userData));
+            
+            // Save user to Firestore database
+            await saveUserToDatabase(userData);
+            
+            // Redirect to main page
+            window.location.href = "chemical.html";
+        };
 
-/* GOOGLE LOGIN */
-window.googleLogin = async () => {
-  const result = await signInWithPopup(auth, provider);
-  const u = result.user;
+        /* LOGOUT FUNCTION */
+        window.logoutUser = () => {
+            // Clear localStorage
+            localStorage.removeItem("qc_user");
+            
+            // Redirect to login page
+            window.location.href = "index.html";
+        };
 
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: u.uid,
-    name: u.displayName,
-    email: u.email,
-    provider: "google",
-    logged: true
-  }));
+        /* CHECK LOGIN STATUS - Show welcome back message */
+        function checkExistingLogin() {
+            const existing = localStorage.getItem("qc_user");
+            if(existing) {
+                try {
+                    const user = JSON.parse(existing);
+                    const welcomeBack = document.getElementById('welcomeBack');
+                    if(welcomeBack && user.name) {
+                        welcomeBack.textContent = `Welcome back, ${user.name}! Click any button to continue.`;
+                        welcomeBack.style.display = 'block';
+                    }
+                } catch(e) {
+                    console.error("Error parsing user data:", e);
+                }
+            }
+        }
 
-  location.href = "chemical.html";
-};
-
-/* MANUAL LOGIN */
-window.manualLogin = () => {
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  if(!name || !email){ alert("Enter name & email"); return; }
-
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: "manual_"+Date.now(),
-    name,
-    email,
-    provider: "manual",
-    logged: true
-  }));
-
-  location.href = "chemical.html";
-};
-
-/* GUEST LOGIN */
-window.guestLogin = () => {
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid:"guest",
-    name:"Guest",
-    email:"guest@quantumchem.site",
-    provider:"guest",
-    logged:true
-  }));
-  location.href="chemical.html";
-};
-
-/* AUTO REDIRECT */
-const existing = localStorage.getItem("qc_user");
-if(existing && JSON.parse(existing).logged){
-  location.href="chemical.html";
-}
-</script>
-
+        /* Initialize on page load */
+        document.addEventListener('DOMContentLoaded', checkExistingLogin);
+    </script>
 </body>
 </html>
