@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     
     <style>
+       <style>
         * {
             margin: 0;
             padding: 0;
@@ -646,35 +647,7 @@
             }
         }
 
-        /* Special Effects */
-        .scan-line {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            z-index: 1000;
-            animation: scan 3s linear infinite;
-        }
-
-        @keyframes scan {
-            0% {
-                top: 0;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-            }
-        }
-
+        /* Special Effects - Removed scan line animation */
         .hologram-effect {
             position: relative;
             overflow: hidden;
@@ -705,6 +678,7 @@
                 transform: translateX(100%) translateY(100%) rotate(45deg);
             }
         }
+    </style>
     </style>
     <!-- Vercel Web Analytics -->
     <script>
@@ -896,34 +870,25 @@
             </div>
 
             <!-- Achievements -->
-            <div class="achievements">
-                <h3 class="achievements-title">Our Collective Achievements</h3>
-                <div class="achievements-grid">
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="achievement-number">100+</div>
-                        <div class="achievement-text">Chemicals in Database</div>
-                    </div>
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-code-branch"></i>
-                        </div>
-                        <div class="achievement-number">15K+</div>
-                        <div class="achievement-text">Lines of Code</div>
-                    </div>
-                    <div class="achievement-card">
-                        <div class="achievement-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="achievement-number">500+</div>
-                        <div class="achievement-text">Active Researchers</div>
-                    </div>
-                </div>
+<div class="achievements">
+    <h3 class="achievements-title">Our Collective Achievements</h3>
+    <div class="achievements-grid">
+        <div class="achievement-card">
+            <div class="achievement-icon">
+                <i class="fas fa-database"></i>
             </div>
-
-       
+            <div class="achievement-number">1000+</div>
+            <div class="achievement-text">Chemicals in Database</div>
+        </div>
+        <div class="achievement-card">
+            <div class="achievement-icon">
+                <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="achievement-number">1</div>
+            <div class="achievement-text">Research Projects Completed</div>
+        </div>
+    </div>
+</div>
 
             <!-- Tech Stack -->
             <div class="tech-stack">
@@ -932,9 +897,7 @@
                     <div class="tech-icon">
                         <i class="fab fa-js-square"></i>
                     </div>
-                    <div class="tech-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
+                    
                     <div class="tech-icon">
                         <i class="fab fa-react"></i>
                     </div>
@@ -1014,23 +977,7 @@
             });
         });
 
-        // Timeline animation
-        gsap.utils.toArray('.timeline-item').forEach((item, i) => {
-            gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                },
-                x: i % 2 === 0 ? -100 : 100,
-                opacity: 0,
-                duration: 1,
-                delay: i * 0.3,
-                ease: "power2.out"
-            });
-        });
-
+      
         // Achievement counters animation
         gsap.utils.toArray('.achievement-number').forEach(number => {
             const target = parseInt(number.textContent);
@@ -1102,15 +1049,7 @@
             ease: "sine.inOut"
         });
 
-        // Scan line animation
-        const scanLine = document.querySelector('.scan-line');
-        gsap.to(scanLine, {
-            top: "100vh",
-            duration: 3,
-            repeat: -1,
-            ease: "none",
-            delay: Math.random() * 3
-        });
+       
 
         // Skill tags animation
         gsap.utils.toArray('.skill-tag').forEach((tag, i) => {
