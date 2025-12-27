@@ -42,7 +42,7 @@
         
         notification.innerHTML = `
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span>👋 Welcome back, ${user.name}!</span>
+                <span>👋 Welcome , ${user.name}!</span>
             </div>
         `;
         
