@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | QuantumChem</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .profile-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background: white;
+        }
+        
+        .profile-body {
+            padding: 30px;
+        }
+        
+        .info-card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .badge-provider {
+            font-size: 14px;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .btn-back {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 15px;
+                padding: 10px;
+            }
+            
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Back Button -->
+<a href="chemical.html" class="btn btn-light btn-back shadow-sm">
+    <i class="fas fa-arrow-left"></i> Back to Lab
+</a>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <img id="profileAvatar" src="" alt="Profile" class="profile-avatar">
+            <h2 id="profileFullName" class="mb-2"></h2>
+            <div id="profileBadge" class="badge-provider badge-primary"></div>
+        </div>
+        
+        <!-- Profile Body -->
+        <div class="profile-body">
+            <div class="info-card">
+                <h4 class="mb-3"><i class="fas fa-info-circle text-primary mr-2"></i>Account Information</h4>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-user mr-2"></i>Full Name:</strong>
+                    <span id="infoName"></span>
+                </div>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-envelope mr-2"></i>Email Address:</strong>
+                    <span id="infoEmail"></span>
+                </div>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-sign-in-alt mr-2"></i>Login Method:</strong>
+                    <span id="infoProvider" class="badge-provider"></span>
+                </div>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-id-badge mr-2"></i>User ID:</strong>
+                    <small id="infoUid" class="text-muted"></small>
+                </div>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-check-circle mr-2"></i>Email Verified:</strong>
+                    <span id="infoVerified"></span>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h4 class="mb-3"><i class="fas fa-chart-line text-success mr-2"></i>Activity</h4>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-calendar mr-2"></i>Account Created:</strong>
+                    <span id="infoCreated">Just now</span>
+                </div>
+                
+                <div class="info-item">
+                    <strong><i class="fas fa-clock mr-2"></i>Last Login:</strong>
+                    <span id="infoLastLogin">Just now</span>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="text-center">
+                <div class="action-buttons justify-content-center">
+                    <button class="btn btn-primary" onclick="window.location.href='chemical.html'">
+                        <i class="fas fa-flask mr-2"></i> Back to Laboratory
+                    </button>
+                    
+                    <button class="btn btn-outline-danger" onclick="logoutUser()">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Check if user is logged in
+document.addEventListener('DOMContentLoaded', function() {
+    const userData = localStorage.getItem("qc_user");
+    
+    if(!userData) {
+        // If no user data, redirect to login page
+        window.location.href = "index.html";
+        return;
+    }
+    
+    try {
+        const user = JSON.parse(userData);
+        
+        if(!user.logged) {
+            window.location.href = "index.html";
+            return;
+        }
+        
+        // Display user profile
+        displayUserProfile(user);
+        
+    } catch(e) {
+        console.error("Profile error:", e);
+        window.location.href = "index.html";
+    }
+});
+
+function displayUserProfile(user) {
+    // Set avatar
+    const profileAvatar = document.getElementById('profileAvatar');
+    if(user.photoURL) {
+        profileAvatar.src = user.photoURL;
+    } else {
+        // Generate avatar based on name
+        const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+        profileAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=667eea&color=fff&size=150&bold=true&font-size=0.5&length=2`;
+    }
+    
+    // Set name
+    document.getElementById('profileFullName').textContent = user.name;
+    document.getElementById('infoName').textContent = user.name;
+    
+    // Set email
+    document.getElementById('infoEmail').textContent = user.email;
+    
+    // Set provider badge
+    const providerBadge = document.getElementById('profileBadge');
+    const infoProvider = document.getElementById('infoProvider');
+    
+    if(user.provider === 'google') {
+        providerBadge.textContent = 'Google Account';
+        providerBadge.className = 'badge-provider badge-danger';
+        infoProvider.textContent = 'Google Account';
+        infoProvider.className = 'badge-provider badge-danger';
+    } else if(user.provider === 'manual') {
+        providerBadge.textContent = 'Manual Account';
+        providerBadge.className = 'badge-provider badge-primary';
+        infoProvider.textContent = 'Manual Account';
+        infoProvider.className = 'badge-provider badge-primary';
+    } else {
+        providerBadge.textContent = 'Guest Account';
+        providerBadge.className = 'badge-provider badge-secondary';
+        infoProvider.textContent = 'Guest Account';
+        infoProvider.className = 'badge-provider badge-secondary';
+    }
+    
+    // Set user ID
+    document.getElementById('infoUid').textContent = user.uid;
+    
+    // Set email verified status
+    const verifiedElement = document.getElementById('infoVerified');
+    if(user.emailVerified) {
+        verifiedElement.textContent = 'Yes';
+        verifiedElement.className = 'text-success';
+    } else {
+        verifiedElement.textContent = 'No';
+        verifiedElement.className = 'text-warning';
+    }
+    
+    // Set timestamps
+    const now = new Date();
+    document.getElementById('infoCreated').textContent = now.toLocaleString();
+    document.getElementById('infoLastLogin').textContent = now.toLocaleString();
+}
+
+function logoutUser() {
+    if(confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem("qc_user");
+        window.location.href = "index.html";
+    }
+}
+</script>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +47,130 @@ if(!user){
 </script>
     <!-- Styles -->
     <style>
+   /* User Dropdown Styles */
+.user-dropdown {
+    position: relative;
+    margin-left: 10px;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 50px;
+    padding: 6px 15px 6px 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    justify-content: space-between;
+}
+
+.user-btn:hover {
+    background: #f8f9fa;
+    border-color: #6366f1;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #6366f1;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-btn span {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    flex-grow: 1;
+    text-align: left;
+    margin-left: 8px;
+}
+
+.user-btn i {
+    color: #666;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.user-btn.active i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    min-width: 200px;
+    padding: 8px 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background: #f3f4f6;
+    color: #6366f1;
+}
+
+.dropdown-item i {
+    width: 16px;
+    color: #666;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 8px 0;
+}
+
+/* Backdrop for dropdown */
+.dropdown-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background: transparent;
+    display: none;
+}
+
+.dropdown-backdrop.active {
+    display: block;
+}
         /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
@@ -2009,74 +2134,71 @@ if(!user){
     </div>
 
     <!-- Main Content -->
-    <div class="main-container">
-        <!-- Header -->
-        <header class="main-header" id="mainHeader">
-            <div class="container">
-                <nav class="navbar">
-                    <div class="nav-brand">
-                        <div class="logo">
-                            <i class="fas fa-atom"></i>
-                            <div class="logo-text">
-                                <h1>Quantum<span>Chem</span></h1>
-                                <p class="logo-subtitle">Laboratory Database</p>
+<div class="main-container">
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <div class="logo">
+                        <i class="fas fa-atom"></i>
+                        <div class="logo-text">
+                            <h1>Quantum<span>Chem</span></h1>
+                            <p class="logo-subtitle">Laboratory Database</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link active" data-text="Home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#Chemicals" class="nav-link" data-text="chemicals">
+                        <i class="fas fa-database"></i>
+                        <span>Chemicals</span>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="btn-icon search-toggle" id="searchToggle">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    
+                    <div class="user-dropdown" id="userDropdown">
+                        <button class="user-btn" id="userBtn" onclick="toggleUserDropdown(event)">
+                            <div class="user-avatar">
+                                <img src="https://ui-avatars.com/api/?name=Guest&background=6366f1&color=fff" alt="Guest" id="userAvatar">
                             </div>
+                            <span id="userName">Guest</span>
+                            <i class="fas fa-chevron-down" id="dropdownArrow"></i>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdownMenu">
+                            <a href="index.html" class="dropdown-item" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Sign In
+                            </a>
+                            <a href="profile.html" class="dropdown-item" id="profileBtn">
+                                <i class="fas fa-user-circle"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="nav-menu" id="navMenu">
-                        <a href="#home" class="nav-link active" data-text="Home">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                        <a href="#Chemicals" class="nav-link" data-text="chemicals">
-                            <i class="fas fa-database"></i>
-                            <span>Chemicals</span>
-                        </a>
-                        
-                     
-                    </div>
-                    
-                    <div class="nav-actions">
-                        <button class="btn-icon search-toggle" id="searchToggle">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        
-                        <div class="user-dropdown" id="userDropdown">
-                            <button class="user-btn" id="userBtn">
-                                <div class="user-avatar">
-                                    <img src="https://ui-avatars.com/api/?name=Guest&background=6366f1&color=fff" alt="Guest">
-                                </div>
-                                <span>Guest</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item" id="loginBtn">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    Sign In
-                                </a>
-                                <a href="#" class="dropdown-item" id="profileBtn">
-                                    <i class="fas fa-user-circle"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="index.html" class="dropdown-item">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    Logout / Switch User
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <button class="nav-toggle" id="navToggle">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
+                    <button class="nav-toggle" id="navToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
         <!-- Search Overlay -->
         <div class="search-overlay" id="searchOverlay">
             <div class="search-container">
@@ -21606,7 +21728,6 @@ if(!user){
            
     </script>
 
-    
+    <script src="profile-manager.js"></script>
 </body>
 </html>
-
