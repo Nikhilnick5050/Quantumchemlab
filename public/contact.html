@@ -7,25 +7,23 @@
     
     <!-- Meta Tags -->
     <meta name="description" content="Contact the Quantum Chemistry Lab team for inquiries, support, or collaboration opportunities">
-    <meta name="keywords" content="contact, chemistry, support, laboratory, research, collaboration">
+    <meta name="keywords" content="contact, chemistry, support, laboratory, research, collaboration, database, chemical">
     <meta name="author" content="Quantum Chemistry Lab Team">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Styles -->
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         /* ===== RESET & BASE STYLES ===== */
         * {
@@ -78,6 +76,7 @@
             background: var(--primary);
             color: #f8fafc;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
@@ -145,6 +144,17 @@
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
         }
 
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
         /* ===== HEADER ===== */
         .main-header {
             position: fixed;
@@ -184,6 +194,12 @@
 
         .logo-text h1 span {
             color: var(--accent);
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin: 0;
         }
 
         .nav-menu {
@@ -301,6 +317,7 @@
             justify-content: center;
             color: var(--accent);
             font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
         .contact-item h4 {
@@ -320,6 +337,12 @@
             color: var(--accent);
         }
 
+        .contact-subtitle {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        /* Social Links */
         .social-links {
             display: flex;
             gap: 1rem;
@@ -327,8 +350,8 @@
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-md);
@@ -346,23 +369,31 @@
             transform: translateY(-3px);
         }
 
-        .contact-form .form-group {
+        /* Contact Form */
+        .contact-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .contact-form label {
+        .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             color: #cbd5e1;
             font-weight: 500;
         }
 
-        .contact-form input,
-        .contact-form textarea,
-        .contact-form select {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 1rem;
-            background: var(--glass-bg);
+            background: rgba(15, 23, 42, 0.5);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-md);
             color: white;
@@ -371,20 +402,47 @@
             font-family: var(--font-primary);
         }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus,
-        .contact-form select:focus {
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        .contact-form textarea {
+        .form-group textarea {
             min-height: 150px;
             resize: vertical;
         }
 
-        .contact-form button {
-            width: 100%;
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+        }
+
+        /* Form Messages */
+        .form-message {
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .form-message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
         }
 
         /* ===== MAP SECTION ===== */
@@ -409,6 +467,8 @@
             align-items: center;
             justify-content: center;
             color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
         }
 
         .map-placeholder i {
@@ -563,6 +623,16 @@
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            .contact-grid {
+                gap: 3rem;
+            }
+            
+            .footer-content {
+                gap: 3rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0 1rem;
@@ -574,12 +644,10 @@
             
             .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 3rem;
             }
             
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 3rem;
             }
             
             .footer-links {
@@ -594,13 +662,12 @@
                 text-align: center;
                 gap: 1.5rem;
             }
+            
+            .social-links {
+                justify-content: center;
+            }
         }
     </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -619,7 +686,6 @@
                 
                 <div class="nav-menu">
                     <a href="chemical.html" class="nav-link">Home</a>
-                   
                     <a href="team.html" class="nav-link">Team</a>
                     <a href="contact.html" class="nav-link active">Contact</a>
                 </div>
@@ -661,22 +727,23 @@
                         </div>
                         
                         <div class="contact-item">
-    <i class="fas fa-phone"></i>
-    <div>
-        <h4>Phone</h4>
-        <a href="tel:+918149277038">+91 81492 77038</a>
-        <p>Mon-Fri, 9AM-6PM IST</p>
-    </div>
-</div>
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <a href="tel:+918149277038">+91 81492 77038</a>
+                                <p>Mon-Fri, 9AM-6PM IST</p>
+                            </div>
+                        </div>
 
-<div class="contact-item">
-    <i class="fab fa-whatsapp"></i>
-    <div>
-        <h4>WhatsApp</h4>
-        <a href="https://wa.me/918149277038" target="_blank">Message Quantumchem on WhatsApp</a>
-        <p>Click to start a chat</p>
-    </div>
-</div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <a href="https://wa.me/918149277038" target="_blank">Message Quantumchem on WhatsApp</a>
+                                <p>Click to start a chat</p>
+                            </div>
+                        </div>
+                        
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
@@ -699,16 +766,22 @@
                     </div>
                     
                     <div class="social-links">
-                        <a href="#" class="social-link" title="Instagram">
-                            <i class="fab fa-instgram"></i>
+                        <a href="https://www.instagram.com/quantumchem25/?hl=en" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-link" title="LinkedIn">
+                        <a href="www.linkedin.com/in/nikhil-shinde-286937367" class="social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="https://github.com/nikhilnick5050" title="GitHub">
+                        <a href="https://github.com/nikhilnick5050" class="social-link" title="GitHub" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="social-link" title="ResearchGate">
+                        <a href="https://www.facebook.com/profile.php?id=61585853281971" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@Quantumchem-k6l" class="social-link" title="YouTube" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://researchgate.net/profile/quantumchem-lab" class="social-link" title="ResearchGate" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-researchgate"></i>
                         </a>
                     </div>
@@ -717,6 +790,9 @@
                 <div class="contact-form" data-aos="fade-left">
                     <h3>Send Us a Message</h3>
                     <p class="contact-subtitle">Fill out the form below and we'll get back to you as soon as possible</p>
+                    
+                    <!-- Form Messages -->
+                    <div id="formMessage" class="form-message"></div>
                     
                     <form id="contactForm">
                         <div class="form-group">
@@ -731,13 +807,13 @@
                         
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <select id="subject" name="subject">
+                            <select id="subject" name="subject" required>
                                 <option value="">Select a subject</option>
-                                <option value="support">Technical Support</option>
-                                <option value="database">Database Inquiry</option>
-                                <option value="collaboration">Research Collaboration</option>
-                                <option value="feedback">Feedback & Suggestions</option>
-                                <option value="other">Other</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Database Inquiry">Database Inquiry</option>
+                                <option value="Research Collaboration">Research Collaboration</option>
+                                <option value="Feedback & Suggestions">Feedback & Suggestions</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         
@@ -746,7 +822,7 @@
                             <textarea id="message" name="message" required placeholder="Type your message here..."></textarea>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
                             <i class="fas fa-paper-plane"></i>
                             Send Message
                         </button>
@@ -852,14 +928,21 @@
                     <div class="footer-column">
                         <h4>Platform</h4>
                         <ul>
-                           
-                            
+                            <li><a href="chemical.html">Home</a></li>
                             <li><a href="team.html">Team</a></li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
                     
-                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="tutorials.html">Tutorials</a></li>
+                            
+                            <li><a href="downloads.html">Downloads</a></li>
+                        </ul>
+                    </div>
                     
                     <div class="footer-column">
                         <h4>Legal</h4>
@@ -880,8 +963,18 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- EmailJS Script -->
+    <script type="text/javascript">
+        // Initialize EmailJS with your Public Key
+        (function() {
+            // Replace this with your actual EmailJS Public Key
+            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Get from https://www.emailjs.com
+        })();
+    </script>
+
     <script>
         // Initialize AOS
         AOS.init({
@@ -912,6 +1005,9 @@
 
             // Contact Form Submission
             const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
@@ -921,30 +1017,97 @@
                         name: document.getElementById('name').value,
                         email: document.getElementById('email').value,
                         subject: document.getElementById('subject').value,
-                        message: document.getElementById('message').value
+                        message: document.getElementById('message').value,
+                        to_email: 'quantumchem25@gmail.com' // Your email address
                     };
                     
+                    // Validate form
+                    if (!formData.name || !formData.email || !formData.message) {
+                        showMessage('Please fill all required fields.', 'error');
+                        return;
+                    }
+                    
                     // Show loading state
-                    const submitBtn = this.querySelector('button[type="submit"]');
                     const originalText = submitBtn.innerHTML;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                     submitBtn.disabled = true;
                     
-                    // Simulate API call
-                    setTimeout(() => {
-                        // Show success message
-                        alert('Thank you for your message! We will get back to you within 24 hours.');
-                        
-                        // Reset form
-                        this.reset();
-                        
-                        // Restore button
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    }, 1500);
+                    // Using EmailJS to send email
+                    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
+                        .then(function(response) {
+                            console.log('SUCCESS!', response.status, response.text);
+                            showMessage('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.', 'success');
+                            contactForm.reset();
+                        }, function(error) {
+                            console.log('FAILED...', error);
+                            // Fallback to Formspree if EmailJS fails
+                            sendViaFormspree(formData);
+                        })
+                        .finally(() => {
+                            // Restore button
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        });
                 });
+            }
+            
+            // Alternative: Send via Formspree (free service)
+            function sendViaFormspree(formData) {
+                // Formspree endpoint - replace with your Formspree ID
+                fetch('https://formspree.io/f/mwvpkjzn', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showMessage('Thank you! Your message has been sent successfully.', 'success');
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showMessage('Sorry, there was an error sending your message. Please try again later or email us directly at quantumchem25@gmail.com', 'error');
+                });
+            }
+            
+            function showMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = 'form-message ' + type;
+                formMessage.style.display = 'block';
+                
+                // Scroll to message
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // Hide message after 10 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 10000);
+            }
+            
+            // Optional: Add phone number formatting
+            const phoneInput = document.querySelector('a[href^="tel:"]');
+            if (phoneInput) {
+                const phoneNumber = phoneInput.getAttribute('href').replace('tel:', '');
+                phoneInput.textContent = formatPhoneNumber(phoneNumber);
+            }
+            
+            function formatPhoneNumber(phoneNumber) {
+                // Format Indian phone number: +91 XXXXX XXXXX
+                const cleaned = phoneNumber.replace(/\D/g, '');
+                if (cleaned.length === 10) {
+                    return '+91 ' + cleaned.substring(0, 5) + ' ' + cleaned.substring(5);
+                }
+                return phoneNumber;
             }
         });
     </script>
+
+    <!-- Alternative: Simple Form Submission without External Services -->
+   
 </body>
 </html>

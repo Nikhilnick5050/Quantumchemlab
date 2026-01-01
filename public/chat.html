@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QuantumChem AI Assistant</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chat-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-box {
+      flex: 1;
+      padding: 10px;
+      border-bottom: 1px solid #000;
+      overflow-y: auto;
+    }
+
+    #input-area {
+      display: flex;
+      padding: 10px;
+    }
+
+    #msg {
+      flex: 1;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #send {
+      padding: 8px 15px;
+      margin-left: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 style="padding:10px;">QuantumChem AI Assistant</h2>
+
+  <div id="chat-container">
+    <div id="chat-box"></div>
+
+    <div id="input-area">
+      <input id="msg" type="text" placeholder="Ask chemistry doubt..." />
+      <button id="send">Send</button>
+    </div>
+  </div>
+
+  <!-- JS MUST be at bottom -->
+  <script src="chat.js"></script>
+
+</body>
+</html>

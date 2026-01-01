@@ -47,6 +47,22 @@ if(!user){
 </script>
     <!-- Styles -->
     <style>
+        #chat-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 28px;
+  background: #2563eb;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+}
    /* User Dropdown Styles */
 .user-dropdown {
     position: relative;
@@ -21748,8 +21764,16 @@ if(!user){
             }
         }
            
+        
     </script>
+<div id="chat-btn" onclick="openChat()">💬</div>
 
+<script>
+  function openChat() {
+    window.location.href = "chat.html";
+  }
+</script>
     <script src="profile-manager.js"></script>
 </body>
 </html>
+
