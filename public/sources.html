@@ -19,6 +19,43 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        .detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.detail-label {
+    font-weight: 600;
+    min-width: 90px;
+    color: #374151;
+}
+
+.detail-value {
+    color: #111827;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.download-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
         * {
             margin: 0;
             padding: 0;
@@ -460,22 +497,34 @@
                             <div class="detail-item">
                                 <span class="detail-label">Type:</span>
                                 <span class="detail-value">Institutional Manuals</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Format:</span>
-                                <span class="detail-value">PDF & Print Documentation</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Focus:</span>
-                                <span class="detail-value">Experimental Procedures & Safety</span>
-                            </div>
-                        </div>
+                                                   </div>
                         
                         <div class="resource-links">
                             <a href="#" class="resource-link">
                                 <i class="fas fa-download"></i>
                                 Laboratory Manuals
-                            </a>
+                            </a></div>
+
+<div class="detail-item">
+    <span class="detail-label">Format:</span>
+    <span class="detail-value">PDF & Print Documentation</span>
+</div>
+
+<div class="detail-item">
+    <span class="detail-label">Focus:</span>
+    <span class="detail-value">Experimental Procedures & Safety</span>
+</div>
+
+<div class="detail-item">
+    <span class="detail-label">Download:</span>
+    <span class="detail-value">
+        <a href="/public\125B1B028_ Nikhil shinde .pdf" download class="download-btn">
+            ⬇ Download PDF
+        </a>
+    </span>
+</div>
+
+
                             <a href="#" class="resource-link">
                                 <i class="fas fa-file-alt"></i>
                                 Safety Protocols
