@@ -2128,32 +2128,38 @@ if (!user) {
         .developer-contact a:hover {
             color: var(--accent);
         }
-        /* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
+        /* =========================================== */
+/* MOBILE-ONLY FIXES (ONLY FOR PHONES) */
+/* =========================================== */
 @media (max-width: 768px) {
-    /* General adjustments */
+    /* Fix container spacing */
     .container {
-        padding: 0 1rem;
+        padding: 0 1rem !important;
     }
     
-    /* Header/Navigation fixes */
-    .main-header {
-        padding: 0 1rem;
+    /* Fix header spacing - remove gap in QuantumChem */
+    .nav-brand .logo {
+        gap: 0.5rem !important;
     }
     
-    .navbar {
-        padding: 0.75rem 0;
-    }
-    
-    /* Logo adjustments */
     .logo-text h1 {
-        font-size: 1.25rem;
+        font-size: 1.2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0 !important;
     }
     
     .logo-subtitle {
-        font-size: 0.7rem;
+        font-size: 0.7rem !important;
+        margin-top: 0 !important;
+        line-height: 1 !important;
     }
     
-    /* Mobile navigation menu */
+    /* Show mobile menu button */
+    .nav-toggle {
+        display: flex !important;
+    }
+    
+    /* Hide desktop navigation */
     .nav-menu {
         position: fixed;
         top: 70px;
@@ -2166,407 +2172,216 @@ if (!user) {
         padding: 2rem;
         transition: var(--transition-normal);
         z-index: 999;
-        gap: 1.5rem;
     }
     
     .nav-menu.active {
         left: 0;
     }
     
-    .nav-link {
-        padding: 1rem;
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        width: 100%;
-    }
-    
-    .nav-link::after {
-        display: none; /* Hide tooltips on mobile */
-    }
-    
-    /* Nav toggle button */
-    .nav-toggle {
-        display: flex;
-        width: 40px;
-        height: 40px;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-    }
-    
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    /* User dropdown adjustments */
+    /* Fix user dropdown for mobile */
     .user-btn {
-        padding: 0.4rem 0.8rem;
-        min-width: auto;
+        padding: 0.4rem 0.8rem !important;
+        min-width: auto !important;
     }
     
     .user-btn span {
-        font-size: 0.9rem;
-        margin-left: 5px;
+        display: none !important;
     }
     
-    .user-avatar {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .dropdown-menu {
-        position: fixed;
-        top: 70px;
-        right: 1rem;
-        left: 1rem;
-        width: auto;
-        min-width: 200px;
-    }
-    
-    /* Hero section fixes */
-    .hero-section {
-        padding: 6rem 0 3rem;
-    }
-    
-    .hero-badge {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-    
-    .hero-title {
-        font-size: clamp(2rem, 4vw, 3rem);
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    /* Button adjustments */
-    .btn {
-        padding: 0.75rem 1.25rem;
-        font-size: 0.95rem;
-        min-height: 44px; /* Minimum touch target size */
+    /* Make buttons touch-friendly */
+    .btn, .btn-primary, .btn-outline, .btn-lg, .chemical-btn, .filter-btn, .view-btn {
+        min-height: 44px !important;
+        min-width: 44px !important;
+        padding: 0.75rem 1.25rem !important;
     }
     
     .btn-lg {
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: 1rem 1.5rem !important;
+        font-size: 1rem !important;
     }
     
-    .hero-actions {
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 3rem;
-    }
-    
-    .hero-actions .btn {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    /* Stats adjustments */
-    .hero-stats {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    
-    .stat-item {
-        gap: 0.75rem;
-    }
-    
-    .stat-item i {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-    }
-    
-    .stat-item h3 {
-        font-size: 1.5rem;
-    }
-    
-    /* Chemical cards adjustments */
-    .chemicals-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .chemical-card {
-        padding: 1.25rem;
-    }
-    
-    .chemical-name {
-        font-size: 1.1rem;
-    }
-    
-    .chemical-formula {
-        font-size: 1rem;
-    }
-    
-    .chemical-btn {
-        padding: 0.6rem 1rem;
-        min-height: 40px;
-    }
-    
-    /* Database controls */
-    .database-controls {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .search-filter {
-        min-width: 100%;
-    }
-    
-    .filter-buttons {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        min-height: 36px;
-    }
-    
-    /* Modal adjustments */
-    .chemical-modal {
-        padding: 1rem;
-        align-items: flex-start;
-        padding-top: 60px;
-    }
-    
-    .modal-container {
-        width: 100%;
-        max-height: 80vh;
-    }
-    
-    .modal-body {
-        padding: 1.25rem;
-        max-height: calc(80vh - 60px);
-    }
-    
-    .chemical-modal-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .chemical-modal-formula h2 {
-        font-size: 1.75rem;
-    }
-    
-    .chemical-modal-stats {
-        gap: 1rem;
-    }
-    
-    /* Contact section */
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .contact-item i {
-        width: 45px;
-        height: 45px;
-        font-size: 1rem;
-    }
-    
-    /* Footer adjustments */
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .footer-links {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    /* Back to top button */
-    .back-to-top {
-        width: 45px;
-        height: 45px;
-        bottom: 1rem;
-        right: 1rem;
-    }
-    
-    /* Toast notifications */
-    .toast {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-    }
-    
-    /* Search overlay */
-    .search-container {
-        width: 95%;
-        padding: 1.5rem;
-    }
-    
-    .search-box input {
-        padding: 1.25rem 1.25rem 1.25rem 3.5rem;
-        font-size: 1rem;
-    }
-    
-    /* Team cards */
-    .team-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .team-image {
-        height: 200px;
-    }
-    
-    /* Form adjustments */
-    .contact-form input,
-    .contact-form textarea,
-    .search-filter input {
-        padding: 0.875rem;
-        font-size: 16px; /* Prevents iOS zoom on focus */
-    }
-    
-    /* Ensure all interactive elements are tappable */
-    button, 
-    .btn, 
-    .nav-link, 
-    .dropdown-item, 
-    .filter-btn, 
-    .view-btn,
-    .chemical-btn,
-    .contact-btn,
-    .social-link {
-        min-height: 44px; /* Apple's minimum touch target size */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Increase spacing for better touch */
-    .features-grid,
-    .team-grid,
-    .developers-grid {
-        gap: 1.5rem;
-    }
-    
-    .feature-card,
-    .team-card {
-        padding: 1.5rem;
-    }
-    
-    /* Chat button adjustments */
-    #chat-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        bottom: 15px;
-        left: 15px;
-    }
-    
-    /* List view adjustments */
-    .chemicals-list .chemical-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .chemicals-list .chemical-header {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-    
-    .chemicals-list .chemical-description {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-}
-
-/* Extra small devices (phones, less than 480px) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.75rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-    
-    h3 {
-        font-size: 1.25rem;
-    }
-    
-    .section-title {
-        font-size: 1.75rem;
+    /* Fix hero section spacing */
+    .hero-section {
+        padding: 6rem 0 3rem !important;
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
     }
     
-    /* Reduce padding for very small screens */
-    .container {
-        padding: 0 0.75rem;
+    .hero-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 2rem !important;
     }
     
-    .feature-card,
-    .chemical-card,
-    .team-card {
-        padding: 1rem;
+    .hero-actions {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin-bottom: 2rem !important;
     }
     
-    /* Stack action buttons */
-    .chemical-modal-actions,
-    .modal-actions {
-        flex-direction: column;
-        gap: 0.75rem;
+    .hero-actions .btn {
+        width: 100% !important;
+        justify-content: center !important;
     }
     
-    .chemical-modal-actions .btn {
-        width: 100%;
+    .hero-stats {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
     }
     
-    /* Adjust stats */
-    .stat-item h3 {
-        font-size: 1.25rem;
+    .stat-item {
+        gap: 0.75rem !important;
     }
     
     .stat-item i {
-        width: 45px;
-        height: 45px;
-        font-size: 1.25rem;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.5rem !important;
     }
     
-    /* Make sure text is readable */
-    p, .chemical-description, .footer-description {
-        font-size: 0.95rem;
-    }
-}
-
-/* Fix for landscape mode on phones */
-@media (max-height: 500px) and (orientation: landscape) {
-    .hero-section {
-        padding: 4rem 0 2rem;
+    /* Fix database section */
+    .database-controls {
+        flex-direction: column !important;
+        gap: 1rem !important;
     }
     
-    .nav-menu {
-        height: calc(100vh - 60px);
-        overflow-y: auto;
+    .search-filter {
+        min-width: 100% !important;
     }
     
+    .filter-buttons {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        justify-content: center !important;
+    }
+    
+    .chemicals-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .chemical-card {
+        padding: 1.25rem !important;
+    }
+    
+    /* Fix features grid */
+    .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Fix contact section */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .contact-form input,
+    .contact-form textarea,
+    .search-filter input {
+        font-size: 16px !important; /* Prevents iOS zoom */
+        padding: 0.875rem !important;
+    }
+    
+    /* Fix footer */
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    /* Fix modal for mobile */
     .chemical-modal {
-        padding-top: 20px;
+        padding: 1rem !important;
     }
     
     .modal-container {
-        max-height: 95vh;
+        width: 95% !important;
+        max-height: 85vh !important;
+    }
+    
+    .modal-body {
+        padding: 1.5rem !important;
+    }
+    
+    /* Fix team grid */
+    .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Fix chat button */
+    #chat-btn {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 24px !important;
+        bottom: 15px !important;
+        left: 15px !important;
+    }
+    
+    /* Fix back to top button */
+    .back-to-top {
+        width: 45px !important;
+        height: 45px !important;
+        bottom: 1rem !important;
+        right: 1rem !important;
+    }
+    
+    /* Remove hover effects on mobile */
+    @media (hover: none) {
+        .btn-primary:hover,
+        .btn-outline:hover,
+        .chemical-card:hover,
+        .feature-card:hover,
+        .team-card:hover {
+            transform: none !important;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: none !important;
+        }
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .chemical-modal-actions {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .chemical-modal-actions .btn {
+        width: 100% !important;
+    }
+    
+    .stat-item h3 {
+        font-size: 1.5rem !important;
     }
 }
 
@@ -2574,27 +2389,6 @@ if (!user) {
 @supports (-webkit-touch-callout: none) {
     .btn, button, .nav-link {
         cursor: pointer;
-    }
-    
-    /* Prevent text size adjustment */
-    html {
-        -webkit-text-size-adjust: 100%;
-    }
-}
-
-/* Fix for sticky hover states on mobile */
-@media (hover: none) and (pointer: coarse) {
-    .btn:hover,
-    .nav-link:hover,
-    .chemical-card:hover,
-    .feature-card:hover,
-    .team-card:hover {
-        transform: none;
-    }
-    
-    .btn-primary:hover,
-    .btn-outline:hover {
-        box-shadow: none;
     }
 }
     </style>
