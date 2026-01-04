@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Chemistry Lab | Advanced Chemical Database</title>
@@ -2121,6 +2128,475 @@ if (!user) {
         .developer-contact a:hover {
             color: var(--accent);
         }
+        /* ===== MOBILE RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+    /* General adjustments */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    /* Header/Navigation fixes */
+    .main-header {
+        padding: 0 1rem;
+    }
+    
+    .navbar {
+        padding: 0.75rem 0;
+    }
+    
+    /* Logo adjustments */
+    .logo-text h1 {
+        font-size: 1.25rem;
+    }
+    
+    .logo-subtitle {
+        font-size: 0.7rem;
+    }
+    
+    /* Mobile navigation menu */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        transition: var(--transition-normal);
+        z-index: 999;
+        gap: 1.5rem;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-link {
+        padding: 1rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+    }
+    
+    .nav-link::after {
+        display: none; /* Hide tooltips on mobile */
+    }
+    
+    /* Nav toggle button */
+    .nav-toggle {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* User dropdown adjustments */
+    .user-btn {
+        padding: 0.4rem 0.8rem;
+        min-width: auto;
+    }
+    
+    .user-btn span {
+        font-size: 0.9rem;
+        margin-left: 5px;
+    }
+    
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .dropdown-menu {
+        position: fixed;
+        top: 70px;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        min-width: 200px;
+    }
+    
+    /* Hero section fixes */
+    .hero-section {
+        padding: 6rem 0 3rem;
+    }
+    
+    .hero-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Button adjustments */
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Stats adjustments */
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .stat-item {
+        gap: 0.75rem;
+    }
+    
+    .stat-item i {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .stat-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    /* Chemical cards adjustments */
+    .chemicals-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .chemical-card {
+        padding: 1.25rem;
+    }
+    
+    .chemical-name {
+        font-size: 1.1rem;
+    }
+    
+    .chemical-formula {
+        font-size: 1rem;
+    }
+    
+    .chemical-btn {
+        padding: 0.6rem 1rem;
+        min-height: 40px;
+    }
+    
+    /* Database controls */
+    .database-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .search-filter {
+        min-width: 100%;
+    }
+    
+    .filter-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        min-height: 36px;
+    }
+    
+    /* Modal adjustments */
+    .chemical-modal {
+        padding: 1rem;
+        align-items: flex-start;
+        padding-top: 60px;
+    }
+    
+    .modal-container {
+        width: 100%;
+        max-height: 80vh;
+    }
+    
+    .modal-body {
+        padding: 1.25rem;
+        max-height: calc(80vh - 60px);
+    }
+    
+    .chemical-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .chemical-modal-formula h2 {
+        font-size: 1.75rem;
+    }
+    
+    .chemical-modal-stats {
+        gap: 1rem;
+    }
+    
+    /* Contact section */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-item i {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    /* Footer adjustments */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Back to top button */
+    .back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    /* Toast notifications */
+    .toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    /* Search overlay */
+    .search-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .search-box input {
+        padding: 1.25rem 1.25rem 1.25rem 3.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Team cards */
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .team-image {
+        height: 200px;
+    }
+    
+    /* Form adjustments */
+    .contact-form input,
+    .contact-form textarea,
+    .search-filter input {
+        padding: 0.875rem;
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    /* Ensure all interactive elements are tappable */
+    button, 
+    .btn, 
+    .nav-link, 
+    .dropdown-item, 
+    .filter-btn, 
+    .view-btn,
+    .chemical-btn,
+    .contact-btn,
+    .social-link {
+        min-height: 44px; /* Apple's minimum touch target size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Increase spacing for better touch */
+    .features-grid,
+    .team-grid,
+    .developers-grid {
+        gap: 1.5rem;
+    }
+    
+    .feature-card,
+    .team-card {
+        padding: 1.5rem;
+    }
+    
+    /* Chat button adjustments */
+    #chat-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    /* List view adjustments */
+    .chemicals-list .chemical-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .chemicals-list .chemical-header {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .chemicals-list .chemical-description {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Extra small devices (phones, less than 480px) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    /* Reduce padding for very small screens */
+    .container {
+        padding: 0 0.75rem;
+    }
+    
+    .feature-card,
+    .chemical-card,
+    .team-card {
+        padding: 1rem;
+    }
+    
+    /* Stack action buttons */
+    .chemical-modal-actions,
+    .modal-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .chemical-modal-actions .btn {
+        width: 100%;
+    }
+    
+    /* Adjust stats */
+    .stat-item h3 {
+        font-size: 1.25rem;
+    }
+    
+    .stat-item i {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+    
+    /* Make sure text is readable */
+    p, .chemical-description, .footer-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Fix for landscape mode on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-section {
+        padding: 4rem 0 2rem;
+    }
+    
+    .nav-menu {
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+    
+    .chemical-modal {
+        padding-top: 20px;
+    }
+    
+    .modal-container {
+        max-height: 95vh;
+    }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .btn, button, .nav-link {
+        cursor: pointer;
+    }
+    
+    /* Prevent text size adjustment */
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+}
+
+/* Fix for sticky hover states on mobile */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover,
+    .nav-link:hover,
+    .chemical-card:hover,
+    .feature-card:hover,
+    .team-card:hover {
+        transform: none;
+    }
+    
+    .btn-primary:hover,
+    .btn-outline:hover {
+        box-shadow: none;
+    }
+}
     </style>
     <!-- Vercel Web Analytics -->
     <script>
