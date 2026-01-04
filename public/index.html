@@ -2267,7 +2267,7 @@ function updateUserDropdown() {
         
         console.log("User is logged in:", name);
         
-        // Update header
+        // Update header - Show user's actual name
         document.getElementById('userName').textContent = name;
         document.getElementById('userAvatar').src = avatarUrl;
         document.getElementById('userAvatar').alt = name;
@@ -2304,15 +2304,26 @@ function updateUserDropdown() {
         `;
         
     } else {
-        // USER IS NOT LOGGED IN - Show Login, Signup
-        console.log("User is NOT logged in");
+        // USER IS NOT LOGGED IN - Always show "Account" with Login/Signup
+        console.log("User is NOT logged in - showing Login/Signup");
         
+        // Always show "Account" as the button text
         document.getElementById('userName').textContent = 'Account';
         document.getElementById('userAvatar').src = 'https://ui-avatars.com/api/?name=Account&background=6366f1&color=fff';
         document.getElementById('userAvatar').alt = 'Account';
         
         // Create dropdown for NOT LOGGED IN user
         dropdownMenu.innerHTML = `
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Account&background=6366f1&color=fff" alt="Account">
+                </div>
+                <div class="dropdown-user-info">
+                    <strong>Account</strong>
+                    <small>Not logged in</small>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
             <a href="login.html" class="dropdown-item login-item">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
@@ -2345,9 +2356,15 @@ function logoutUser() {
         document.getElementById('userDropdownMenu').classList.remove('show');
         document.getElementById('dropdownArrow').classList.remove('rotate');
         
-        // Optional: Show message
+        // Show message
         showToast('Logged out successfully', 'success');
+        
+        // Redirect to home page after logout
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
     }
+    return false; // Prevent default link behavior
 }
 
 function showToast(message, type = 'info') {
@@ -2420,7 +2437,7 @@ window.addEventListener('storage', function(e) {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Dropdown header for logged in users */
+/* Dropdown header for both logged in and logged out users */
 .dropdown-header {
     padding: 16px;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
