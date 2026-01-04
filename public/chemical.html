@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,11 +39,11 @@ font-weight:600;">
 
 <script>
 const user = JSON.parse(localStorage.getItem("qc_user"));
-if(!user){
-  location.href="index.html";
-}else{
-  document.getElementById("welcomeBar").innerText =
-    Welcome ${user.name} 👋 to QuantumChem Laboratory;
+
+if (!user) {
+  location.href = "index.html";
+} else {
+  document.getElementById("welcomeBar").innerText = `Welcome ${user.name} 👋 to QuantumChem Laboratory`;
 }
 </script>
     <!-- Styles -->
@@ -2174,9 +2175,11 @@ if(!user){
                         <i class="fas fa-database"></i>
                         <span>Chemicals</span>
                     </a>
-                     <a href="#Blog" class="nav-link" data-text="Blog">
-                        <i class="fas fa-blog"></i>
-                        <span>Blog</span>
+                     <a href="textbook and book.html" class="nav-link" data-text="Blog" target="_blank">
+    <i class="fas fa-blog"></i>
+    <span>Textbooks and Books</span>
+</a>
+
                     </a>
                 </div>
                 
@@ -21771,4 +21774,3 @@ if(!user){
     <script src="profile-manager.js"></script>
 </body>
 </html>
-
