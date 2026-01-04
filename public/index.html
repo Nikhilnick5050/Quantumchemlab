@@ -6,148 +6,397 @@
 <title>QuantumChem | Login</title>
 
 <style>
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#1a1f3c,#2d1b5e);
-  font-family:Segoe UI,Tahoma,sans-serif;
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.login-box{
-  width:420px;
-  background:#fff;
-  padding:40px;
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1f3c, #2d1b5e);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 }
-h1{
-  text-align:center;
-  color:#3a2a7a;
-  margin-bottom:10px;
+
+/* Desktop layout - original design */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
 }
-p{
-  text-align:center;
-  color:#777;
-  margin-bottom:25px;
+
+.logo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
+
+.quantum-logo {
+  width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  border: 5px solid rgba(255, 255, 255, 0.1);
+}
+
+.quantum-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-box {
+  flex: 1;
+  max-width: 420px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  text-align: center;
+  color: #3a2a7a;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+}
+
+p {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
 .welcome-back {
-  text-align:center;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white;
-  padding:12px;
-  border-radius:8px;
-  margin-bottom:20px;
-  font-weight:600;
-  display:none;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: none;
 }
-.google-btn{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  background:#fff;
-  cursor:pointer;
-  font-weight:600;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  margin-bottom:10px;
+
+.google-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
-.google-btn:hover{background:#f5f5f5;}
-.divider{
-  margin:25px 0;
-  text-align:center;
-  color:#888;
-  position:relative;
+
+.google-btn:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  margin: 25px 0;
+  text-align: center;
+  color: #888;
+  position: relative;
+}
+
 .divider::before {
-  content:"";
-  position:absolute;
-  left:0;
-  top:50%;
-  width:40%;
-  height:1px;
-  background:#ddd;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ddd;
 }
+
 .divider::after {
-  content:"";
-  position:absolute;
-  right:0;
-  top:50%;
-  width:40%;
-  height:1px;
-  background:#ddd;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ddd;
 }
-label{
-  display:block;
-  margin-top:10px;
-  font-weight:500;
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #555;
 }
-input{
-  width:100%;
-  padding:13px;
-  margin-top:6px;
-  margin-bottom:15px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  font-size:16px;
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s;
 }
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.3s;
+
+input:focus {
+  outline: none;
+  border-color: #8a7dff;
+  box-shadow: 0 0 0 3px rgba(138, 125, 255, 0.1);
 }
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-.primary{
-  background:linear-gradient(135deg,#3a2a7a,#8a7dff);
-  color:white;
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.secondary{
-  margin-top:10px;
-  background:#f1f1f1;
-  color:#333;
+
+.primary {
+  background: linear-gradient(135deg, #3a2a7a, #8a7dff);
+  color: white;
+}
+
+.secondary {
+  margin-top: 10px;
+  background: #f1f1f1;
+  color: #333;
+}
+
+.secondary:hover {
+  background: #e5e5e5;
+}
+
+/* Loading indicator */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 10px;
+  color: #3a2a7a;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3a2a7a;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ========== MOBILE RESPONSIVE STYLES ========== */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 10px;
+  }
+  
+  .quantum-logo {
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    border-width: 3px;
+    margin-bottom: 10px;
+  }
+  
+  .login-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 25px;
+    border-radius: 15px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  p {
+    font-size: 0.95rem;
+  }
+  
+  .btn, .google-btn {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  input {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  /* Improve touch targets for mobile */
+  .btn, .google-btn, input {
+    min-height: 50px;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+  
+  .quantum-logo {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .login-box {
+    padding: 25px 20px;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+  }
+  
+  .google-btn span {
+    font-size: 0.95rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .login-box {
+    padding: 20px 15px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .btn, .google-btn {
+    padding: 14px;
+  }
+  
+  .divider {
+    margin: 20px 0;
+  }
+}
+
+/* Landscape mode for mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .login-container {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .quantum-logo {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .login-box {
+    padding: 25px;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+/* Desktop large screens */
+@media (min-width: 1400px) {
+  .quantum-logo {
+    width: 450px;
+    height: 450px;
+  }
+  
+  .login-box {
+    max-width: 450px;
+    padding: 45px;
+  }
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="login-box">
-  <h1>QuantumChem Lab</h1>
-  <p>Secure access for researchers</p>
-  
-  <!-- WELCOME BACK MESSAGE -->
-  <div id="welcomeBack" class="welcome-back">
-    Welcome back, User! 
+<div class="login-container">
+  <!-- Logo section - side by side on desktop, stacked on mobile -->
+  <div class="logo-section">
+    <div class="quantum-logo">
+      <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" 
+           alt="QuantumChem Logo">
+    </div>
   </div>
+  
+  <!-- Login form section -->
+  <div class="login-box">
+    <h1>QuantumChem Lab</h1>
+    <p>Secure access for researchers</p>
+    
+    <!-- WELCOME BACK MESSAGE -->
+    <div id="welcomeBack" class="welcome-back">
+      Welcome back, User! 
+    </div>
+    
+    <!-- Loading indicator -->
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Signing in...</p>
+    </div>
 
-  <button class="google-btn" onclick="googleLogin()">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
-    Continue with Google
-  </button>
+    <button class="google-btn" onclick="googleLogin()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      <span>Continue with Google</span>
+    </button>
 
-  <div class="divider">OR</div>
+    <div class="divider">OR</div>
 
-  <label>Full Name</label>
-  <input id="name" placeholder="Enter your name">
-
-  <label>Email</label>
-  <input id="email" type="email" placeholder="Enter your email">
-
-  <button class="btn primary" onclick="manualLogin()">Continue</button>
-  <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
+    <form id="loginForm" onsubmit="return false;">
+      <label for="name">Full Name</label>
+      <input id="name" placeholder="Enter your name" autocomplete="name">
+      
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="Enter your email" autocomplete="email">
+      
+      <button class="btn primary" onclick="manualLogin()">Continue</button>
+      <button class="btn secondary" onclick="guestLogin()">Continue as Guest</button>
+    </form>
+  </div>
 </div>
 
 <script type="module">
@@ -165,9 +414,20 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+/* Show loading indicator */
+function showLoading() {
+  document.getElementById('loading').style.display = 'block';
+}
+
+/* Hide loading indicator */
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
 /* GOOGLE LOGIN */
 window.googleLogin = async () => {
   try {
+    showLoading();
     const result = await signInWithPopup(auth, provider);
     const u = result.user;
 
@@ -180,11 +440,14 @@ window.googleLogin = async () => {
       photoURL: u.photoURL
     }));
 
-    // Also set a session cookie that expires when browser closes
     document.cookie = "qc_session=true; path=/";
     
-    window.location.href = "chemical.html";
+    setTimeout(() => {
+      window.location.href = "chemical.html";
+    }, 500);
+    
   } catch (error) {
+    hideLoading();
     console.error("Google login error:", error);
     alert("Login failed. Please try again.");
   }
@@ -192,49 +455,59 @@ window.googleLogin = async () => {
 
 /* MANUAL LOGIN */
 window.manualLogin = () => {
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
+  showLoading();
   
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  
-  if(!name || !email){ 
-    alert("Enter name & email"); 
-    return; 
-  }
+  setTimeout(() => {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    
+    if(!name || !email){ 
+      hideLoading();
+      alert("Please enter both name and email"); 
+      return; 
+    }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRegex.test(email)) {
-    alert("Please enter a valid email address");
-    return;
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(email)) {
+      hideLoading();
+      alert("Please enter a valid email address");
+      return;
+    }
 
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
-    name,
-    email,
-    provider: "manual",
-    logged: true
-  }));
-  
-  document.cookie = "qc_session=true; path=/";
-  
-  window.location.href = "chemical.html";
+    localStorage.setItem("qc_user", JSON.stringify({
+      uid: "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
+      name,
+      email,
+      provider: "manual",
+      logged: true
+    }));
+    
+    document.cookie = "qc_session=true; path=/";
+    
+    window.location.href = "chemical.html";
+  }, 300);
 };
 
 /* GUEST LOGIN */
 window.guestLogin = () => {
-  localStorage.setItem("qc_user", JSON.stringify({
-    uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
-    name: "Guest User",
-    email: "guest@quantumchem.site",
-    provider: "guest",
-    logged: true
-  }));
+  showLoading();
   
-  document.cookie = "qc_session=true; path=/";
-  
-  window.location.href = "chemical.html";
+  setTimeout(() => {
+    localStorage.setItem("qc_user", JSON.stringify({
+      uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
+      name: "Guest User",
+      email: "guest@quantumchem.site",
+      provider: "guest",
+      logged: true
+    }));
+    
+    document.cookie = "qc_session=true; path=/";
+    
+    window.location.href = "chemical.html";
+  }, 300);
 };
 
 /* SHOW WELCOME BACK MESSAGE */
@@ -246,16 +519,16 @@ function showWelcomeBack() {
       const welcomeBackElement = document.getElementById('welcomeBack');
       
       if(welcomeBackElement && user.name) {
-        welcomeBackElement.textContent = `Welcome back, ${user.name}! `;
+        welcomeBackElement.textContent = `Welcome back, ${user.name}!`;
         welcomeBackElement.style.display = 'block';
         
-        // Auto-fill for manual login users
         if(user.provider === "manual") {
           document.getElementById('name').value = user.name;
           document.getElementById('email').value = user.email;
         }
       }
     } catch(e) {
+      console.error("Error parsing user data:", e);
       localStorage.removeItem("qc_user");
     }
   }
@@ -263,9 +536,16 @@ function showWelcomeBack() {
 
 // Run when page loads
 document.addEventListener('DOMContentLoaded', showWelcomeBack);
+
+// Enable form submission with Enter key
+document.getElementById('loginForm').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    manualLogin();
+  }
+});
+
+// Add touch event listeners for better mobile UX
+document.addEventListener('touchstart', function() {}, {passive: true});
 </script>
-<img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" 
-     alt="QuantumChem Logo" 
-     style="max-width:100%; height:auto;">
 </body>
 </html>
