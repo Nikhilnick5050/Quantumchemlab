@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - QuantumChem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getAuth,
+            createUserWithEmailAndPassword,
+            GoogleAuthProvider
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
+            authDomain: "quantumchem-f8db7.firebaseapp.com",
+            projectId: "quantumchem-f8db7",
+            storageBucket: "quantumchem-f8db7.firebasestorage.app",
+            messagingSenderId: "393952510354",
+            appId: "1:393952510354:web:064c15a98a7eb4caaa814b",
+            measurementId: "G-H7MG7G03XR"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        window.auth = auth;
+        window.googleProvider = googleProvider;
+    </script>
+    <style>
+        /* Same styles as login.html, with minor adjustments */
+        /* ... */
+        
+        .password-strength {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .strength-bar {
+            height: 5px;
+            background-color: #ddd;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .weak { background-color: #e74c3c; }
+        .medium { background-color: #f39c12; }
+        .strong { background-color: #2ecc71; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Quantum<span>Chem</span></h1>
+            <p style="color: #a0a0d0; margin-top: 5px;">Create your account</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                </div>
+                <div class="password-strength">
+                    <span id="strengthText">Password strength: </span>
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="login-btn" id="registerButton">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </form>
+        
+        <div class="divider">Or sign up with</div>
+        
+        <button class="google-btn" id="googleRegisterButton">
+            <i class="fab fa-google"></i> Sign up with Google
+        </button>
+        
+        <div class="links">
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+            <p><a href="index.html">Back to Home</a></p>
+        </div>
+        
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Creating account...</p>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { 
+            createUserWithEmailAndPassword,
+            signInWithPopup 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const auth = window.auth;
+        const googleProvider = window.googleProvider;
+        const db = getFirestore();
+        
+        const registerForm = document.getElementById('registerForm');
+        const googleRegisterButton = document.getElementById('googleRegisterButton');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const loading = document.getElementById('loading');
+        const registerButton = document.getElementById('registerButton');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        
+        // Password strength checker
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+            
+            strengthFill.style.width = strength.score * 25 + '%';
+            strengthFill.className = 'strength-fill ' + strength.level;
+            strengthText.textContent = 'Password strength: ' + strength.text;
+        });
+        
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 8) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            
+            let level, text;
+            if (score === 0) {
+                level = 'weak'; text = 'Weak';
+            } else if (score <= 2) {
+                level = 'weak'; text = 'Fair';
+            } else if (score === 3) {
+                level = 'medium'; text = 'Good';
+            } else {
+                level = 'strong'; text = 'Strong';
+            }
+            
+            return { score, level, text };
+        }
+        
+        // Email/Password Registration
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                showError('Passwords do not match.');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('Password must be at least 6 characters.');
+                return;
+            }
+            
+            showLoading(true);
+            clearMessages();
+            
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                // Create user document in Firestore
+                await createUserDocument(user, fullName, 'Email/Password');
+                
+                showSuccess('Account created successfully! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 1500);
+                
+            } catch (error) {
+                showLoading(false);
+                showError(getErrorMessage(error.code));
+                console.error('Registration error:', error);
+            }
+        });
+        
+        // Google Registration
+        googleRegisterButton.addEventListener('click', async () => {
+            showLoading(true);
+            clearMessages();
+            
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                
+                // Create user document in Firestore
+                await createUserDocument(user, user.displayName, 'Google');
+                
+                showSuccess('Google sign-up successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 1500);
+                
+            } catch (error) {
+                showLoading(false);
+                showError(getErrorMessage(error.code));
+                console.error('Google registration error:', error);
+            }
+        });
+        
+        // Helper function to create user document
+        async function createUserDocument(user, fullName, loginMethod) {
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userData = {
+                    fullName: fullName || user.email.split('@')[0],
+                    email: user.email,
+                    userId: user.uid,
+                    loginMethod: loginMethod,
+                    activity: "Active",
+                    isOnline: true,
+                    accountCreated: serverTimestamp(),
+                    lastLogin: serverTimestamp()
+                };
+                
+                await setDoc(userRef, userData);
+                
+            } catch (error) {
+                console.error('Error creating user document:', error);
+                throw error;
+            }
+        }
+        
+        // Helper functions (same as login page)
+        function showLoading(show) {
+            loading.style.display = show ? 'block' : 'none';
+            registerButton.style.display = show ? 'none' : 'block';
+            googleRegisterButton.style.display = show ? 'none' : 'block';
+        }
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+        
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+        }
+        
+        function clearMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+        
+        function getErrorMessage(errorCode) {
+            switch(errorCode) {
+                case 'auth/email-already-in-use':
+                    return 'Email is already registered.';
+                case 'auth/invalid-email':
+                    return 'Invalid email address.';
+                case 'auth/operation-not-allowed':
+                    return 'Email/password accounts are not enabled.';
+                case 'auth/weak-password':
+                    return 'Password is too weak.';
+                case 'auth/popup-closed-by-user':
+                    return 'Google sign-up was cancelled.';
+                case 'auth/popup-blocked':
+                    return 'Popup was blocked by browser.';
+                default:
+                    return 'Registration failed. Please try again.';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -3,412 +3,784 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Quantum Chemistry Lab</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Privacy Policy for Quantum Chemistry Lab - How we collect, use, and protect your data">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
+    <title>Account Information - Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-
-        :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --font-primary: 'Inter', sans-serif;
-            --font-secondary: 'Poppins', sans-serif;
-        }
-
+        
         body {
-            font-family: var(--font-primary);
-            background: var(--primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            background-color: #0F123D;
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
+        
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
-
-        /* Header */
-        .main-header {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
+        
+        /* Header Styling */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(107, 99, 241, 0.2);
         }
-
-        .nav-brand a {
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+        
+        .logo span {
+            color: #6B63F1;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6B63F1, #8a84f5);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            text-decoration: none;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
             color: white;
         }
-
-        .nav-brand i {
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        .nav-menu a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        .nav-menu a:hover {
-            color: var(--accent);
-        }
-
-        /* Hero */
-        .page-hero {
-            padding: 6rem 0 3rem;
+        
+        /* Loading State */
+        .loading {
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 40px;
+            color: #a0a0d0;
         }
-
-        .page-hero h1 {
-            font-family: var(--font-secondary);
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        
+        .spinner {
+            border: 4px solid rgba(107, 99, 241, 0.3);
+            border-top: 4px solid #6B63F1;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
-
-        .page-hero p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        /* Content */
-        .policy-content {
-            padding: 4rem 0;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section h2 {
-            font-family: var(--font-secondary);
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .section h3 {
-            font-family: var(--font-secondary);
-            color: var(--text-primary);
-            margin: 1.5rem 0 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .section p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .section ul {
-            color: var(--text-secondary);
-            margin-left: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .last-updated {
-            background: var(--secondary);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 3rem;
-        }
-
-        /* Footer */
-        .main-footer {
-            background: var(--secondary);
-            padding: 3rem 0 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
+        
+        /* Main Content */
+        .profile-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 2rem;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
         }
-
-        .footer-column h4 {
-            margin-bottom: 1rem;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-column a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-column a:hover {
-            color: var(--accent);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .footer-content {
+            .profile-container {
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(107, 99, 241, 0.1);
+            height: fit-content;
+        }
+        
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #6B63F1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-title i {
+            font-size: 20px;
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-bottom: 15px;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #FFFFFF;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(107, 99, 241, 0.15);
+            color: #6B63F1;
+        }
+        
+        .nav-links i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(107, 99, 241, 0.1);
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(107, 99, 241, 0.2);
+        }
+        
+        .profile-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+        
+        .profile-title span {
+            color: #6B63F1;
+        }
+        
+        .edit-btn {
+            background-color: rgba(107, 99, 241, 0.2);
+            color: #6B63F1;
+            border: 1px solid #6B63F1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .edit-btn:hover {
+            background-color: #6B63F1;
+            color: #FFFFFF;
+        }
+        
+        /* Account Info Styling */
+        .account-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 600px) {
+            .account-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #6B63F1;
+        }
+        
+        .info-label {
+            font-size: 14px;
+            color: #a0a0d0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        
+        .activity-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .activity-status::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .activity-status.offline {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+        }
+        
+        .activity-status.offline::before {
+            background-color: #e74c3c;
+        }
+        
+        /* Activity & Timestamps */
+        .activity-section {
+            margin-top: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .timestamps {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .timestamp-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .timestamp-label {
+            font-size: 14px;
+            color: #a0a0d0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timestamp-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background-color: rgba(107, 99, 241, 0.15);
+            color: #6B63F1;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(107, 99, 241, 0.2);
+            color: #a0a0d0;
+            font-size: 14px;
+            width: 100%;
+        }
+        
+        /* Firebase Config Info */
+        .config-info {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #a0a0d0;
+        }
+        
+        .config-info h4 {
+            color: #6B63F1;
+            margin-bottom: 8px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
     </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <a href="index.html">
-                        <i class="fas fa-atom"></i>
-                        <span>QuantumChem</span>
-                    </a>
-                </div>
-                <div class="nav-menu">
-                    <a href="index.html">Home</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-            </nav>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Account<span>Info</span></div>
+            <div class="user-avatar" id="userAvatar">JS</div>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="page-hero">
-        <div class="container">
-            <h1>Privacy Policy</h1>
-            <p>How we collect, use, and protect your personal information</p>
-        </div>
-    </section>
-
-    <!-- Policy Content -->
-    <section class="policy-content">
-        <div class="container">
-            <div class="section">
-                <h2>1. Introduction</h2>
-                <p>Welcome to Quantum Chemistry Lab ("we," "our," or "us"). We are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our chemical database platform.</p>
-                <p>By accessing or using our services, you agree to the terms of this Privacy Policy. If you do not agree with the terms, please do not access the platform.</p>
-            </div>
-
-            <div class="section">
-                <h2>2. Information We Collect</h2>
-                
-                <h3>2.1 Personal Information</h3>
-                <p>We may collect personal information that you voluntarily provide to us, including:</p>
-                <ul>
-                    <li>Name and contact information (email address, phone number)</li>
-                    <li>Professional information (institution, department, position)</li>
-                    <li>Account credentials (username, password)</li>
-                    <li>Communication preferences</li>
-                </ul>
-
-                <h3>2.2 Usage Data</h3>
-                <p>We automatically collect certain information when you use our platform:</p>
-                <ul>
-                    <li>IP address and browser type</li>
-                    <li>Pages visited and time spent on pages</li>
-                    <li>Search queries and database usage patterns</li>
-                    <li>Device information and operating system</li>
-                </ul>
-
-                <h3>2.3 Cookies and Tracking Technologies</h3>
-                <p>We use cookies and similar tracking technologies to enhance your experience. For more information, please see our <a href="cookie-policy.html">Cookie Policy</a>.</p>
-            </div>
-
-            <div class="section">
-                <h2>3. How We Use Your Information</h2>
-                <p>We use the collected information for the following purposes:</p>
-                <ul>
-                    <li>To provide and maintain our services</li>
-                    <li>To personalize your experience</li>
-                    <li>To improve our platform and develop new features</li>
-                    <li>To communicate with you about updates and security alerts</li>
-                    <li>To conduct research and analysis</li>
-                    <li>To comply with legal obligations</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>4. Data Sharing and Disclosure</h2>
-                <p>We do not sell your personal information. We may share your information in the following circumstances:</p>
-                <ul>
-                    <li><strong>With Service Providers:</strong> Trusted third parties who assist in operating our platform</li>
-                    <li><strong>For Legal Compliance:</strong> When required by law or to protect our rights</li>
-                    <li><strong>With Your Consent:</strong> When you give us explicit permission</li>
-                    <li><strong>For Research Purposes:</strong> Anonymized and aggregated data may be shared for academic research</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>5. Data Security</h2>
-                <p>We implement appropriate technical and organizational security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.</p>
-                <p>For detailed information about our security practices, please see our <a href="security.html">Security Policy</a>.</p>
-            </div>
-
-            <div class="section">
-                <h2>6. Your Rights</h2>
-                <p>Depending on your location, you may have the following rights regarding your personal information:</p>
-                <ul>
-                    <li><strong>Access:</strong> Request access to your personal data</li>
-                    <li><strong>Correction:</strong> Request correction of inaccurate data</li>
-                    <li><strong>Deletion:</strong> Request deletion of your personal data</li>
-                    <li><strong>Restriction:</strong> Request restriction of processing</li>
-                    <li><strong>Portability:</strong> Request transfer of your data</li>
-                    <li><strong>Objection:</strong> Object to processing of your data</li>
-                </ul>
-                <p>To exercise these rights, please contact us at <a href="mailto:privacy@quantumchemlab.com">privacy@quantumchemlab.com</a>.</p>
-            </div>
-
-            <div class="section">
-                <h2>7. Data Retention</h2>
-                <p>We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required or permitted by law.</p>
-            </div>
-
-            <div class="section">
-                <h2>8. International Data Transfers</h2>
-                <p>Your information may be transferred to and maintained on computers located outside of your country, where data protection laws may differ. By using our services, you consent to such transfers.</p>
-            </div>
-
-            <div class="section">
-                <h2>9. Children's Privacy</h2>
-                <p>Our services are not intended for individuals under 16 years of age. We do not knowingly collect personal information from children under 16. If we become aware that we have collected personal information from a child under 16, we will take steps to delete such information.</p>
-            </div>
-
-            <div class="section">
-                <h2>10. Changes to This Policy</h2>
-                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last Updated" date. You are advised to review this policy periodically.</p>
-            </div>
-
-            <div class="section">
-                <h2>11. Contact Us</h2>
-                <p>If you have any questions about this Privacy Policy, please contact us:</p>
-                <ul>
-                    <li>Email: <a href="mailto:quantumchem25@gmail.com">privacy@quantumchemlab.com</a></li>
-                    <li>Address: PCCOE, Sector 26, Pradhikaran, Nigdi, Pune, Maharashtra 411044</li>
-                    <li>Phone: +91 12345 67890</li>
-                </ul>
-            </div>
-
-            <div class="last-updated">
-                <p><strong>Last Updated:</strong> December 21, 2025</p>
-                <p>This version of the Privacy Policy replaces all previous versions.</p>
+        
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+            <div class="spinner"></div>
+            <p>Loading profile data from Firebase...</p>
+            <div class="config-info">
+                <h4>Firebase Configuration Required:</h4>
+                <p>To connect to your Firebase project, replace the firebaseConfig object with your project credentials.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h4>Platform</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#database">Chemicals</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Research Papers</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                        <li><a href="security.html">Security</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:quantumchem25@gmail.com">Email Support</a></li>
-                        <li><a href="contact.html">Contact Form</a></li>
-                        <li>PCCOE, Pune</li>
-                        <li>+91 12345 67890</li>
-                    </ul>
-                </div>
+        
+        <!-- Main Content (Initially Hidden) -->
+        <div class="profile-container" id="profileContent" style="display: none;">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <h3 class="nav-title"><i class="fas fa-user-circle"></i> Navigation</h3>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" id="homeLink"><i class="fas fa-home"></i> Back to Home</a></li>
+                    <li><a href="#" id="editLink"><i class="fas fa-edit"></i> Edit Profile</a></li>
+                    <li><a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <div class="profile-header">
+                    <h1 class="profile-title">Account <span>Information</span></h1>
+                    <button class="edit-btn" id="editProfileBtn"><i class="fas fa-edit"></i> Edit Profile</button>
+                </div>
+                
+                <!-- Account Information -->
+                <div class="account-info">
+                    <div class="info-card">
+                        <div class="info-label"><i class="fas fa-user"></i> Full Name</div>
+                        <div class="info-value" id="fullName">Loading...</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-label"><i class="fas fa-envelope"></i> Email Address</div>
+                        <div class="info-value" id="emailAddress">Loading...</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-label"><i class="fas fa-sign-in-alt"></i> Login Method</div>
+                        <div class="info-value" id="loginMethod">Loading...</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-label"><i class="fas fa-id-card"></i> User ID</div>
+                        <div class="info-value" id="userId">Loading...</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-label"><i class="fas fa-chart-line"></i> Activity</div>
+                        <div class="info-value">
+                            <span id="activityStatus">Loading...</span>
+                            <span class="activity-status" id="onlineStatus">Online</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Timestamps -->
+                <div class="activity-section">
+                    <h3 class="section-title"><i class="fas fa-history"></i> Account History</h3>
+                    <div class="timestamps">
+                        <div class="timestamp-card">
+                            <div class="timestamp-label"><i class="fas fa-calendar-plus"></i> Account Created</div>
+                            <div class="timestamp-value" id="accountCreated">Loading...</div>
+                            <div class="date-badge" id="createdAgo">...</div>
+                        </div>
+                        
+                        <div class="timestamp-card">
+                            <div class="timestamp-label"><i class="fas fa-clock"></i> Last Login</div>
+                            <div class="timestamp-value" id="lastLogin">Loading...</div>
+                            <div class="date-badge" id="lastLoginAgo">...</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2023 AccountInfo. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </div>
+    
+    <script>
+        // ===========================================
+        // FIREBASE CONFIGURATION
+        // ===========================================
+        // REPLACE THIS WITH YOUR ACTUAL FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyYOUR_API_KEY_HERE",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        // ===========================================
+        // INITIALIZE FIREBASE
+        // ===========================================
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firebase services
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // ===========================================
+        // USER DATA - In a real app, this would come from Firebase
+        // For demo purposes, we'll simulate fetching from Firestore
+        // ===========================================
+        const mockUserData = {
+            fullName: "John Smith",
+            email: "john.smith@example.com",
+            loginMethod: "Google OAuth",
+            userId: "USR-7890-4567-1234",
+            activity: "Active",
+            isOnline: true,
+            accountCreated: "March 15, 2023",
+            accountCreatedTimestamp: new Date(2023, 2, 15, 10, 30, 0), // March 15, 2023, 10:30 AM
+            lastLogin: new Date(), // Will be set to current time
+            lastLoginTimestamp: new Date() // Current time for demo
+        };
+        
+        // ===========================================
+        // UTILITY FUNCTIONS
+        // ===========================================
+        function formatDate(date) {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        function formatTime(date) {
+            const options = { 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                hour12: true 
+            };
+            return date.toLocaleTimeString('en-US', options);
+        }
+        
+        function timeAgo(date) {
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            const diffMonths = Math.floor(diffDays / 30);
+            
+            if (diffMins < 1) {
+                return "Just now";
+            } else if (diffMins < 60) {
+                return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
+            } else if (diffHours < 24) {
+                return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+            } else if (diffDays < 30) {
+                return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+            } else {
+                return `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'} ago`;
+            }
+        }
+        
+        // ===========================================
+        // FETCH USER DATA FROM FIREBASE
+        // ===========================================
+        async function fetchUserData() {
+            try {
+                console.log("Fetching user data from Firebase...");
+                
+                // In a real app, you would:
+                // 1. Get current user from Firebase Auth
+                // 2. Fetch user document from Firestore
+                
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // For demo, we'll use mock data
+                // But this is where you'd implement real Firebase calls:
+                
+                // REAL FIREBASE CODE (COMMENTED FOR DEMO):
+                /*
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error("No user logged in");
+                }
+                
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (!userDoc.exists) {
+                    throw new Error("User document not found");
+                }
+                
+                const userData = userDoc.data();
+                return userData;
+                */
+                
+                // For demo, return mock data
+                return mockUserData;
+                
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                // Return mock data as fallback
+                return mockUserData;
+            }
+        }
+        
+        // ===========================================
+        // UPDATE USER ACTIVITY (SIMULATE REAL-TIME)
+        // ===========================================
+        function updateUserActivity() {
+            // Simulate user activity updates
+            const isOnline = Math.random() > 0.3; // 70% chance of being online
+            
+            const activityStatus = document.getElementById('activityStatus');
+            const onlineStatus = document.getElementById('onlineStatus');
+            
+            if (isOnline) {
+                activityStatus.textContent = "Active";
+                onlineStatus.textContent = "Online";
+                onlineStatus.className = "activity-status";
+            } else {
+                activityStatus.textContent = "Inactive";
+                onlineStatus.textContent = "Offline";
+                onlineStatus.className = "activity-status offline";
+            }
+            
+            // Update last login time
+            const now = new Date();
+            const lastLoginElement = document.getElementById('lastLogin');
+            const lastLoginAgoElement = document.getElementById('lastLoginAgo');
+            
+            // Format for display
+            const formattedDate = formatDate(now);
+            const formattedTime = formatTime(now);
+            
+            lastLoginElement.textContent = `Today, ${formattedTime}`;
+            lastLoginAgoElement.textContent = timeAgo(now);
+            
+            // In a real app, you would update Firestore here:
+            /*
+            const user = auth.currentUser;
+            if (user) {
+                db.collection('users').doc(user.uid).update({
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                    isOnline: isOnline
+                });
+            }
+            */
+        }
+        
+        // ===========================================
+        // UPDATE UI WITH USER DATA
+        // ===========================================
+        function updateUI(userData) {
+            // Hide loading, show content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('profileContent').style.display = 'grid';
+            
+            // Update user info
+            document.getElementById('fullName').textContent = userData.fullName;
+            document.getElementById('emailAddress').textContent = userData.email;
+            document.getElementById('loginMethod').textContent = userData.loginMethod;
+            document.getElementById('userId').textContent = userData.userId;
+            
+            // Update activity status
+            const activityStatus = document.getElementById('activityStatus');
+            const onlineStatus = document.getElementById('onlineStatus');
+            
+            activityStatus.textContent = userData.activity;
+            if (userData.isOnline) {
+                onlineStatus.textContent = "Online";
+                onlineStatus.className = "activity-status";
+            } else {
+                onlineStatus.textContent = "Offline";
+                onlineStatus.className = "activity-status offline";
+            }
+            
+            // Update account creation info
+            const createdDate = userData.accountCreatedTimestamp || new Date(2023, 2, 15);
+            document.getElementById('accountCreated').textContent = formatDate(createdDate);
+            document.getElementById('createdAgo').textContent = timeAgo(createdDate);
+            
+            // Update last login info
+            const lastLoginDate = userData.lastLoginTimestamp || new Date();
+            document.getElementById('lastLogin').textContent = `Today, ${formatTime(lastLoginDate)}`;
+            document.getElementById('lastLoginAgo').textContent = timeAgo(lastLoginDate);
+            
+            // Update user avatar initials
+            const nameParts = userData.fullName.split(' ');
+            const initials = (nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : '')).toUpperCase();
+            document.getElementById('userAvatar').textContent = initials;
+        }
+        
+        // ===========================================
+        // EVENT LISTENERS AND INITIALIZATION
+        // ===========================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fetch user data from Firebase
+            const userData = await fetchUserData();
+            
+            // Update UI with fetched data
+            updateUI(userData);
+            
+            // Set up real-time activity updates
+            // Simulate periodic updates (every 30 seconds)
+            setInterval(updateUserActivity, 30000);
+            
+            // Initial activity update
+            updateUserActivity();
+            
+            // Edit button functionality
+            document.getElementById('editProfileBtn').addEventListener('click', function() {
+                alert('Edit profile feature would open here. In a real implementation, this would open a form to edit user details in Firestore.');
+                
+                // Real implementation would update Firestore:
+                /*
+                const newName = prompt("Enter new name:", userData.fullName);
+                if (newName && newName.trim() !== '') {
+                    const user = auth.currentUser;
+                    db.collection('users').doc(user.uid).update({
+                        fullName: newName.trim()
+                    }).then(() => {
+                        alert('Profile updated successfully!');
+                        // Refresh data
+                        fetchUserData().then(updateUI);
+                    });
+                }
+                */
+            });
+            
+            // Navigation links functionality
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const linkText = this.textContent.trim();
+                    
+                    switch(linkText) {
+                        case 'Back to Home':
+                            alert('Navigating to Home page...');
+                            break;
+                        case 'Edit Profile':
+                            alert('Opening Edit Profile form...');
+                            break;
+                        case 'Logout':
+                            // Real Firebase logout implementation:
+                            /*
+                            auth.signOut().then(() => {
+                                window.location.href = '/login.html';
+                            }).catch(error => {
+                                console.error('Logout error:', error);
+                            });
+                            */
+                            alert('Logging out... (Firebase Auth signOut would be called)');
+                            break;
+                    }
+                });
+            });
+            
+            // Simulate real-time presence updates
+            // This would normally be handled by Firebase Realtime Database or Firestore presence system
+            const simulatePresence = () => {
+                const statuses = ['Online', 'Away', 'Offline'];
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                const onlineStatus = document.getElementById('onlineStatus');
+                
+                if (randomStatus === 'Online') {
+                    onlineStatus.textContent = "Online";
+                    onlineStatus.className = "activity-status";
+                } else if (randomStatus === 'Away') {
+                    onlineStatus.textContent = "Away";
+                    onlineStatus.className = "activity-status offline";
+                } else {
+                    onlineStatus.textContent = "Offline";
+                    onlineStatus.className = "activity-status offline";
+                }
+            };
+            
+            // Update presence every 45 seconds
+            setInterval(simulatePresence, 45000);
+        });
+        
+        // ===========================================
+        // FIREBASE AUTH STATE LISTENER (REAL IMPLEMENTATION)
+        // ===========================================
+        // In a real app, you would listen for auth state changes:
+        /*
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, fetch their data
+                fetchUserData(user.uid).then(updateUI);
+            } else {
+                // No user is signed in, redirect to login
+                window.location.href = '/login.html';
+            }
+        });
+        */
+    </script>
 </body>
 </html>
