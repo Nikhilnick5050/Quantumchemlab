@@ -1,97 +1,99 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Homepage -->
-  <url>
-    <loc>https://quantumchem.site/</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- Login Page -->
-  <url>
-    <loc>https://quantumchem.site/login.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Chemical Database Page -->
-  <url>
-    <loc>https://quantumchem.site/chemical.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Team Page -->
-  <url>
-    <loc>https://quantumchem.site/team.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Tutorials -->
-  <url>
-    <loc>https://quantumchem.site/tutorials.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Sources -->
-  <url>
-    <loc>https://quantumchem.site/sources.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Acknowledgement -->
-  <url>
-    <loc>https://quantumchem.site/acknowledgement.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Contact -->
-  <url>
-    <loc>https://quantumchem.site/contact.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Legal Pages -->
-  <url>
-    <loc>https://quantumchem.site/privacy.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <url>
-    <loc>https://quantumchem.site/terms.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <url>
-    <loc>https://quantumchem.site/security.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <url>
-    <loc>https://quantumchem.site/disclaimer.html</loc>
-    <lastmod>2025-12-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://www.quantumchem.site/</loc>
+	<lastmod>2026-01-05T18:15:00+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://quantumchem.site/textbook%20and%20book.html</loc>
+	<lastmod>2026-01-05T18:15:00+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/textbook%20and%20book.html</loc>
+	<lastmod>2026-01-05T18:15:01+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/pdf/chemistry.pdf</loc>
+	<lastmod>2026-01-05T18:15:01+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/profile.html</loc>
+	<lastmod>2026-01-05T18:15:02+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/login.html</loc>
+	<lastmod>2026-01-05T18:15:02+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/contact.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/team.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/documentation.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/tutorials.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/privacy-policy.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/terms.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/cookie-policy.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/security.html</loc>
+	<lastmod>2026-01-05T18:15:04+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/acknowledgement.html</loc>
+	<lastmod>2026-01-05T18:15:05+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/sources.html</loc>
+	<lastmod>2026-01-05T18:15:05+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/pdf/125B1B028_Nikhil_Shinde.pdf</loc>
+	<lastmod>2026-01-05T18:15:06+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/privacy.html</loc>
+	<lastmod>2026-01-05T18:15:07+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quantumchem.site/disclaimer.html</loc>
+	<lastmod>2026-01-05T18:15:08+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
 </urlset>
