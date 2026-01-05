@@ -44,15 +44,7 @@ font-size:18px;
 font-weight:600;">
 </div>
 
-<script>
-const user = JSON.parse(localStorage.getItem("qc_user"));
 
-if (!user) {
-  location.href = "index.html";
-} else {
-  document.getElementById("welcomeBar").innerText = `Welcome ${user.name} 👋 to QuantumChem Laboratory`;
-}
-</script>
     <!-- Styles -->
     <style>
         #chat-btn {
