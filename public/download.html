@@ -3,44 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download QuantumChem</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Download | QuantumChem</title>
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --text-light: #f8fafc;
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .download-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .download-card:hover {
+            transform: translateY(-5px);
+        }
+        .os-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: opacity 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .requirements {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="download.html">Download</a>
+    <nav class="navbar">
+        <a href="/" class="logo">QuantumChem</a>
+        <div class="nav-links">
             <a href="features.html">Features</a>
+            <a href="documentation.html">Documentation</a>
             <a href="pricing.html">Pricing</a>
-        </nav>
-    </header>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
     
-    <main>
-        <h1>Download QuantumChem</h1>
-        <p>Get the latest version of QuantumChem software</p>
+    <div class="container">
+        <h1 class="page-title">Download QuantumChem</h1>
         
-        <div class="download-option">
-            <h2>Windows</h2>
-            <button>Download for Windows</button>
-            <p>Version 2.1.0 | 64-bit</p>
+        <div class="download-grid">
+            <div class="download-card">
+                <div class="os-icon">💻</div>
+                <h3>Windows</h3>
+                <p>Version 2.5.1 | 64-bit</p>
+                <p>Requires Windows 10 or later</p>
+                <a href="#" class="btn">Download (.exe)</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">File size: 285 MB</p>
+            </div>
+            
+            <div class="download-card">
+                <div class="os-icon">🍎</div>
+                <h3>macOS</h3>
+                <p>Version 2.5.1 | Universal</p>
+                <p>macOS 11.0 or later</p>
+                <a href="#" class="btn">Download (.dmg)</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">File size: 312 MB</p>
+            </div>
+            
+            <div class="download-card">
+                <div class="os-icon">🐧</div>
+                <h3>Linux</h3>
+                <p>Version 2.5.1 | .deb & .rpm</p>
+                <p>Ubuntu 20.04+, Fedora 34+</p>
+                <a href="#" class="btn">Download (.deb)</a>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">File size: 298 MB</p>
+            </div>
         </div>
         
-        <div class="download-option">
-            <h2>macOS</h2>
-            <button>Download for macOS</button>
-            <p>Version 2.1.0 | Apple Silicon</p>
+        <div class="requirements">
+            <h2>System Requirements</h2>
+            <ul>
+                <li><strong>Minimum:</strong> 8GB RAM, 4GB disk space, 2.0 GHz processor</li>
+                <li><strong>Recommended:</strong> 16GB RAM, 10GB disk space, 3.0 GHz+ processor</li>
+                <li><strong>Graphics:</strong> OpenGL 4.0 compatible GPU recommended for visualization</li>
+                <li><strong>Operating System:</strong> Windows 10/11, macOS 11+, or Linux with glibc 2.31+</li>
+            </ul>
         </div>
         
-        <div class="download-option">
-            <h2>Linux</h2>
-            <button>Download for Linux</button>
-            <p>Version 2.1.0 | Ubuntu/Debian</p>
+        <div style="margin-top: 3rem; text-align: center;">
+            <h3>Need help with installation?</h3>
+            <p>Check our <a href="documentation.html" style="color: var(--accent);">installation guide</a> or <a href="contact.html" style="color: var(--accent);">contact support</a>.</p>
         </div>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 QuantumChem. All rights reserved.</p>
-    </footer>
+    </div>
 </body>
 </html>

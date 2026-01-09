@@ -36,14 +36,63 @@
 
   <!-- Structured Data (Logo & Site name like Cursor) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "QuantumChem",
-    "url": "https://quantumchem.site",
-    "logo": "https://quantumchem.site/favicon-32x32.png"
-  }
+  
   </script>
+  <!-- Organization + Logo + Social Profiles + Contact -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "QuantumChem",
+  "url": "https://quantumchem.site",
+  "logo": "https://quantumchem.site/favicon-32x32.png",
+  "sameAs": [
+    "https://www.instagram.com/quantumchem25/",
+    "https://www.facebook.com/profile.php?id=61585853281971",
+    "https://quantumchemblog.wordpress.com"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "url": "https://quantumchem.site/contact.html",
+    "contactType": "Customer Support"
+  }
+}
+</script>
+
+<!-- Website identity -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "QuantumChem",
+  "url": "https://quantumchem.site"
+}
+</script>
+
+<!-- Google sitelinks (Features, Chemistry, Downloads, Pricing, Notes, Contact) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SiteNavigationElement",
+  "name": [
+    "Features",
+    "Chemistry",
+    "Downloads",
+    "Pricing",
+    "Notes",
+    "Contact"
+  ],
+  "url": [
+    "https://quantumchem.site/features.html",
+    "https://quantumchem.site/documentation.html",
+    "https://quantumchem.site/download.html",
+    "https://quantumchem.site/pricing.html",
+    "https://quantumchem.site/documentation.html",
+    "https://quantumchem.site/contact.html"
+  ]
+}
+</script>
+
 </div>
     <!-- Styles -->
     <style>
