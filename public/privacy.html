@@ -3,784 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Information - Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <title>Pricing | QuantumChem</title>
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <style>
-        * {
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --purple: #764ba2;
+            --text-light: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
         }
-        
-        body {
-            background-color: #0F123D;
-            color: #FFFFFF;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        /* Header Styling */
-        .header {
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(107, 99, 241, 0.2);
         }
-        
         .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #FFFFFF;
-        }
-        
-        .logo span {
-            color: #6B63F1;
-        }
-        
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6B63F1, #8a84f5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 20px;
-            color: white;
-        }
-        
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #a0a0d0;
-        }
-        
-        .spinner {
-            border: 4px solid rgba(107, 99, 241, 0.3);
-            border-top: 4px solid #6B63F1;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Main Content */
-        .profile-container {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        @media (max-width: 768px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Sidebar Navigation */
-        .sidebar {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(107, 99, 241, 0.1);
-            height: fit-content;
-        }
-        
-        .nav-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #6B63F1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .nav-title i {
-            font-size: 20px;
-        }
-        
-        .nav-links {
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-bottom: 15px;
-        }
-        
-        .nav-links a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            color: var(--accent);
             text-decoration: none;
-            color: #FFFFFF;
-            padding: 12px 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
         }
-        
-        .nav-links a:hover, .nav-links a.active {
-            background-color: rgba(107, 99, 241, 0.15);
-            color: #6B63F1;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
-        
-        .nav-links i {
-            width: 20px;
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
             text-align: center;
         }
-        
-        /* Profile Content */
-        .profile-content {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(107, 99, 241, 0.1);
-        }
-        
-        .profile-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(107, 99, 241, 0.2);
-        }
-        
-        .profile-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: #FFFFFF;
-        }
-        
-        .profile-title span {
-            color: #6B63F1;
-        }
-        
-        .edit-btn {
-            background-color: rgba(107, 99, 241, 0.2);
-            color: #6B63F1;
-            border: 1px solid #6B63F1;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .edit-btn:hover {
-            background-color: #6B63F1;
-            color: #FFFFFF;
-        }
-        
-        /* Account Info Styling */
-        .account-info {
+        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
         }
-        
-        @media (max-width: 600px) {
-            .account-info {
-                grid-template-columns: 1fr;
-            }
+        .pricing-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .info-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid #6B63F1;
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
         }
-        
-        .info-label {
-            font-size: 14px;
-            color: #a0a0d0;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
-        
-        .info-value {
-            font-size: 18px;
-            font-weight: 600;
-            color: #FFFFFF;
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .activity-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 12px;
-            background-color: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 5px;
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
         }
-        
-        .activity-status::before {
-            content: "";
-            width: 8px;
-            height: 8px;
-            background-color: #2ecc71;
-            border-radius: 50%;
-            margin-right: 8px;
+        .period {
+            color: var(--text-light);
+            opacity: 0.7;
         }
-        
-        .activity-status.offline {
-            background-color: rgba(231, 76, 60, 0.15);
-            color: #e74c3c;
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
         }
-        
-        .activity-status.offline::before {
-            background-color: #e74c3c;
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        
-        /* Activity & Timestamps */
-        .activity-section {
-            margin-top: 30px;
+        .features li:last-child {
+            border-bottom: none;
         }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #FFFFFF;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .timestamps {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .timestamp-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        
-        .timestamp-label {
-            font-size: 14px;
-            color: #a0a0d0;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .timestamp-value {
-            font-size: 18px;
-            font-weight: 600;
-            color: #FFFFFF;
-        }
-        
-        .date-badge {
-            display: inline-block;
-            background-color: rgba(107, 99, 241, 0.15);
-            color: #6B63F1;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-        
-        /* Footer */
-        .footer {
+        .btn {
+            display: block;
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(107, 99, 241, 0.2);
-            color: #a0a0d0;
-            font-size: 14px;
-            width: 100%;
-        }
-        
-        /* Firebase Config Info */
-        .config-info {
-            background-color: rgba(255, 255, 255, 0.05);
+            background: var(--gradient-accent);
+            color: white;
+            padding: 1rem;
             border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #a0a0d0;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: opacity 0.3s;
         }
-        
-        .config-info h4 {
-            color: #6B63F1;
-            margin-bottom: 8px;
+        .btn:hover {
+            opacity: 0.9;
         }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .profile-header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
+        .faq {
+            margin-top: 4rem;
+        }
+        .faq-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <a href="/" class="logo">QuantumChem</a>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="download.html">Download</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">Account<span>Info</span></div>
-            <div class="user-avatar" id="userAvatar">JS</div>
-        </div>
+        <h1 class="page-title">Pricing Plans</h1>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">
+            Choose the perfect plan for your computational chemistry needs. All plans include core features and regular updates.
+        </p>
         
-        <!-- Loading State -->
-        <div class="loading" id="loadingState">
-            <div class="spinner"></div>
-            <p>Loading profile data from Firebase...</p>
-            <div class="config-info">
-                <h4>Firebase Configuration Required:</h4>
-                <p>To connect to your Firebase project, replace the firebaseConfig object with your project credentials.</p>
-            </div>
-        </div>
-        
-        <!-- Main Content (Initially Hidden) -->
-        <div class="profile-container" id="profileContent" style="display: none;">
-            <!-- Sidebar Navigation -->
-            <div class="sidebar">
-                <h3 class="nav-title"><i class="fas fa-user-circle"></i> Navigation</h3>
-                <ul class="nav-links">
-                    <li><a href="#" class="active" id="homeLink"><i class="fas fa-home"></i> Back to Home</a></li>
-                    <li><a href="#" id="editLink"><i class="fas fa-edit"></i> Edit Profile</a></li>
-                    <li><a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="plan-name">Student</h3>
+                <div class="price">Free</div>
+                <p class="period">For academic use only</p>
+                <ul class="features">
+                    <li>✓ All core calculation methods</li>
+                    <li>✓ Up to 100 atoms</li>
+                    <li>✓ Basic visualization tools</li>
+                    <li>✓ Educational resources</li>
+                    <li>✗ Priority support</li>
+                    <li>✗ Advanced solvers</li>
+                    <li>✗ Batch processing</li>
                 </ul>
+                <a href="students.html" class="btn">Get Started</a>
             </div>
             
-            <!-- Profile Content -->
-            <div class="profile-content">
-                <div class="profile-header">
-                    <h1 class="profile-title">Account <span>Information</span></h1>
-                    <button class="edit-btn" id="editProfileBtn"><i class="fas fa-edit"></i> Edit Profile</button>
-                </div>
-                
-                <!-- Account Information -->
-                <div class="account-info">
-                    <div class="info-card">
-                        <div class="info-label"><i class="fas fa-user"></i> Full Name</div>
-                        <div class="info-value" id="fullName">Loading...</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label"><i class="fas fa-envelope"></i> Email Address</div>
-                        <div class="info-value" id="emailAddress">Loading...</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label"><i class="fas fa-sign-in-alt"></i> Login Method</div>
-                        <div class="info-value" id="loginMethod">Loading...</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label"><i class="fas fa-id-card"></i> User ID</div>
-                        <div class="info-value" id="userId">Loading...</div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-label"><i class="fas fa-chart-line"></i> Activity</div>
-                        <div class="info-value">
-                            <span id="activityStatus">Loading...</span>
-                            <span class="activity-status" id="onlineStatus">Online</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Activity Timestamps -->
-                <div class="activity-section">
-                    <h3 class="section-title"><i class="fas fa-history"></i> Account History</h3>
-                    <div class="timestamps">
-                        <div class="timestamp-card">
-                            <div class="timestamp-label"><i class="fas fa-calendar-plus"></i> Account Created</div>
-                            <div class="timestamp-value" id="accountCreated">Loading...</div>
-                            <div class="date-badge" id="createdAgo">...</div>
-                        </div>
-                        
-                        <div class="timestamp-card">
-                            <div class="timestamp-label"><i class="fas fa-clock"></i> Last Login</div>
-                            <div class="timestamp-value" id="lastLogin">Loading...</div>
-                            <div class="date-badge" id="lastLoginAgo">...</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3 class="plan-name">Professional</h3>
+                <div class="price">$49<span style="font-size: 1rem;">/month</span></div>
+                <p class="period">Billed annually or $59 monthly</p>
+                <ul class="features">
+                    <li>✓ All Student features</li>
+                    <li>✓ Unlimited atoms</li>
+                    <li>✓ Advanced visualization</li>
+                    <li>✓ Priority email support</li>
+                    <li>✓ DFT, MP2, CCSD calculations</li>
+                    <li>✓ Batch processing</li>
+                    <li>✓ API access</li>
+                </ul>
+                <a href="#" class="btn">Start Free Trial</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="plan-name">Enterprise</h3>
+                <div class="price">Custom</div>
+                <p class="period">Tailored for research labs & industry</p>
+                <ul class="features">
+                    <li>✓ All Professional features</li>
+                    <li>✓ Dedicated support</li>
+                    <li>✓ Custom integrations</li>
+                    <li>✓ On-premise deployment</li>
+                    <li>✓ Training & onboarding</li>
+                    <li>✓ SLA guarantee</li>
+                    <li>✓ Team management</li>
+                </ul>
+                <a href="contact.html" class="btn">Contact Sales</a>
             </div>
         </div>
         
-        <!-- Footer -->
-        <div class="footer">
-            <p>&copy; 2023 AccountInfo. All rights reserved. | Privacy Policy | Terms of Service</p>
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Can I switch plans later?</h3>
+                <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is there a free trial for paid plans?</h3>
+                <p>Yes, Professional plan includes a 14-day free trial with all features.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do you offer academic discounts?</h3>
+                <p>Yes, universities and research institutions receive 50% off on Professional plan.</p>
+            </div>
         </div>
     </div>
-    
-    <script>
-        // ===========================================
-        // FIREBASE CONFIGURATION
-        // ===========================================
-        // REPLACE THIS WITH YOUR ACTUAL FIREBASE CONFIG
-        const firebaseConfig = {
-            apiKey: "AIzaSyYOUR_API_KEY_HERE",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        // ===========================================
-        // INITIALIZE FIREBASE
-        // ===========================================
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        
-        // Initialize Firebase services
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        
-        // ===========================================
-        // USER DATA - In a real app, this would come from Firebase
-        // For demo purposes, we'll simulate fetching from Firestore
-        // ===========================================
-        const mockUserData = {
-            fullName: "John Smith",
-            email: "john.smith@example.com",
-            loginMethod: "Google OAuth",
-            userId: "USR-7890-4567-1234",
-            activity: "Active",
-            isOnline: true,
-            accountCreated: "March 15, 2023",
-            accountCreatedTimestamp: new Date(2023, 2, 15, 10, 30, 0), // March 15, 2023, 10:30 AM
-            lastLogin: new Date(), // Will be set to current time
-            lastLoginTimestamp: new Date() // Current time for demo
-        };
-        
-        // ===========================================
-        // UTILITY FUNCTIONS
-        // ===========================================
-        function formatDate(date) {
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            };
-            return date.toLocaleDateString('en-US', options);
-        }
-        
-        function formatTime(date) {
-            const options = { 
-                hour: 'numeric', 
-                minute: 'numeric', 
-                hour12: true 
-            };
-            return date.toLocaleTimeString('en-US', options);
-        }
-        
-        function timeAgo(date) {
-            const now = new Date();
-            const diffMs = now - date;
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
-            const diffMonths = Math.floor(diffDays / 30);
-            
-            if (diffMins < 1) {
-                return "Just now";
-            } else if (diffMins < 60) {
-                return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
-            } else if (diffHours < 24) {
-                return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
-            } else if (diffDays < 30) {
-                return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
-            } else {
-                return `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'} ago`;
-            }
-        }
-        
-        // ===========================================
-        // FETCH USER DATA FROM FIREBASE
-        // ===========================================
-        async function fetchUserData() {
-            try {
-                console.log("Fetching user data from Firebase...");
-                
-                // In a real app, you would:
-                // 1. Get current user from Firebase Auth
-                // 2. Fetch user document from Firestore
-                
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // For demo, we'll use mock data
-                // But this is where you'd implement real Firebase calls:
-                
-                // REAL FIREBASE CODE (COMMENTED FOR DEMO):
-                /*
-                const user = auth.currentUser;
-                if (!user) {
-                    throw new Error("No user logged in");
-                }
-                
-                const userDoc = await db.collection('users').doc(user.uid).get();
-                if (!userDoc.exists) {
-                    throw new Error("User document not found");
-                }
-                
-                const userData = userDoc.data();
-                return userData;
-                */
-                
-                // For demo, return mock data
-                return mockUserData;
-                
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                // Return mock data as fallback
-                return mockUserData;
-            }
-        }
-        
-        // ===========================================
-        // UPDATE USER ACTIVITY (SIMULATE REAL-TIME)
-        // ===========================================
-        function updateUserActivity() {
-            // Simulate user activity updates
-            const isOnline = Math.random() > 0.3; // 70% chance of being online
-            
-            const activityStatus = document.getElementById('activityStatus');
-            const onlineStatus = document.getElementById('onlineStatus');
-            
-            if (isOnline) {
-                activityStatus.textContent = "Active";
-                onlineStatus.textContent = "Online";
-                onlineStatus.className = "activity-status";
-            } else {
-                activityStatus.textContent = "Inactive";
-                onlineStatus.textContent = "Offline";
-                onlineStatus.className = "activity-status offline";
-            }
-            
-            // Update last login time
-            const now = new Date();
-            const lastLoginElement = document.getElementById('lastLogin');
-            const lastLoginAgoElement = document.getElementById('lastLoginAgo');
-            
-            // Format for display
-            const formattedDate = formatDate(now);
-            const formattedTime = formatTime(now);
-            
-            lastLoginElement.textContent = `Today, ${formattedTime}`;
-            lastLoginAgoElement.textContent = timeAgo(now);
-            
-            // In a real app, you would update Firestore here:
-            /*
-            const user = auth.currentUser;
-            if (user) {
-                db.collection('users').doc(user.uid).update({
-                    lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-                    isOnline: isOnline
-                });
-            }
-            */
-        }
-        
-        // ===========================================
-        // UPDATE UI WITH USER DATA
-        // ===========================================
-        function updateUI(userData) {
-            // Hide loading, show content
-            document.getElementById('loadingState').style.display = 'none';
-            document.getElementById('profileContent').style.display = 'grid';
-            
-            // Update user info
-            document.getElementById('fullName').textContent = userData.fullName;
-            document.getElementById('emailAddress').textContent = userData.email;
-            document.getElementById('loginMethod').textContent = userData.loginMethod;
-            document.getElementById('userId').textContent = userData.userId;
-            
-            // Update activity status
-            const activityStatus = document.getElementById('activityStatus');
-            const onlineStatus = document.getElementById('onlineStatus');
-            
-            activityStatus.textContent = userData.activity;
-            if (userData.isOnline) {
-                onlineStatus.textContent = "Online";
-                onlineStatus.className = "activity-status";
-            } else {
-                onlineStatus.textContent = "Offline";
-                onlineStatus.className = "activity-status offline";
-            }
-            
-            // Update account creation info
-            const createdDate = userData.accountCreatedTimestamp || new Date(2023, 2, 15);
-            document.getElementById('accountCreated').textContent = formatDate(createdDate);
-            document.getElementById('createdAgo').textContent = timeAgo(createdDate);
-            
-            // Update last login info
-            const lastLoginDate = userData.lastLoginTimestamp || new Date();
-            document.getElementById('lastLogin').textContent = `Today, ${formatTime(lastLoginDate)}`;
-            document.getElementById('lastLoginAgo').textContent = timeAgo(lastLoginDate);
-            
-            // Update user avatar initials
-            const nameParts = userData.fullName.split(' ');
-            const initials = (nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : '')).toUpperCase();
-            document.getElementById('userAvatar').textContent = initials;
-        }
-        
-        // ===========================================
-        // EVENT LISTENERS AND INITIALIZATION
-        // ===========================================
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Fetch user data from Firebase
-            const userData = await fetchUserData();
-            
-            // Update UI with fetched data
-            updateUI(userData);
-            
-            // Set up real-time activity updates
-            // Simulate periodic updates (every 30 seconds)
-            setInterval(updateUserActivity, 30000);
-            
-            // Initial activity update
-            updateUserActivity();
-            
-            // Edit button functionality
-            document.getElementById('editProfileBtn').addEventListener('click', function() {
-                alert('Edit profile feature would open here. In a real implementation, this would open a form to edit user details in Firestore.');
-                
-                // Real implementation would update Firestore:
-                /*
-                const newName = prompt("Enter new name:", userData.fullName);
-                if (newName && newName.trim() !== '') {
-                    const user = auth.currentUser;
-                    db.collection('users').doc(user.uid).update({
-                        fullName: newName.trim()
-                    }).then(() => {
-                        alert('Profile updated successfully!');
-                        // Refresh data
-                        fetchUserData().then(updateUI);
-                    });
-                }
-                */
-            });
-            
-            // Navigation links functionality
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all links
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    const linkText = this.textContent.trim();
-                    
-                    switch(linkText) {
-                        case 'Back to Home':
-                            alert('Navigating to Home page...');
-                            break;
-                        case 'Edit Profile':
-                            alert('Opening Edit Profile form...');
-                            break;
-                        case 'Logout':
-                            // Real Firebase logout implementation:
-                            /*
-                            auth.signOut().then(() => {
-                                window.location.href = '/login.html';
-                            }).catch(error => {
-                                console.error('Logout error:', error);
-                            });
-                            */
-                            alert('Logging out... (Firebase Auth signOut would be called)');
-                            break;
-                    }
-                });
-            });
-            
-            // Simulate real-time presence updates
-            // This would normally be handled by Firebase Realtime Database or Firestore presence system
-            const simulatePresence = () => {
-                const statuses = ['Online', 'Away', 'Offline'];
-                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-                const onlineStatus = document.getElementById('onlineStatus');
-                
-                if (randomStatus === 'Online') {
-                    onlineStatus.textContent = "Online";
-                    onlineStatus.className = "activity-status";
-                } else if (randomStatus === 'Away') {
-                    onlineStatus.textContent = "Away";
-                    onlineStatus.className = "activity-status offline";
-                } else {
-                    onlineStatus.textContent = "Offline";
-                    onlineStatus.className = "activity-status offline";
-                }
-            };
-            
-            // Update presence every 45 seconds
-            setInterval(simulatePresence, 45000);
-        });
-        
-        // ===========================================
-        // FIREBASE AUTH STATE LISTENER (REAL IMPLEMENTATION)
-        // ===========================================
-        // In a real app, you would listen for auth state changes:
-        /*
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, fetch their data
-                fetchUserData(user.uid).then(updateUI);
-            } else {
-                // No user is signed in, redirect to login
-                window.location.href = '/login.html';
-            }
-        });
-        */
-    </script>
 </body>
 </html>

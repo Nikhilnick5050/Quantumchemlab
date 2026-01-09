@@ -34,64 +34,78 @@
   <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Structured Data (Logo & Site name like Cursor) -->
+  <!-- JSON-LD Structured Data -->
+
+  <!-- Website identity + Sitelinks -->
   <script type="application/ld+json">
-  
-  </script>
-  <!-- Organization + Logo + Social Profiles + Contact -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "QuantumChem",
-  "url": "https://quantumchem.site",
-  "logo": "https://quantumchem.site/favicon-32x32.png",
-  "sameAs": [
-    "https://www.instagram.com/quantumchem25/",
-    "https://www.facebook.com/profile.php?id=61585853281971",
-    "https://quantumchemblog.wordpress.com"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "url": "https://quantumchem.site/contact.html",
-    "contactType": "Customer Support"
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "QuantumChem",
+    "url": "https://quantumchem.site",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://quantumchem.site/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "hasPart": [
+      {"@type": "WebPage", "name": "Features", "url": "https://quantumchem.site/features.html"},
+      {"@type": "WebPage", "name": "Documentation", "url": "https://quantumchem.site/documentation.html"},
+      {"@type": "WebPage", "name": "Help", "url": "https://quantumchem.site/help.html"},
+      {"@type": "WebPage", "name": "Notes", "url": "https://quantumchem.site/notes.html"},
+      {"@type": "WebPage", "name": "Downloads", "url": "https://quantumchem.site/download.html"},
+      {"@type": "WebPage", "name": "Pricing", "url": "https://quantumchem.site/pricing.html"},
+      {"@type": "WebPage", "name": "Contact", "url": "https://quantumchem.site/contact.html"}
+    ]
   }
-}
-</script>
+  </script>
 
-<!-- Website identity -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "QuantumChem",
-  "url": "https://quantumchem.site"
-}
-</script>
+  <!-- Organization + Logo + Social Profiles -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "QuantumChem",
+    "url": "https://quantumchem.site",
+    "logo": "https://quantumchem.site/favicon-32x32.png",
+    "sameAs": [
+      "https://www.instagram.com/quantumchem25/",
+      "https://www.facebook.com/profile.php?id=61585853281971",
+      "https://quantumchemblog.wordpress.com"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "url": "https://quantumchem.site/contact.html",
+      "contactType": "Customer Support"
+    }
+  }
+  </script>
 
-<!-- Google sitelinks (Features, Chemistry, Downloads, Pricing, Notes, Contact) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SiteNavigationElement",
-  "name": [
-    "Features",
-    "Chemistry",
-    "Downloads",
-    "Pricing",
-    "Notes",
-    "Contact"
-  ],
-  "url": [
-    "https://quantumchem.site/features.html",
-    "https://quantumchem.site/documentation.html",
-    "https://quantumchem.site/download.html",
-    "https://quantumchem.site/pricing.html",
-    "https://quantumchem.site/documentation.html",
-    "https://quantumchem.site/contact.html"
-  ]
-}
-</script>
+  <!-- Site Navigation for Google Sitelinks -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": [
+      "Features",
+      "Documentation",
+      "Help",
+      "Notes",
+      "Downloads",
+      "Pricing",
+      "Contact"
+    ],
+    "url": [
+      "https://quantumchem.site/features.html",
+      "https://quantumchem.site/documentation.html",
+      "https://quantumchem.site/help.html",
+      "https://quantumchem.site/notes.html",
+      "https://quantumchem.site/download.html",
+      "https://quantumchem.site/pricing.html",
+      "https://quantumchem.site/contact.html"
+    ]
+  }
+  </script>
 
 </div>
     <!-- Styles -->
