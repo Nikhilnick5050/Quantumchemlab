@@ -1,0 +1,33 @@
+{
+  "name": "QuantumChem",
+  "short_name": "QuantumChem",
+  "description": "QuantumChem – Learn Chemistry & Science Smartly",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+
+  "developer": {
+    "name": "QuantumChem",
+    "url": "https://quantumchem.site"
+  },
+
+  "social": {
+    "instagram": "https://www.instagram.com/quantumchem25/",
+    "facebook": "https://www.facebook.com/profile.php?id=61585853281971",
+    "blog": "https://quantumchemblog.wordpress.com"
+  }
+}
