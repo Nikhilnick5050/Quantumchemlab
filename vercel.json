@@ -9,5 +9,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "quantumchem.site"
+        }
+      ],
+      "destination": "https://www.quantumchem.site/$1",
+      "permanent": true
+    }
   ]
 }
