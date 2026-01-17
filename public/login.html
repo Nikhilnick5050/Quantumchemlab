@@ -306,7 +306,7 @@ input:focus {
   }
   
   h1 {
-    font-size: 1.5rem;
+    fontSize: 1.5rem;
   }
   
   .btn, .google-btn {
@@ -421,6 +421,50 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+// Webhook URL - updated as requested
+const WEBHOOK_URL = "https://quantumchem.app.n8n.cloud/webhook-test/ 22e7b267-e630-41c1-9295-4b109706acce";
+
+/* Send user data to webhook - FIXED VERSION */
+async function sendToWebhook(userData) {
+  try {
+    const payload = {
+      timestamp: new Date().toISOString(),
+      event: "user_login",
+      source: "quantumchem_login_page",
+      ...userData
+    };
+
+    console.log('Sending to webhook:', payload);
+    
+    // Send data to webhook with proper headers
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    // Try to read response if available
+    if (response.ok) {
+      console.log('Webhook success - Status:', response.status);
+      try {
+        const responseData = await response.text();
+        console.log('Webhook response:', responseData);
+      } catch (e) {
+        console.log('Webhook sent successfully (no response body)');
+      }
+    } else {
+      console.log('Webhook warning - Status:', response.status);
+    }
+    
+  } catch (error) {
+    console.log('Webhook error:', error);
+    // Don't interrupt login flow - just log the error
+  }
+}
+
 /* Show loading indicator */
 function showLoading() {
   document.getElementById('loading').style.display = 'block';
@@ -438,17 +482,30 @@ window.googleLogin = async () => {
     const result = await signInWithPopup(auth, provider);
     const u = result.user;
 
-    localStorage.setItem("qc_user", JSON.stringify({
+    const userData = {
       uid: u.uid,
       name: u.displayName,
       email: u.email,
       provider: "google",
-      logged: true,
-      photoURL: u.photoURL
+      photoURL: u.photoURL,
+      loginMethod: "google_oauth",
+      timestamp: new Date().toISOString()
+    };
+
+    console.log('Google login successful:', userData);
+    
+    // Save to localStorage
+    localStorage.setItem("qc_user", JSON.stringify({
+      ...userData,
+      logged: true
     }));
 
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook (async - don't wait for it)
+    sendToWebhook(userData).catch(e => console.log('Webhook background error:', e));
+    
+    // Redirect immediately
     setTimeout(() => {
       window.location.href = "index.html";
     }, 500);
@@ -461,10 +518,10 @@ window.googleLogin = async () => {
 };
 
 /* MANUAL LOGIN */
-window.manualLogin = () => {
+window.manualLogin = async () => {
   showLoading();
   
-  setTimeout(() => {
+  try {
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     
@@ -484,37 +541,72 @@ window.manualLogin = () => {
       return;
     }
 
-    localStorage.setItem("qc_user", JSON.stringify({
+    const userData = {
       uid: "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
       name,
       email,
       provider: "manual",
+      loginMethod: "manual_entry",
+      timestamp: new Date().toISOString()
+    };
+
+    console.log('Manual login successful:', userData);
+    
+    // Save to localStorage
+    localStorage.setItem("qc_user", JSON.stringify({
+      ...userData,
       logged: true
     }));
     
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook (async - don't wait for it)
+    sendToWebhook(userData).catch(e => console.log('Webhook background error:', e));
+    
+    // Redirect
     window.location.href = "index.html";
-  }, 300);
+    
+  } catch (error) {
+    hideLoading();
+    console.error("Manual login error:", error);
+    alert("An error occurred. Please try again.");
+  }
 };
 
 /* GUEST LOGIN */
 window.guestLogin = () => {
   showLoading();
   
-  setTimeout(() => {
-    localStorage.setItem("qc_user", JSON.stringify({
+  try {
+    const userData = {
       uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
       name: "Guest User",
       email: "guest@quantumchem.site",
       provider: "guest",
+      loginMethod: "guest_access",
+      timestamp: new Date().toISOString()
+    };
+
+    console.log('Guest login successful:', userData);
+    
+    // Save to localStorage
+    localStorage.setItem("qc_user", JSON.stringify({
+      ...userData,
       logged: true
     }));
     
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook (async - don't wait for it)
+    sendToWebhook(userData).catch(e => console.log('Webhook background error:', e));
+    
     window.location.href = "chemical.html";
-  }, 300);
+    
+  } catch (error) {
+    hideLoading();
+    console.error("Guest login error:", error);
+    alert("An error occurred. Please try again.");
+  }
 };
 
 /* SHOW WELCOME BACK MESSAGE */
@@ -553,6 +645,16 @@ document.getElementById('loginForm').addEventListener('keypress', function(e) {
 
 // Add touch event listeners for better mobile UX
 document.addEventListener('touchstart', function() {}, {passive: true});
+
+// Test webhook on page load (optional - remove in production)
+// setTimeout(() => {
+//   console.log('Testing webhook connection...');
+//   sendToWebhook({
+//     test: true,
+//     message: "Webhook test from login page",
+//     uid: "test_" + Date.now()
+//   });
+// }, 1000);
 </script>
 </body>
 </html>
