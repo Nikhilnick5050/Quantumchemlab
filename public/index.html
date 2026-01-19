@@ -1,11 +1,13 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
  
  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- SEO -->
   <title>QuantumChem – Advanced Chemical Database & Research Platform</title>
@@ -316,19 +318,18 @@
         }
 
         body {
-            font-family: var(--font-primary);
-            background: var(--primary);
-            color: #f8fafc;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+    font-family: var(--font-primary);
+    background: var(--primary);
+    color: #f8fafc;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
 
         /* ===== TYPOGRAPHY ===== */
         h1, h2, h3, h4 {
@@ -1928,7 +1929,62 @@
                 padding: 1rem;
             }
         }
+/* ===== ANDROID SPECIFIC FIXES ===== */
+@media (max-width: 412px) {
+    .container {
+        padding: 0 1rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+    }
+}
 
+@media (max-width: 384px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+    .nav-brand .logo-text h1 {
+        font-size: 1.2rem;
+    }
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    h1 {
+        font-size: 2rem !important;
+    }
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    .chemical-card {
+        padding: 1rem;
+    }
+    .search-filter {
+        min-width: 100%;
+    }
+}
+
+/* Fix for Samsung Galaxy Fold and very small screens */
+@media (max-width: 320px) {
+    .container {
+        padding: 0 0.25rem;
+    }
+    .user-btn span {
+        display: none;
+    }
+    .nav-actions {
+        gap: 0.5rem;
+    }
+}
         /* ===== LOADING STATES ===== */
         .loading-chemicals, .modal-loading {
             text-align: center;
