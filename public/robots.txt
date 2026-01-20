@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /favicon.ico
+Allow: /apple-touch-icon.png
+Allow: /android-chrome-192x192.png
+Allow: /android-chrome-512x512.png
