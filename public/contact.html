@@ -440,24 +440,23 @@
 
         /* ===== CHATBOT INTERNAL COMPONENTS ===== */
         
-        /* Chatbot Header - Professional like ChatGPT */
+        /* Chatbot Header */
         .chatbot-header {
             background: var(--gradient-dark);
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem;
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
-            min-height: 65px;
+            min-height: 70px;
             z-index: 10;
             position: sticky;
             top: 0;
-            backdrop-filter: blur(10px);
         }
 
         .chatbot-header h3 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin: 0;
             display: flex;
             align-items: center;
@@ -466,38 +465,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
             color: white;
-            font-weight: 600;
         }
 
         .chatbot-header i {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--accent-light);
             flex-shrink: 0;
         }
 
-        /* Professional ChatGPT-like status indicator */
-        .chatbot-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-left: auto;
-            margin-right: 1rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .status-text {
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-
-        /* Chatbot Close Button - Professional X */
+        /* Chatbot Close Button */
         .chatbot-close {
             background: none;
             border: none;
@@ -505,15 +481,14 @@
             cursor: pointer;
             font-size: 1.4rem;
             transition: var(--transition-normal);
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             -webkit-tap-highlight-color: transparent;
-            padding: 0;
         }
 
         .chatbot-close:hover {
@@ -525,41 +500,37 @@
             transform: scale(0.95);
         }
 
-        /* Chatbot Messages Area - Professional Scrolling */
+        /* Chatbot Messages Area - Perfect Scrolling */
         .chatbot-messages {
             flex: 1 1 auto;
             padding: 1.5rem;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1rem;
             min-height: 0;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
             scroll-behavior: smooth;
             padding-bottom: 1rem;
-            background: var(--primary);
         }
 
         /* Custom scrollbar for messages */
         .chatbot-messages::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .chatbot-messages::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
         }
 
         .chatbot-messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+            background: var(--accent);
+            border-radius: 4px;
         }
 
-        .chatbot-messages::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Chatbot Message Bubbles - Professional Style */
+        /* Chatbot Message Bubbles */
         .chatbot-message {
             max-width: 85%;
             padding: 1rem 1.25rem;
@@ -572,7 +543,6 @@
             word-break: break-word;
             animation: messageSlide 0.3s ease-out;
             flex-shrink: 0;
-            position: relative;
         }
 
         @keyframes messageSlide {
@@ -586,41 +556,35 @@
             }
         }
 
-        /* User Message - Clean and Professional */
+        /* User Message */
         .chatbot-message.user {
             background: var(--gradient-accent);
             color: white;
             align-self: flex-end;
-            border-radius: var(--radius-lg);
-            border-bottom-right-radius: var(--radius-sm);
-            margin-left: auto;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+            border-top-left-radius: var(--radius-lg);
+            border-bottom-left-radius: var(--radius-lg);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
-        /* Bot Message - Clean ChatGPT Style */
+        /* Bot Message */
         .chatbot-message.bot {
             background: rgba(30, 41, 59, 0.8);
             color: #e5e7eb;
             align-self: flex-start;
-            border-radius: var(--radius-lg);
-            border-bottom-left-radius: var(--radius-sm);
-            margin-right: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Welcome message - Compact and Neat */
-        .chatbot-message.bot.welcome {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: var(--radius-lg);
+            border-bottom-right-radius: var(--radius-lg);
             border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         /* Formatting for paragraphs and lists in bot messages */
         .chatbot-message.bot p {
             margin-bottom: 0.75rem;
             color: #e5e7eb;
-            line-height: 1.6;
         }
 
         .chatbot-message.bot p:last-child {
@@ -630,16 +594,10 @@
         .chatbot-message.bot ul,
         .chatbot-message.bot ol {
             margin: 0.5rem 0 0.75rem 1.5rem;
-            padding: 0;
         }
 
         .chatbot-message.bot li {
             margin-bottom: 0.5rem;
-            color: #e5e7eb;
-        }
-
-        .chatbot-message.bot li:last-child {
-            margin-bottom: 0;
         }
 
         .chatbot-message.bot strong {
@@ -652,67 +610,51 @@
             font-style: italic;
         }
 
-        /* Compact spacing for welcome message */
-        .chatbot-message.bot.welcome p {
-            margin-bottom: 0.5rem;
-        }
-
-        .chatbot-message.bot.welcome ul {
-            margin: 0.25rem 0 0.5rem 1.25rem;
-        }
-
-        .chatbot-message.bot.welcome li {
-            margin-bottom: 0.25rem;
-            font-size: 0.95rem;
-        }
-
         /* Mobile Message Adjustments */
         @media (max-width: 767px) {
             .chatbot-message {
-                max-width: 88%;
+                max-width: 90%;
                 font-size: 1rem;
                 line-height: 1.6;
                 padding: 0.875rem 1rem;
             }
             
             .chatbot-message.user {
-                border-radius: var(--radius-lg);
-                border-bottom-right-radius: var(--radius-sm);
+                margin-left: auto;
+                border-bottom-right-radius: var(--radius-md);
+                border-top-right-radius: var(--radius-lg);
+                border-bottom-left-radius: var(--radius-lg);
+                border-top-left-radius: var(--radius-lg);
             }
             
             .chatbot-message.bot {
-                border-radius: var(--radius-lg);
-                border-bottom-left-radius: var(--radius-sm);
-            }
-            
-            .chatbot-message.bot.welcome {
-                border-left: 3px solid var(--accent);
+                margin-right: auto;
+                border-bottom-left-radius: var(--radius-md);
+                border-top-left-radius: var(--radius-lg);
+                border-bottom-right-radius: var(--radius-lg);
+                border-top-right-radius: var(--radius-lg);
             }
         }
 
         @media (max-width: 480px) {
             .chatbot-message {
-                max-width: 90%;
+                max-width: 92%;
                 font-size: 0.95rem;
                 padding: 0.75rem 0.875rem;
             }
-            
-            .chatbot-message.bot.welcome li {
-                font-size: 0.9rem;
-            }
         }
 
-        /* Chatbot Input Area - Professional Sticky Bottom */
+        /* Chatbot Input Area - Sticky Bottom */
         .chatbot-input {
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem;
             border-top: 1px solid var(--glass-border);
             background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             display: flex;
             gap: 0.75rem;
             align-items: center;
             flex-shrink: 0;
-            min-height: 80px;
+            min-height: 85px;
             z-index: 10;
             position: sticky;
             bottom: 0;
@@ -742,7 +684,6 @@
 
         .chatbot-input input::placeholder {
             color: #94a3b8;
-            opacity: 0.7;
         }
 
         .chatbot-input button {
@@ -776,16 +717,6 @@
             background: #4b5563;
             cursor: not-allowed;
             transform: none;
-            opacity: 0.7;
-        }
-
-        /* Professional send button icon */
-        .chatbot-input button i {
-            transition: transform 0.2s ease;
-        }
-
-        .chatbot-input button:hover i {
-            transform: translateX(2px);
         }
 
         /* Mobile Input Adjustments */
@@ -801,14 +732,12 @@
                 font-size: 16px; /* Prevents iOS zoom */
                 min-height: 45px;
                 padding: 0.875rem 1rem;
-                border-radius: var(--radius-md);
             }
             
             .chatbot-input button {
                 height: 45px;
                 min-width: 45px;
                 padding: 0.875rem;
-                border-radius: var(--radius-md);
             }
         }
 
@@ -821,18 +750,16 @@
             .chatbot-input input {
                 min-height: 45px;
                 padding: 0.75rem 0.875rem;
-                font-size: 0.95rem;
             }
             
             .chatbot-input button {
                 height: 45px;
                 min-width: 45px;
                 padding: 0.75rem;
-                font-size: 1rem;
             }
         }
 
-        /* Quick Actions Bar - Professional Style */
+        /* Quick Actions Bar */
         .quick-actions {
             display: flex;
             flex-wrap: wrap;
@@ -845,7 +772,7 @@
         }
 
         .quick-action-btn {
-            padding: 0.625rem 1rem;
+            padding: 0.5rem 1rem;
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: var(--radius-md);
@@ -856,17 +783,11 @@
             white-space: nowrap;
             flex: 1 0 auto;
             -webkit-tap-highlight-color: transparent;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
         }
 
         .quick-action-btn:hover {
             background: rgba(59, 130, 246, 0.2);
             transform: translateY(-1px);
-            border-color: var(--accent);
         }
 
         .quick-action-btn:active {
@@ -881,9 +802,8 @@
             
             .quick-action-btn {
                 flex: 1 0 calc(50% - 0.5rem);
-                font-size: 0.85rem;
-                padding: 0.5rem 0.75rem;
-                min-height: 40px;
+                font-size: 0.875rem;
+                padding: 0.625rem 0.75rem;
             }
         }
 
@@ -896,7 +816,6 @@
                 flex: 1 0 100%;
                 font-size: 0.8rem;
                 padding: 0.5rem 0.625rem;
-                min-height: 38px;
             }
         }
 
@@ -971,19 +890,18 @@
             }
         }
 
-        /* Loading Indicator - Professional Style */
+        /* Loading Indicator */
         .typing-indicator {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             padding: 1rem 1.25rem;
             background: rgba(30, 41, 59, 0.8);
             border-radius: var(--radius-lg);
             align-self: flex-start;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent);
             flex-shrink: 0;
             margin: 0;
-            max-width: 85%;
         }
 
         .typing-dots {
@@ -1012,25 +930,8 @@
                 transform: translateY(0);
             }
             30% {
-                transform: translateY(-6px);
+                transform: translateY(-8px);
             }
-        }
-
-        /* Message Timestamp (Optional) */
-        .message-timestamp {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-top: 0.25rem;
-            text-align: right;
-            opacity: 0.8;
-        }
-
-        .chatbot-message.user .message-timestamp {
-            text-align: right;
-        }
-
-        .chatbot-message.bot .message-timestamp {
-            text-align: left;
         }
 
         /* ===== HEADER STYLES ===== */
@@ -1801,7 +1702,8 @@
             </div>
         </div>
     </section>
-        <!-- Map Section -->
+
+    <!-- Map Section -->
     <section class="map-section">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
@@ -1908,6 +1810,7 @@
                         <ul>
                             <li><a href="documentation.html">Documentation</a></li>
                             <li><a href="tutorials.html">Tutorials</a></li>
+                            
                             <li><a href="downloads.html">Downloads</a></li>
                         </ul>
                     </div>
@@ -1940,17 +1843,13 @@
     <div class="chatbot-container" id="chatbotContainer">
         <div class="chatbot-header">
             <h3><i class="fas fa-robot"></i> AI QuantumChem Assistant</h3>
-            <div class="chatbot-status">
-                <div class="status-dot"></div>
-                <span class="status-text">Online</span>
-            </div>
             <button class="chatbot-close" id="chatbotClose">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
         <div class="chatbot-messages" id="chatbotMessages">
-            <div class="chatbot-message bot welcome">
+            <div class="chatbot-message bot">
                 <p><strong>Hello! 👋 I'm your AI Quantum Chemistry Assistant.</strong></p>
                 <p>I can help you with:</p>
                 <ul>
@@ -1966,22 +1865,10 @@
         
         <!-- Quick Actions -->
         <div class="quick-actions" id="quickActions">
-            <button class="quick-action-btn" data-action="contact">
-                <i class="fas fa-phone"></i>
-                <span>Contact Info</span>
-            </button>
-            <button class="quick-action-btn" data-action="hours">
-                <i class="fas fa-clock"></i>
-                <span>Office Hours</span>
-            </button>
-            <button class="quick-action-btn" data-action="database">
-                <i class="fas fa-database"></i>
-                <span>Database Access</span>
-            </button>
-            <button class="quick-action-btn" data-action="help">
-                <i class="fas fa-question-circle"></i>
-                <span>Help Guide</span>
-            </button>
+            <button class="quick-action-btn" data-action="contact">📞 Contact Info</button>
+            <button class="quick-action-btn" data-action="hours">🕒 Office Hours</button>
+            <button class="quick-action-btn" data-action="database">🔬 Database Access</button>
+            <button class="quick-action-btn" data-action="help">❓ Help Guide</button>
         </div>
         
         <div class="chatbot-input">
@@ -2140,618 +2027,369 @@
                 return phoneNumber;
             }
             
-           // ===== ENHANCED CHATBOT FUNCTIONALITY WITH OPENAI API =====
-const chatbotToggle = document.getElementById('chatbotToggle');
-const chatbotContainer = document.getElementById('chatbotContainer');
-const chatbotClose = document.getElementById('chatbotClose');
-const chatbotMessages = document.getElementById('chatbotMessages');
-const chatbotInput = document.getElementById('chatbotInput');
-const chatbotSend = document.getElementById('chatbotSend');
-const quickActions = document.getElementById('quickActions');
-const body = document.body;
-
-// Chatbot configuration
-const chatbotConfig = {
-    apiEndpoint: "/api/chat", // Your OpenAI API endpoint
-    systemPrompt: `You are QuantumChem AI Assistant for Quantum Chemistry Lab at PCCOE.
-    
-Your purpose is to help users with:
-1. Chemical database queries and information
-2. Research collaboration opportunities
-3. Technical support for the platform
-4. Contact information and office hours
-5. FAQ about quantum chemistry and our platform
-
-Important details to remember:
-- Developed by: Nikhil Shinde
-- Email: quantumchem25@gmail.com
-- Phone: +91 81492 77038
-- WhatsApp: +91 81492 77038
-- Office hours: Mon-Fri 9AM-6PM, Sat 10AM-2PM IST
-- Location: PCCOE, Sector 26, Pradhikaran, Nigdi, Pune
-- Database access: Free for basic use, institutional email for full access
-- Platform: QuantumChem - Advanced Chemical Database
-
-Be professional, helpful, and concise. Format responses with clear structure using bullet points when appropriate.
-Always acknowledge the user's question and provide relevant, accurate information.
-NEVER mention OpenAI or ChatGPT in your responses.`,
-    maxHistoryLength: 10,
-    fallbackResponses: {
-        'hello': "Hello! 👋 I'm your AI Quantum Chemistry assistant. How can I help you today?",
-        'hi': "Hi there! I'm here to help with chemical database queries and research information.",
-        'hey': "Hey! Welcome to Quantum Chemistry Lab. What can I assist you with?",
-        'contact': "📧 **Email:** quantumchem25@gmail.com\n📞 **Phone:** +91 81492 77038\n📍 **Location:** PCCOE, Pune\n🕒 **Office Hours:** Mon–Fri, 9AM–6PM IST",
-        'email': "📧 **Email Contact:**\n\n• **Primary:** quantumchem25@gmail.com\n• **Response Time:** Within 24 hours\n• **For urgent matters:** Please call or WhatsApp",
-        'phone': "📱 **Phone Contact:**\n\n• **Phone:** +91 81492 77038\n• **Hours:** Mon-Fri, 9AM-6PM IST\n• **WhatsApp:** Same number available",
-        'hours': "🕒 **Office Hours:**\n\n• **Monday - Friday:** 9:00 AM - 6:00 PM IST\n• **Saturday:** 10:00 AM - 2:00 PM IST\n• **Sunday:** Closed\n\nFor urgent matters, please call or WhatsApp.",
-        'database': "🔬 **QuantumChem Database Access**\n\n• Chemical compound information\n• Safety and research data\n• Academic & laboratory support\n• Research collaboration\n\nAccess is available for students and researchers.",
-        'help': "❓ **How I can help:**\n\n• Chemical compound information\n• Database queries and access\n• Research collaboration details\n• Technical support issues\n• Contact information\n• Platform FAQs\n\nWhat would you like to know?",
-        'support': "🔧 **Technical Support:**\n\n• **Email:** quantumchem25@gmail.com\n• **Response Time:** Within 24 hours\n• **Priority:** Registered users get faster support\n• **Documentation:** Available on our platform",
-        'location': "📍 **Laboratory Location:**\n\n• **Institute:** PCCOE, Pune\n• **Address:** Sector 26, Pradhikaran, Nigdi\n• **City:** Pune, Maharashtra 411044\n• **Google Maps:** Available on our contact page",
-        'team': "👥 **Research Team:**\n\n• **Lead Researchers:** 5 PhDs in Chemistry\n• **Assistants:** 10 Graduate Students\n• **Collaborators:** Multiple institutions\n• **Focus:** Quantum chemistry and computational research",
-        'research': "📚 **Research Areas:**\n\n• Quantum chemical calculations\n• Molecular dynamics simulations\n• Drug discovery\n• Material science\n• Chemical database development",
-        'collaboration': "🤝 **Collaboration Opportunities:**\n\n• **Academic:** Joint research projects\n• **Industry:** Applied chemistry solutions\n• **Data Sharing:** Database contributions\n• **Internships:** Student opportunities available",
-        'thanks': "You're welcome! 😊 Is there anything else I can help you with?",
-        'thank': "You're welcome! 😊 Is there anything else I can help you with?",
-        'bye': "Goodbye! 👋 Feel free to reach out anytime if you have more questions.",
-        'default': "I'm your Quantum Chemistry AI assistant! I can help you with:\n\n• **Database Queries** - Search chemical compounds\n• **Research Info** - Latest findings and papers\n• **Contact Details** - How to reach our team\n• **Technical Support** - Platform assistance\n\nPlease ask me anything specific!"
-    }
-};
-
-// Store conversation history
-let conversationHistory = [];
-
-// Enhanced toggle with smooth transitions
-chatbotToggle.addEventListener('click', function() {
-    const isOpening = !chatbotContainer.classList.contains('active');
-    
-    if (isOpening) {
-        body.classList.add('chatbot-active');
-        chatbotContainer.classList.add('active');
-        setTimeout(() => {
-            chatbotInput.focus();
-            // Scroll to bottom when opening
-            if (chatbotMessages) {
-                chatbotMessages.scrollTo({
-                    top: chatbotMessages.scrollHeight,
-                    behavior: 'smooth'
+            // ===== ENHANCED CHATBOT FUNCTIONALITY =====
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotContainer = document.getElementById('chatbotContainer');
+            const chatbotClose = document.getElementById('chatbotClose');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotSend = document.getElementById('chatbotSend');
+            const quickActions = document.getElementById('quickActions');
+            const body = document.body;
+            
+            // Enhanced toggle with smooth transitions
+            chatbotToggle.addEventListener('click', function() {
+                const isOpening = !chatbotContainer.classList.contains('active');
+                
+                if (isOpening) {
+                    body.classList.add('chatbot-active');
+                    chatbotContainer.classList.add('active');
+                    setTimeout(() => {
+                        chatbotInput.focus();
+                        // Scroll to bottom when opening
+                        if (chatbotMessages) {
+                            chatbotMessages.scrollTo({
+                                top: chatbotMessages.scrollHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 300);
+                } else {
+                    chatbotContainer.classList.remove('active');
+                    setTimeout(() => {
+                        body.classList.remove('chatbot-active');
+                    }, 300);
+                }
+                
+                // Toggle pulse animation
+                if (isOpening) {
+                    chatbotToggle.style.animation = 'none';
+                } else {
+                    setTimeout(() => {
+                        chatbotToggle.style.animation = 'pulse 2s infinite';
+                    }, 300);
+                }
+            });
+            
+            // Close chatbot
+            chatbotClose.addEventListener('click', function() {
+                chatbotContainer.classList.remove('active');
+                setTimeout(() => {
+                    body.classList.remove('chatbot-active');
+                    chatbotToggle.style.animation = 'pulse 2s infinite';
+                }, 300);
+            });
+            
+            // Close on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && chatbotContainer.classList.contains('active')) {
+                    chatbotContainer.classList.remove('active');
+                    setTimeout(() => {
+                        body.classList.remove('chatbot-active');
+                        chatbotToggle.style.animation = 'pulse 2s infinite';
+                    }, 300);
+                }
+            });
+            
+            // Close when clicking outside on desktop/tablet
+            if (window.innerWidth >= 768) {
+                document.addEventListener('click', function(e) {
+                    if (chatbotContainer.classList.contains('active') &&
+                        !chatbotContainer.contains(e.target) &&
+                        e.target !== chatbotToggle &&
+                        !chatbotToggle.contains(e.target)) {
+                        chatbotContainer.classList.remove('active');
+                        setTimeout(() => {
+                            body.classList.remove('chatbot-active');
+                            chatbotToggle.style.animation = 'pulse 2s infinite';
+                        }, 300);
+                    }
                 });
             }
-        }, 300);
-    } else {
-        chatbotContainer.classList.remove('active');
-        setTimeout(() => {
-            body.classList.remove('chatbot-active');
-        }, 300);
-    }
-    
-    // Toggle pulse animation
-    if (isOpening) {
-        chatbotToggle.style.animation = 'none';
-    } else {
-        setTimeout(() => {
-            chatbotToggle.style.animation = 'pulse 2s infinite';
-        }, 300);
-    }
-});
-
-// Close chatbot
-chatbotClose.addEventListener('click', function() {
-    chatbotContainer.classList.remove('active');
-    setTimeout(() => {
-        body.classList.remove('chatbot-active');
-        chatbotToggle.style.animation = 'pulse 2s infinite';
-    }, 300);
-});
-
-// Close on ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && chatbotContainer.classList.contains('active')) {
-        chatbotContainer.classList.remove('active');
-        setTimeout(() => {
-            body.classList.remove('chatbot-active');
-            chatbotToggle.style.animation = 'pulse 2s infinite';
-        }, 300);
-    }
-});
-
-// Close when clicking outside on desktop/tablet
-if (window.innerWidth >= 768) {
-    document.addEventListener('click', function(e) {
-        if (chatbotContainer.classList.contains('active') &&
-            !chatbotContainer.contains(e.target) &&
-            e.target !== chatbotToggle &&
-            !chatbotToggle.contains(e.target)) {
-            chatbotContainer.classList.remove('active');
-            setTimeout(() => {
-                body.classList.remove('chatbot-active');
-                chatbotToggle.style.animation = 'pulse 2s infinite';
-            }, 300);
-        }
-    });
-}
-
-// Quick actions
-quickActions.addEventListener('click', function(e) {
-    if (e.target.classList.contains('quick-action-btn') || e.target.closest('.quick-action-btn')) {
-        const button = e.target.classList.contains('quick-action-btn') ? e.target : e.target.closest('.quick-action-btn');
-        const action = button.dataset.action;
-        const questions = {
-            'contact': 'What are your contact details?',
-            'hours': 'What are your office hours?',
-            'database': 'What is the QuantumChem database?',
-            'help': 'What can you help me with?'
-        };
-        if (questions[action]) {
-            chatbotInput.value = questions[action];
-            sendChatMessage();
-        }
-    }
-});
-
-// Send message function with OpenAI API support
-async function sendChatMessage() {
-    const message = chatbotInput.value.trim();
-    if (!message) return;
-    
-    // Add user message
-    addMessage(message, 'user');
-    chatbotInput.value = '';
-    chatbotSend.disabled = true;
-    
-    // Show typing indicator
-    const typingIndicator = addTypingIndicator();
-    
-    try {
-        // Prepare the request for OpenAI API
-        const response = await fetch(chatbotConfig.apiEndpoint, {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({ 
-                message: message
-            })
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Remove typing indicator
-        typingIndicator.remove();
-        
-        // Log to console as requested
-        console.log("AI Reply:", data.reply);
-        
-        // Format and add bot response
-        addFormattedMessage(data.reply || "I'm here to help!", 'bot');
-        
-    } catch (error) {
-        console.error('Chatbot API error:', error);
-        typingIndicator.remove();
-        
-        // Fallback to local responses
-        useFallbackResponse(message);
-    } finally {
-        chatbotSend.disabled = false;
-        // Refocus input after sending
-        setTimeout(() => chatbotInput.focus(), 100);
-    }
-}
-
-// Fallback response function
-function useFallbackResponse(message) {
-    const lowerMsg = message.toLowerCase();
-    
-    // Check for matching keywords in fallback responses
-    for (const [key, value] of Object.entries(chatbotConfig.fallbackResponses)) {
-        if (lowerMsg.includes(key)) {
-            addFormattedMessage(value, 'bot');
-            return;
-        }
-    }
-    
-    // Custom responses from your API handler
-    if (lowerMsg.includes('who owns you') || lowerMsg.includes('who runs you')) {
-        const response = "I am developed and managed by **Nikhil Shinde**, founder of QuantumChem – Advanced Chemical Database.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('who developed you') || lowerMsg.includes('developer')) {
-        const response = "This AI assistant was developed by **Nikhil Shinde**, as part of the QuantumChem Laboratory Database project at PCCOE, Pune.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('what is quantumchem')) {
-        const response = "**QuantumChem** is an advanced chemical research and laboratory database platform designed for students, researchers, and academic institutions. It provides chemical data, research support, and safety information.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('contact') || lowerMsg.includes('contact details')) {
-        const response = "📧 **Email:** quantumchem25@gmail.com\n📞 **Phone:** +91 81492 77038\n📍 **Location:** PCCOE, Pune\n🕒 **Office Hours:** Mon–Fri, 9AM–6PM IST";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('database')) {
-        const response = "🔬 **QuantumChem Database Access**\n\n• Chemical compound information\n• Safety and research data\n• Academic & laboratory support\n• Research collaboration\n\nAccess is available for students and researchers.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    // Check for chemical/database related queries
-    if (lowerMsg.includes('chemical') || lowerMsg.includes('compound') || lowerMsg.includes('molecule') || lowerMsg.includes('element')) {
-        const response = "For chemical compound queries, please visit our database section. I can help you with:\n\n• Searching specific compounds\n• Understanding chemical properties\n• Safety data information\n• Research applications\n\nTry asking about a specific chemical or use our database search feature.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('access') || lowerMsg.includes('login') || lowerMsg.includes('register') || lowerMsg.includes('account')) {
-        const response = "**Platform Access:**\n\n• **Guest Access:** Browse basic database without login\n• **Registered Users:** Full access with institutional email\n• **API Access:** Available for research institutions (contact us)\n• **Support:** Email quantumchem25@gmail.com for access issues\n\nWould you like help with registration?";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    if (lowerMsg.includes('research') || lowerMsg.includes('paper') || lowerMsg.includes('publication') || lowerMsg.includes('study')) {
-        const response = "**Research Information:**\n\n• **Current Projects:** Quantum chemical calculations, molecular dynamics\n• **Publications:** Check our ResearchGate profile\n• **Collaborations:** Open for academic and industry partnerships\n• **Student Projects:** Internship opportunities available\n\nFor specific research queries, please email our team.";
-        addFormattedMessage(response, 'bot');
-        return;
-    }
-    
-    // Default fallback response
-    const defaultResponse = chatbotConfig.fallbackResponses.default;
-    addFormattedMessage(defaultResponse, 'bot');
-}
-
-// Event listeners for chatbot
-chatbotSend.addEventListener('click', sendChatMessage);
-
-chatbotInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendChatMessage();
-    }
-});
-
-// Enable/disable send button based on input
-chatbotInput.addEventListener('input', function() {
-    chatbotSend.disabled = this.value.trim() === '';
-});
-
-// Format text with paragraphs and lists
-function formatText(text) {
-    if (!text) return '';
-    
-    // Replace markdown-style bold with strong tags
-    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    
-    // Split by newlines to create paragraphs
-    const lines = text.split('\n');
-    let formatted = '';
-    let inList = false;
-    let listType = 'ul'; // Default to unordered list
-    
-    lines.forEach(line => {
-        line = line.trim();
-        if (line) {
-            // Check if line starts with bullet points or numbers
-            if (line.match(/^[•\-\*]\s/)) {
-                if (!inList) {
-                    formatted += '<ul>';
-                    inList = true;
-                    listType = 'ul';
+            
+            // Quick actions
+            quickActions.addEventListener('click', function(e) {
+                if (e.target.classList.contains('quick-action-btn')) {
+                    const action = e.target.dataset.action;
+                    const questions = {
+                        'contact': 'What are your contact details?',
+                        'hours': 'What are your office hours?',
+                        'database': 'How can I access the chemical database?',
+                        'help': 'What can you help me with?'
+                    };
+                    if (questions[action]) {
+                        chatbotInput.value = questions[action];
+                        sendChatMessage();
+                    }
                 }
-                const listItem = line.substring(2);
-                formatted += `<li>${listItem}</li>`;
-            } else if (line.match(/^\d+\.\s/)) {
-                if (!inList || listType !== 'ol') {
-                    if (inList) formatted += '</ul>';
-                    formatted += '<ol>';
-                    inList = true;
-                    listType = 'ol';
+            });
+            
+            // Send message function
+            async function sendChatMessage() {
+                const message = chatbotInput.value.trim();
+                if (!message) return;
+                
+                // Add user message
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+                chatbotSend.disabled = true;
+                
+                // Show typing indicator
+                const typingIndicator = addTypingIndicator();
+                
+                try {
+                    // YOUR FETCH API CODE HERE
+                    const response = await fetch("/api/chat", {
+                        method: "POST",
+                        headers: { 
+                            "Content-Type": "application/json" 
+                        },
+                        body: JSON.stringify({ 
+                            message: message 
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    // Remove typing indicator
+                    typingIndicator.remove();
+                    
+                    // Log to console as requested
+                    console.log("AI Reply:", data.reply);
+                    
+                    // Format and add bot response
+                    addFormattedMessage(data.reply || "I'm here to help!", 'bot');
+                    
+                } catch (error) {
+                    console.error('Chatbot error:', error);
+                    typingIndicator.remove();
+                    
+                    // Fallback response
+                    const fallbackResponses = {
+                        'hello': "Hello! I'm your AI Quantum Chemistry assistant. How can I help you today?",
+                        'hi': "Hi there! I'm here to help with chemical database queries and research information.",
+                        'contact': "📞 **Contact Information:**\n\n• **Email:** quantumchem25@gmail.com\n• **Phone:** +91 81492 77038\n• **WhatsApp:** +91 81492 77038\n• **Office:** PCCOE, Pune\n\nWe respond within 24 hours!",
+                        'hours': "🕒 **Office Hours:**\n\n• **Monday - Friday:** 9:00 AM - 6:00 PM IST\n• **Saturday:** 10:00 AM - 2:00 PM IST\n• **Sunday:** Closed\n\nFor urgent matters, please call or WhatsApp.",
+                        'database': "🔬 **Chemical Database Access:**\n\n1. **Free Access:** Basic browsing available to all users\n2. **Registered Users:** Full access with institutional email\n3. **API Access:** Available for research institutions\n4. **Contributions:** We welcome data submissions\n\nVisit our platform to explore!",
+                        'help': "❓ **How I can help:**\n\n• Chemical compound information\n• Database queries and access\n• Research collaboration details\n• Technical support issues\n• Contact information\n• Platform FAQs\n\nWhat would you like to know?",
+                        'default': "I'm your Quantum Chemistry AI assistant! I can help you with:\n\n• **Database Queries** - Search chemical compounds\n• **Research Info** - Latest findings and papers\n• **Contact Details** - How to reach our team\n• **Technical Support** - Platform assistance\n\nPlease ask me anything specific!"
+                    };
+                    
+                    const lowerMsg = message.toLowerCase();
+                    let response = fallbackResponses.default;
+                    
+                    for (const [key, value] of Object.entries(fallbackResponses)) {
+                        if (lowerMsg.includes(key)) {
+                            response = value;
+                            break;
+                        }
+                    }
+                    
+                    addFormattedMessage(response, 'bot');
+                } finally {
+                    chatbotSend.disabled = false;
+                    // Refocus input after sending
+                    setTimeout(() => chatbotInput.focus(), 100);
                 }
-                const listItem = line.substring(line.indexOf('.') + 2);
-                formatted += `<li>${listItem}</li>`;
+            }
+            
+            // Event listeners for chatbot
+            chatbotSend.addEventListener('click', sendChatMessage);
+            
+            chatbotInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
+            
+            // Format text with paragraphs and lists
+            function formatText(text) {
+                // Replace markdown-style bold with strong tags
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Split by newlines to create paragraphs
+                const lines = text.split('\n');
+                let formatted = '';
+                
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (line) {
+                        // Check if line starts with bullet points
+                        if (line.match(/^[•\-\*]\s/)) {
+                            formatted += `<li>${line.substring(2)}</li>`;
+                        } else if (line.match(/^\d+\.\s/)) {
+                            formatted += `<li>${line.substring(line.indexOf('.') + 2)}</li>`;
+                        } else {
+                            // Check if previous line was a list
+                            if (formatted.endsWith('</li>')) {
+                                formatted = formatted.replace(/(<li>.*<\/li>)$/, '<ul>$1</ul>');
+                            }
+                            formatted += `<p>${line}</p>`;
+                        }
+                    }
+                });
+                
+                // Close any open list
+                if (formatted.includes('<li>') && !formatted.includes('</ul>')) {
+                    formatted += '</ul>';
+                }
+                
+                return formatted;
+            }
+            
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chatbot-message ${sender}`;
+                messageDiv.textContent = text;
+                chatbotMessages.appendChild(messageDiv);
+                
+                // Auto-scroll to bottom
+                setTimeout(() => {
+                    chatbotMessages.scrollTo({
+                        top: chatbotMessages.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 50);
+            }
+            
+            function addFormattedMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chatbot-message ${sender}`;
+                messageDiv.innerHTML = formatText(text);
+                chatbotMessages.appendChild(messageDiv);
+                
+                // Auto-scroll to bottom
+                setTimeout(() => {
+                    chatbotMessages.scrollTo({
+                        top: chatbotMessages.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 50);
+            }
+            
+            function addTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <span>AI is thinking...</span>
+                `;
+                chatbotMessages.appendChild(typingDiv);
+                
+                // Auto-scroll to show typing indicator
+                setTimeout(() => {
+                    chatbotMessages.scrollTo({
+                        top: chatbotMessages.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 50);
+                
+                return typingDiv;
+            }
+            
+            // ===== MOBILE KEYBOARD HANDLING =====
+            let originalViewportHeight = window.innerHeight;
+            
+            function handleMobileResize() {
+                if (window.innerWidth <= 767 && chatbotContainer.classList.contains('active')) {
+                    const keyboardHeight = originalViewportHeight - window.innerHeight;
+                    
+                    if (keyboardHeight > 100) {
+                        // Keyboard is open
+                        chatbotInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                        
+                        // Adjust chat container for keyboard
+                        chatbotContainer.style.height = `${window.innerHeight}px`;
+                    } else {
+                        // Keyboard is closed
+                        chatbotContainer.style.height = '100vh';
+                    }
+                    
+                    originalViewportHeight = window.innerHeight;
+                }
+            }
+            
+            // Handle iOS Safari visual viewport
+            if ('visualViewport' in window) {
+                window.visualViewport.addEventListener('resize', handleMobileResize);
             } else {
-                // Close list if we were in one
-                if (inList) {
-                    formatted += listType === 'ul' ? '</ul>' : '</ol>';
-                    inList = false;
-                }
-                formatted += `<p>${line}</p>`;
+                window.addEventListener('resize', handleMobileResize);
             }
-        }
-    });
-    
-    // Close any open list
-    if (inList) {
-        formatted += listType === 'ul' ? '</ul>' : '</ol>';
-    }
-    
-    return formatted;
-}
-
-function addMessage(text, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chatbot-message ${sender}`;
-    messageDiv.textContent = text;
-    chatbotMessages.appendChild(messageDiv);
-    
-    // Add timestamp
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const timestampDiv = document.createElement('div');
-    timestampDiv.className = 'message-timestamp';
-    timestampDiv.textContent = timestamp;
-    messageDiv.appendChild(timestampDiv);
-    
-    // Auto-scroll to bottom
-    setTimeout(() => {
-        chatbotMessages.scrollTo({
-            top: chatbotMessages.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 50);
-}
-
-function addFormattedMessage(text, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chatbot-message ${sender}`;
-    messageDiv.innerHTML = formatText(text);
-    chatbotMessages.appendChild(messageDiv);
-    
-    // Add timestamp
-    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const timestampDiv = document.createElement('div');
-    timestampDiv.className = 'message-timestamp';
-    timestampDiv.textContent = timestamp;
-    messageDiv.appendChild(timestampDiv);
-    
-    // Auto-scroll to bottom
-    setTimeout(() => {
-        chatbotMessages.scrollTo({
-            top: chatbotMessages.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 50);
-}
-
-function addTypingIndicator() {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'typing-indicator';
-    typingDiv.innerHTML = `
-        <div class="typing-dots">
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        </div>
-        <span>AI Assistant is typing...</span>
-    `;
-    chatbotMessages.appendChild(typingDiv);
-    
-    // Auto-scroll to show typing indicator
-    setTimeout(() => {
-        chatbotMessages.scrollTo({
-            top: chatbotMessages.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 50);
-    
-    return typingDiv;
-}
-
-// ===== MOBILE KEYBOARD HANDLING =====
-let originalViewportHeight = window.innerHeight;
-
-function handleMobileResize() {
-    if (window.innerWidth <= 767 && chatbotContainer.classList.contains('active')) {
-        const keyboardHeight = originalViewportHeight - window.innerHeight;
-        
-        if (keyboardHeight > 100) {
-            // Keyboard is open
-            chatbotInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
             
-            // Adjust chat container for keyboard
-            chatbotContainer.style.height = `${window.innerHeight}px`;
+            // Handle orientation changes
+            window.addEventListener('orientationchange', function() {
+                setTimeout(handleMobileResize, 300);
+            });
             
-            // Scroll messages to show input area
-            setTimeout(() => {
-                chatbotMessages.scrollTo({
-                    top: chatbotMessages.scrollHeight,
-                    behavior: 'smooth'
+            // Prevent body scroll when chatbot is active on mobile
+            function preventBodyScroll(e) {
+                if (chatbotContainer.classList.contains('active') && window.innerWidth <= 767) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+            
+            // Touch and wheel events for mobile
+            document.addEventListener('touchmove', preventBodyScroll, { passive: false });
+            document.addEventListener('wheel', preventBodyScroll, { passive: false });
+            
+            // MutationObserver for auto-scrolling when content changes
+            const observer = new MutationObserver(function() {
+                if (chatbotContainer.classList.contains('active') && chatbotMessages) {
+                    setTimeout(() => {
+                        chatbotMessages.scrollTo({
+                            top: chatbotMessages.scrollHeight,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            });
+            
+            if (chatbotMessages) {
+                observer.observe(chatbotMessages, {
+                    childList: true,
+                    subtree: true
                 });
-            }, 300);
-        } else {
-            // Keyboard is closed
-            chatbotContainer.style.height = '100vh';
-        }
-        
-        originalViewportHeight = window.innerHeight;
-    }
-}
-
-// Handle iOS Safari visual viewport
-if ('visualViewport' in window) {
-    window.visualViewport.addEventListener('resize', handleMobileResize);
-} else {
-    window.addEventListener('resize', handleMobileResize);
-}
-
-// Handle orientation changes
-window.addEventListener('orientationchange', function() {
-    setTimeout(handleMobileResize, 300);
-});
-
-// Prevent body scroll when chatbot is active on mobile
-function preventBodyScroll(e) {
-    if (chatbotContainer.classList.contains('active') && window.innerWidth <= 767) {
-        e.preventDefault();
-        return false;
-    }
-}
-
-// Touch and wheel events for mobile
-document.addEventListener('touchmove', preventBodyScroll, { passive: false });
-document.addEventListener('wheel', preventBodyScroll, { passive: false });
-
-// MutationObserver for auto-scrolling when content changes
-const observer = new MutationObserver(function() {
-    if (chatbotContainer.classList.contains('active') && chatbotMessages) {
-        setTimeout(() => {
-            chatbotMessages.scrollTo({
-                top: chatbotMessages.scrollHeight,
-                behavior: 'smooth'
+            }
+            
+            // Handle page visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden && chatbotContainer.classList.contains('active')) {
+                    chatbotContainer.classList.remove('active');
+                    body.classList.remove('chatbot-active');
+                    chatbotToggle.style.animation = 'pulse 2s infinite';
+                }
             });
-        }, 100);
-    }
-});
-
-if (chatbotMessages) {
-    observer.observe(chatbotMessages, {
-        childList: true,
-        subtree: true
-    });
-}
-
-// Handle page visibility changes
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden && chatbotContainer.classList.contains('active')) {
-        chatbotContainer.classList.remove('active');
-        body.classList.remove('chatbot-active');
-        chatbotToggle.style.animation = 'pulse 2s infinite';
-    }
-});
-
-// Cleanup on page hide/unload
-window.addEventListener('pagehide', function() {
-    chatbotContainer.classList.remove('active');
-    body.classList.remove('chatbot-active');
-});
-
-window.addEventListener('beforeunload', function() {
-    chatbotContainer.classList.remove('active');
-    body.classList.remove('chatbot-active');
-});
-
-// Initialize with proper scroll position
-setTimeout(function() {
-    if (chatbotMessages) {
-        chatbotMessages.scrollTo({
-            top: chatbotMessages.scrollHeight,
-            behavior: 'auto'
-        });
-    }
-}, 500);
-
-// Initialize send button state
-chatbotSend.disabled = chatbotInput.value.trim() === '';
-
-// Add keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    // Ctrl+/ or Cmd+/ to toggle chatbot
-    if ((e.ctrlKey || e.metaKey) && e.key === '/') {
-        e.preventDefault();
-        chatbotToggle.click();
-    }
-    
-    // Ctrl+K or Cmd+K to focus input when chatbot is open
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k' && chatbotContainer.classList.contains('active')) {
-        e.preventDefault();
-        chatbotInput.focus();
-    }
-});
-
-// Add chatbot input placeholder cycling for better UX
-const placeholders = [
-    "Type your question here...",
-    "Ask about chemical compounds...",
-    "Need technical support?",
-    "Ask about research collaborations...",
-    "Database access questions?",
-    "Contact information queries...",
-    "Who developed this AI assistant?",
-    "What is QuantumChem?"
-];
-
-let placeholderIndex = 0;
-
-function cyclePlaceholder() {
-    chatbotInput.placeholder = placeholders[placeholderIndex];
-    placeholderIndex = (placeholderIndex + 1) % placeholders.length;
-}
-
-// Cycle placeholder every 5 seconds when input is not focused
-setInterval(() => {
-    if (document.activeElement !== chatbotInput) {
-        cyclePlaceholder();
-    }
-}, 5000);
-
-// Initialize first placeholder
-chatbotInput.placeholder = placeholders[0];
-
-// Add input validation
-chatbotInput.addEventListener('input', function() {
-    // Limit input length
-    if (this.value.length > 500) {
-        this.value = this.value.substring(0, 500);
-        showInputWarning('Message limited to 500 characters');
-    }
-});
-
-function showInputWarning(message) {
-    // Create warning element
-    const warning = document.createElement('div');
-    warning.className = 'input-warning';
-    warning.textContent = message;
-    warning.style.cssText = `
-        position: absolute;
-        bottom: 100%;
-        right: 0;
-        background: var(--warning);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-sm);
-        font-size: 0.85rem;
-        margin-bottom: 0.5rem;
-        animation: fadeInOut 3s ease;
-        z-index: 100;
-    `;
-    
-    // Add to input container
-    const inputContainer = chatbotInput.parentElement;
-    inputContainer.style.position = 'relative';
-    inputContainer.appendChild(warning);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        warning.remove();
-    }, 3000);
-}
-
-// Add CSS for warning animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateY(10px); }
-        10% { opacity: 1; transform: translateY(0); }
-        90% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(10px); }
-    }
-`;
-document.head.appendChild(style);
-            // Initialize chatbot with analytics
-            trackChatbotEvent('chatbot_loaded', {
-                time: new Date().toISOString(),
-                version: '1.0.0',
-                features: ['openai_api', 'mobile_optimized', 'persistent_history']
+            
+            // Cleanup on page hide/unload
+            window.addEventListener('pagehide', function() {
+                chatbotContainer.classList.remove('active');
+                body.classList.remove('chatbot-active');
             });
+            
+            window.addEventListener('beforeunload', function() {
+                chatbotContainer.classList.remove('active');
+                body.classList.remove('chatbot-active');
+            });
+            
+            // Initialize with proper scroll position
+            setTimeout(function() {
+                if (chatbotMessages) {
+                    chatbotMessages.scrollTo({
+                        top: chatbotMessages.scrollHeight,
+                        behavior: 'auto'
+                    });
+                }
+            }, 500);
         });
     </script>
 </body>
