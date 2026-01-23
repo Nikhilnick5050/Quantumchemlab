@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | QuantumChem</title>
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --purple: #764ba2;
+            --text-light: #f8fafc;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .pricing-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+        }
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        .period {
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .features li:last-child {
+            border-bottom: none;
+        }
+        .btn {
+            display: block;
+            text-align: center;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: opacity 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .faq {
+            margin-top: 4rem;
+        }
+        .faq-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">QuantumChem</a>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="download.html">Download</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1 class="page-title">Pricing Plans</h1>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">
+            Choose the perfect plan for your computational chemistry needs. All plans include core features and regular updates.
+        </p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="plan-name">Student</h3>
+                <div class="price">Free</div>
+                <p class="period">For academic use only</p>
+                <ul class="features">
+                    <li>✓ All core calculation methods</li>
+                    <li>✓ Up to 100 atoms</li>
+                    <li>✓ Basic visualization tools</li>
+                    <li>✓ Educational resources</li>
+                    <li>✗ Priority support</li>
+                    <li>✗ Advanced solvers</li>
+                    <li>✗ Batch processing</li>
+                </ul>
+                <a href="students.html" class="btn">Get Started</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3 class="plan-name">Professional</h3>
+                <div class="price">$49<span style="font-size: 1rem;">/month</span></div>
+                <p class="period">Billed annually or $59 monthly</p>
+                <ul class="features">
+                    <li>✓ All Student features</li>
+                    <li>✓ Unlimited atoms</li>
+                    <li>✓ Advanced visualization</li>
+                    <li>✓ Priority email support</li>
+                    <li>✓ DFT, MP2, CCSD calculations</li>
+                    <li>✓ Batch processing</li>
+                    <li>✓ API access</li>
+                </ul>
+                <a href="#" class="btn">Start Free Trial</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="plan-name">Enterprise</h3>
+                <div class="price">Custom</div>
+                <p class="period">Tailored for research labs & industry</p>
+                <ul class="features">
+                    <li>✓ All Professional features</li>
+                    <li>✓ Dedicated support</li>
+                    <li>✓ Custom integrations</li>
+                    <li>✓ On-premise deployment</li>
+                    <li>✓ Training & onboarding</li>
+                    <li>✓ SLA guarantee</li>
+                    <li>✓ Team management</li>
+                </ul>
+                <a href="contact.html" class="btn">Contact Sales</a>
+            </div>
+        </div>
+        
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Can I switch plans later?</h3>
+                <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is there a free trial for paid plans?</h3>
+                <p>Yes, Professional plan includes a 14-day free trial with all features.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do you offer academic discounts?</h3>
+                <p>Yes, universities and research institutions receive 50% off on Professional plan.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

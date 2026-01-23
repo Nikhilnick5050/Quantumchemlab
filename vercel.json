@@ -1,0 +1,27 @@
+
+{
+  "headers": [
+    {
+      "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/x-icon"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "quantumchem.site"
+        }
+      ],
+      "destination": "https://www.quantumchem.site/$1",
+      "permanent": true
+    }
+  ]
+}

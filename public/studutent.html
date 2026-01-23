@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students & Academics | QuantumChem</title>
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --text-light: #f8fafc;
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.8;
+            font-size: 1.2rem;
+        }
+        .hero {
+            background: var(--gradient-accent);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .benefit-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .requirements {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 1rem;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+        }
+        .verification-form {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .resource-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        .resource-card h3 {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">QuantumChem</a>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="documentation.html">Documentation</a>
+            <a href="download.html">Download</a>
+            <a href="pricing.html">Pricing</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1 class="page-title">QuantumChem for Students & Academics</h1>
+        <p class="subtitle">Free access to professional computational chemistry tools for educational and non-commercial research.</p>
+        
+        <div class="hero">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Get QuantumChem Free for Academic Use</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Verified students, educators, and researchers receive the full Student version at no cost.</p>
+            <a href="#verify" class="btn">Verify Your Status</a>
+            <a href="download.html" class="btn btn-accent">Download Student Version</a>
+        </div>
+        
+        <h2 style="text-align: center; margin: 4rem 0 2rem;">Student Version Benefits</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">🎓</div>
+                <h3>Full Feature Access</h3>
+                <p>All core calculation methods and visualization tools included</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">📚</div>
+                <h3>Educational Resources</h3>
+                <p>Tutorials, example projects, and course materials</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">👨‍🏫</div>
+                <h3>Classroom Ready</h3>
+                <p>Perfect for lab exercises and assignments</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">🔬</div>
+                <h3>Research Capable</h3>
+                <p>Support for thesis and academic research projects</p>
+            </div>
+        </div>
+        
+        <div class="requirements">
+            <h2>Eligibility Requirements</h2>
+            <ul>
+                <li>Currently enrolled students at accredited educational institutions</li>
+                <li>Faculty and staff at universities and research institutions</li>
+                <li>Use must be for educational or non-commercial research purposes</li>
+                <li>Valid institutional email address required (.edu, .ac., etc.)</li>
+                <li>Annual verification required to maintain access</li>
+            </ul>
+        </div>
+        
+        <div id="verify" class="verification-form">
+            <h2>Verify Your Academic Status</h2>
+            <p>Submit your information to receive a free Student license key.</p>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label>Institutional Email</label>
+                <input type="email" placeholder="name@university.edu">
+            </div>
+            
+            <div class="form-group">
+                <label>Institution Name</label>
+                <input type="text" placeholder="Your university or institution">
+            </div>
+            
+            <div class="form-group">
+                <label>Role</label>
+                <select style="width: 100%; padding: 0.8rem; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    <option value="">Select your role</option>
+                    <option value="student">Student (Undergraduate)</option>
+                    <option value="grad">Student (Graduate)</option>
+                    <option value="phd">PhD Candidate</option>
+                    <option value="postdoc">Postdoctoral Researcher</option>
+                    <option value="faculty">Faculty Member</option>
+                    <option value="researcher">Research Staff</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-accent" style="width: 100%;">Submit Verification</button>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Verification typically takes 1-2 business days. You'll receive your license key via email.</p>
+        </div>
+        
+        <h2 style="text-align: center; margin: 4rem 0 2rem;">Learning Resources</h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h3>Getting Started Tutorials</h3>
+                <p>Step-by-step guides for basic calculations and visualization</p>
+                <a href="notes.html" style="color: var(--accent);">View tutorials →</a>
+            </div>
+            
+            <div class="resource-card">
+                <h3>Course Materials</h3>
+                <p>Ready-to-use materials for computational chemistry courses</p>
+                <a href="notes.html" style="color: var(--accent);">Access materials →</a>
+            </div>
+            
+            <div class="resource-card">
+                <h3>Research Examples</h3>
+                <p>Example projects and research workflows</p>
+                <a href="documentation.html" style="color: var(--accent);">Browse examples →</a>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 4rem 0;">
+            <h3>Questions about the Student Program?</h3>
+            <p>Contact our academic support team at <a href="mailto:academic@quantumchem.site" style="color: var(--accent);">academic@quantumchem.site</a></p>
+        </div>
+    </div>
+</body>
+</html>
