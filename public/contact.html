@@ -155,39 +155,53 @@
             color: white;
         }
 
-        /* ===== CHATBOT STYLES ===== */
+        /* ===== IMPROVED CHATBOT STYLES ===== */
         .chatbot-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
             background: var(--gradient-accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
             z-index: 1000;
             transition: var(--transition-normal);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
         }
 
         .chatbot-toggle:hover {
             transform: scale(1.1);
+            animation: none;
         }
 
         .chatbot-container {
             position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
+            bottom: 120px;
+            right: 30px;
+            width: 450px;
+            height: 650px;
             background: var(--secondary);
-            border-radius: var(--radius-lg);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             border: 1px solid var(--glass-border);
             display: none;
             flex-direction: column;
@@ -197,11 +211,23 @@
 
         .chatbot-container.active {
             display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .chatbot-header {
             background: var(--gradient-dark);
-            padding: 1rem;
+            padding: 1.5rem;
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
@@ -209,8 +235,16 @@
         }
 
         .chatbot-header h3 {
-            font-size: 1rem;
+            font-size: 1.2rem;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chatbot-header i {
+            font-size: 1.4rem;
+            color: var(--accent-light);
         }
 
         .chatbot-close {
@@ -218,79 +252,239 @@
             border: none;
             color: #94a3b8;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             transition: var(--transition-normal);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .chatbot-close:hover {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
         .chatbot-messages {
             flex: 1;
-            padding: 1rem;
+            padding: 1.5rem;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 1rem;
+        }
+
+        /* Custom scrollbar for messages */
+        .chatbot-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
         }
 
         .chatbot-message {
-            max-width: 80%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            line-height: 1.4;
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            line-height: 1.7;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .chatbot-message.user {
-            background: var(--accent);
+            background: var(--gradient-accent);
             color: white;
             align-self: flex-end;
-            border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         .chatbot-message.bot {
-            background: var(--glass-bg);
+            background: rgba(30, 41, 59, 0.8);
             color: #e5e7eb;
             align-self: flex-start;
-            border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Formatting for paragraphs and lists in bot messages */
+        .chatbot-message.bot p {
+            margin-bottom: 0.75rem;
+            color: #e5e7eb;
+        }
+
+        .chatbot-message.bot p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chatbot-message.bot ul,
+        .chatbot-message.bot ol {
+            margin: 0.5rem 0 0.75rem 1.5rem;
+        }
+
+        .chatbot-message.bot li {
+            margin-bottom: 0.5rem;
+        }
+
+        .chatbot-message.bot strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .chatbot-message.bot em {
+            color: #94a3b8;
+            font-style: italic;
         }
 
         .chatbot-input {
-            padding: 1rem;
+            padding: 1.5rem;
             border-top: 1px solid var(--glass-border);
+            background: rgba(15, 23, 42, 0.8);
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            align-items: center;
         }
 
         .chatbot-input input {
             flex: 1;
-            padding: 0.75rem;
-            background: var(--primary);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-lg);
             color: white;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            transition: var(--transition-normal);
         }
 
         .chatbot-input input:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .chatbot-input input::placeholder {
+            color: #94a3b8;
         }
 
         .chatbot-input button {
-            padding: 0.75rem 1rem;
+            padding: 1rem 1.5rem;
             background: var(--accent);
             border: none;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             color: white;
             cursor: pointer;
             transition: var(--transition-normal);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 50px;
         }
 
         .chatbot-input button:hover {
             background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .chatbot-input button:disabled {
+            background: #4b5563;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--radius-lg);
+            align-self: flex-start;
+            border-left: 4px solid var(--accent);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding: 0 1.5rem 1rem;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .quick-action-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-md);
+            color: var(--accent-light);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-1px);
         }
 
         /* ===== HEADER ===== */
@@ -813,6 +1007,7 @@
                 width: calc(100vw - 40px);
                 right: 20px;
                 left: 20px;
+                height: 500px;
             }
         }
 
@@ -825,6 +1020,19 @@
             
             .social-links {
                 justify-content: center;
+            }
+            
+            .chatbot-container {
+                bottom: 80px;
+                height: 450px;
+            }
+            
+            .chatbot-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -1139,12 +1347,29 @@
         
         <div class="chatbot-messages" id="chatbotMessages">
             <div class="chatbot-message bot">
-                Hello! I'm your AI Quantumchem assistant. How can I help you today?
+                <p><strong>Hello! 👋 I'm your AI Quantum Chemistry Assistant.</strong></p>
+                <p>I can help you with:</p>
+                <ul>
+                    <li>Chemical database queries</li>
+                    <li>Research information</li>
+                    <li>Contact details</li>
+                    <li>Technical support</li>
+                    <li>FAQ about our platform</li>
+                </ul>
+                <p>How can I assist you today?</p>
             </div>
         </div>
         
+        <!-- Quick Actions -->
+        <div class="quick-actions" id="quickActions">
+            <button class="quick-action-btn" data-action="contact">📞 Contact Info</button>
+            <button class="quick-action-btn" data-action="hours">🕒 Office Hours</button>
+            <button class="quick-action-btn" data-action="database">🔬 Database Access</button>
+            <button class="quick-action-btn" data-action="help">❓ Help Guide</button>
+        </div>
+        
         <div class="chatbot-input">
-            <input type="text" id="chatbotInput" placeholder="Type your question...">
+            <input type="text" id="chatbotInput" placeholder="Type your question here...">
             <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -1166,27 +1391,23 @@
             emailjs.init("YOUR_EMAILJS_PUBLIC_KEY_HERE");
         })();
 
-        // FAQ Accordion
+        // Main JavaScript
         document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Accordion
             const faqItems = document.querySelectorAll('.faq-item');
-            
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
-                
                 question.addEventListener('click', () => {
-                    // Close all other items
                     faqItems.forEach(otherItem => {
                         if (otherItem !== item && otherItem.classList.contains('active')) {
                             otherItem.classList.remove('active');
                         }
                     });
-                    
-                    // Toggle current item
                     item.classList.toggle('active');
                 });
             });
 
-            // Contact Form Submission with EmailJS
+            // Contact Form
             const contactForm = document.getElementById('contactForm');
             const formMessage = document.getElementById('formMessage');
             const submitBtn = document.getElementById('submitBtn');
@@ -1195,8 +1416,6 @@
             if (contactForm) {
                 contactForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    
-                    // Get form data
                     const formData = {
                         from_name: document.getElementById('name').value,
                         from_email: document.getElementById('email').value,
@@ -1205,35 +1424,28 @@
                         to_email: 'quantumchem25@gmail.com'
                     };
                     
-                    // Validate form
                     if (!formData.from_name || !formData.from_email || !formData.message || !formData.subject) {
                         showFormMessage('Please fill all required fields.', 'error');
                         return;
                     }
                     
-                    // Show loading state
-                    const originalHTML = submitBtn.innerHTML;
                     submitBtn.disabled = true;
                     submitText.innerHTML = '<span class="loading"></span> Sending...';
                     
                     try {
-                        // Method 1: Try EmailJS first
                         await sendWithEmailJS(formData);
                     } catch (emailJSError) {
                         console.log('EmailJS failed, trying Formspree...');
-                        
                         try {
-                            // Method 2: Fallback to Formspree
                             await sendWithFormspree(formData);
                         } catch (formspreeError) {
-                            console.log('Formspree failed, showing email option');
+                            console.log('Formspree failed');
                             showFormMessage(
                                 'Sorry, our contact form is currently unavailable. Please email us directly at quantumchem25@gmail.com',
                                 'error'
                             );
                         }
                     } finally {
-                        // Restore button
                         submitBtn.disabled = false;
                         submitText.textContent = 'Send Message';
                     }
@@ -1244,13 +1456,13 @@
             async function sendWithEmailJS(formData) {
                 return new Promise((resolve, reject) => {
                     emailjs.send(
-                        'https://formspree.io/f/xpqqegzg',      // Replace with your EmailJS Service ID
-                        'https://formspree.io/f/xpqqegzg',     // Replace with your EmailJS Template ID
+                        'https://formspree.io/f/xpqqegzg',
+                        'https://formspree.io/f/xpqqegzg',
                         formData
                     )
                     .then(function(response) {
-                        console.log('EmailJS Success:', response.status, response.text);
-                        showFormMessage('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.', 'success');
+                        console.log('EmailJS Success:', response);
+                        showFormMessage('Thank you! Your message has been sent successfully.', 'success');
                         contactForm.reset();
                         resolve();
                     }, function(error) {
@@ -1260,7 +1472,7 @@
                 });
             }
             
-            // Formspree Function (Free alternative)
+            // Formspree Function
             async function sendWithFormspree(formData) {
                 const response = await fetch('https://formspree.io/f/mwvpkjzn', {
                     method: 'POST',
@@ -1291,11 +1503,7 @@
                 formMessage.textContent = message;
                 formMessage.className = 'form-message ' + type;
                 formMessage.style.display = 'block';
-                
-                // Scroll to message
                 formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Hide message after 10 seconds
                 setTimeout(() => {
                     formMessage.style.display = 'none';
                 }, 10000);
@@ -1323,38 +1531,59 @@
             const chatbotMessages = document.getElementById('chatbotMessages');
             const chatbotInput = document.getElementById('chatbotInput');
             const chatbotSend = document.getElementById('chatbotSend');
+            const quickActions = document.getElementById('quickActions');
             
             // Toggle chatbot
             chatbotToggle.addEventListener('click', () => {
                 chatbotContainer.classList.toggle('active');
-                chatbotInput.focus();
+                if (chatbotContainer.classList.contains('active')) {
+                    chatbotInput.focus();
+                }
             });
             
             chatbotClose.addEventListener('click', () => {
                 chatbotContainer.classList.remove('active');
             });
             
-            // Send message function using your fetch API
+            // Quick actions
+            quickActions.addEventListener('click', (e) => {
+                if (e.target.classList.contains('quick-action-btn')) {
+                    const action = e.target.dataset.action;
+                    const questions = {
+                        'contact': 'What are your contact details?',
+                        'hours': 'What are your office hours?',
+                        'database': 'How can I access the chemical database?',
+                        'help': 'What can you help me with?'
+                    };
+                    if (questions[action]) {
+                        chatbotInput.value = questions[action];
+                        sendChatMessage();
+                    }
+                }
+            });
+            
+            // Send message function with YOUR FETCH CODE
             async function sendChatMessage() {
-                const userMessage = chatbotInput.value.trim();
-                if (!userMessage) return;
+                const message = chatbotInput.value.trim();
+                if (!message) return;
                 
                 // Add user message
-                addMessage(userMessage, 'user');
+                addMessage(message, 'user');
                 chatbotInput.value = '';
+                chatbotSend.disabled = true;
                 
                 // Show typing indicator
                 const typingIndicator = addTypingIndicator();
                 
                 try {
-                    // Call your API endpoint - YOUR FETCH API CODE
+                    // YOUR FETCH API CODE HERE
                     const response = await fetch("/api/chat", {
                         method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
+                        headers: { 
+                            "Content-Type": "application/json" 
                         },
-                        body: JSON.stringify({
-                            message: userMessage
+                        body: JSON.stringify({ 
+                            message: message 
                         })
                     });
                     
@@ -1367,20 +1596,40 @@
                     // Remove typing indicator
                     typingIndicator.remove();
                     
-                    // Add bot response
-                    addMessage(data.reply || "I'm here to help!", 'bot');
-                    
-                    // Log AI reply to console as requested
+                    // Log to console as requested
                     console.log("AI Reply:", data.reply);
+                    
+                    // Format and add bot response
+                    addFormattedMessage(data.reply || "I'm here to help!", 'bot');
                     
                 } catch (error) {
                     console.error('Chatbot error:', error);
-                    
-                    // Remove typing indicator
                     typingIndicator.remove();
                     
-                    // Add fallback response
-                    addMessage("I'm the QuantumChem assistant. I can help you with questions about our chemical database, research platform, or contact information. For specific inquiries, please use the contact form above.", 'bot');
+                    // Fallback response
+                    const fallbackResponses = {
+                        'hello': "Hello! I'm your AI Quantum Chemistry assistant. How can I help you today?",
+                        'hi': "Hi there! I'm here to help with chemical database queries and research information.",
+                        'contact': "📞 **Contact Information:**\n\n• **Email:** quantumchem25@gmail.com\n• **Phone:** +91 81492 77038\n• **WhatsApp:** +91 81492 77038\n• **Office:** PCCOE, Pune\n\nWe respond within 24 hours!",
+                        'hours': "🕒 **Office Hours:**\n\n• **Monday - Friday:** 9:00 AM - 6:00 PM IST\n• **Saturday:** 10:00 AM - 2:00 PM IST\n• **Sunday:** Closed\n\nFor urgent matters, please call or WhatsApp.",
+                        'database': "🔬 **Chemical Database Access:**\n\n1. **Free Access:** Basic browsing available to all users\n2. **Registered Users:** Full access with institutional email\n3. **API Access:** Available for research institutions\n4. **Contributions:** We welcome data submissions\n\nVisit our platform to explore!",
+                        'help': "❓ **How I can help:**\n\n• Chemical compound information\n• Database queries and access\n• Research collaboration details\n• Technical support issues\n• Contact information\n• Platform FAQs\n\nWhat would you like to know?",
+                        'default': "I'm your Quantum Chemistry AI assistant! I can help you with:\n\n• **Database Queries** - Search chemical compounds\n• **Research Info** - Latest findings and papers\n• **Contact Details** - How to reach our team\n• **Technical Support** - Platform assistance\n\nPlease ask me anything specific!"
+                    };
+                    
+                    const lowerMsg = message.toLowerCase();
+                    let response = fallbackResponses.default;
+                    
+                    for (const [key, value] of Object.entries(fallbackResponses)) {
+                        if (lowerMsg.includes(key)) {
+                            response = value;
+                            break;
+                        }
+                    }
+                    
+                    addFormattedMessage(response, 'bot');
+                } finally {
+                    chatbotSend.disabled = false;
                 }
                 
                 // Scroll to bottom
@@ -1391,31 +1640,76 @@
             chatbotSend.addEventListener('click', sendChatMessage);
             
             chatbotInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
                     sendChatMessage();
                 }
             });
+            
+            // Format text with paragraphs and lists
+            function formatText(text) {
+                // Replace markdown-style bold with strong tags
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Split by newlines to create paragraphs
+                const lines = text.split('\n');
+                let formatted = '';
+                
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (line) {
+                        // Check if line starts with bullet points
+                        if (line.match(/^[•\-\*]\s/)) {
+                            formatted += `<li>${line.substring(2)}</li>`;
+                        } else if (line.match(/^\d+\.\s/)) {
+                            formatted += `<li>${line.substring(line.indexOf('.') + 2)}</li>`;
+                        } else {
+                            // Check if previous line was a list
+                            if (formatted.endsWith('</li>')) {
+                                formatted = formatted.replace(/(<li>.*<\/li>)$/, '<ul>$1</ul>');
+                            }
+                            formatted += `<p>${line}</p>`;
+                        }
+                    }
+                });
+                
+                // Close any open list
+                if (formatted.includes('<li>') && !formatted.includes('</ul>')) {
+                    formatted += '</ul>';
+                }
+                
+                return formatted;
+            }
             
             function addMessage(text, sender) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `chatbot-message ${sender}`;
                 messageDiv.textContent = text;
                 chatbotMessages.appendChild(messageDiv);
-                
-                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            function addFormattedMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chatbot-message ${sender}`;
+                messageDiv.innerHTML = formatText(text);
+                chatbotMessages.appendChild(messageDiv);
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
             }
             
             function addTypingIndicator() {
                 const typingDiv = document.createElement('div');
-                typingDiv.className = 'chatbot-message bot';
-                typingDiv.id = 'typingIndicator';
-                typingDiv.innerHTML = '<span class="loading"></span> Thinking...';
+                typingDiv.className = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <span>AI is thinking...</span>
+                `;
                 chatbotMessages.appendChild(typingDiv);
-                
-                // Scroll to bottom
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-                
                 return typingDiv;
             }
         });
