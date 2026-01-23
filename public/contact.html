@@ -1131,7 +1131,7 @@
     <!-- Chatbot Container -->
     <div class="chatbot-container" id="chatbotContainer">
         <div class="chatbot-header">
-            <h3><i class="fas fa-robot"></i> QuantumChem Assistant</h3>
+            <h3><i class="fas fa-robot"></i> AI QuantumChem Assistant</h3>
             <button class="chatbot-close" id="chatbotClose">
                 <i class="fas fa-times"></i>
             </button>
@@ -1139,7 +1139,7 @@
         
         <div class="chatbot-messages" id="chatbotMessages">
             <div class="chatbot-message bot">
-                Hello! I'm your Quantumchem assistant. How can I help you today?
+                Hello! I'm your AI Quantumchem assistant. How can I help you today?
             </div>
         </div>
         
@@ -1161,7 +1161,6 @@
         });
 
         // Initialize EmailJS with your Public Key
-        // Get these from https://www.emailjs.com after signing up
         (function() {
             // REPLACE THIS WITH YOUR EMAILJS PUBLIC KEY
             emailjs.init("YOUR_EMAILJS_PUBLIC_KEY_HERE");
@@ -1335,27 +1334,33 @@
                 chatbotContainer.classList.remove('active');
             });
             
-            // Send message function
+            // Send message function using your fetch API
             async function sendChatMessage() {
-                const message = chatbotInput.value.trim();
-                if (!message) return;
+                const userMessage = chatbotInput.value.trim();
+                if (!userMessage) return;
                 
                 // Add user message
-                addMessage(message, 'user');
+                addMessage(userMessage, 'user');
                 chatbotInput.value = '';
                 
                 // Show typing indicator
                 const typingIndicator = addTypingIndicator();
                 
                 try {
-                    // Call your backend API
-                    const response = await fetch('/api/chatbot', {
-                        method: 'POST',
+                    // Call your API endpoint - YOUR FETCH API CODE
+                    const response = await fetch("/api/chat", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json'
+                            "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ message: message })
+                        body: JSON.stringify({
+                            message: userMessage
+                        })
                     });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
                     
                     const data = await response.json();
                     
@@ -1364,7 +1369,13 @@
                     
                     // Add bot response
                     addMessage(data.reply || "I'm here to help!", 'bot');
+                    
+                    // Log AI reply to console as requested
+                    console.log("AI Reply:", data.reply);
+                    
                 } catch (error) {
+                    console.error('Chatbot error:', error);
+                    
                     // Remove typing indicator
                     typingIndicator.remove();
                     
@@ -1399,7 +1410,7 @@
                 const typingDiv = document.createElement('div');
                 typingDiv.className = 'chatbot-message bot';
                 typingDiv.id = 'typingIndicator';
-                typingDiv.innerHTML = '<span class="loading"></span>';
+                typingDiv.innerHTML = '<span class="loading"></span> Thinking...';
                 chatbotMessages.appendChild(typingDiv);
                 
                 // Scroll to bottom
@@ -1407,80 +1418,7 @@
                 
                 return typingDiv;
             }
-            
-            // Predefined responses for common questions
-            const predefinedResponses = {
-                'hello': 'Hello! How can I help you with Quantum Chemistry today?',
-                'hi': 'Hi there! I\'m your Quantum Chemistry assistant. What can I help you with?',
-                'help': 'I can help you with: \n1. Chemical database access\n2. Research collaboration\n3. Technical support\n4. Contact information\nWhat do you need help with?',
-                'contact': 'You can contact us via:\n📧 Email: quantumchem25@gmail.com\n📞 Phone: +91 81492 77038\n📍 Location: PCCOE, Pune\nOr use the contact form on this page!',
-                'hours': 'Our office hours are:\nMon-Fri: 9 AM - 6 PM IST\nSaturday: 10 AM - 2 PM IST\nSunday: Closed',
-                'database': 'Our chemical database includes properties, safety data, and research information for thousands of compounds. Access is free for educational use.',
-                'collaboration': 'We welcome research collaborations! Please email us at quantumchem25@gmail.com with your proposal.',
-                'thank you': 'You\'re welcome! Let me know if you need anything else.'
-            };
-            
-            // Quick reply function
-            function getQuickReply(message) {
-                const lowerMsg = message.toLowerCase();
-                for (const [key, value] of Object.entries(predefinedResponses)) {
-                    if (lowerMsg.includes(key)) {
-                        return value;
-                    }
-                }
-                return null;
-            }
         });
     </script>
-
-    <!-- Backend API Integration Instructions -->
-    <!-- 
-    To make the chatbot work with OpenAI, create a backend server:
-    
-    1. Create a Node.js/Express server (server.js):
-    ```javascript
-    const express = require('express');
-    const cors = require('cors');
-    require('dotenv').config();
-    
-    const app = express();
-    app.use(cors());
-    app.use(express.json());
-    
-    // Chatbot endpoint
-    app.post('/api/chatbot', async (req, res) => {
-        const { message } = req.body;
-        
-        // You can use:
-        // 1. OpenAI API (requires API key)
-        // 2. Local AI model
-        // 3. Rule-based responses (like the predefined ones above)
-        
-        // For now, use predefined responses
-        const lowerMsg = message.toLowerCase();
-        let response = "I'm here to help with Quantum Chemistry questions!";
-        
-        if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
-            response = "Hello! I'm your Quantum Chemistry assistant. How can I help you?";
-        } else if (lowerMsg.includes('contact')) {
-            response = "You can contact us via email at quantumchem25@gmail.com or phone at +91 81492 77038";
-        } else if (lowerMsg.includes('database')) {
-            response = "Our chemical database contains comprehensive information about chemical compounds including properties, safety data, and research papers.";
-        }
-        
-        res.json({ reply: response });
-    });
-    
-    app.listen(3000, () => console.log('Server running on port 3000'));
-    ```
-    
-    2. Create a .env file with:
-    ```
-    PORT=3000
-    OPENAI_API_KEY=your_key_here (if using OpenAI)
-    ```
-    
-    3. Update the fetch URL in the frontend to point to your server
-    -->
 </body>
 </html>
