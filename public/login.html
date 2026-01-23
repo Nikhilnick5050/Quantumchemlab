@@ -1,6 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+  <!-- Basic Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Page Title -->
+  <title>Login | QuantumChem – Chemistry Learning Platform</title>
+
+  <!-- SEO Meta -->
+  <meta name="description" content="Login to QuantumChem to access chemistry tutorials, study notes, laboratory data, and academic resources for students and researchers.">
+  <meta name="keywords" content="QuantumChem login, chemistry login, chemistry study portal, chemistry notes login, student chemistry platform">
+  <meta name="author" content="QuantumChem">
+
+  <!-- Search Engine Control -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (Google / WhatsApp / LinkedIn) -->
+  <meta property="og:title" content="QuantumChem Login">
+  <meta property="og:description" content="Secure login to QuantumChem for chemistry tutorials, textbooks, notes, and research resources.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quantumchem.site/login">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QuantumChem Login">
+  <meta name="twitter:description" content="Sign in to QuantumChem and continue learning chemistry with structured academic resources.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://quantumchem.site/login">
+
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -306,7 +338,7 @@ input:focus {
   }
   
   h1 {
-    font-size: 1.5rem;
+    fontSize: 1.5rem;
   }
   
   .btn, .google-btn {
@@ -372,8 +404,8 @@ input:focus {
   
   <!-- Login form section -->
   <div class="login-box">
-    <h1>QuantumChem Lab</h1>
-    <p>Secure access for researchers</p>
+    <h1>QuantumChem Login</h1>
+    <p></p>
     
     <!-- WELCOME BACK MESSAGE -->
     <div id="welcomeBack" class="welcome-back">
@@ -400,8 +432,7 @@ input:focus {
       <label for="email">Email</label>
       <input id="email" type="email" placeholder="Enter your email" autocomplete="email">
       
-      <button class="btn primary" onclick="manualLogin()">Continue</button>
-     
+      
     </form>
   </div>
 </div>
@@ -421,6 +452,79 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+// Webhook URL - EXACT format you requested
+const WEBHOOK_URL = "https://quantumchem.app.n8n.cloud/webhook/22e7b267-e630-41c1-9295-4b109706acce";
+
+/* Send user data to webhook - SIMPLIFIED VERSION (exact format you want) */
+async function sendToWebhook(userData) {
+  try {
+    // Create payload in EXACT format you specified
+    const payload = {
+      email: userData.email,
+      name: userData.name
+    };
+
+    console.log('Sending to webhook (exact format):', payload);
+    
+    // Send data to webhook in the EXACT format
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    
+    if (response.ok) {
+      console.log('Webhook success - Status:', response.status);
+      try {
+        const responseData = await response.text();
+        console.log('Webhook response:', responseData);
+      } catch (e) {
+        console.log('Webhook sent successfully');
+      }
+    } else {
+      console.log('Webhook warning - Status:', response.status);
+    }
+    
+  } catch (error) {
+    console.log('Webhook error:', error);
+  }
+}
+
+/* Test webhook with sample data */
+window.testWebhook = async () => {
+  showLoading();
+  try {
+    // Test with sample data
+    const testData = {
+      email: "nikhilsubsun123@gmail.com",
+      name: "Nikhil Shinde"
+    };
+    
+    console.log('Testing webhook with sample data:', testData);
+    
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(testData)
+    });
+    
+    hideLoading();
+    
+    if (response.ok) {
+      alert('✅ Webhook test successful! Check browser console for details.');
+    } else {
+      alert(`⚠️ Webhook test returned status: ${response.status}`);
+    }
+    
+  } catch (error) {
+    hideLoading();
+    console.error('Test webhook error:', error);
+    alert('❌ Webhook test failed. Check console for error.');
+  }
+};
+
 /* Show loading indicator */
 function showLoading() {
   document.getElementById('loading').style.display = 'block';
@@ -438,17 +542,27 @@ window.googleLogin = async () => {
     const result = await signInWithPopup(auth, provider);
     const u = result.user;
 
-    localStorage.setItem("qc_user", JSON.stringify({
-      uid: u.uid,
-      name: u.displayName,
+    const userData = {
       email: u.email,
-      provider: "google",
+      name: u.displayName || u.email.split('@')[0] // Fallback to email username if no display name
+    };
+
+    console.log('Google login successful:', userData);
+    
+    // Save to localStorage
+    localStorage.setItem("qc_user", JSON.stringify({
+      ...userData,
       logged: true,
-      photoURL: u.photoURL
+      provider: "google",
+      uid: u.uid
     }));
 
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook in exact format
+    await sendToWebhook(userData);
+    
+    // Redirect immediately
     setTimeout(() => {
       window.location.href = "index.html";
     }, 500);
@@ -461,10 +575,10 @@ window.googleLogin = async () => {
 };
 
 /* MANUAL LOGIN */
-window.manualLogin = () => {
+window.manualLogin = async () => {
   showLoading();
   
-  setTimeout(() => {
+  try {
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     
@@ -484,37 +598,68 @@ window.manualLogin = () => {
       return;
     }
 
+    const userData = {
+      email: email,
+      name: name
+    };
+
+    console.log('Manual login successful:', userData);
+    
+    // Save to localStorage
     localStorage.setItem("qc_user", JSON.stringify({
-      uid: "manual_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
-      name,
-      email,
+      ...userData,
+      logged: true,
       provider: "manual",
-      logged: true
+      uid: "manual_" + Date.now()
     }));
     
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook in exact format
+    await sendToWebhook(userData);
+    
+    // Redirect
     window.location.href = "index.html";
-  }, 300);
+    
+  } catch (error) {
+    hideLoading();
+    console.error("Manual login error:", error);
+    alert("An error occurred. Please try again.");
+  }
 };
 
-/* GUEST LOGIN */
+/* GUEST LOGIN (if you still want it) */
 window.guestLogin = () => {
   showLoading();
   
-  setTimeout(() => {
-    localStorage.setItem("qc_user", JSON.stringify({
-      uid: "guest_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9),
-      name: "Guest User",
+  try {
+    const userData = {
       email: "guest@quantumchem.site",
+      name: "Guest User"
+    };
+
+    console.log('Guest login successful:', userData);
+    
+    // Save to localStorage
+    localStorage.setItem("qc_user", JSON.stringify({
+      ...userData,
+      logged: true,
       provider: "guest",
-      logged: true
+      uid: "guest_" + Date.now()
     }));
     
     document.cookie = "qc_session=true; path=/";
     
+    // Send to webhook in exact format
+    sendToWebhook(userData);
+    
     window.location.href = "chemical.html";
-  }, 300);
+    
+  } catch (error) {
+    hideLoading();
+    console.error("Guest login error:", error);
+    alert("An error occurred. Please try again.");
+  }
 };
 
 /* SHOW WELCOME BACK MESSAGE */
@@ -553,6 +698,12 @@ document.getElementById('loginForm').addEventListener('keypress', function(e) {
 
 // Add touch event listeners for better mobile UX
 document.addEventListener('touchstart', function() {}, {passive: true});
+
+// Test webhook automatically on page load (optional)
+setTimeout(() => {
+  console.log('Page loaded. Webhook URL:', WEBHOOK_URL);
+  console.log('To test manually, click "Test Webhook Connection" button');
+}, 1000);
 </script>
 </body>
 </html>

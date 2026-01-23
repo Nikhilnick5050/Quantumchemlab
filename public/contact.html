@@ -155,6 +155,144 @@
             color: white;
         }
 
+        /* ===== CHATBOT STYLES ===== */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            z-index: 1000;
+            transition: var(--transition-normal);
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-container {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: var(--secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .chatbot-container.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--gradient-dark);
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition-normal);
+        }
+
+        .chatbot-close:hover {
+            color: white;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chatbot-message.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chatbot-message.bot {
+            background: var(--glass-bg);
+            color: #e5e7eb;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chatbot-input {
+            padding: 1rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--primary);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .chatbot-input button {
+            padding: 0.75rem 1rem;
+            background: var(--accent);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .chatbot-input button:hover {
+            background: var(--accent-dark);
+        }
+
         /* ===== HEADER ===== */
         .main-header {
             position: fixed;
@@ -347,6 +485,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .social-link {
@@ -622,6 +761,21 @@
             margin: 0 0.25rem;
         }
 
+        /* ===== LOADING STATES ===== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 992px) {
             .contact-grid {
@@ -653,6 +807,12 @@
             .footer-links {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .chatbot-container {
+                width: calc(100vw - 40px);
+                right: 20px;
+                left: 20px;
             }
         }
 
@@ -824,7 +984,7 @@
                         
                         <button type="submit" class="btn btn-primary" id="submitBtn">
                             <i class="fas fa-paper-plane"></i>
-                            Send Message
+                            <span id="submitText">Send Message</span>
                         </button>
                     </form>
                 </div>
@@ -963,17 +1123,34 @@
         </div>
     </footer>
 
+    <!-- Chatbot Toggle -->
+    <div class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> QuantumChem Assistant</h3>
+            <button class="chatbot-close" id="chatbotClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chatbot-message bot">
+                Hello! I'm your Quantumchem assistant. How can I help you today?
+            </div>
+        </div>
+        
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your question...">
+            <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- EmailJS Script -->
-    <script type="text/javascript">
-        // Initialize EmailJS with your Public Key
-        (function() {
-            // Replace this with your actual EmailJS Public Key
-            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Get from https://www.emailjs.com
-        })();
-    </script>
 
     <script>
         // Initialize AOS
@@ -982,6 +1159,13 @@
             once: true,
             offset: 100
         });
+
+        // Initialize EmailJS with your Public Key
+        // Get these from https://www.emailjs.com after signing up
+        (function() {
+            // REPLACE THIS WITH YOUR EMAILJS PUBLIC KEY
+            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY_HERE");
+        })();
 
         // FAQ Accordion
         document.addEventListener('DOMContentLoaded', function() {
@@ -1003,79 +1187,108 @@
                 });
             });
 
-            // Contact Form Submission
+            // Contact Form Submission with EmailJS
             const contactForm = document.getElementById('contactForm');
             const formMessage = document.getElementById('formMessage');
             const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
             
             if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
+                contactForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     
                     // Get form data
                     const formData = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
+                        from_name: document.getElementById('name').value,
+                        from_email: document.getElementById('email').value,
                         subject: document.getElementById('subject').value,
                         message: document.getElementById('message').value,
-                        to_email: 'quantumchem25@gmail.com' // Your email address
+                        to_email: 'quantumchem25@gmail.com'
                     };
                     
                     // Validate form
-                    if (!formData.name || !formData.email || !formData.message) {
-                        showMessage('Please fill all required fields.', 'error');
+                    if (!formData.from_name || !formData.from_email || !formData.message || !formData.subject) {
+                        showFormMessage('Please fill all required fields.', 'error');
                         return;
                     }
                     
                     // Show loading state
-                    const originalText = submitBtn.innerHTML;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    const originalHTML = submitBtn.innerHTML;
                     submitBtn.disabled = true;
+                    submitText.innerHTML = '<span class="loading"></span> Sending...';
                     
-                    // Using EmailJS to send email
-                    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
-                        .then(function(response) {
-                            console.log('SUCCESS!', response.status, response.text);
-                            showMessage('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.', 'success');
-                            contactForm.reset();
-                        }, function(error) {
-                            console.log('FAILED...', error);
-                            // Fallback to Formspree if EmailJS fails
-                            sendViaFormspree(formData);
-                        })
-                        .finally(() => {
-                            // Restore button
-                            submitBtn.innerHTML = originalText;
-                            submitBtn.disabled = false;
-                        });
+                    try {
+                        // Method 1: Try EmailJS first
+                        await sendWithEmailJS(formData);
+                    } catch (emailJSError) {
+                        console.log('EmailJS failed, trying Formspree...');
+                        
+                        try {
+                            // Method 2: Fallback to Formspree
+                            await sendWithFormspree(formData);
+                        } catch (formspreeError) {
+                            console.log('Formspree failed, showing email option');
+                            showFormMessage(
+                                'Sorry, our contact form is currently unavailable. Please email us directly at quantumchem25@gmail.com',
+                                'error'
+                            );
+                        }
+                    } finally {
+                        // Restore button
+                        submitBtn.disabled = false;
+                        submitText.textContent = 'Send Message';
+                    }
                 });
             }
             
-            // Alternative: Send via Formspree (free service)
-            function sendViaFormspree(formData) {
-                // Formspree endpoint - replace with your Formspree ID
-                fetch('https://formspree.io/f/mwvpkjzn', {
+            // EmailJS Function
+            async function sendWithEmailJS(formData) {
+                return new Promise((resolve, reject) => {
+                    emailjs.send(
+                        'https://formspree.io/f/xpqqegzg',      // Replace with your EmailJS Service ID
+                        'https://formspree.io/f/xpqqegzg',     // Replace with your EmailJS Template ID
+                        formData
+                    )
+                    .then(function(response) {
+                        console.log('EmailJS Success:', response.status, response.text);
+                        showFormMessage('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.', 'success');
+                        contactForm.reset();
+                        resolve();
+                    }, function(error) {
+                        console.error('EmailJS Error:', error);
+                        reject(error);
+                    });
+                });
+            }
+            
+            // Formspree Function (Free alternative)
+            async function sendWithFormspree(formData) {
+                const response = await fetch('https://formspree.io/f/mwvpkjzn', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        showMessage('Thank you! Your message has been sent successfully.', 'success');
-                        contactForm.reset();
-                    } else {
-                        throw new Error('Form submission failed');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showMessage('Sorry, there was an error sending your message. Please try again later or email us directly at quantumchem25@gmail.com', 'error');
+                    body: JSON.stringify({
+                        name: formData.from_name,
+                        email: formData.from_email,
+                        subject: formData.subject,
+                        message: formData.message,
+                        _replyto: formData.from_email,
+                        _subject: `Contact Form: ${formData.subject}`
+                    })
                 });
+                
+                if (response.ok) {
+                    showFormMessage('Thank you! Your message has been sent successfully.', 'success');
+                    contactForm.reset();
+                    return response;
+                } else {
+                    throw new Error('Formspree submission failed');
+                }
             }
             
-            function showMessage(message, type) {
+            function showFormMessage(message, type) {
                 formMessage.textContent = message;
                 formMessage.className = 'form-message ' + type;
                 formMessage.style.display = 'block';
@@ -1089,25 +1302,185 @@
                 }, 10000);
             }
             
-            // Optional: Add phone number formatting
-            const phoneInput = document.querySelector('a[href^="tel:"]');
-            if (phoneInput) {
-                const phoneNumber = phoneInput.getAttribute('href').replace('tel:', '');
-                phoneInput.textContent = formatPhoneNumber(phoneNumber);
-            }
+            // Phone number formatting
+            const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+            phoneLinks.forEach(link => {
+                const phoneNumber = link.getAttribute('href').replace('tel:', '');
+                link.textContent = formatPhoneNumber(phoneNumber);
+            });
             
             function formatPhoneNumber(phoneNumber) {
-                // Format Indian phone number: +91 XXXXX XXXXX
                 const cleaned = phoneNumber.replace(/\D/g, '');
                 if (cleaned.length === 10) {
                     return '+91 ' + cleaned.substring(0, 5) + ' ' + cleaned.substring(5);
                 }
                 return phoneNumber;
             }
+            
+            // Chatbot Functionality
+            const chatbotToggle = document.getElementById('chatbotToggle');
+            const chatbotContainer = document.getElementById('chatbotContainer');
+            const chatbotClose = document.getElementById('chatbotClose');
+            const chatbotMessages = document.getElementById('chatbotMessages');
+            const chatbotInput = document.getElementById('chatbotInput');
+            const chatbotSend = document.getElementById('chatbotSend');
+            
+            // Toggle chatbot
+            chatbotToggle.addEventListener('click', () => {
+                chatbotContainer.classList.toggle('active');
+                chatbotInput.focus();
+            });
+            
+            chatbotClose.addEventListener('click', () => {
+                chatbotContainer.classList.remove('active');
+            });
+            
+            // Send message function
+            async function sendChatMessage() {
+                const message = chatbotInput.value.trim();
+                if (!message) return;
+                
+                // Add user message
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = addTypingIndicator();
+                
+                try {
+                    // Call your backend API
+                    const response = await fetch('/api/chatbot', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Remove typing indicator
+                    typingIndicator.remove();
+                    
+                    // Add bot response
+                    addMessage(data.reply || "I'm here to help!", 'bot');
+                } catch (error) {
+                    // Remove typing indicator
+                    typingIndicator.remove();
+                    
+                    // Add fallback response
+                    addMessage("I'm the QuantumChem assistant. I can help you with questions about our chemical database, research platform, or contact information. For specific inquiries, please use the contact form above.", 'bot');
+                }
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            // Event listeners for chatbot
+            chatbotSend.addEventListener('click', sendChatMessage);
+            
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendChatMessage();
+                }
+            });
+            
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chatbot-message ${sender}`;
+                messageDiv.textContent = text;
+                chatbotMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+            
+            function addTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'chatbot-message bot';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = '<span class="loading"></span>';
+                chatbotMessages.appendChild(typingDiv);
+                
+                // Scroll to bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                
+                return typingDiv;
+            }
+            
+            // Predefined responses for common questions
+            const predefinedResponses = {
+                'hello': 'Hello! How can I help you with Quantum Chemistry today?',
+                'hi': 'Hi there! I\'m your Quantum Chemistry assistant. What can I help you with?',
+                'help': 'I can help you with: \n1. Chemical database access\n2. Research collaboration\n3. Technical support\n4. Contact information\nWhat do you need help with?',
+                'contact': 'You can contact us via:\n📧 Email: quantumchem25@gmail.com\n📞 Phone: +91 81492 77038\n📍 Location: PCCOE, Pune\nOr use the contact form on this page!',
+                'hours': 'Our office hours are:\nMon-Fri: 9 AM - 6 PM IST\nSaturday: 10 AM - 2 PM IST\nSunday: Closed',
+                'database': 'Our chemical database includes properties, safety data, and research information for thousands of compounds. Access is free for educational use.',
+                'collaboration': 'We welcome research collaborations! Please email us at quantumchem25@gmail.com with your proposal.',
+                'thank you': 'You\'re welcome! Let me know if you need anything else.'
+            };
+            
+            // Quick reply function
+            function getQuickReply(message) {
+                const lowerMsg = message.toLowerCase();
+                for (const [key, value] of Object.entries(predefinedResponses)) {
+                    if (lowerMsg.includes(key)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
         });
     </script>
 
-    <!-- Alternative: Simple Form Submission without External Services -->
-   
+    <!-- Backend API Integration Instructions -->
+    <!-- 
+    To make the chatbot work with OpenAI, create a backend server:
+    
+    1. Create a Node.js/Express server (server.js):
+    ```javascript
+    const express = require('express');
+    const cors = require('cors');
+    require('dotenv').config();
+    
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
+    
+    // Chatbot endpoint
+    app.post('/api/chatbot', async (req, res) => {
+        const { message } = req.body;
+        
+        // You can use:
+        // 1. OpenAI API (requires API key)
+        // 2. Local AI model
+        // 3. Rule-based responses (like the predefined ones above)
+        
+        // For now, use predefined responses
+        const lowerMsg = message.toLowerCase();
+        let response = "I'm here to help with Quantum Chemistry questions!";
+        
+        if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+            response = "Hello! I'm your Quantum Chemistry assistant. How can I help you?";
+        } else if (lowerMsg.includes('contact')) {
+            response = "You can contact us via email at quantumchem25@gmail.com or phone at +91 81492 77038";
+        } else if (lowerMsg.includes('database')) {
+            response = "Our chemical database contains comprehensive information about chemical compounds including properties, safety data, and research papers.";
+        }
+        
+        res.json({ reply: response });
+    });
+    
+    app.listen(3000, () => console.log('Server running on port 3000'));
+    ```
+    
+    2. Create a .env file with:
+    ```
+    PORT=3000
+    OPENAI_API_KEY=your_key_here (if using OpenAI)
+    ```
+    
+    3. Update the fetch URL in the frontend to point to your server
+    -->
 </body>
 </html>

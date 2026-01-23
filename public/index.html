@@ -1,11 +1,14 @@
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4222089495408727"
+     crossorigin="anonymous"></script>
  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- SEO -->
   <title>QuantumChem – Advanced Chemical Database & Research Platform</title>
@@ -16,23 +19,19 @@
   <link rel="canonical" href="https://quantumchem.site/">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<!-- Primary favicon (Google uses this) -->
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<!-- Apple devices -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 
+<!-- Android / PWA -->
 <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
+<!-- Web App Manifest -->
 <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="manifest" href="public/site.webmanifest">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -316,19 +315,18 @@
         }
 
         body {
-            font-family: var(--font-primary);
-            background: var(--primary);
-            color: #f8fafc;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+    font-family: var(--font-primary);
+    background: var(--primary);
+    color: #f8fafc;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
 
         /* ===== TYPOGRAPHY ===== */
         h1, h2, h3, h4 {
@@ -1928,7 +1926,62 @@
                 padding: 1rem;
             }
         }
+/* ===== ANDROID SPECIFIC FIXES ===== */
+@media (max-width: 412px) {
+    .container {
+        padding: 0 1rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+    }
+}
 
+@media (max-width: 384px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+    .nav-brand .logo-text h1 {
+        font-size: 1.2rem;
+    }
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    h1 {
+        font-size: 2rem !important;
+    }
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    .chemical-card {
+        padding: 1rem;
+    }
+    .search-filter {
+        min-width: 100%;
+    }
+}
+
+/* Fix for Samsung Galaxy Fold and very small screens */
+@media (max-width: 320px) {
+    .container {
+        padding: 0 0.25rem;
+    }
+    .user-btn span {
+        display: none;
+    }
+    .nav-actions {
+        gap: 0.5rem;
+    }
+}
         /* ===== LOADING STATES ===== */
         .loading-chemicals, .modal-loading {
             text-align: center;
@@ -2261,11 +2314,7 @@
                     </a>
                 </div>
                 
-                <div class="nav-actions">
-                    <button class="btn-icon search-toggle" id="searchToggle">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    
+                
                    
 <div class="user-dropdown" id="userDropdown">
     <button class="user-btn" id="userBtn" onclick="toggleUserDropdown(event)">
@@ -3003,7 +3052,7 @@ window.addEventListener('storage', function(e) {
 
         <div class="footer-bottom">
             <p class="copyright-info">
-                &copy; 2025 Quantumchyem 
+                &copy; 2026 Quantumchem 
                 Developed with <i class="fas fa-heart"></i> by the QuantumChem Team.
             </p>
 

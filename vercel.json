@@ -24,6 +24,19 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "quantumchem.site"
+        }
+      ],
+      "destination": "https://www.quantumchem.site/$1",
+      "permanent": true
+    }
   ]
 }
 >>>>>>> 1026b092e69536a6badbbb52ceafc9710b1c2323
