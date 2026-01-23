@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "headers": [
     {
@@ -11,3 +12,18 @@
     }
   ]
 }
+=======
+{
+  "headers": [
+    {
+      "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/x-icon"
+        }
+      ]
+    }
+  ]
+}
+>>>>>>> 1026b092e69536a6badbbb52ceafc9710b1c2323
