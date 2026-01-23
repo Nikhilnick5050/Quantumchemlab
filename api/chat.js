@@ -12,7 +12,6 @@ export default async function handler(req, res) {
 
     const { message } = req.body;
 
-<<<<<<< HEAD
     // 🔴 PASTE HERE 👇
     const userMessage = message.toLowerCase();
 
@@ -74,20 +73,12 @@ Never mention OpenAI or ChatGPT.
         { role: "system", content: systemPrompt },
         { role: "user", content: message }
       ],
-=======
-    const response = await openai.responses.create({
-      model: "gpt-4.1-mini",
-      input: message,
->>>>>>> f50ea513fe40b92f0fc45d97e9b49d233eda927c
     });
 
     res.status(200).json({
       reply: response.output_text,
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> f50ea513fe40b92f0fc45d97e9b49d233eda927c
   } catch (err) {
     console.error(err);
     res.status(500).json({ reply: "AI error" });
