@@ -1,12 +1,11 @@
-// 🔥 ENV MUST LOAD FIRST (DO NOT MOVE)
-import "./env.js";
+// 🔥 Load environment FIRST
+import "dotenv/config";
 
 // =======================
 // IMPORTS
 // =======================
 import express from "express";
 import cors from "cors";
-import OpenAI from "openai";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -29,6 +28,40 @@ import googleAuthRoutes from "./api/routes/googleAuth.routes.js";
 import userRoutes from "./api/routes/user.routes.js";
 
 // =======================
+// AUTO-SET ENVIRONMENT URLs
+// =======================
+const isProduction = process.env.NODE_ENV === 'production';
+const isRailway = process.env.RAILWAY === 'true' || process.env.RAILWAY_STATIC_URL;
+const isVercel = process.env.VERCEL === '1';
+
+// Set NODE_ENV if not set
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = isRailway || isVercel ? 'production' : 'development';
+}
+
+// Set FRONTEND_URL
+if (!process.env.FRONTEND_URL) {
+  if (isVercel) {
+    process.env.FRONTEND_URL = 'https://www.quantumchem.site';
+  } else if (isRailway) {
+    process.env.FRONTEND_URL = 'https://www.quantumchem.site';
+  } else {
+    process.env.FRONTEND_URL = 'http://localhost:3000';
+  }
+}
+
+// Set GOOGLE_CALLBACK_URL
+if (!process.env.GOOGLE_CALLBACK_URL) {
+  if (isVercel) {
+    process.env.GOOGLE_CALLBACK_URL = 'https://quantumchem.vercel.app/api/auth/google/callback';
+  } else if (isRailway) {
+    process.env.GOOGLE_CALLBACK_URL = 'https://quantumchemlab-production.up.railway.app/api/auth/google/callback';
+  } else {
+    process.env.GOOGLE_CALLBACK_URL = 'http://localhost:3000/api/auth/google/callback';
+  }
+}
+
+// =======================
 // APP INIT
 // =======================
 const app = express();
@@ -38,17 +71,20 @@ const app = express();
 // =======================
 app.use(cors({
   origin: [
-    process.env.FRONTEND_URL || "http://localhost:3000",
+    process.env.FRONTEND_URL,
     "http://localhost:3000",
+    "https://localhost:3000",
     "https://www.quantumchem.site",
+    "https://quantumchem.site",
     "https://quantumchem.vercel.app",
-    /.+\.quantumchem\.site$/,
+    "https://quantumchemlab-production.up.railway.app"
   ],
   credentials: true
 }));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); // ✅ CHANGED TO "public"
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // =======================
 // CONNECT DB
@@ -63,46 +99,15 @@ app.use("/api/auth", googleAuthRoutes);
 app.use("/api/user", userRoutes);
 
 // =======================
-// OPENAI (OPTIONAL)
-// =======================
-if (process.env.OPENAI_API_KEY) {
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-
-  app.post("/api/chat", async (req, res) => {
-    try {
-      const { message } = req.body;
-
-      const response = await openai.responses.create({
-        model: "gpt-4.1-mini",
-        input: message,
-      });
-
-      res.json({ reply: response.output_text });
-    } catch (err) {
-      console.error("OPENAI ERROR:", err.message);
-      res.status(500).json({ reply: "AI error" });
-    }
-  });
-}
-
-// =======================
-// FALLBACK ROUTING
-// =======================
-app.get("*", (req, res) => {
-  if (req.path.startsWith("/api/")) {
-    return res.status(404).json({ error: "API endpoint not found" });
-  }
-  res.sendFile(path.join(__dirname, "public", "index.html")); // ✅ CHANGED TO "public"
-});
-
-// =======================
 // START SERVER
 // =======================
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
+  console.log("=".repeat(50));
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:3000"}`);
+  console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL}`);
+  console.log(`🔗 Google Callback URL: ${process.env.GOOGLE_CALLBACK_URL}`);
+  console.log(`⚙️  Environment: ${process.env.NODE_ENV}`);
+  console.log("=".repeat(50));
 });
