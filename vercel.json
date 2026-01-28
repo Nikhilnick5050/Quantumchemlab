@@ -1,32 +1,13 @@
 {
-  "headers": [
+  "version": 2,
+  "routes": [
     {
-      "source": "/favicon.ico",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "image/x-icon"
-        }
-      ]
-    }
-  ],
-  "redirects": [
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
     {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "quantumchem.site"
-        }
-      ],
-      "destination": "https://www.quantumchem.site/$1",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://quantumchemlab-production.up.railway.app/api/:path*"
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 }

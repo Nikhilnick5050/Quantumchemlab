@@ -787,43 +787,64 @@
 
    <script>
   // DOM Elements
-const loginToggle = document.getElementById('loginToggle');
-const signupToggle = document.getElementById('signupToggle');
-const toggleSlider = document.getElementById('toggleSlider');
-const loginForm = document.getElementById('loginForm');
-const signupForm = document.getElementById('signupForm');
-const loginBtn = document.getElementById('loginBtn');
-const signupBtn = document.getElementById('signupBtn');
-const loginBtnText = document.getElementById('loginBtnText');
-const signupBtnText = document.getElementById('signupBtnText');
-const loginPasswordToggle = document.getElementById('loginPasswordToggle');
-const loginPassword = document.getElementById('loginPassword');
-const googleBtn = document.getElementById('googleBtn');
-const signupGoogleBtn = document.getElementById('signupGoogleBtn');
-const messageContainer = document.getElementById('messageContainer');
-const termsCheckbox = document.getElementById('termsCheckbox');
-const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
-const resetPasswordBtn = document.getElementById('resetPasswordBtn');
-const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
+  const loginToggle = document.getElementById('loginToggle');
+  const signupToggle = document.getElementById('signupToggle');
+  const toggleSlider = document.getElementById('toggleSlider');
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  const loginBtnText = document.getElementById('loginBtnText');
+  const signupBtnText = document.getElementById('signupBtnText');
+  const loginPasswordToggle = document.getElementById('loginPasswordToggle');
+  const loginPassword = document.getElementById('loginPassword');
+  const googleBtn = document.getElementById('googleBtn');
+  const signupGoogleBtn = document.getElementById('signupGoogleBtn');
+  const messageContainer = document.getElementById('messageContainer');
+  const termsCheckbox = document.getElementById('termsCheckbox');
+  const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
+  const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+  const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
 
-// API Configuration - FIXED: Use Railway URL
-const API_BASE_URL = 'https://quantumchemlab-production.up.railway.app';
-const LOGIN_ENDPOINT = `${API_BASE_URL}/api/auth/login`;
-const REGISTER_ENDPOINT = `${API_BASE_URL}/api/auth/register`;
-const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/api/auth/reset-password`;
-const HOME_PAGE = 'index.html';
+  // DYNAMIC API Configuration for Vercel backend
+  function getApiBaseUrl() {
+    const currentOrigin = window.location.origin;
+    
+    // Local development
+    if (currentOrigin === 'http://localhost:3000') {
+      return 'http://localhost:3000/api'; // Vercel dev server
+    }
+    
+    // Production domains - point to your Vercel backend
+    if (currentOrigin === 'https://www.quantumchem.site' || 
+        currentOrigin === 'https://quantumchem.vercel.app') {
+      return 'https://quantumchem.vercel.app/api';
+    }
+    
+    // Default fallback - use current origin as base for Vercel functions
+    return currentOrigin + '/api';
+  }
 
-// Password expired keywords to check in backend messages
-const PASSWORD_EXPIRED_KEYWORDS = [
+  const API_BASE_URL = getApiBaseUrl();
+  const LOGIN_ENDPOINT = `${API_BASE_URL}/auth/login`;
+  const REGISTER_ENDPOINT = `${API_BASE_URL}/auth/register`;
+  const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/auth/reset-password`;
+  const GOOGLE_AUTH_ENDPOINT = `${API_BASE_URL}/auth/google`;
+  
+  // Home page path - relative to current domain
+  const HOME_PAGE = 'index.html';
+
+  // Password expired keywords to check in backend messages
+  const PASSWORD_EXPIRED_KEYWORDS = [
     'password expired',
     'expired due to security',
     'new password',
     'password has expired',
     'temporary password expired'
-];
+  ];
 
-// Show message function (TOP position)
-function showMessage(text, type = 'info') {
+  // Show message function (TOP position)
+  function showMessage(text, type = 'info') {
     const message = document.createElement('div');
     message.className = `message ${type}`;
     
@@ -844,28 +865,28 @@ function showMessage(text, type = 'info') {
         message.style.animation = 'fadeOut 0.5s ease-out forwards';
         setTimeout(() => message.remove(), 500);
     }, 5000);
-}
+  }
 
-// Check if backend message indicates password expiration
-function isPasswordExpiredMessage(message) {
+  // Check if backend message indicates password expiration
+  function isPasswordExpiredMessage(message) {
     if (!message) return false;
     const lowerMessage = message.toLowerCase();
     return PASSWORD_EXPIRED_KEYWORDS.some(keyword => 
         lowerMessage.includes(keyword.toLowerCase())
     );
-}
+  }
 
-// Toggle password visibility
-function setupPasswordToggle(toggleBtn, passwordInput) {
+  // Toggle password visibility
+  function setupPasswordToggle(toggleBtn, passwordInput) {
     toggleBtn.addEventListener('click', () => {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
         toggleBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
     });
-}
+  }
 
-// Toggle between login and signup forms
-function setupFormToggle() {
+  // Toggle between login and signup forms
+  function setupFormToggle() {
     loginToggle.addEventListener('click', () => {
         loginToggle.classList.add('active');
         signupToggle.classList.remove('active');
@@ -899,10 +920,10 @@ function setupFormToggle() {
         signupForm.reset();
         termsCheckbox.checked = false;
     });
-}
+  }
 
-// Handle manual login form submission
-async function handleLogin(e) {
+  // Handle manual login form submission
+  async function handleLogin(e) {
     e.preventDefault();
     
     const email = document.getElementById('loginEmail').value.trim();
@@ -984,10 +1005,10 @@ async function handleLogin(e) {
         loginBtn.disabled = false;
         loginBtnText.textContent = 'Sign In';
     }
-}
+  }
 
-// Handle signup form submission (backend generates password after email verification)
-async function handleSignup(e) {
+  // Handle signup form submission (backend generates password after email verification)
+  async function handleSignup(e) {
     e.preventDefault();
     
     const name = document.getElementById('signupName').value.trim();
@@ -1068,10 +1089,10 @@ async function handleSignup(e) {
         signupBtn.disabled = false;
         signupBtnText.textContent = 'Create Account';
     }
-}
+  }
 
-// Handle reset password request
-async function handleResetPassword() {
+  // Handle reset password request
+  async function handleResetPassword() {
     const email = document.getElementById('loginEmail').value.trim();
     
     // Clear any previous messages
@@ -1135,16 +1156,17 @@ async function handleResetPassword() {
         resetPasswordBtn.disabled = false;
         resetPasswordBtnText.textContent = 'Reset Password';
     }
-}
+  }
 
-// Handle Google button clicks - FIXED: Use Railway URL
-function handleGoogleAuth() {
+  // Handle Google button clicks - for Vercel backend
+  function handleGoogleAuth() {
     messageContainer.innerHTML = '';
-    window.location.href = 'https://quantumchemlab-production.up.railway.app/api/auth/google';
-}
+    // For Google OAuth, we need to redirect to the backend auth endpoint
+    window.location.href = GOOGLE_AUTH_ENDPOINT;
+  }
 
-// Initialize the application
-function init() {
+  // Initialize the application
+  function init() {
     // Setup form toggle
     setupFormToggle();
     
@@ -1187,12 +1209,20 @@ function init() {
     // Ensure reset password button is ALWAYS visible
     resetPasswordBtn.style.display = 'flex';
     
+    // Check for OAuth callback parameter (Google redirect)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('token')) {
+        const token = urlParams.get('token');
+        localStorage.setItem('jwt_token', token);
+        window.location.href = HOME_PAGE;
+    }
+    
     // DO NOT auto-check for JWT token or auto-redirect
     // User must manually login each time
-}
+  }
 
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', init);
+  // Initialize when page loads
+  document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
