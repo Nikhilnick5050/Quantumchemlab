@@ -786,413 +786,413 @@
     </div>
 
    <script>
-    // DOM Elements
-    const loginToggle = document.getElementById('loginToggle');
-    const signupToggle = document.getElementById('signupToggle');
-    const toggleSlider = document.getElementById('toggleSlider');
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const loginBtn = document.getElementById('loginBtn');
-    const signupBtn = document.getElementById('signupBtn');
-    const loginBtnText = document.getElementById('loginBtnText');
-    const signupBtnText = document.getElementById('signupBtnText');
-    const loginPasswordToggle = document.getElementById('loginPasswordToggle');
-    const loginPassword = document.getElementById('loginPassword');
-    const googleBtn = document.getElementById('googleBtn');
-    const signupGoogleBtn = document.getElementById('signupGoogleBtn');
-    const messageContainer = document.getElementById('messageContainer');
-    const termsCheckbox = document.getElementById('termsCheckbox');
-    const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
-    const resetPasswordBtn = document.getElementById('resetPasswordBtn');
-    const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
+  // DOM Elements
+const loginToggle = document.getElementById('loginToggle');
+const signupToggle = document.getElementById('signupToggle');
+const toggleSlider = document.getElementById('toggleSlider');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const loginBtn = document.getElementById('loginBtn');
+const signupBtn = document.getElementById('signupBtn');
+const loginBtnText = document.getElementById('loginBtnText');
+const signupBtnText = document.getElementById('signupBtnText');
+const loginPasswordToggle = document.getElementById('loginPasswordToggle');
+const loginPassword = document.getElementById('loginPassword');
+const googleBtn = document.getElementById('googleBtn');
+const signupGoogleBtn = document.getElementById('signupGoogleBtn');
+const messageContainer = document.getElementById('messageContainer');
+const termsCheckbox = document.getElementById('termsCheckbox');
+const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
+const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
 
-    // API Configuration - UPDATED: Use window.location.origin
-    const API_BASE_URL = window.location.origin;
-    const LOGIN_ENDPOINT = `${API_BASE_URL}/api/auth/login`;
-    const REGISTER_ENDPOINT = `${API_BASE_URL}/api/auth/register`;
-    const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/api/auth/reset-password`;
-    const HOME_PAGE = 'index.html';
+// API Configuration - FIXED: Use Railway URL
+const API_BASE_URL = 'https://quantumchemlab-production.up.railway.app';
+const LOGIN_ENDPOINT = `${API_BASE_URL}/api/auth/login`;
+const REGISTER_ENDPOINT = `${API_BASE_URL}/api/auth/register`;
+const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/api/auth/reset-password`;
+const HOME_PAGE = 'index.html';
 
-    // Password expired keywords to check in backend messages
-    const PASSWORD_EXPIRED_KEYWORDS = [
-        'password expired',
-        'expired due to security',
-        'new password',
-        'password has expired',
-        'temporary password expired'
-    ];
+// Password expired keywords to check in backend messages
+const PASSWORD_EXPIRED_KEYWORDS = [
+    'password expired',
+    'expired due to security',
+    'new password',
+    'password has expired',
+    'temporary password expired'
+];
 
-    // Show message function (TOP position)
-    function showMessage(text, type = 'info') {
-        const message = document.createElement('div');
-        message.className = `message ${type}`;
+// Show message function (TOP position)
+function showMessage(text, type = 'info') {
+    const message = document.createElement('div');
+    message.className = `message ${type}`;
+    
+    let icon = 'fas fa-info-circle';
+    if (type === 'success') icon = 'fas fa-check-circle';
+    if (type === 'error') icon = 'fas fa-exclamation-circle';
+    if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+    
+    message.innerHTML = `
+        <i class="${icon}"></i>
+        <span>${text}</span>
+    `;
+    
+    messageContainer.appendChild(message);
+    
+    // Auto remove after 5 seconds with fade out animation
+    setTimeout(() => {
+        message.style.animation = 'fadeOut 0.5s ease-out forwards';
+        setTimeout(() => message.remove(), 500);
+    }, 5000);
+}
+
+// Check if backend message indicates password expiration
+function isPasswordExpiredMessage(message) {
+    if (!message) return false;
+    const lowerMessage = message.toLowerCase();
+    return PASSWORD_EXPIRED_KEYWORDS.some(keyword => 
+        lowerMessage.includes(keyword.toLowerCase())
+    );
+}
+
+// Toggle password visibility
+function setupPasswordToggle(toggleBtn, passwordInput) {
+    toggleBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        toggleBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    });
+}
+
+// Toggle between login and signup forms
+function setupFormToggle() {
+    loginToggle.addEventListener('click', () => {
+        loginToggle.classList.add('active');
+        signupToggle.classList.remove('active');
+        toggleSlider.classList.remove('signup');
         
-        let icon = 'fas fa-info-circle';
-        if (type === 'success') icon = 'fas fa-check-circle';
-        if (type === 'error') icon = 'fas fa-exclamation-circle';
-        if (type === 'warning') icon = 'fas fa-exclamation-triangle';
-        
-        message.innerHTML = `
-            <i class="${icon}"></i>
-            <span>${text}</span>
-        `;
-        
-        messageContainer.appendChild(message);
-        
-        // Auto remove after 5 seconds with fade out animation
+        // Hide signup form first, then show login form
+        signupForm.classList.remove('active');
         setTimeout(() => {
-            message.style.animation = 'fadeOut 0.5s ease-out forwards';
-            setTimeout(() => message.remove(), 500);
-        }, 5000);
-    }
+            loginForm.classList.add('active');
+        }, 50);
+        
+        messageContainer.innerHTML = '';
+    });
 
-    // Check if backend message indicates password expiration
-    function isPasswordExpiredMessage(message) {
-        if (!message) return false;
-        const lowerMessage = message.toLowerCase();
-        return PASSWORD_EXPIRED_KEYWORDS.some(keyword => 
-            lowerMessage.includes(keyword.toLowerCase())
-        );
-    }
+    signupToggle.addEventListener('click', () => {
+        signupToggle.classList.add('active');
+        loginToggle.classList.remove('active');
+        toggleSlider.classList.add('signup');
+        
+        // Hide login form first, then show signup form
+        loginForm.classList.remove('active');
+        setTimeout(() => {
+            signupForm.classList.add('active');
+            // Show terms checkbox when signup form is active
+            termsCheckboxContainer.classList.add('show');
+        }, 50);
+        
+        messageContainer.innerHTML = '';
+        
+        // Reset form fields
+        signupForm.reset();
+        termsCheckbox.checked = false;
+    });
+}
 
-    // Toggle password visibility
-    function setupPasswordToggle(toggleBtn, passwordInput) {
-        toggleBtn.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            toggleBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+// Handle manual login form submission
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = loginPassword.value;
+    
+    // Clear any previous messages
+    messageContainer.innerHTML = '';
+    
+    // Basic validation
+    if (!email || !password) {
+        showMessage('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Set loading state
+    loginBtn.disabled = true;
+    loginBtnText.innerHTML = '<div class="loading"></div> Signing in...';
+    
+    try {
+        // Send login request to backend
+        const response = await fetch(LOGIN_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Success - check if token is present
+            if (data.token) {
+                localStorage.setItem('jwt_token', data.token);
+                
+                // Clear any existing messages
+                messageContainer.innerHTML = '';
+                
+                // Redirect to index.html
+                window.location.href = HOME_PAGE;
+            } else {
+                // No token received (shouldn't happen for successful login)
+                showMessage('Login response incomplete', 'error');
+            }
+        } else {
+            // Handle backend error messages
+            if (data.message) {
+                const message = data.message;
+                
+                // Check if message indicates password expiration
+                if (isPasswordExpiredMessage(message)) {
+                    // Password expired - show message
+                    showMessage(message, 'warning');
+                    // DO NOT redirect - let user reset password
+                } else {
+                    // Other error messages
+                    showMessage(message, 'error');
+                }
+            } else {
+                showMessage('Login failed. Please try again.', 'error');
+            }
+        }
+    } catch (error) {
+        // Network error
+        console.error('Login error:', error);
+        showMessage('Unable to connect to the server. Please try again later.', 'error');
+    } finally {
+        // Reset button state
+        loginBtn.disabled = false;
+        loginBtnText.textContent = 'Sign In';
     }
+}
 
-    // Toggle between login and signup forms
-    function setupFormToggle() {
-        loginToggle.addEventListener('click', () => {
-            loginToggle.classList.add('active');
-            signupToggle.classList.remove('active');
-            toggleSlider.classList.remove('signup');
-            
-            // Hide signup form first, then show login form
-            signupForm.classList.remove('active');
-            setTimeout(() => {
-                loginForm.classList.add('active');
-            }, 50);
-            
-            messageContainer.innerHTML = '';
+// Handle signup form submission (backend generates password after email verification)
+async function handleSignup(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    
+    // Clear any previous messages
+    messageContainer.innerHTML = '';
+    
+    // Basic validation
+    if (!name || !email) {
+        showMessage('Name and email are required fields', 'error');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Terms checkbox check
+    if (!termsCheckbox.checked) {
+        showMessage('You must agree to the Terms of Service and Privacy Policy', 'error');
+        return;
+    }
+    
+    // Set loading state
+    signupBtn.disabled = true;
+    signupBtnText.innerHTML = '<div class="loading"></div> Creating Account...';
+    
+    try {
+        // Send signup request to backend
+        // Backend will send verification email first
+        const payload = {
+            name: name,
+            email: email
+        };
+        
+        const response = await fetch(REGISTER_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
         });
-
-        signupToggle.addEventListener('click', () => {
-            signupToggle.classList.add('active');
-            loginToggle.classList.remove('active');
-            toggleSlider.classList.add('signup');
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Success - show backend response message
+            if (data.message) {
+                showMessage(data.message, 'success');
+            } else {
+                showMessage('Account created successfully. Please check your email for verification.', 'success');
+            }
             
-            // Hide login form first, then show signup form
-            loginForm.classList.remove('active');
-            setTimeout(() => {
-                signupForm.classList.add('active');
-                // Show terms checkbox when signup form is active
-                termsCheckboxContainer.classList.add('show');
-            }, 50);
-            
-            messageContainer.innerHTML = '';
-            
-            // Reset form fields
+            // Reset form
             signupForm.reset();
             termsCheckbox.checked = false;
-        });
-    }
-
-    // Handle manual login form submission
-    async function handleLogin(e) {
-        e.preventDefault();
-        
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = loginPassword.value;
-        
-        // Clear any previous messages
-        messageContainer.innerHTML = '';
-        
-        // Basic validation
-        if (!email || !password) {
-            showMessage('Please fill in all required fields', 'error');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showMessage('Please enter a valid email address', 'error');
-            return;
-        }
-        
-        // Set loading state
-        loginBtn.disabled = true;
-        loginBtnText.innerHTML = '<div class="loading"></div> Signing in...';
-        
-        try {
-            // Send login request to backend
-            const response = await fetch(LOGIN_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
-            });
             
-            const data = await response.json();
-            
-            if (response.ok) {
-                // Success - check if token is present
-                if (data.token) {
-                    localStorage.setItem('jwt_token', data.token);
-                    
-                    // Clear any existing messages
-                    messageContainer.innerHTML = '';
-                    
-                    // Redirect to index.html
-                    window.location.href = HOME_PAGE;
-                } else {
-                    // No token received (shouldn't happen for successful login)
-                    showMessage('Login response incomplete', 'error');
-                }
+            // DO NOT auto-login after signup
+            // DO NOT switch forms automatically
+            // User will receive verification email, then password email
+        } else {
+            // Handle signup errors
+            if (data.message) {
+                showMessage(data.message, 'error');
             } else {
-                // Handle backend error messages
-                if (data.message) {
-                    const message = data.message;
-                    
-                    // Check if message indicates password expiration
-                    if (isPasswordExpiredMessage(message)) {
-                        // Password expired - show message
-                        showMessage(message, 'warning');
-                        // DO NOT redirect - let user reset password
-                    } else {
-                        // Other error messages
-                        showMessage(message, 'error');
-                    }
-                } else {
-                    showMessage('Login failed. Please try again.', 'error');
-                }
+                showMessage('Registration failed. Please try again.', 'error');
             }
-        } catch (error) {
-            // Network error
-            console.error('Login error:', error);
-            showMessage('Unable to connect to the server. Please try again later.', 'error');
-        } finally {
-            // Reset button state
-            loginBtn.disabled = false;
-            loginBtnText.textContent = 'Sign In';
         }
+    } catch (error) {
+        console.error('Signup error:', error);
+        showMessage('Unable to connect to the server. Please try again later.', 'error');
+    } finally {
+        // Reset button state
+        signupBtn.disabled = false;
+        signupBtnText.textContent = 'Create Account';
     }
+}
 
-    // Handle signup form submission (backend generates password after email verification)
-    async function handleSignup(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('signupName').value.trim();
-        const email = document.getElementById('signupEmail').value.trim();
-        
-        // Clear any previous messages
-        messageContainer.innerHTML = '';
-        
-        // Basic validation
-        if (!name || !email) {
-            showMessage('Name and email are required fields', 'error');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showMessage('Please enter a valid email address', 'error');
-            return;
-        }
-        
-        // Terms checkbox check
-        if (!termsCheckbox.checked) {
-            showMessage('You must agree to the Terms of Service and Privacy Policy', 'error');
-            return;
-        }
-        
-        // Set loading state
-        signupBtn.disabled = true;
-        signupBtnText.innerHTML = '<div class="loading"></div> Creating Account...';
-        
-        try {
-            // Send signup request to backend
-            // Backend will send verification email first
-            const payload = {
-                name: name,
+// Handle reset password request
+async function handleResetPassword() {
+    const email = document.getElementById('loginEmail').value.trim();
+    
+    // Clear any previous messages
+    messageContainer.innerHTML = '';
+    
+    // Email validation
+    if (!email) {
+        showMessage('Please enter your email address to reset password', 'error');
+        return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Set loading state for reset button
+    resetPasswordBtn.disabled = true;
+    resetPasswordBtnText.innerHTML = '<div class="loading"></div> Sending...';
+    
+    try {
+        // Send reset password request to backend
+        const response = await fetch(RESET_PASSWORD_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 email: email
-            };
-            
-            const response = await fetch(REGISTER_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                // Success - show backend response message
-                if (data.message) {
-                    showMessage(data.message, 'success');
-                } else {
-                    showMessage('Account created successfully. Please check your email for verification.', 'success');
-                }
-                
-                // Reset form
-                signupForm.reset();
-                termsCheckbox.checked = false;
-                
-                // DO NOT auto-login after signup
-                // DO NOT switch forms automatically
-                // User will receive verification email, then password email
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Success - show backend response message
+            if (data.message) {
+                showMessage(data.message, 'success');
             } else {
-                // Handle signup errors
-                if (data.message) {
-                    showMessage(data.message, 'error');
-                } else {
-                    showMessage('Registration failed. Please try again.', 'error');
-                }
+                showMessage('Password reset email sent. Please check your inbox.', 'success');
             }
-        } catch (error) {
-            console.error('Signup error:', error);
-            showMessage('Unable to connect to the server. Please try again later.', 'error');
-        } finally {
-            // Reset button state
-            signupBtn.disabled = false;
-            signupBtnText.textContent = 'Create Account';
-        }
-    }
-
-    // Handle reset password request
-    async function handleResetPassword() {
-        const email = document.getElementById('loginEmail').value.trim();
-        
-        // Clear any previous messages
-        messageContainer.innerHTML = '';
-        
-        // Email validation
-        if (!email) {
-            showMessage('Please enter your email address to reset password', 'error');
-            return;
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showMessage('Please enter a valid email address', 'error');
-            return;
-        }
-        
-        // Set loading state for reset button
-        resetPasswordBtn.disabled = true;
-        resetPasswordBtnText.innerHTML = '<div class="loading"></div> Sending...';
-        
-        try {
-            // Send reset password request to backend
-            const response = await fetch(RESET_PASSWORD_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email
-                })
-            });
             
-            const data = await response.json();
+            // DO NOT auto-login after reset
+            // Clear password field
+            loginPassword.value = '';
             
-            if (response.ok) {
-                // Success - show backend response message
-                if (data.message) {
-                    showMessage(data.message, 'success');
-                } else {
-                    showMessage('Password reset email sent. Please check your inbox.', 'success');
-                }
-                
-                // DO NOT auto-login after reset
-                // Clear password field
-                loginPassword.value = '';
-                
+        } else {
+            // Handle reset errors
+            if (data.message) {
+                showMessage(data.message, 'error');
             } else {
-                // Handle reset errors
-                if (data.message) {
-                    showMessage(data.message, 'error');
-                } else {
-                    showMessage('Password reset failed. Please try again.', 'error');
-                }
-            }
-        } catch (error) {
-            console.error('Reset password error:', error);
-            showMessage('Unable to connect to the server. Please try again later.', 'error');
-        } finally {
-            // Reset button state
-            resetPasswordBtn.disabled = false;
-            resetPasswordBtnText.textContent = 'Reset Password';
-        }
-    }
-
-    // Handle Google button clicks - UPDATED: Use window.location.origin
-    function handleGoogleAuth() {
-        messageContainer.innerHTML = '';
-        window.location.href = `${window.location.origin}/api/auth/google`;
-    }
-
-    // Initialize the application
-    function init() {
-        // Setup form toggle
-        setupFormToggle();
-        
-        // Setup password visibility toggle for login only
-        setupPasswordToggle(loginPasswordToggle, loginPassword);
-        
-        // Setup form submissions
-        loginForm.addEventListener('submit', handleLogin);
-        signupForm.addEventListener('submit', handleSignup);
-        
-        // Setup reset password button
-        resetPasswordBtn.addEventListener('click', handleResetPassword);
-        
-        // Setup Google buttons
-        googleBtn.addEventListener('click', handleGoogleAuth);
-        signupGoogleBtn.addEventListener('click', handleGoogleAuth);
-        
-        // Hide terms checkbox initially
-        termsCheckboxContainer.classList.remove('show');
-        
-        // Remove all password-related fields from signup form
-        // Only keep name and email as per requirements
-        const signupFormGroups = signupForm.querySelectorAll('.form-group');
-        if (signupFormGroups.length > 2) {
-            // Remove any extra form groups beyond name and email
-            for (let i = 2; i < signupFormGroups.length; i++) {
-                const group = signupFormGroups[i];
-                if (group.querySelector('input[type="password"]')) {
-                    group.remove();
-                }
+                showMessage('Password reset failed. Please try again.', 'error');
             }
         }
-        
-        // Remove any password strength indicators or instructions
-        const passwordStrength = signupForm.querySelector('.password-strength');
-        const passwordInstructions = signupForm.querySelector('.password-instructions');
-        if (passwordStrength) passwordStrength.remove();
-        if (passwordInstructions) passwordInstructions.remove();
-        
-        // Ensure reset password button is ALWAYS visible
-        resetPasswordBtn.style.display = 'flex';
-        
-        // DO NOT auto-check for JWT token or auto-redirect
-        // User must manually login each time
+    } catch (error) {
+        console.error('Reset password error:', error);
+        showMessage('Unable to connect to the server. Please try again later.', 'error');
+    } finally {
+        // Reset button state
+        resetPasswordBtn.disabled = false;
+        resetPasswordBtnText.textContent = 'Reset Password';
     }
+}
 
-    // Initialize when page loads
-    document.addEventListener('DOMContentLoaded', init);
+// Handle Google button clicks - FIXED: Use Railway URL
+function handleGoogleAuth() {
+    messageContainer.innerHTML = '';
+    window.location.href = 'https://quantumchemlab-production.up.railway.app/api/auth/google';
+}
+
+// Initialize the application
+function init() {
+    // Setup form toggle
+    setupFormToggle();
+    
+    // Setup password visibility toggle for login only
+    setupPasswordToggle(loginPasswordToggle, loginPassword);
+    
+    // Setup form submissions
+    loginForm.addEventListener('submit', handleLogin);
+    signupForm.addEventListener('submit', handleSignup);
+    
+    // Setup reset password button
+    resetPasswordBtn.addEventListener('click', handleResetPassword);
+    
+    // Setup Google buttons
+    googleBtn.addEventListener('click', handleGoogleAuth);
+    signupGoogleBtn.addEventListener('click', handleGoogleAuth);
+    
+    // Hide terms checkbox initially
+    termsCheckboxContainer.classList.remove('show');
+    
+    // Remove all password-related fields from signup form
+    // Only keep name and email as per requirements
+    const signupFormGroups = signupForm.querySelectorAll('.form-group');
+    if (signupFormGroups.length > 2) {
+        // Remove any extra form groups beyond name and email
+        for (let i = 2; i < signupFormGroups.length; i++) {
+            const group = signupFormGroups[i];
+            if (group.querySelector('input[type="password"]')) {
+                group.remove();
+            }
+        }
+    }
+    
+    // Remove any password strength indicators or instructions
+    const passwordStrength = signupForm.querySelector('.password-strength');
+    const passwordInstructions = signupForm.querySelector('.password-instructions');
+    if (passwordStrength) passwordStrength.remove();
+    if (passwordInstructions) passwordInstructions.remove();
+    
+    // Ensure reset password button is ALWAYS visible
+    resetPasswordBtn.style.display = 'flex';
+    
+    // DO NOT auto-check for JWT token or auto-redirect
+    // User must manually login each time
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>

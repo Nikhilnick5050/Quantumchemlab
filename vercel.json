@@ -1,4 +1,3 @@
-
 {
   "headers": [
     {
@@ -22,6 +21,12 @@
       ],
       "destination": "https://www.quantumchem.site/$1",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://quantumchemlab-production.up.railway.app/api/:path*"
     }
   ]
 }
