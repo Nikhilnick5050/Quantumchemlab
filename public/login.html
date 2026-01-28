@@ -807,7 +807,7 @@ const resetPasswordBtn = document.getElementById('resetPasswordBtn');
 const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
 
 // API Configuration - FIXED: Use Railway URL
-const API_BASE_URL = 'https://www.quantumchem.site/api/auth/google/callback';
+const API_BASE_URL = 'https://quantumchemlab-production.up.railway.app';
 const LOGIN_ENDPOINT = `${API_BASE_URL}/api/auth/login`;
 const REGISTER_ENDPOINT = `${API_BASE_URL}/api/auth/register`;
 const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/api/auth/reset-password`;
@@ -1140,7 +1140,7 @@ async function handleResetPassword() {
 // Handle Google button clicks - FIXED: Use Railway URL
 function handleGoogleAuth() {
     messageContainer.innerHTML = '';
-    window.location.href = 'https://www.quantumchem.site/api/auth/google/callback';
+    window.location.href = 'https://quantumchemlab-production.up.railway.app/api/auth/google';
 }
 
 // Initialize the application
