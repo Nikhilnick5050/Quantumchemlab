@@ -1,231 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing | QuantumChem</title>
-    <!-- Favicon Links -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <style>
-        :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --purple: #764ba2;
-            --text-light: #f8fafc;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        .navbar {
-            background: rgba(15, 23, 42, 0.95);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            text-decoration: none;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        .nav-links a:hover {
-            opacity: 1;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-        .page-title {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        .pricing-card {
-            background: var(--secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .pricing-card.popular {
-            border: 2px solid var(--accent);
-            transform: scale(1.05);
-        }
-        .popular-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .plan-name {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .price {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-        .period {
-            color: var(--text-light);
-            opacity: 0.7;
-        }
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 2rem 0;
-        }
-        .features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .features li:last-child {
-            border-bottom: none;
-        }
-        .btn {
-            display: block;
-            text-align: center;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 1rem;
-            transition: opacity 0.3s;
-        }
-        .btn:hover {
-            opacity: 0.9;
-        }
-        .faq {
-            margin-top: 4rem;
-        }
-        .faq-item {
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Privacy Policy | QuantumChem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy Policy for QuantumChem - Advanced Chemical Database Platform">
+  <style>
+    :root {
+      --quantum-blue: #00d4ff;
+      --dark-space: #0a192f;
+      --text-light: #e6f1ff;
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #020617, var(--dark-space));
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 40px 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, #0f2a44, #020617);
+    }
+
+    header h1 {
+      color: var(--quantum-blue);
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      color: var(--quantum-blue);
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    a {
+      color: var(--quantum-blue);
+      text-decoration: none;
+    }
+  </style>
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/" class="logo">QuantumChem</a>
-        <div class="nav-links">
-            <a href="features.html">Features</a>
-            <a href="documentation.html">Documentation</a>
-            <a href="download.html">Download</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
-    
-    <div class="container">
-        <h1 class="page-title">Pricing Plans</h1>
-        <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem; opacity: 0.8;">
-            Choose the perfect plan for your computational chemistry needs. All plans include core features and regular updates.
-        </p>
-        
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3 class="plan-name">Student</h3>
-                <div class="price">Free</div>
-                <p class="period">For academic use only</p>
-                <ul class="features">
-                    <li>✓ All core calculation methods</li>
-                    <li>✓ Up to 100 atoms</li>
-                    <li>✓ Basic visualization tools</li>
-                    <li>✓ Educational resources</li>
-                    <li>✗ Priority support</li>
-                    <li>✗ Advanced solvers</li>
-                    <li>✗ Batch processing</li>
-                </ul>
-                <a href="students.html" class="btn">Get Started</a>
-            </div>
-            
-            <div class="pricing-card popular">
-                <div class="popular-badge">MOST POPULAR</div>
-                <h3 class="plan-name">Professional</h3>
-                <div class="price">$49<span style="font-size: 1rem;">/month</span></div>
-                <p class="period">Billed annually or $59 monthly</p>
-                <ul class="features">
-                    <li>✓ All Student features</li>
-                    <li>✓ Unlimited atoms</li>
-                    <li>✓ Advanced visualization</li>
-                    <li>✓ Priority email support</li>
-                    <li>✓ DFT, MP2, CCSD calculations</li>
-                    <li>✓ Batch processing</li>
-                    <li>✓ API access</li>
-                </ul>
-                <a href="#" class="btn">Start Free Trial</a>
-            </div>
-            
-            <div class="pricing-card">
-                <h3 class="plan-name">Enterprise</h3>
-                <div class="price">Custom</div>
-                <p class="period">Tailored for research labs & industry</p>
-                <ul class="features">
-                    <li>✓ All Professional features</li>
-                    <li>✓ Dedicated support</li>
-                    <li>✓ Custom integrations</li>
-                    <li>✓ On-premise deployment</li>
-                    <li>✓ Training & onboarding</li>
-                    <li>✓ SLA guarantee</li>
-                    <li>✓ Team management</li>
-                </ul>
-                <a href="contact.html" class="btn">Contact Sales</a>
-            </div>
-        </div>
-        
-        <div class="faq">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <h3>Can I switch plans later?</h3>
-                <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Is there a free trial for paid plans?</h3>
-                <p>Yes, Professional plan includes a 14-day free trial with all features.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Do you offer academic discounts?</h3>
-                <p>Yes, universities and research institutions receive 50% off on Professional plan.</p>
-            </div>
-        </div>
-    </div>
+
+<header>
+  <h1>Privacy Policy</h1>
+  <p>QuantumChem – Advanced Chemical Database</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>1. Introduction</h2>
+    <p>
+      Welcome to <strong>QuantumChem</strong>. Your privacy is important to us.
+      This Privacy Policy explains how we handle information when you use our
+      website and services.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Information We Collect</h2>
+    <p>
+      QuantumChem is an <strong>educational and informational platform</strong>.
+      We do <strong>not</strong> collect personal data such as:
+    </p>
+    <ul>
+      <li>Names</li>
+      <li>Email addresses</li>
+      <li>Phone numbers</li>
+      <li>Payment information</li>
+    </ul>
+    <p>
+      We may collect <em>non-personal, anonymous data</em> such as browser type
+      or device information for performance and analytics purposes.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Cookies</h2>
+    <p>
+      QuantumChem may use basic cookies to improve user experience.
+      These cookies do not store personally identifiable information.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Use of Information</h2>
+    <p>Any collected non-personal information is used only to:</p>
+    <ul>
+      <li>Improve website performance</li>
+      <li>Enhance user experience</li>
+      <li>Analyze site usage trends</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. Third-Party Services</h2>
+    <p>
+      QuantumChem may include third-party tools (e.g., analytics, fonts,
+      animation libraries). These services may collect data according to their
+      own privacy policies.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Data Security</h2>
+    <p>
+      We take reasonable measures to protect the website and its content.
+      However, no online platform can guarantee 100% security.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Educational Disclaimer</h2>
+    <p>
+      All chemical data provided on QuantumChem is for
+      <strong>educational purposes only</strong>.
+      Always follow official laboratory safety guidelines and MSDS documents.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time.
+      Changes will be posted on this page with an updated revision date.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Contact</h2>
+    <p>
+      If you have questions about this Privacy Policy, you may contact us at:
+      <br><br>
+      📧 <strong>support@quantumchem.org</strong>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 QuantumChem. All rights reserved.
+</footer>
+
 </body>
 </html>

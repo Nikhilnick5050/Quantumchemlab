@@ -2278,295 +2278,374 @@
     </div>
 
     </nav>
-    <!-- Header -->
-    <header class="main-header" id="mainHeader">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <div class="logo">
-                        <i class="fas fa-atom"></i>
-                        <div class="logo-text">
-                            <h1>Quantum<span>Chem</span></h1>
-                            <p class="logo-subtitle">Laboratory Database</p>
-                        </div>
+   <!-- Header -->
+<header class="main-header" id="mainHeader">
+    <div class="container">
+        <nav class="navbar">
+            <!-- Brand Logo -->
+            <a href="index.html" class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-atom"></i>
+                    <div class="logo-text">
+                        <h1>Quantum<span>Chem</span></h1>
+                        <p class="logo-subtitle">Laboratory Database</p>
                     </div>
                 </div>
-                
-                <div class="nav-menu" id="navMenu">
-                    <a href="#home" class="nav-link active" data-text="Home">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </a>
-                    <a href="#Chemicals" class="nav-link" data-text="chemicals">
-                        <i class="fas fa-database"></i>
-                        <span>Chemicals</span>
-                    </a>
-                    <a href="https://quantumchemblog.wordpress.com/" class="nav-link" data-text="Blog" target="_blank">
-    <i class="fas fa-blog"></i>
-    <span>Blog</span>
-</a>
-<a href="textbook and book.html" class="nav-link" data-text="Textbooks and Notes" target="_blank">
-    <i class="fas fa-book"></i>
-    <span>Textbooks and Notes</span>
-</a>
+            </a>
 
+            <!-- Navigation Menu -->
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html#home" class="nav-link active" data-text="Home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="index.html#Chemicals" class="nav-link" data-text="Chemicals">
+                    <i class="fas fa-database"></i>
+                    <span>Chemicals</span>
+                </a>
+                <a href="https://quantumchemblog.wordpress.com/" class="nav-link" data-text="Blog" target="_blank">
+                    <i class="fas fa-blog"></i>
+                    <span>Blog</span>
+                </a>
+                <a href="textbook and book.html" class="nav-link" data-text="Textbooks" target="_blank">
+                    <i class="fas fa-book"></i>
+                    <span>Textbooks</span>
+                </a>
+            </div>
 
-                    </a>
+            <!-- User Dropdown -->
+            <div class="user-dropdown" id="userDropdown">
+                <button class="user-btn" id="userBtn">
+                    <div class="user-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff&size=32" 
+                             alt="Account" 
+                             id="userAvatar">
+                    </div>
+                    <span id="userName">Account</span>
+                    <i class="fas fa-chevron-down" id="dropdownArrow"></i>
+                </button>
+                <div class="dropdown-menu" id="userDropdownMenu">
+                    <div id="dropdownContent">
+                        <!-- Content will be dynamically updated -->
+                        <a href="login.html" class="dropdown-item login-item">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                        <a href="#" class="dropdown-item signup-item" onclick="showSignupModal()">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Sign Up</span>
+                        </a>
+                    </div>
                 </div>
-                
-                
-                   
-<div class="user-dropdown" id="userDropdown">
-    <button class="user-btn" id="userBtn" onclick="toggleUserDropdown(event)">
-        <div class="user-avatar">
-            <img src="https://ui-avatars.com/api/?name=Account&background=6366f1&color=fff" 
-                 alt="Account" 
-                 id="userAvatar">
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- Signup Modal -->
+<div class="modal-overlay" id="signupModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Create Account</h3>
+            <button class="modal-close" onclick="closeSignupModal()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <span id="userName">Account</span>
-        <i class="fas fa-chevron-down" id="dropdownArrow"></i>
-    </button>
-    <div class="dropdown-menu" id="userDropdownMenu">
-        <!-- Content will be dynamically updated -->
-        <div id="dropdownContent">
-            <a href="login.html" class="dropdown-item login-item">
-                <i class="fas fa-sign-in-alt"></i> Login
-            </a>
-            <a href="https://accounts.google.com/signup" target="_blank" class="dropdown-item signup-item">
-                <i class="fas fa-user-plus"></i> Sign Up
-            </a>
+        <div class="modal-body">
+            <p>Choose your signup method:</p>
+            <div class="modal-actions">
+                <a href="https://accounts.google.com/signup" target="_blank" class="modal-btn google-btn">
+                    <i class="fab fa-google"></i>
+                    <span>Sign up with Google</span>
+                </a>
+                <button class="modal-btn manual-btn" onclick="redirectToSignup()">
+                    <i class="fas fa-envelope"></i>
+                    <span>Manual Signup</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-// User data management
-const USER_STORAGE_KEY = "qc_user";
-
-// Check login state on page load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Page loaded, checking login state...");
-    updateUserDropdown();
-});
-
-function toggleUserDropdown(event) {
-    event.stopPropagation();
-    const dropdown = document.getElementById('userDropdownMenu');
-    const arrow = document.getElementById('dropdownArrow');
-    dropdown.classList.toggle('show');
-    arrow.classList.toggle('rotate');
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    const dropdown = document.getElementById('userDropdownMenu');
-    const userBtn = document.getElementById('userBtn');
-    
-    if (!userBtn.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.classList.remove('show');
-        document.getElementById('dropdownArrow').classList.remove('rotate');
-    }
-});
-
-function updateUserDropdown() {
-    const userData = getUserData();
-    const isLoggedIn = userData && userData.logged === true;
-    const dropdownMenu = document.getElementById('dropdownContent');
-    
-    if (isLoggedIn) {
-        // USER IS LOGGED IN - Show Profile, Settings, Logout
-        const name = userData.name || 'User';
-        const email = userData.email || '';
-        const avatarUrl = userData.photoURL || 
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=fff&bold=true`;
-        
-        console.log("User is logged in:", name);
-        
-        // Update header - Show user's actual name
-        document.getElementById('userName').textContent = name;
-        document.getElementById('userAvatar').src = avatarUrl;
-        document.getElementById('userAvatar').alt = name;
-        
-        // Create dropdown for LOGGED IN user
-        dropdownMenu.innerHTML = `
-            <div class="dropdown-header">
-                <div class="dropdown-avatar">
-                    <img src="${avatarUrl}" alt="${name}">
-                </div>
-                <div class="dropdown-user-info">
-                    <strong>${name}</strong>
-                    <small>${email}</small>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <a href="profile.html" class="dropdown-item profile-item">
-                <i class="fas fa-user-circle"></i>
-                <span>Profile</span>
-            </a>
-            <a href="settings.html" class="dropdown-item settings-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-            <a href="https://accounts.google.com" target="_blank" class="dropdown-item account-item">
-                <i class="fab fa-google"></i>
-                <span>Google Account</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item logout-item" onclick="logoutUser()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
-        `;
-        
-    } else {
-        // USER IS NOT LOGGED IN - Always show "Account" with Login/Signup
-        console.log("User is NOT logged in - showing Login/Signup");
-        
-        // Always show "Account" as the button text
-        document.getElementById('userName').textContent = 'Account';
-        document.getElementById('userAvatar').src = 'https://ui-avatars.com/api/?name=Account&background=6366f1&color=fff';
-        document.getElementById('userAvatar').alt = 'Account';
-        
-        // Create dropdown for NOT LOGGED IN user
-        dropdownMenu.innerHTML = `
-            <div class="dropdown-header">
-                <div class="dropdown-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Account&background=6366f1&color=fff" alt="Account">
-                </div>
-                <div class="dropdown-user-info">
-                    <strong>Account</strong>
-                    <small>Not logged in</small>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <a href="login.html" class="dropdown-item login-item">
-                <i class="fas fa-sign-in-alt"></i>
-                <span>Login</span>
-            </a>
-            <a href="https://accounts.google.com/signup" target="_blank" class="dropdown-item signup-item">
-                <i class="fas fa-user-plus"></i>
-                <span>Sign Up</span>
-            </a>
-        `;
-    }
-}
-
-function getUserData() {
-    try {
-        const userStr = localStorage.getItem(USER_STORAGE_KEY);
-        console.log("Got user from localStorage:", userStr);
-        return userStr ? JSON.parse(userStr) : null;
-    } catch (e) {
-        console.error("Error parsing user data:", e);
-        return null;
-    }
-}
-
-function logoutUser() {
-    if (confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem(USER_STORAGE_KEY);
-        updateUserDropdown();
-        
-        // Close dropdown
-        document.getElementById('userDropdownMenu').classList.remove('show');
-        document.getElementById('dropdownArrow').classList.remove('rotate');
-        
-        // Show message
-        showToast('Logged out successfully', 'success');
-        
-        // Redirect to home page after logout
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1000);
-    }
-    return false; // Prevent default link behavior
-}
-
-function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.textContent = message;
-    toast.className = 'toast-message';
-    
-    const colors = {
-        success: '#4CAF50',
-        info: '#2196F3',
-        error: '#f44336'
-    };
-    
-    toast.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${colors[type] || colors.info};
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        z-index: 9999;
-        animation: fadeInOut 3s ease;
-        font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    `;
-    
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-// Listen for storage changes (if user logs in from another tab)
-window.addEventListener('storage', function(e) {
-    if (e.key === USER_STORAGE_KEY) {
-        console.log("Storage changed, updating dropdown...");
-        updateUserDropdown();
-    }
-});
-</script>
-
 <style>
-/* User dropdown styles */
-.user-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    min-width: 220px;
-    display: none;
+/* Main Header Styles */
+.main-header {
+    background: linear-gradient(135deg, #0B1220 0%, #0F1B2E 100%);
+    position: sticky;
+    top: 0;
     z-index: 1000;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-.dropdown-menu.show {
-    display: block;
-    animation: fadeIn 0.3s ease;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    min-height: 64px;
 }
 
-/* Dropdown header for both logged in and logged out users */
-.dropdown-header {
-    padding: 16px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+/* Brand Logo */
+.nav-brand {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.nav-brand:hover {
+    transform: translateY(-1px);
+}
+
+.logo {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.dropdown-avatar {
-    width: 40px;
-    height: 40px;
+.logo i {
+    font-size: 28px;
+    color: #3B82F6;
+    background: rgba(59, 130, 246, 0.1);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.logo-text h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #FFFFFF;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.logo-text span {
+    color: #3B82F6;
+    font-weight: 800;
+}
+
+.logo-subtitle {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin: 2px 0 0 0;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    gap: 4px;
+    margin-left: 40px;
+    margin-right: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 4px;
+    backdrop-filter: blur(10px);
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #9CA3AF;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 80px;
+}
+
+.nav-link i {
+    font-size: 16px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-link span {
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+}
+
+.nav-link:hover {
+    color: #FFFFFF;
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.nav-link:hover i {
+    color: #3B82F6;
+    transform: scale(1.1);
+}
+
+.nav-link.active {
+    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(37, 99, 235, 0.1));
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.nav-link.active i {
+    color: #3B82F6;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #3B82F6;
+    border-radius: 2px;
+}
+
+/* User Dropdown */
+.user-dropdown {
+    position: relative;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+}
+
+.user-btn:hover {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid rgba(255,255,255,0.8);
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user-btn:hover .user-avatar img {
+    transform: scale(1.05);
+}
+
+#userName {
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+}
+
+#dropdownArrow {
+    font-size: 12px;
+    color: #9CA3AF;
+    transition: transform 0.3s, color 0.3s;
+    margin-left: 4px;
+}
+
+.user-btn:hover #dropdownArrow {
+    color: #3B82F6;
+}
+
+.fa-chevron-down.rotate {
+    transform: rotate(180deg);
+    color: #3B82F6;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #0F1B2E;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    min-width: 240px;
+    display: none;
+    z-index: 1001;
+    overflow: hidden;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    backdrop-filter: blur(20px);
+    animation: dropdownSlide 0.3s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Dropdown Header */
+.dropdown-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-avatar img {
@@ -2582,41 +2661,44 @@ window.addEventListener('storage', function(e) {
 
 .dropdown-user-info strong {
     display: block;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: white;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 2px;
 }
 
 .dropdown-user-info small {
     display: block;
     font-size: 12px;
-    color: rgba(255,255,255,0.9);
-    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.9);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    opacity: 0.9;
 }
 
-/* Dropdown items */
+/* Dropdown Items */
 .dropdown-divider {
     height: 1px;
-    background: linear-gradient(to right, transparent, #e0e0e0, transparent);
-    margin: 5px 0;
+    background: linear-gradient(to right, transparent, rgba(55, 65, 81, 0.5), transparent);
+    margin: 4px 0;
 }
 
 .dropdown-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
-    color: #333;
+    padding: 14px 20px;
+    color: #D1D5DB;
     text-decoration: none;
     transition: all 0.2s ease;
     cursor: pointer;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid rgba(31, 41, 55, 0.5);
+    position: relative;
+    overflow: hidden;
 }
 
 .dropdown-item:last-child {
@@ -2624,178 +2706,645 @@ window.addEventListener('storage', function(e) {
 }
 
 .dropdown-item:hover {
-    background: #f8f9ff;
-    color: #6366f1;
+    background: rgba(37, 99, 235, 0.1);
+    color: #3B82F6;
+    padding-left: 22px;
 }
 
-/* Specific item colors */
-.login-item:hover {
-    color: #6366f1;
-}
-
-.login-item i {
-    color: #6366f1;
-}
-
-.signup-item:hover {
-    color: #10b981;
-}
-
-.signup-item i {
-    color: #10b981;
-}
-
-.profile-item:hover {
-    color: #8b5cf6;
-}
-
-.profile-item i {
-    color: #8b5cf6;
-}
-
-.settings-item:hover {
-    color: #f59e0b;
-}
-
-.settings-item i {
-    color: #f59e0b;
-}
-
-.account-item:hover {
-    color: #DB4437;
-}
-
-.account-item i {
-    color: #DB4437;
-}
-
-.logout-item:hover {
-    color: #ef4444;
-}
-
-.logout-item i {
-    color: #ef4444;
+.dropdown-item:hover::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #3B82F6;
+    border-radius: 0 2px 2px 0;
 }
 
 .dropdown-item i {
     width: 18px;
     text-align: center;
     font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-item:hover i {
+    transform: scale(1.1);
 }
 
 .dropdown-item span {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     flex: 1;
 }
 
-/* User button styles */
-.user-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* Item-specific colors */
+.login-item i {
+    color: #3B82F6;
+}
+
+.signup-item i {
+    color: #10B981;
+}
+
+.profile-item i {
+    color: #8B5CF6;
+}
+
+.settings-item i {
+    color: #F59E0B;
+}
+
+.account-item i {
+    color: #DB4437;
+}
+
+.logout-item i {
+    color: #EF4444;
+}
+
+/* Mobile Toggle */
+.mobile-toggle {
+    display: none;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    min-width: 120px;
-    justify-content: flex-end;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.user-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+.mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #FFFFFF;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+.mobile-toggle:hover {
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.mobile-toggle:hover span {
+    background: #3B82F6;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1002;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #0F1B2E;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    animation: modalSlide 0.4s ease;
 }
 
-.user-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-#userName {
+.modal-header {
+    padding: 24px;
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 32px 24px;
+    text-align: center;
+}
+
+.modal-body p {
+    color: #9CA3AF;
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
     font-weight: 500;
     font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.modal-btn i {
+    font-size: 18px;
+}
+
+.google-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
     color: white;
-    white-space: nowrap;
 }
 
-#dropdownArrow {
-    font-size: 12px;
-    color: white;
-    transition: transform 0.3s;
-    margin-left: 4px;
+.google-btn:hover {
+    background: rgba(219, 68, 55, 0.1);
+    border-color: rgba(219, 68, 55, 0.3);
+    color: #DB4437;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(219, 68, 55, 0.2);
 }
 
-.fa-chevron-down.rotate {
-    transform: rotate(180deg);
+.manual-btn {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #3B82F6;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: fixed;
-        top: 60px;
-        right: 10px;
-        min-width: 180px;
+.manual-btn:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nav-menu {
+        margin-left: 20px;
+        margin-right: 20px;
+        gap: 2px;
     }
     
-    .user-btn {
-        padding: 6px 8px;
+    .nav-link {
+        padding: 10px 14px;
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-toggle {
+        display: block;
+        order: 3;
+    }
+    
+    .user-dropdown {
+        order: 2;
+        margin-left: auto;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 72px;
+        left: 20px;
+        right: 20px;
+        margin: 0;
+        background: #0F1B2E;
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        padding: 16px;
+        flex-direction: column;
+        border-radius: 16px;
+        display: none;
+        z-index: 1000;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-link {
+        padding: 14px 20px;
+        border-radius: 10px;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 12px;
         min-width: auto;
     }
     
+    .nav-link i {
+        margin-bottom: 0;
+        font-size: 18px;
+    }
+    
+    .nav-link span {
+        font-size: 14px;
+    }
+    
+    .nav-link.active::after {
+        display: none;
+    }
+    
+    .nav-link.active {
+        background: rgba(37, 99, 235, 0.2);
+    }
+    
+    .user-btn {
+        min-width: auto;
+        padding: 8px 12px;
+    }
+    
     #userName {
-        display: none; /* Hide text on mobile */
+        display: none;
     }
     
-    .user-avatar {
-        width: 30px;
-        height: 30px;
+    .logo i {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
     }
     
-    .dropdown-header {
-        padding: 12px;
-        gap: 10px;
-    }
-    
-    .dropdown-avatar {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .dropdown-item {
-        padding: 10px 14px;
-        font-size: 13px;
+    .logo-text h1 {
+        font-size: 20px;
     }
 }
 
-/* Toast animations */
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-20px); }
-    15% { opacity: 1; transform: translateY(0); }
-    85% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-20px); }
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .navbar {
+        padding: 10px 0;
+    }
+    
+    .dropdown-menu {
+        position: fixed;
+        top: 72px;
+        right: 20px;
+        left: 20px;
+        min-width: auto;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
 }
 </style>
-                    
-                    <button class="nav-toggle" id="navToggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
+
+<script>
+// User Management
+const USER_STORAGE_KEY = "qc_user";
+const JWT_TOKEN_KEY = "jwt_token";
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateUserDropdown();
+    setupEventListeners();
+    
+    // Check if user is logged in via JWT token
+    checkJWTLoginStatus();
+});
+
+// Setup event listeners
+function setupEventListeners() {
+    // User dropdown toggle
+    const userBtn = document.getElementById('userBtn');
+    const dropdown = document.getElementById('userDropdownMenu');
+    const arrow = document.getElementById('dropdownArrow');
+    
+    if (userBtn) {
+        userBtn.addEventListener('click', toggleUserDropdown);
+    }
+    
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        // Close user dropdown
+        if (userBtn && !userBtn.contains(event.target) && dropdown && !dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+            if (arrow) arrow.classList.remove('rotate');
+        }
+        
+        // Close mobile menu
+        if (mobileToggle && !mobileToggle.contains(event.target) && navMenu && !navMenu.contains(event.target)) {
+            navMenu.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        }
+    });
+}
+
+// Toggle user dropdown
+function toggleUserDropdown(event) {
+    if (event) event.stopPropagation();
+    const dropdown = document.getElementById('userDropdownMenu');
+    const arrow = document.getElementById('dropdownArrow');
+    dropdown.classList.toggle('show');
+    arrow.classList.toggle('rotate');
+}
+
+// Check JWT login status (for profile page integration)
+function checkJWTLoginStatus() {
+    const jwtToken = localStorage.getItem(JWT_TOKEN_KEY);
+    const userData = getUserData();
+    
+    if (jwtToken && !userData) {
+        // User has JWT token but not in our user storage
+        // This happens when coming from profile page
+        const tempUser = {
+            logged: true,
+            name: "User",
+            email: "",
+            photoURL: `https://ui-avatars.com/api/?name=User&background=3B82F6&color=fff`,
+            jwt: true
+        };
+        
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(tempUser));
+        updateUserDropdown();
+    }
+}
+
+// Get user data from localStorage
+function getUserData() {
+    try {
+        const userStr = localStorage.getItem(USER_STORAGE_KEY);
+        return userStr ? JSON.parse(userStr) : null;
+    } catch (e) {
+        console.error("Error parsing user data:", e);
+        return null;
+    }
+}
+
+// Update user dropdown based on login status
+function updateUserDropdown() {
+    const userData = getUserData();
+    const isLoggedIn = userData && userData.logged === true;
+    const dropdownMenu = document.getElementById('dropdownContent');
+    const userNameElement = document.getElementById('userName');
+    const userAvatarElement = document.getElementById('userAvatar');
+    
+    if (isLoggedIn) {
+        // User is logged in
+        const name = userData.name || 'User';
+        const email = userData.email || '';
+        const avatarUrl = userData.photoURL || 
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&bold=true`;
+        
+        // Update header button
+        userNameElement.textContent = name;
+        userAvatarElement.src = avatarUrl;
+        userAvatarElement.alt = name;
+        
+        // Update dropdown content
+        dropdownMenu.innerHTML = `
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">
+                    <img src="${avatarUrl}" alt="${name}">
                 </div>
-            </nav>
-        </div>
-    </header>
+                <div class="dropdown-user-info">
+                    <strong>${name}</strong>
+                    <small>${email || 'Logged in'}</small>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="profile.html" class="dropdown-item profile-item">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile</span>
+            </a>
+            <a href="settings.html" class="dropdown-item settings-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item logout-item" onclick="logoutUser()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        `;
+        
+    } else {
+        // User is not logged in
+        userNameElement.textContent = 'Account';
+        userAvatarElement.src = 'https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff';
+        userAvatarElement.alt = 'Account';
+        
+        // Update dropdown content
+        dropdownMenu.innerHTML = `
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">
+                    <img src="https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff" alt="Account">
+                </div>
+                <div class="dropdown-user-info">
+                    <strong>Account</strong>
+                    <small>Not logged in</small>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="login.html" class="dropdown-item login-item">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+            </a>
+            <a href="#" class="dropdown-item signup-item" onclick="showSignupModal()">
+                <i class="fas fa-user-plus"></i>
+                <span>Sign Up</span>
+            </a>
+        `;
+    }
+}
+
+// Show signup modal
+function showSignupModal() {
+    const modal = document.getElementById('signupModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        toggleUserDropdown(); // Close dropdown
+    }
+}
+
+// Close signup modal
+function closeSignupModal() {
+    const modal = document.getElementById('signupModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Redirect to manual signup
+function redirectToSignup() {
+    window.location.href = 'login.html';
+    closeSignupModal();
+}
+
+// Logout user
+function logoutUser() {
+    if (confirm('Are you sure you want to logout?')) {
+        // Clear user data
+        localStorage.removeItem(USER_STORAGE_KEY);
+        localStorage.removeItem(JWT_TOKEN_KEY);
+        
+        // Update UI
+        updateUserDropdown();
+        
+        // Close dropdown
+        const dropdown = document.getElementById('userDropdownMenu');
+        const arrow = document.getElementById('dropdownArrow');
+        if (dropdown) dropdown.classList.remove('show');
+        if (arrow) arrow.classList.remove('rotate');
+        
+        // Show toast notification
+        showToast('Logged out successfully', 'success');
+        
+        // If on profile page, redirect to home
+        if (window.location.pathname.includes('profile.html')) {
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }
+    }
+    return false;
+}
+
+// Show toast notification
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.className = 'toast-message';
+    
+    const colors = {
+        success: '#10B981',
+        info: '#3B82F6',
+        error: '#EF4444'
+    };
+    
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 14px 24px;
+        border-radius: 12px;
+        z-index: 9999;
+        animation: toastSlide 3s ease;
+        font-weight: 500;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        font-size: 14px;
+    `;
+    
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Add CSS for toast animation
+const toastStyles = document.createElement('style');
+toastStyles.textContent = `
+    @keyframes toastSlide {
+        0% { opacity: 0; transform: translateX(100px); }
+        15% { opacity: 1; transform: translateX(0); }
+        85% { opacity: 1; transform: translateX(0); }
+        100% { opacity: 0; transform: translateX(100px); }
+    }
+`;
+document.head.appendChild(toastStyles);
+
+// Close modals on escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeSignupModal();
+        const dropdown = document.getElementById('userDropdownMenu');
+        if (dropdown) dropdown.classList.remove('show');
+        document.getElementById('dropdownArrow')?.classList.remove('rotate');
+    }
+});
+
+// Listen for storage changes (if user logs in from another tab)
+window.addEventListener('storage', function(e) {
+    if (e.key === USER_STORAGE_KEY || e.key === JWT_TOKEN_KEY) {
+        updateUserDropdown();
+    }
+});
+</script>
         <!-- Search Overlay -->
         <div class="search-overlay" id="searchOverlay">
             <div class="search-container">

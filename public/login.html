@@ -1,709 +1,1198 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <!-- Basic Meta -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Page Title -->
-  <title>Login | QuantumChem – Chemistry Learning Platform</title>
-
-  <!-- SEO Meta -->
-  <meta name="description" content="Login to QuantumChem to access chemistry tutorials, study notes, laboratory data, and academic resources for students and researchers.">
-  <meta name="keywords" content="QuantumChem login, chemistry login, chemistry study portal, chemistry notes login, student chemistry platform">
-  <meta name="author" content="QuantumChem">
-
-  <!-- Search Engine Control -->
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph (Google / WhatsApp / LinkedIn) -->
-  <meta property="og:title" content="QuantumChem Login">
-  <meta property="og:description" content="Secure login to QuantumChem for chemistry tutorials, textbooks, notes, and research resources.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://quantumchem.site/login">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="QuantumChem Login">
-  <meta name="twitter:description" content="Sign in to QuantumChem and continue learning chemistry with structured academic resources.">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://quantumchem.site/login">
-
-
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuantumChem | Login</title>
-
-<style>
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #1a1f3c, #2d1b5e);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
-}
-
-/* Desktop layout - original design */
-.login-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.logo-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.quantum-logo {
-  width: 400px;
-  height: 400px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-  border: 5px solid rgba(255, 255, 255, 0.1);
-}
-
-.quantum-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.login-box {
-  flex: 1;
-  max-width: 420px;
-  background: #fff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-}
-
-h1 {
-  text-align: center;
-  color: #3a2a7a;
-  margin-bottom: 10px;
-  font-size: 2.2rem;
-}
-
-p {
-  text-align: center;
-  color: #777;
-  margin-bottom: 25px;
-  font-size: 1rem;
-}
-
-.welcome-back {
-  text-align: center;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  display: none;
-}
-
-.google-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.google-btn:hover {
-  background: #f5f5f5;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.google-btn img {
-  width: 20px;
-  height: 20px;
-}
-
-.divider {
-  margin: 25px 0;
-  text-align: center;
-  color: #888;
-  position: relative;
-}
-
-.divider::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background: #ddd;
-}
-
-.divider::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background: #ddd;
-}
-
-label {
-  display: block;
-  margin-top: 10px;
-  font-weight: 500;
-  color: #555;
-}
-
-input {
-  width: 100%;
-  padding: 14px 16px;
-  margin-top: 6px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-input:focus {
-  outline: none;
-  border-color: #8a7dff;
-  box-shadow: 0 0 0 3px rgba(138, 125, 255, 0.1);
-}
-
-.btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.primary {
-  background: linear-gradient(135deg, #3a2a7a, #8a7dff);
-  color: white;
-}
-
-.secondary {
-  margin-top: 10px;
-  background: #f1f1f1;
-  color: #333;
-}
-
-.secondary:hover {
-  background: #e5e5e5;
-}
-
-/* Loading indicator */
-.loading {
-  display: none;
-  text-align: center;
-  padding: 10px;
-  color: #3a2a7a;
-}
-
-.spinner {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #3a2a7a;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 10px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ========== MOBILE RESPONSIVE STYLES ========== */
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-    gap: 30px;
-    padding: 10px;
-  }
-  
-  .quantum-logo {
-    width: 250px;
-    height: 250px;
-    border-radius: 15px;
-    border-width: 3px;
-    margin-bottom: 10px;
-  }
-  
-  .login-box {
-    width: 100%;
-    max-width: 100%;
-    padding: 30px 25px;
-    border-radius: 15px;
-  }
-  
-  h1 {
-    font-size: 1.8rem;
-  }
-  
-  p {
-    font-size: 0.95rem;
-  }
-  
-  .btn, .google-btn {
-    padding: 16px;
-    font-size: 1rem;
-  }
-  
-  input {
-    padding: 16px;
-    font-size: 1rem;
-  }
-  
-  /* Improve touch targets for mobile */
-  .btn, .google-btn, input {
-    min-height: 50px;
-  }
-}
-
-/* Small mobile adjustments */
-@media (max-width: 480px) {
-  body {
-    padding: 15px;
-  }
-  
-  .quantum-logo {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .login-box {
-    padding: 25px 20px;
-  }
-  
-  h1 {
-    font-size: 1.6rem;
-  }
-  
-  .google-btn span {
-    font-size: 0.95rem;
-  }
-}
-
-/* Very small screens */
-@media (max-width: 360px) {
-  .login-box {
-    padding: 20px 15px;
-  }
-  
-  h1 {
-    fontSize: 1.5rem;
-  }
-  
-  .btn, .google-btn {
-    padding: 14px;
-  }
-  
-  .divider {
-    margin: 20px 0;
-  }
-}
-
-/* Landscape mode for mobile */
-@media (max-height: 600px) and (orientation: landscape) {
-  .login-container {
-    flex-direction: row;
-    gap: 20px;
-  }
-  
-  .quantum-logo {
-    width: 180px;
-    height: 180px;
-  }
-  
-  .login-box {
-    padding: 25px;
-  }
-  
-  h1 {
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-  }
-  
-  p {
-    margin-bottom: 20px;
-  }
-}
-
-/* Desktop large screens */
-@media (min-width: 1400px) {
-  .quantum-logo {
-    width: 450px;
-    height: 450px;
-  }
-  
-  .login-box {
-    max-width: 450px;
-    padding: 45px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="login-container">
-  <!-- Logo section - side by side on desktop, stacked on mobile -->
-  <div class="logo-section">
-    <div class="quantum-logo">
-      <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" 
-           alt="QuantumChem Logo">
-    </div>
-  </div>
-  
-  <!-- Login form section -->
-  <div class="login-box">
-    <h1>QuantumChem Login</h1>
-    <p></p>
-    
-    <!-- WELCOME BACK MESSAGE -->
-    <div id="welcomeBack" class="welcome-back">
-      Welcome back, User! 
-    </div>
-    
-    <!-- Loading indicator -->
-    <div id="loading" class="loading">
-      <div class="spinner"></div>
-      <p>Signing in...</p>
-    </div>
-
-    <button class="google-btn" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-      <span>Continue with Google</span>
-    </button>
-
-    <div class="divider">OR</div>
-
-    <form id="loginForm" onsubmit="return false;">
-      <label for="name">Full Name</label>
-      <input id="name" placeholder="Enter your name" autocomplete="name">
-      
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="Enter your email" autocomplete="email">
-      
-      
-    </form>
-  </div>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBwP3B1Y5Zk4XxKjzApBOHiywHtcRxSbB4",
-  authDomain: "quantumchem-f8db7.firebaseapp.com",
-  projectId: "quantumchem-f8db7",
-  appId: "1:393952510354:web:e4845a3635cecca1aa814b"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// Webhook URL - EXACT format you requested
-const WEBHOOK_URL = "https://quantumchem.app.n8n.cloud/webhook/22e7b267-e630-41c1-9295-4b109706acce";
-
-/* Send user data to webhook - SIMPLIFIED VERSION (exact format you want) */
-async function sendToWebhook(userData) {
-  try {
-    // Create payload in EXACT format you specified
-    const payload = {
-      email: userData.email,
-      name: userData.name
-    };
-
-    console.log('Sending to webhook (exact format):', payload);
-    
-    // Send data to webhook in the EXACT format
-    const response = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload)
-    });
-    
-    if (response.ok) {
-      console.log('Webhook success - Status:', response.status);
-      try {
-        const responseData = await response.text();
-        console.log('Webhook response:', responseData);
-      } catch (e) {
-        console.log('Webhook sent successfully');
-      }
-    } else {
-      console.log('Webhook warning - Status:', response.status);
-    }
-    
-  } catch (error) {
-    console.log('Webhook error:', error);
-  }
-}
-
-/* Test webhook with sample data */
-window.testWebhook = async () => {
-  showLoading();
-  try {
-    // Test with sample data
-    const testData = {
-      email: "nikhilsubsun123@gmail.com",
-      name: "Nikhil Shinde"
-    };
-    
-    console.log('Testing webhook with sample data:', testData);
-    
-    const response = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(testData)
-    });
-    
-    hideLoading();
-    
-    if (response.ok) {
-      alert('✅ Webhook test successful! Check browser console for details.');
-    } else {
-      alert(`⚠️ Webhook test returned status: ${response.status}`);
-    }
-    
-  } catch (error) {
-    hideLoading();
-    console.error('Test webhook error:', error);
-    alert('❌ Webhook test failed. Check console for error.');
-  }
-};
-
-/* Show loading indicator */
-function showLoading() {
-  document.getElementById('loading').style.display = 'block';
-}
-
-/* Hide loading indicator */
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-}
-
-/* GOOGLE LOGIN */
-window.googleLogin = async () => {
-  try {
-    showLoading();
-    const result = await signInWithPopup(auth, provider);
-    const u = result.user;
-
-    const userData = {
-      email: u.email,
-      name: u.displayName || u.email.split('@')[0] // Fallback to email username if no display name
-    };
-
-    console.log('Google login successful:', userData);
-    
-    // Save to localStorage
-    localStorage.setItem("qc_user", JSON.stringify({
-      ...userData,
-      logged: true,
-      provider: "google",
-      uid: u.uid
-    }));
-
-    document.cookie = "qc_session=true; path=/";
-    
-    // Send to webhook in exact format
-    await sendToWebhook(userData);
-    
-    // Redirect immediately
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 500);
-    
-  } catch (error) {
-    hideLoading();
-    console.error("Google login error:", error);
-    alert("Login failed. Please try again.");
-  }
-};
-
-/* MANUAL LOGIN */
-window.manualLogin = async () => {
-  showLoading();
-  
-  try {
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    
-    const name = nameInput.value.trim();
-    const email = emailInput.value.trim();
-    
-    if(!name || !email){ 
-      hideLoading();
-      alert("Please enter both name and email"); 
-      return; 
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(email)) {
-      hideLoading();
-      alert("Please enter a valid email address");
-      return;
-    }
-
-    const userData = {
-      email: email,
-      name: name
-    };
-
-    console.log('Manual login successful:', userData);
-    
-    // Save to localStorage
-    localStorage.setItem("qc_user", JSON.stringify({
-      ...userData,
-      logged: true,
-      provider: "manual",
-      uid: "manual_" + Date.now()
-    }));
-    
-    document.cookie = "qc_session=true; path=/";
-    
-    // Send to webhook in exact format
-    await sendToWebhook(userData);
-    
-    // Redirect
-    window.location.href = "index.html";
-    
-  } catch (error) {
-    hideLoading();
-    console.error("Manual login error:", error);
-    alert("An error occurred. Please try again.");
-  }
-};
-
-/* GUEST LOGIN (if you still want it) */
-window.guestLogin = () => {
-  showLoading();
-  
-  try {
-    const userData = {
-      email: "guest@quantumchem.site",
-      name: "Guest User"
-    };
-
-    console.log('Guest login successful:', userData);
-    
-    // Save to localStorage
-    localStorage.setItem("qc_user", JSON.stringify({
-      ...userData,
-      logged: true,
-      provider: "guest",
-      uid: "guest_" + Date.now()
-    }));
-    
-    document.cookie = "qc_session=true; path=/";
-    
-    // Send to webhook in exact format
-    sendToWebhook(userData);
-    
-    window.location.href = "chemical.html";
-    
-  } catch (error) {
-    hideLoading();
-    console.error("Guest login error:", error);
-    alert("An error occurred. Please try again.");
-  }
-};
-
-/* SHOW WELCOME BACK MESSAGE */
-function showWelcomeBack() {
-  const existing = localStorage.getItem("qc_user");
-  if(existing) {
-    try {
-      const user = JSON.parse(existing);
-      const welcomeBackElement = document.getElementById('welcomeBack');
-      
-      if(welcomeBackElement && user.name) {
-        welcomeBackElement.textContent = `Welcome back, ${user.name}!`;
-        welcomeBackElement.style.display = 'block';
-        
-        if(user.provider === "manual") {
-          document.getElementById('name').value = user.name;
-          document.getElementById('email').value = user.email;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumChem | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-    } catch(e) {
-      console.error("Error parsing user data:", e);
-      localStorage.removeItem("qc_user");
+
+        /* Professional color palette */
+        :root {
+            --primary-blue: #1a237e;
+            --secondary-blue: #283593;
+            --accent-blue: #3949ab;
+            --light-blue: #e8eaf6;
+            --dark-bg: #0d1117;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #9e9e9e;
+            --dark-gray: #424242;
+            --success: #2e7d32;
+            --error: #c62828;
+            --warning: #f9a825;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                linear-gradient(135deg, rgba(26, 35, 126, 0.1) 0%, transparent 100%),
+                linear-gradient(45deg, rgba(40, 53, 147, 0.05) 0%, transparent 100%);
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left panel - Brand/Info */
+        .brand-panel {
+            flex: 1.2;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+            z-index: 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--white);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--light-blue);
+            opacity: 0.9;
+            margin-top: 0.3rem;
+        }
+
+        /* Contact Information Section */
+        .contact-info {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info h3 i {
+            color: var(--light-blue);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--light-blue);
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            color: var(--white);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Right panel - Auth forms */
+        .auth-panel {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--white);
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* Toggle between login/signup */
+        .auth-toggle {
+            display: flex;
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .toggle-slider.signup {
+            transform: translateX(100%);
+        }
+
+        .toggle-btn.active {
+            color: var(--primary-blue);
+        }
+
+        /* Forms */
+        .auth-form {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark-bg);
+        }
+
+        .form-subtitle {
+            color: var(--medium-gray);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--white);
+            color: var(--dark-bg);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--medium-gray);
+        }
+
+        /* Password visibility toggle */
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--medium-gray);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .password-toggle:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Reset Password Button - ALWAYS VISIBLE */
+        .reset-password-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .reset-password-btn:hover {
+            background: #e0e0e0;
+            border-color: var(--medium-gray);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .reset-password-btn:active {
+            transform: translateY(0);
+        }
+
+        .reset-password-btn:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        /* Google button with actual Google logo */
+        .google-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--white);
+            color: var(--dark-gray);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .google-btn:hover {
+            border-color: var(--medium-gray);
+            background: var(--light-gray);
+        }
+
+        .google-logo {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        /* FIXED Messages - Better visibility with solid backgrounds */
+        .message-container {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideDown 0.3s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            background: var(--white);
+            border: 1px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.success {
+            border-color: var(--success);
+            color: var(--success);
+            background: #d4edda; /* Light green background */
+            border-left: 4px solid var(--success);
+        }
+
+        .message.error {
+            border-color: var(--error);
+            color: #721c24; /* Dark red text */
+            background: #f8d7da; /* Light red background */
+            border-left: 4px solid var(--error);
+        }
+
+        .message.warning {
+            border-color: var(--warning);
+            color: #856404; /* Dark yellow text */
+            background: #fff3cd; /* Light yellow background */
+            border-left: 4px solid var(--warning);
+        }
+
+        .message.info {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: #d1ecf1; /* Light blue background */
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .message i {
+            font-size: 1.2rem;
+        }
+
+        /* Auto remove animation */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Terms checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+        .terms-checkbox.show {
+            opacity: 1;
+            height: auto;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            margin-top: 0.2rem;
+        }
+
+        .terms-checkbox label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            line-height: 1.4;
+        }
+
+        .terms-checkbox a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .brand-panel {
+                padding: 2rem;
+                min-height: 40vh;
+            }
+            
+            .auth-panel {
+                padding: 2rem;
+                min-height: 60vh;
+            }
+            
+            .logo-section {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-panel,
+            .auth-panel {
+                padding: 1.5rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .logo-img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .auth-toggle {
+                flex-direction: column;
+            }
+            
+            .toggle-slider {
+                display: none;
+            }
+            
+            .toggle-btn.active {
+                background: var(--white);
+            }
+            
+            .message-container {
+                left: 1rem;
+                right: 1rem;
+                max-width: none;
+                transform: none;
+                width: calc(100% - 2rem);
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Message container - TOP POSITION -->
+    <div class="message-container" id="messageContainer"></div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Left panel: Brand info -->
+        <div class="brand-panel">
+            <div class="logo-section">
+                <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>QuantumChem</h1>
+                    <p>Advanced Quantum Chemistry Platform</p>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="contact-info">
+                <h3><i class="fas fa-address-card"></i> Contact Information</h3>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>quantumchem25@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 81492 77038</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Sector 26, Pradhikaran, Nigdi, Pune, Maharashtra 411044</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right panel: Authentication forms -->
+        <div class="auth-panel">
+            <div class="auth-container">
+                <!-- Toggle between login and signup -->
+                <div class="auth-toggle">
+                    <div class="toggle-slider" id="toggleSlider"></div>
+                    <button class="toggle-btn active" id="loginToggle">Sign In</button>
+                    <button class="toggle-btn" id="signupToggle">Create Account</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm">
+                    <h2 class="form-title">Welcome Back</h2>
+                    <p class="form-subtitle">Sign in to your QuantumChem account</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email Address</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle" id="loginPasswordToggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="loginBtn">
+                        <span id="loginBtnText">Sign In</span>
+                        <i class="fas fa-sign-in-alt"></i>
+                    </button>
+
+                    <!-- Reset Password Button - ALWAYS VISIBLE -->
+                    <button type="button" class="reset-password-btn" id="resetPasswordBtn">
+                        <span id="resetPasswordBtnText">Reset Password</span>
+                        <i class="fas fa-key"></i>
+                    </button>
+
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+
+                    <button type="button" class="google-btn" id="googleBtn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
+                        Continue with Google
+                    </button>
+                </form>
+
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm">
+                    <h2 class="form-title">Create Account</h2>
+                    <p class="form-subtitle">Join the QuantumChem platform</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Full Name</label>
+                        <div class="input-group">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="signupName" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupEmail">Email Address</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email address" required>
+                        </div>
+                    </div>
+
+                    <div class="terms-checkbox" id="termsCheckboxContainer">
+                        <input type="checkbox" id="termsCheckbox" required>
+                        <label for="termsCheckbox">
+                            I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="signupBtn">
+                        <span id="signupBtnText">Create Account</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+
+                    <div class="divider">
+                        <span>Already have an account?</span>
+                    </div>
+
+                    <button type="button" class="google-btn" id="signupGoogleBtn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
+                        Sign up with Google
+                    </button>
+                </form>
+
+                <div class="footer">
+                    <p>
+                        <a href="terms.html">Terms</a> • 
+                        <a href="privacy.html">Privacy</a> • 
+                        <a href="contact.html">Contact</a> • 
+                        <a href="security.html">Support</a>
+                    </p>
+                    <p>© 2026 QuantumChem. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    // DOM Elements
+    const loginToggle = document.getElementById('loginToggle');
+    const signupToggle = document.getElementById('signupToggle');
+    const toggleSlider = document.getElementById('toggleSlider');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const loginBtnText = document.getElementById('loginBtnText');
+    const signupBtnText = document.getElementById('signupBtnText');
+    const loginPasswordToggle = document.getElementById('loginPasswordToggle');
+    const loginPassword = document.getElementById('loginPassword');
+    const googleBtn = document.getElementById('googleBtn');
+    const signupGoogleBtn = document.getElementById('signupGoogleBtn');
+    const messageContainer = document.getElementById('messageContainer');
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
+    const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+    const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
+
+    // API Configuration - UPDATED: Use window.location.origin
+    const API_BASE_URL = window.location.origin;
+    const LOGIN_ENDPOINT = `${API_BASE_URL}/api/auth/login`;
+    const REGISTER_ENDPOINT = `${API_BASE_URL}/api/auth/register`;
+    const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/api/auth/reset-password`;
+    const HOME_PAGE = 'index.html';
+
+    // Password expired keywords to check in backend messages
+    const PASSWORD_EXPIRED_KEYWORDS = [
+        'password expired',
+        'expired due to security',
+        'new password',
+        'password has expired',
+        'temporary password expired'
+    ];
+
+    // Show message function (TOP position)
+    function showMessage(text, type = 'info') {
+        const message = document.createElement('div');
+        message.className = `message ${type}`;
+        
+        let icon = 'fas fa-info-circle';
+        if (type === 'success') icon = 'fas fa-check-circle';
+        if (type === 'error') icon = 'fas fa-exclamation-circle';
+        if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+        
+        message.innerHTML = `
+            <i class="${icon}"></i>
+            <span>${text}</span>
+        `;
+        
+        messageContainer.appendChild(message);
+        
+        // Auto remove after 5 seconds with fade out animation
+        setTimeout(() => {
+            message.style.animation = 'fadeOut 0.5s ease-out forwards';
+            setTimeout(() => message.remove(), 500);
+        }, 5000);
     }
-  }
-}
 
-// Run when page loads
-document.addEventListener('DOMContentLoaded', showWelcomeBack);
+    // Check if backend message indicates password expiration
+    function isPasswordExpiredMessage(message) {
+        if (!message) return false;
+        const lowerMessage = message.toLowerCase();
+        return PASSWORD_EXPIRED_KEYWORDS.some(keyword => 
+            lowerMessage.includes(keyword.toLowerCase())
+        );
+    }
 
-// Enable form submission with Enter key
-document.getElementById('loginForm').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    manualLogin();
-  }
-});
+    // Toggle password visibility
+    function setupPasswordToggle(toggleBtn, passwordInput) {
+        toggleBtn.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            toggleBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    }
 
-// Add touch event listeners for better mobile UX
-document.addEventListener('touchstart', function() {}, {passive: true});
+    // Toggle between login and signup forms
+    function setupFormToggle() {
+        loginToggle.addEventListener('click', () => {
+            loginToggle.classList.add('active');
+            signupToggle.classList.remove('active');
+            toggleSlider.classList.remove('signup');
+            
+            // Hide signup form first, then show login form
+            signupForm.classList.remove('active');
+            setTimeout(() => {
+                loginForm.classList.add('active');
+            }, 50);
+            
+            messageContainer.innerHTML = '';
+        });
 
-// Test webhook automatically on page load (optional)
-setTimeout(() => {
-  console.log('Page loaded. Webhook URL:', WEBHOOK_URL);
-  console.log('To test manually, click "Test Webhook Connection" button');
-}, 1000);
+        signupToggle.addEventListener('click', () => {
+            signupToggle.classList.add('active');
+            loginToggle.classList.remove('active');
+            toggleSlider.classList.add('signup');
+            
+            // Hide login form first, then show signup form
+            loginForm.classList.remove('active');
+            setTimeout(() => {
+                signupForm.classList.add('active');
+                // Show terms checkbox when signup form is active
+                termsCheckboxContainer.classList.add('show');
+            }, 50);
+            
+            messageContainer.innerHTML = '';
+            
+            // Reset form fields
+            signupForm.reset();
+            termsCheckbox.checked = false;
+        });
+    }
+
+    // Handle manual login form submission
+    async function handleLogin(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = loginPassword.value;
+        
+        // Clear any previous messages
+        messageContainer.innerHTML = '';
+        
+        // Basic validation
+        if (!email || !password) {
+            showMessage('Please fill in all required fields', 'error');
+            return;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
+        
+        // Set loading state
+        loginBtn.disabled = true;
+        loginBtnText.innerHTML = '<div class="loading"></div> Signing in...';
+        
+        try {
+            // Send login request to backend
+            const response = await fetch(LOGIN_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Success - check if token is present
+                if (data.token) {
+                    localStorage.setItem('jwt_token', data.token);
+                    
+                    // Clear any existing messages
+                    messageContainer.innerHTML = '';
+                    
+                    // Redirect to index.html
+                    window.location.href = HOME_PAGE;
+                } else {
+                    // No token received (shouldn't happen for successful login)
+                    showMessage('Login response incomplete', 'error');
+                }
+            } else {
+                // Handle backend error messages
+                if (data.message) {
+                    const message = data.message;
+                    
+                    // Check if message indicates password expiration
+                    if (isPasswordExpiredMessage(message)) {
+                        // Password expired - show message
+                        showMessage(message, 'warning');
+                        // DO NOT redirect - let user reset password
+                    } else {
+                        // Other error messages
+                        showMessage(message, 'error');
+                    }
+                } else {
+                    showMessage('Login failed. Please try again.', 'error');
+                }
+            }
+        } catch (error) {
+            // Network error
+            console.error('Login error:', error);
+            showMessage('Unable to connect to the server. Please try again later.', 'error');
+        } finally {
+            // Reset button state
+            loginBtn.disabled = false;
+            loginBtnText.textContent = 'Sign In';
+        }
+    }
+
+    // Handle signup form submission (backend generates password after email verification)
+    async function handleSignup(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        
+        // Clear any previous messages
+        messageContainer.innerHTML = '';
+        
+        // Basic validation
+        if (!name || !email) {
+            showMessage('Name and email are required fields', 'error');
+            return;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
+        
+        // Terms checkbox check
+        if (!termsCheckbox.checked) {
+            showMessage('You must agree to the Terms of Service and Privacy Policy', 'error');
+            return;
+        }
+        
+        // Set loading state
+        signupBtn.disabled = true;
+        signupBtnText.innerHTML = '<div class="loading"></div> Creating Account...';
+        
+        try {
+            // Send signup request to backend
+            // Backend will send verification email first
+            const payload = {
+                name: name,
+                email: email
+            };
+            
+            const response = await fetch(REGISTER_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Success - show backend response message
+                if (data.message) {
+                    showMessage(data.message, 'success');
+                } else {
+                    showMessage('Account created successfully. Please check your email for verification.', 'success');
+                }
+                
+                // Reset form
+                signupForm.reset();
+                termsCheckbox.checked = false;
+                
+                // DO NOT auto-login after signup
+                // DO NOT switch forms automatically
+                // User will receive verification email, then password email
+            } else {
+                // Handle signup errors
+                if (data.message) {
+                    showMessage(data.message, 'error');
+                } else {
+                    showMessage('Registration failed. Please try again.', 'error');
+                }
+            }
+        } catch (error) {
+            console.error('Signup error:', error);
+            showMessage('Unable to connect to the server. Please try again later.', 'error');
+        } finally {
+            // Reset button state
+            signupBtn.disabled = false;
+            signupBtnText.textContent = 'Create Account';
+        }
+    }
+
+    // Handle reset password request
+    async function handleResetPassword() {
+        const email = document.getElementById('loginEmail').value.trim();
+        
+        // Clear any previous messages
+        messageContainer.innerHTML = '';
+        
+        // Email validation
+        if (!email) {
+            showMessage('Please enter your email address to reset password', 'error');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
+        
+        // Set loading state for reset button
+        resetPasswordBtn.disabled = true;
+        resetPasswordBtnText.innerHTML = '<div class="loading"></div> Sending...';
+        
+        try {
+            // Send reset password request to backend
+            const response = await fetch(RESET_PASSWORD_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Success - show backend response message
+                if (data.message) {
+                    showMessage(data.message, 'success');
+                } else {
+                    showMessage('Password reset email sent. Please check your inbox.', 'success');
+                }
+                
+                // DO NOT auto-login after reset
+                // Clear password field
+                loginPassword.value = '';
+                
+            } else {
+                // Handle reset errors
+                if (data.message) {
+                    showMessage(data.message, 'error');
+                } else {
+                    showMessage('Password reset failed. Please try again.', 'error');
+                }
+            }
+        } catch (error) {
+            console.error('Reset password error:', error);
+            showMessage('Unable to connect to the server. Please try again later.', 'error');
+        } finally {
+            // Reset button state
+            resetPasswordBtn.disabled = false;
+            resetPasswordBtnText.textContent = 'Reset Password';
+        }
+    }
+
+    // Handle Google button clicks - UPDATED: Use window.location.origin
+    function handleGoogleAuth() {
+        messageContainer.innerHTML = '';
+        window.location.href = `${window.location.origin}/api/auth/google`;
+    }
+
+    // Initialize the application
+    function init() {
+        // Setup form toggle
+        setupFormToggle();
+        
+        // Setup password visibility toggle for login only
+        setupPasswordToggle(loginPasswordToggle, loginPassword);
+        
+        // Setup form submissions
+        loginForm.addEventListener('submit', handleLogin);
+        signupForm.addEventListener('submit', handleSignup);
+        
+        // Setup reset password button
+        resetPasswordBtn.addEventListener('click', handleResetPassword);
+        
+        // Setup Google buttons
+        googleBtn.addEventListener('click', handleGoogleAuth);
+        signupGoogleBtn.addEventListener('click', handleGoogleAuth);
+        
+        // Hide terms checkbox initially
+        termsCheckboxContainer.classList.remove('show');
+        
+        // Remove all password-related fields from signup form
+        // Only keep name and email as per requirements
+        const signupFormGroups = signupForm.querySelectorAll('.form-group');
+        if (signupFormGroups.length > 2) {
+            // Remove any extra form groups beyond name and email
+            for (let i = 2; i < signupFormGroups.length; i++) {
+                const group = signupFormGroups[i];
+                if (group.querySelector('input[type="password"]')) {
+                    group.remove();
+                }
+            }
+        }
+        
+        // Remove any password strength indicators or instructions
+        const passwordStrength = signupForm.querySelector('.password-strength');
+        const passwordInstructions = signupForm.querySelector('.password-instructions');
+        if (passwordStrength) passwordStrength.remove();
+        if (passwordInstructions) passwordInstructions.remove();
+        
+        // Ensure reset password button is ALWAYS visible
+        resetPasswordBtn.style.display = 'flex';
+        
+        // DO NOT auto-check for JWT token or auto-redirect
+        // User must manually login each time
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>

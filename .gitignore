@@ -1,3 +1,41 @@
-.env
+# ===============================
+# Node / Backend
+# ===============================
 node_modules/
-.vscode/
+npm-debug.log*
+yarn-error.log*
+
+# ===============================
+# Environment variables
+# ===============================
+.env
+.env.local
+.env.development
+.env.production
+
+# ===============================
+# OS / Editor junk
+# ===============================
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+
+# ===============================
+# Build / cache
+# ===============================
+.vercel
+dist
+build
+
+# ===============================
+# Logs
+# ===============================
+logs
+*.log
+
+# ===============================
+# Security
+# ===============================
+*.pem
+*.key
