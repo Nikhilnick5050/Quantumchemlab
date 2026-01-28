@@ -1108,12 +1108,26 @@
         </footer>
     </div>
 
-   <script>
-    // Fixed Profile Page JavaScript
-    // User stays on profile page - NO AUTO-REDIRECT
+  <script>
+    // Configuration - FIXED: Use correct backend URL
+    function getApiBaseUrl() {
+      const currentOrigin = window.location.origin;
+      
+      // Local development
+      if (currentOrigin === 'http://localhost:3000') {
+        return 'http://localhost:3000';
+      }
+      
+      // Production domains - use Vercel backend
+      if (currentOrigin === 'https://www.quantumchem.site' || 
+          currentOrigin === 'https://quantumchem.vercel.app') {
+        return 'https://quantumchem.vercel.app';
+      }
+      
+      return currentOrigin;
+    }
 
-    // Configuration - UPDATED: Use window.location.origin
-    const API_BASE_URL = window.location.origin;
+    const API_BASE_URL = getApiBaseUrl();
     const PROFILE_API = `${API_BASE_URL}/api/user/profile`;
     const TOKEN_KEY = 'jwt_token';
     const USER_KEY = 'qc_user';
@@ -1129,6 +1143,8 @@
     // Main initialization
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('=== Profile Page Initialization ===');
+        console.log('🌐 API Base URL:', API_BASE_URL);
+        console.log('📡 Profile API:', PROFILE_API);
         
         try {
             // 1. Handle token from URL (Google OAuth flow)
@@ -1321,14 +1337,14 @@
         
         try {
             console.log('📡 Fetching profile from:', PROFILE_API);
+            console.log('🔑 Using token (first 20 chars):', token.substring(0, 20) + '...');
             
             const response = await fetch(PROFILE_API, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include'
+                }
             });
             
             console.log('📊 Response status:', response.status);
@@ -1363,9 +1379,6 @@
             
             // Show success message
             showMessage('Profile loaded successfully!', 'success');
-            
-            // NO AUTO-REDIRECT - User stays on profile page
-            // This is the key fix - removed auto-redirect
             
         } catch (error) {
             console.error('❌ Profile fetch error:', error);
