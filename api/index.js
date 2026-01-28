@@ -1,0 +1,50 @@
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+import connectDB from "../config/db.js";
+
+import manualAuthRoutes from "./routes/manualAuth.routes.js";
+import googleAuthRoutes from "./routes/googleAuth.routes.js";
+import userRoutes from "./routes/user.routes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+/* ---------- MIDDLEWARE ---------- */
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/* ---------- STATIC ---------- */
+app.use(express.static(path.join(__dirname, "../public")));
+
+/* ---------- DB ---------- */
+connectDB();
+
+/* ---------- ROUTES ---------- */
+app.use("/api/auth", manualAuthRoutes);
+app.use("/api/auth", googleAuthRoutes);
+app.use("/api/user", userRoutes);
+
+/* ---------- HEALTH ---------- */
+app.get("/api/health", (req, res) => {
+  res.json({ status: "OK", env: "local" });
+});
+
+/* ---------- FALLBACK ---------- */
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ error: "API not found" });
+  }
+  res.sendFile(path.join(__dirname, "../public/login.html"));
+});
+
+export default app;
