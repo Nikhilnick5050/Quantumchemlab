@@ -3,7 +3,7 @@ import axios from "axios";
 import { googleCallback } from "../controllers/googleAuth.controller.js";
 
 const router = express.Router();
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"; // UPDATED: Add FRONTEND_URL
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"; // ✅ WITH FALLBACK
 
 // =======================
 // REDIRECT TO GOOGLE
@@ -41,7 +41,6 @@ router.get("/google/callback", async (req, res, next) => {
 
     const { id_token } = tokenRes.data;
 
-    // Verify token
     const payload = await (
       await import("../services/google.service.js")
     ).verifyGoogleToken(id_token);
@@ -50,9 +49,8 @@ router.get("/google/callback", async (req, res, next) => {
     next();
   } catch (err) {
     console.error("Google Auth Error:", err.message);
-    // UPDATED: Use FRONTEND_URL for error redirect
-    res.redirect(`${FRONTEND_URL}/login.html`);
+    res.redirect(`${FRONTEND_URL}/login.html`); // ✅ CORRECT PATH
   }
 }, googleCallback);
 
-export default router;
+export default router; // ✅ CORRECT DEFAULT EXPORT

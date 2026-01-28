@@ -7,6 +7,14 @@ import "./env.js";
 import express from "express";
 import cors from "cors";
 import OpenAI from "openai";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// =======================
+// GET __dirname FOR ES MODULES
+// =======================
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // =======================
 // DATABASE
@@ -28,9 +36,19 @@ const app = express();
 // =======================
 // MIDDLEWARES
 // =======================
-app.use(cors());
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL || "http://localhost:3000",
+    "http://localhost:3000",
+    "https://www.quantumchem.site",
+    "https://quantumchem.vercel.app",
+    /.+\.quantumchem\.site$/,
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public"))); // ✅ CHANGED TO "public"
 
 // =======================
 // CONNECT DB
@@ -70,10 +88,21 @@ if (process.env.OPENAI_API_KEY) {
 }
 
 // =======================
+// FALLBACK ROUTING
+// =======================
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api/")) {
+    return res.status(404).json({ error: "API endpoint not found" });
+  }
+  res.sendFile(path.join(__dirname, "public", "index.html")); // ✅ CHANGED TO "public"
+});
+
+// =======================
 // START SERVER
 // =======================
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`🔥 Server running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:3000"}`);
 });
