@@ -2313,41 +2313,33 @@
                     <span>Textbooks</span>
                 </a>
             </div>
-
-            <!-- User Dropdown -->
-            <div class="user-dropdown" id="userDropdown">
-                <button class="user-btn" id="userBtn">
-                    <div class="user-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff&size=32" 
-                             alt="Account" 
-                             id="userAvatar">
-                    </div>
-                    <span id="userName">Account</span>
-                    <i class="fas fa-chevron-down" id="dropdownArrow"></i>
-                </button>
-                <div class="dropdown-menu" id="userDropdownMenu">
-                    <div id="dropdownContent">
-                        <!-- Content will be dynamically updated -->
-                        <a href="login.html" class="dropdown-item login-item">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span>Create Account</span>
-                        </a>
-                        <a href="#" class="dropdown-item signup-item" onclick="showSignupModal()">
-                            <i class="fab fa-google"></i>
-                            <span>ogin</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-toggle" id="mobileToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
+<!-- User Dropdown -->
+<div class="user-dropdown" id="userDropdown">
+    <button class="user-btn" id="userBtn">
+        <div class="user-avatar">
+            <img src="https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff&size=32" 
+                 alt="Account" 
+                 id="userAvatar">
+        </div>
+        <span id="userName">Account</span>
+        <i class="fas fa-chevron-down" id="dropdownArrow"></i>
+    </button>
+    <div class="dropdown-menu" id="userDropdownMenu">
+        <div id="dropdownContent">
+            <!-- Sign In Link -->
+            <a href="login.html" class="dropdown-item login-item">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Sign In</span>
+            </a>
+            
+            <!-- Create Account Link -->
+            <a href="login.html?action=create-account" class="dropdown-item signup-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Create Account</span>
+            </a>
+        </div>
     </div>
+</div>
 </header>
 
 <!-- Signup Modal -->

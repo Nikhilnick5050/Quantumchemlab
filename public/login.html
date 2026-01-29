@@ -785,7 +785,7 @@
         </div>
     </div>
 
-   <script>
+ <script>
   // DOM Elements
   const loginToggle = document.getElementById('loginToggle');
   const signupToggle = document.getElementById('signupToggle');
@@ -1167,8 +1167,17 @@
 
   // Initialize the application
   function init() {
-    // Setup form toggle
+    // Setup form toggle FIRST
     setupFormToggle();
+    
+    // CHECK IF COMING FROM "CREATE ACCOUNT" LINK
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'create-account') {
+        // Automatically switch to signup form
+        setTimeout(() => {
+            signupToggle.click();
+        }, 300);
+    }
     
     // Setup password visibility toggle for login only
     setupPasswordToggle(loginPasswordToggle, loginPassword);
@@ -1210,9 +1219,9 @@
     resetPasswordBtn.style.display = 'flex';
     
     // Check for OAuth callback parameter (Google redirect)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('token')) {
-        const token = urlParams.get('token');
+    const urlParams2 = new URLSearchParams(window.location.search);
+    if (urlParams2.has('token')) {
+        const token = urlParams2.get('token');
         localStorage.setItem('jwt_token', token);
         window.location.href = HOME_PAGE;
     }
