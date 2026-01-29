@@ -108,360 +108,193 @@ export const googleCallback = async (req, res) => {
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "7d" });
     console.log("✅ JWT token generated");
 
-    // Send beautiful welcome email (async - don't wait for response)
+    // Send simple welcome email (mobile-friendly & spam-safe)
     try {
-      await sendEmail({
-        to: user.email,
-        subject: "🚀 Welcome to QuantumChem - Your Research Journey Begins!",
-        html: `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <style>
-              @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-              body {
-                font-family: 'Inter', sans-serif;
-                background-color: #f8fafc;
-                margin: 0;
-                padding: 20px;
-              }
-              .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-                border: 1px solid #e2e8f0;
-              }
-              .header {
-                background: linear-gradient(135deg, #0B1220 0%, #0F1B2E 100%);
-                padding: 40px 30px;
-                text-align: center;
-                border-bottom: 3px solid #3B82F6;
-              }
-              .logo {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 12px;
-                margin-bottom: 20px;
-              }
-              .logo-icon {
-                font-size: 36px;
-                color: #3B82F6;
-              }
-              .logo-text {
-                font-family: 'Poppins', sans-serif;
-                font-weight: 700;
-                font-size: 28px;
-                color: white;
-              }
-              .logo-text span {
-                color: #3B82F6;
-              }
-              .tagline {
-                color: #9CA3AF;
-                font-size: 14px;
-                letter-spacing: 0.5px;
-                margin-top: 5px;
-              }
-              .content {
-                padding: 40px 30px;
-              }
-              .welcome-title {
-                font-family: 'Poppins', sans-serif;
-                font-size: 28px;
-                font-weight: 700;
-                color: #1e293b;
-                margin-bottom: 15px;
-                text-align: center;
-              }
-              .welcome-subtitle {
-                color: #64748b;
-                font-size: 16px;
-                text-align: center;
-                line-height: 1.6;
-                margin-bottom: 30px;
-              }
-              .user-info {
-                background: #f1f5f9;
-                border-radius: 12px;
-                padding: 25px;
-                margin: 25px 0;
-                border-left: 4px solid #3B82F6;
-              }
-              .info-item {
-                display: flex;
-                margin-bottom: 15px;
-                align-items: center;
-              }
-              .info-item:last-child {
-                margin-bottom: 0;
-              }
-              .info-icon {
-                width: 40px;
-                height: 40px;
-                background: #e0f2fe;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 15px;
-                color: #0369a1;
-                flex-shrink: 0;
-              }
-              .info-details {
-                flex: 1;
-              }
-              .info-label {
-                font-size: 12px;
-                color: #64748b;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                margin-bottom: 3px;
-              }
-              .info-value {
-                font-size: 16px;
-                font-weight: 600;
-                color: #1e293b;
-              }
-              .features {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-                margin: 30px 0;
-              }
-              .feature-card {
-                background: white;
-                border-radius: 12px;
-                padding: 20px;
-                text-align: center;
-                border: 1px solid #e2e8f0;
-                transition: all 0.3s ease;
-              }
-              .feature-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                border-color: #3B82F6;
-              }
-              .feature-icon {
-                font-size: 24px;
-                color: #3B82F6;
-                margin-bottom: 10px;
-              }
-              .feature-title {
-                font-weight: 600;
-                color: #1e293b;
+      const plainText = `Welcome to QuantumChem, ${user.name}!
+
+Your account has been successfully created using Google Sign-In.
+
+Account Details:
+- Name: ${user.name}
+- Email: ${user.email}
+- Login Method: Google Authentication
+- Login Time: ${new Date().toLocaleString()}
+
+Access your dashboard: ${FRONTEND_URL}/profile.html
+
+Thank you,
+QuantumChem Team
+
+This is an automated message. If you didn't create this account, please contact support@quantumchem.site`;
+
+      const htmlEmail = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to QuantumChem</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #2563eb;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .content {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .user-info {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+            margin: 15px 0;
+        }
+        .info-item {
+            margin: 10px 0;
+            display: flex;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #4b5563;
+            min-width: 140px;
+        }
+        .info-value {
+            color: #111827;
+        }
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .info-item {
+                flex-direction: column;
+            }
+            .info-label {
                 margin-bottom: 5px;
-                font-size: 14px;
-              }
-              .feature-desc {
-                color: #64748b;
-                font-size: 12px;
-                line-height: 1.4;
-              }
-              .cta-button {
+            }
+            .button {
                 display: block;
                 width: 100%;
-                background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
-                color: white;
-                text-align: center;
-                padding: 16px;
-                border-radius: 12px;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 16px;
-                margin: 30px 0;
-                transition: all 0.3s ease;
-                border: none;
-                cursor: pointer;
-              }
-              .cta-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-              }
-              .security-note {
-                background: #d1fae5;
-                border: 1px solid #a7f3d0;
-                border-radius: 12px;
-                padding: 20px;
-                margin: 25px 0;
-                text-align: center;
-              }
-              .security-icon {
-                color: #10b981;
-                font-size: 24px;
-                margin-bottom: 10px;
-              }
-              .security-text {
-                color: #065f46;
-                font-size: 14px;
-                font-weight: 500;
-              }
-              .footer {
-                background: #0F1B2E;
-                color: #9CA3AF;
-                padding: 25px;
-                text-align: center;
-                font-size: 12px;
-                line-height: 1.6;
-                border-top: 1px solid #1F2937;
-              }
-              .footer a {
-                color: #3B82F6;
-                text-decoration: none;
-              }
-              .footer-links {
-                display: flex;
-                justify-content: center;
-                gap: 20px;
-                margin-top: 15px;
-              }
-              .login-time {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: #fef3c7;
-                color: #92400e;
-                padding: 8px 16px;
-                border-radius: 20px;
-                font-size: 14px;
-                margin: 10px 0;
-              }
-              @media (max-width: 600px) {
-                .features {
-                  grid-template-columns: 1fr;
-                }
-                .content {
-                  padding: 25px 20px;
-                }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <div class="logo">
-                  <div class="logo-icon">⚛️</div>
-                  <div>
-                    <div class="logo-text">Quantum<span>Chem</span></div>
-                    <div class="tagline">Advanced Research Laboratory Database</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="content">
-                <h1 class="welcome-title">Welcome aboard, ${user.name}! 🎉</h1>
-                <p class="welcome-subtitle">Your quantum chemistry research journey begins now. Explore advanced tools, databases, and collaborative features.</p>
-                
-                <div class="user-info">
-                  <div class="info-item">
-                    <div class="info-icon">
-                      <span>👤</span>
-                    </div>
-                    <div class="info-details">
-                      <div class="info-label">Account Created</div>
-                      <div class="info-value">${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="info-item">
-                    <div class="info-icon">
-                      <span>📧</span>
-                    </div>
-                    <div class="info-details">
-                      <div class="info-label">Registered Email</div>
-                      <div class="info-value">${user.email}</div>
-                    </div>
-                  </div>
-                  
-                  <div class="info-item">
-                    <div class="info-icon">
-                      <span>🔐</span>
-                    </div>
-                    <div class="info-details">
-                      <div class="info-label">Authentication Method</div>
-                      <div class="info-value">Google Sign-In (Secure)</div>
-                    </div>
-                  </div>
-                  
-                  <div class="login-time">
-                    <span>🕒</span>
-                    Login time: ${new Date().toLocaleString()}
-                  </div>
-                </div>
-                
-                <div class="features">
-                  <div class="feature-card">
-                    <div class="feature-icon">🧪</div>
-                    <div class="feature-title">Chemical Database</div>
-                    <div class="feature-desc">Access 10,000+ chemical compounds with detailed properties</div>
-                  </div>
-                  
-                  <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-title">Research Tools</div>
-                    <div class="feature-desc">Advanced calculation and visualization tools</div>
-                  </div>
-                  
-                  <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <div class="feature-title">Collaboration</div>
-                    <div class="feature-desc">Share research with team members securely</div>
-                  </div>
-                  
-                  <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <div class="feature-title">Security</div>
-                    <div class="feature-desc">Enterprise-grade encryption & data protection</div>
-                  </div>
-                </div>
-                
-                <div class="security-note">
-                  <div class="security-icon">✅</div>
-                  <div class="security-text">Your account is secured with Google authentication. No password required.</div>
-                </div>
-                
-                <a href="${FRONTEND_URL}/profile.html" class="cta-button">
-                  🚀 Launch Your Dashboard
-                </a>
-              </div>
-              
-              <div class="footer">
-                <p>© 2026 QuantumChem Research Platform. All rights reserved.</p>
-                <p>This is an automated message. If you didn't create this account, please <a href="mailto:support@quantumchem.site">contact support</a> immediately.</p>
-                <div class="footer-links">
-                  <a href="${FRONTEND_URL}">Home</a>
-                  <a href="${FRONTEND_URL}/profile.html">Profile</a>
-                  <a href="https://quantumchemblog.wordpress.com/">Blog</a>
-                  <a href="mailto:support@quantumchem.site">Support</a>
-                </div>
-              </div>
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">QuantumChem</div>
+        <div style="color: #6b7280; font-size: 14px; margin-top: 5px;">Laboratory Database</div>
+    </div>
+    
+    <div class="content">
+        <h2 style="color: #111827; margin-top: 0;">Welcome, ${user.name}!</h2>
+        <p>Your account has been successfully created using Google Sign-In.</p>
+        
+        <div class="user-info">
+            <div class="info-item">
+                <div class="info-label">Name:</div>
+                <div class="info-value">${user.name}</div>
             </div>
-          </body>
-          </html>
-        `
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                <div class="info-value">${user.email}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Login Method:</div>
+                <div class="info-value">Google Authentication</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Login Time:</div>
+                <div class="info-value">${new Date().toLocaleString()}</div>
+            </div>
+        </div>
+        
+        <p>You can now access all features of QuantumChem:</p>
+        <ul style="color: #4b5563;">
+            <li>Chemical database with 10,000+ compounds</li>
+            <li>Research tools and calculations</li>
+            <li>Secure collaboration features</li>
+        </ul>
+        
+        <a href="${FRONTEND_URL}/profile.html" class="button">Access Your Dashboard</a>
+        
+        <p style="color: #6b7280; font-size: 14px; margin-top: 30px; padding: 15px; background: #e0f2fe; border-radius: 6px;">
+            <strong>Security Note:</strong> Your account is secured with Google authentication. No password is stored.
+        </p>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 QuantumChem Research Platform</p>
+        <p>This is an automated message. If you didn't create this account, please contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p style="margin-top: 10px;">
+            <a href="${FRONTEND_URL}" style="color: #2563eb; margin: 0 10px;">Home</a> | 
+            <a href="${FRONTEND_URL}/profile.html" style="color: #2563eb; margin: 0 10px;">Profile</a> | 
+            <a href="mailto:support@quantumchem.site" style="color: #2563eb; margin: 0 10px;">Support</a>
+        </p>
+    </div>
+</body>
+</html>`;
+
+      await sendEmail({
+        to: user.email,
+        subject: "Welcome to QuantumChem - Account Created Successfully",
+        html: htmlEmail,
+        text: plainText  // IMPORTANT: Plain text version reduces spam
       });
-      console.log("📧 Beautiful welcome email sent to:", user.email);
+      console.log("📧 Welcome email sent to:", user.email);
     } catch (emailError) {
       console.error("⚠️ Email failed:", emailError.message);
+      // Don't fail the login if email fails
     }
 
     // DEBUG: Print the redirect URL before redirecting
     console.log("🔍 DEBUG - Building redirect URL:");
     console.log("   FRONTEND_URL:", FRONTEND_URL);
     console.log("   Token exists:", token ? "YES" : "NO");
-    console.log("   Token length:", token?.length || 0);
     
-    // Build redirect URL - FIXED: Redirect to profile.html instead of index.html
+    // Build redirect URL
     const redirectUrl = `${FRONTEND_URL}/profile.html?token=${token}&google_auth=true`;
     
     console.log("🎯 FINAL REDIRECT URL:", redirectUrl);
-    console.log("✅ Should redirect to profile.html, NOT index.html");
     console.log("=== GOOGLE CALLBACK END ===");
     
-    // IMPORTANT: Clear any headers that might interfere
+    // Clear any headers that might interfere
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     
     // Redirect to profile.html
@@ -470,7 +303,6 @@ export const googleCallback = async (req, res) => {
   } catch (error) {
     console.error("❌ Google callback error:");
     console.error("Message:", error.message);
-    console.error("Stack:", error.stack);
     
     const errorUrl = `${FRONTEND_URL}/login.html?error=google_auth_failed`;
     console.log("⚠️ Redirecting to error page:", errorUrl);
