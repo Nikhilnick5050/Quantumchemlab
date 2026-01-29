@@ -16,7 +16,7 @@ const app = express();
 
 /* ---------- MIDDLEWARE ---------- */
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://www.quantumchem.site", "https://quantumchem.site"],
   credentials: true,
 }));
 
@@ -36,7 +36,7 @@ app.use("/api/user", userRoutes);
 
 /* ---------- HEALTH ---------- */
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", env: "local" });
+  res.json({ status: "OK", env: process.env.NODE_ENV || "development" });
 });
 
 /* ---------- FALLBACK ---------- */
