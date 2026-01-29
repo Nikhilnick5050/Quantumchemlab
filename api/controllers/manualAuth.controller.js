@@ -704,7 +704,7 @@ This is an automated message.`;
     
     <div class="footer">
         <p>© 2026 QuantumChem Research Platform</p>
-        <p>For security questions, contact <a href="mailto:quantumchem25@gmail.com" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p>For security questions, contact <a href="mailto:quantumchem25@gmail.com" style="color: #2563eb;">quantumchem25@gmail.com</a></p>
         <p style="margin-top: 10px;">
             <a href="${FRONTEND_URL}" style="color: #2563eb; margin: 0 10px;">Home</a> | 
             <a href="${FRONTEND_URL}/profile.html" style="color: #2563eb; margin: 0 10px;">Profile</a> | 
@@ -764,7 +764,8 @@ Login here: ${FRONTEND_URL}/login.html
 If you didn't request this reset, please contact support immediately.
 
 Thank you,
-QuantumChem Team`;
+QuantumChem Team
+founder - Nikhil Shinde`;
 
     await sendEmail({
       to: user.email,
@@ -933,7 +934,7 @@ QuantumChem Team`;
     
     <div class="footer">
         <p>© 2026 QuantumChem Research Platform</p>
-        <p>For security questions, contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p>For security questions, contact <a href="mailto:quantumchem25@gmail.com" style="color: #2563eb;">quantumchem25@gmail.com</a></p>
     </div>
 </body>
 </html>`,
