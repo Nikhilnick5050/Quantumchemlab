@@ -1,4 +1,6 @@
+// controllers/auth/manual.controller.js
 import User from "../models/User.js";
+import Verification from "../models/Verification.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
@@ -32,34 +34,11 @@ const generateTempPassword = () => {
     .join("");
 };
 
-// REGISTER (MANUAL) - name + email ONLY
-export const registerManual = async (req, res) => {
-  try {
-    const { name, email } = req.body;
+// Helper: Send verification email
+const sendVerificationEmail = async (name, email, verificationToken) => {
+  const verifyLink = `${FRONTEND_URL}/api/auth/verify/${verificationToken}`;
 
-    if (!name || !email) {
-      return res.status(400).json({ message: "Name and email are required" });
-    }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    const verificationToken = uuidv4();
-
-    await User.create({
-      name,
-      email,
-      password: null,
-      authProvider: "manual",
-      isEmailVerified: false,
-      verificationToken,
-    });
-
-    const verifyLink = `${FRONTEND_URL}/api/auth/verify/${verificationToken}`;
-
-    const plainText = `Welcome to QuantumChem!
+  const plainText = `Welcome to QuantumChem!
 
 Please verify your email to receive your login password.
 
@@ -70,10 +49,10 @@ This link will verify your email address and generate a secure temporary passwor
 Thank you,
 QuantumChem Team`;
 
-    await sendEmail({
-      to: email,
-      subject: "Verify your QuantumChem account",
-      html: `
+  await sendEmail({
+    to: email,
+    subject: "Verify your QuantumChem account",
+    html: `
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,39 +163,179 @@ QuantumChem Team`;
     </div>
 </body>
 </html>`,
-      text: plainText
+    text: plainText
+  });
+};
+
+// REGISTER (MANUAL) - NEW FLOW: Store in Verification collection only
+export const registerManual = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ message: "Name and email are required" });
+    }
+
+    // CHECK 1: If user already exists in User collection (verified manual or Google)
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      // If user exists and is verified manual user
+      if (existingUser.authProvider === "manual" && existingUser.isEmailVerified) {
+        return res.status(400).json({ 
+          message: "User already exists. Please login or reset your password." 
+        });
+      }
+      // If user exists and is Google user
+      if (existingUser.authProvider === "google") {
+        return res.status(400).json({ 
+          message: "This email is already registered with Google. Please use Google Sign-In." 
+        });
+      }
+    }
+
+    // CHECK 2: If email has pending verification
+    const existingVerification = await Verification.findOne({ email });
+    const verificationToken = uuidv4();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    if (existingVerification) {
+      // Update existing verification record
+      existingVerification.verificationToken = verificationToken;
+      existingVerification.resendCount += 1;
+      existingVerification.lastResentAt = new Date();
+      existingVerification.expiresAt = expiresAt;
+      await existingVerification.save();
+      
+      // Resend verification email
+      await sendVerificationEmail(name, email, verificationToken);
+      
+      return res.json({ 
+        message: "Verification email resent. Please check your inbox." 
+      });
+    }
+
+    // Create new verification record
+    await Verification.create({
+      name,
+      email,
+      verificationToken,
+      expiresAt
     });
 
-    res.json({ message: "Verification email sent" });
+    // Send verification email
+    await sendVerificationEmail(name, email, verificationToken);
+
+    res.json({ 
+      message: "Verification email sent. Please check your inbox to complete registration." 
+    });
   } catch (err) {
     console.error("Registration Error:", err);
+    
+    // Handle duplicate email in Verification collection
+    if (err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+      return res.status(400).json({ 
+        message: "Verification already pending for this email. Please check your inbox or try again later." 
+      });
+    }
+    
     res.status(500).json({ message: "Registration failed" });
   }
 };
 
-// VERIFY EMAIL - Generates TEMP PASSWORD
+// RESEND VERIFICATION EMAIL
+export const resendVerification = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const verification = await Verification.findOne({ email });
+    if (!verification) {
+      return res.status(404).json({ 
+        message: "No pending verification found for this email. Please register again." 
+      });
+    }
+
+    // Check resend limit
+    if (verification.resendCount >= 5) {
+      return res.status(429).json({ 
+        message: "Too many resend attempts. Please wait or contact support." 
+      });
+    }
+
+    // Generate new token and update
+    const newToken = uuidv4();
+    verification.verificationToken = newToken;
+    verification.resendCount += 1;
+    verification.lastResentAt = new Date();
+    verification.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    await verification.save();
+
+    // Resend email
+    await sendVerificationEmail(verification.name, email, newToken);
+
+    res.json({ 
+      message: "Verification email resent. Please check your inbox." 
+    });
+  } catch (err) {
+    console.error("Resend Verification Error:", err);
+    res.status(500).json({ message: "Failed to resend verification email" });
+  }
+};
+
+// VERIFY EMAIL - Creates user in MongoDB only after verification
 export const verifyEmail = async (req, res) => {
   try {
     const { token } = req.params;
 
-    const user = await User.findOne({ verificationToken: token });
-    if (!user) {
+    // Find verification record
+    const verification = await Verification.findOne({ verificationToken: token });
+    if (!verification) {
       return res.status(400).send("Invalid or expired verification link");
     }
 
-    // Generate readable temp password
+    // Check if verification expired
+    if (verification.expiresAt < new Date()) {
+      await Verification.deleteOne({ _id: verification._id });
+      return res.status(400).send("Verification link has expired. Please register again.");
+    }
+
+    // Check if user already exists (should not happen with our flow)
+    const existingUser = await User.findOne({ email: verification.email });
+    if (existingUser) {
+      // Clean up verification record
+      await Verification.deleteOne({ _id: verification._id });
+      
+      if (existingUser.authProvider === "manual" && existingUser.isEmailVerified) {
+        return res.status(400).send("User already verified. Please login.");
+      }
+      if (existingUser.authProvider === "google") {
+        return res.status(400).send("This email is already registered with Google. Please use Google Sign-In.");
+      }
+    }
+
+    // Generate temporary password
     const tempPassword = generateTempPassword();
     const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
-    user.password = hashedPassword;
-    user.isEmailVerified = true;
-    user.verificationToken = null;
-    user.passwordExpiresAt = new Date(
-      Date.now() + PASSWORD_VALID_DAYS * 24 * 60 * 60 * 1000
-    );
+    // Create the user in MongoDB (only now)
+    const user = await User.create({
+      name: verification.name,
+      email: verification.email,
+      password: hashedPassword,
+      authProvider: "manual",
+      isEmailVerified: true,
+      passwordExpiresAt: new Date(
+        Date.now() + PASSWORD_VALID_DAYS * 24 * 60 * 60 * 1000
+      )
+    });
 
-    await user.save();
+    // Delete verification record
+    await Verification.deleteOne({ _id: verification._id });
 
+    // Send password email
     const plainText = `Hello ${user.name},
 
 Your QuantumChem account has been successfully verified!
@@ -476,21 +595,47 @@ QuantumChem Team`;
   }
 };
 
-// LOGIN (MANUAL) - UPDATED WITH WELCOME EMAIL
+// LOGIN (MANUAL) - UPDATED WITH VERIFICATION CHECKS
 export const loginManual = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email, authProvider: "manual" });
-    if (!user || !user.password) {
+    // CHECK 1: Look for user in User collection
+    const user = await User.findOne({ email });
+    
+    // If user doesn't exist at all
+    if (!user) {
+      // Check if there's a pending verification
+      const pendingVerification = await Verification.findOne({ email });
+      if (pendingVerification) {
+        return res.status(403).json({ 
+          message: "Please verify your email first. Check your inbox for the verification link." 
+        });
+      }
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    if (!user.isEmailVerified) {
-      return res.status(403).json({ message: "Email not verified" });
+    // CHECK 2: If user exists but is Google user
+    if (user.authProvider === "google") {
+      return res.status(403).json({ 
+        message: "This email is registered with Google. Please use Google Sign-In." 
+      });
     }
 
-    // Check expiry
+    // CHECK 3: If manual user but not verified
+    if (user.authProvider === "manual" && !user.isEmailVerified) {
+      // This shouldn't happen with our new flow, but handle it anyway
+      return res.status(403).json({ 
+        message: "Email not verified. Please complete email verification first." 
+      });
+    }
+
+    // CHECK 4: Password checks
+    if (!user.password) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Check password expiry
     if (user.passwordExpiresAt && user.passwordExpiresAt < new Date()) {
       return res.status(403).json({
         message: "Password expired. Please reset your password.",
@@ -502,16 +647,17 @@ export const loginManual = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Update last login
     user.lastLoginAt = new Date();
     await user.save();
 
+    // Generate JWT token
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: "1d",
     });
 
-    // Send welcome email if this is their first login
+    // Send welcome email for first login
     try {
-      // Check if it's first login (no lastLoginAt or very old)
       const isFirstLogin = !user.lastLoginAt || 
         (new Date() - new Date(user.lastLoginAt)) > 24 * 60 * 60 * 1000;
       
@@ -533,9 +679,7 @@ Security Note:
 • You can reset it anytime from the login page
 
 Thank you,
-QuantumChem Team
-
-This is an automated message.`;
+QuantumChem Team`;
 
         await sendEmail({
           to: user.email,
@@ -729,18 +873,35 @@ This is an automated message.`;
   }
 };
 
-// RESET PASSWORD (ALWAYS AVAILABLE)
+// RESET PASSWORD - Only for verified manual users
 export const resetPasswordManual = async (req, res) => {
   try {
     const { email } = req.body;
 
-    const user = await User.findOne({ email, authProvider: "manual" });
-    if (!user || !user.isEmailVerified) {
+    const user = await User.findOne({ email });
+    
+    // User doesn't exist
+    if (!user) {
+      return res.json({
+        message: "If this email is registered, a password reset link will be sent."
+      });
+    }
+
+    // User is Google user
+    if (user.authProvider === "google") {
       return res.json({
         message: "This email is registered using Google Sign-In. Please continue with Google to access your account.",
       });
     }
 
+    // User is manual but not verified (shouldn't happen with new flow)
+    if (user.authProvider === "manual" && !user.isEmailVerified) {
+      return res.status(403).json({
+        message: "Please verify your email first before resetting password."
+      });
+    }
+
+    // Generate new password
     const newPassword = generateTempPassword();
     user.password = await bcrypt.hash(newPassword, 10);
     user.passwordExpiresAt = new Date(
@@ -749,6 +910,7 @@ export const resetPasswordManual = async (req, res) => {
 
     await user.save();
 
+    // Send password email
     const plainText = `Password Reset Request
 
 Hello ${user.name},
@@ -947,5 +1109,35 @@ founder - Nikhil Shinde`;
   } catch (err) {
     console.error("Reset Password Error:", err);
     res.status(500).json({ message: "Password reset failed" });
+  }
+};
+
+// GOOGLE OAUTH CHECK MIDDLEWARE (to be used in Google OAuth strategy)
+export const checkGoogleOAuthBlock = async (email) => {
+  try {
+    // Check if user exists as verified manual user
+    const existingUser = await User.findOne({ email });
+    
+    if (existingUser) {
+      // If manual user exists (verified), block Google OAuth
+      if (existingUser.authProvider === "manual" && existingUser.isEmailVerified) {
+        throw new Error("This email is already registered with manual authentication. Please use email/password login.");
+      }
+      // If manual user pending verification, block Google OAuth
+      if (existingUser.authProvider === "manual" && !existingUser.isEmailVerified) {
+        throw new Error("Please verify your email first before using Google Sign-In.");
+      }
+    }
+    
+    // Check if there's a pending verification
+    const pendingVerification = await Verification.findOne({ email });
+    if (pendingVerification) {
+      throw new Error("Please complete email verification first before using Google Sign-In.");
+    }
+    
+    return true;
+  } catch (err) {
+    console.error("Google OAuth Block Check Error:", err);
+    throw err;
   }
 };

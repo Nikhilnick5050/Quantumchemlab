@@ -786,7 +786,7 @@
     </div>
 
  <script>
-  // DOM Elements
+  // DOM Elements (keep existing)
   const loginToggle = document.getElementById('loginToggle');
   const signupToggle = document.getElementById('signupToggle');
   const toggleSlider = document.getElementById('toggleSlider');
@@ -805,6 +805,8 @@
   const termsCheckboxContainer = document.getElementById('termsCheckboxContainer');
   const resetPasswordBtn = document.getElementById('resetPasswordBtn');
   const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
+  const loginEmailInput = document.getElementById('loginEmail');
+  const signupEmailInput = document.getElementById('signupEmail');
 
   // DYNAMIC API Configuration for Vercel backend
   function getApiBaseUrl() {
@@ -832,7 +834,7 @@
   const GOOGLE_AUTH_ENDPOINT = `${API_BASE_URL}/auth/google`;
   
   // Home page path - relative to current domain
-  const HOME_PAGE = 'profile.html'; // CHANGED FROM index.html TO profile.html
+  const HOME_PAGE = 'profile.html';
 
   // Password expired keywords to check in backend messages
   const PASSWORD_EXPIRED_KEYWORDS = [
@@ -867,6 +869,90 @@
     }, 5000);
   }
 
+  // Clear all messages
+  function clearAllMessages() {
+    messageContainer.innerHTML = '';
+  }
+
+  // NEW: Parse URL query parameters
+  function parseUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const params = {
+      error: urlParams.get('error'),
+      message: urlParams.get('message'),
+      google_auth: urlParams.get('google_auth'),
+      token: urlParams.get('token'),
+      action: urlParams.get('action')
+    };
+    
+    // Clean up URL (remove query params) but keep hash
+    if (params.error || params.message || params.google_auth || params.token) {
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+    
+    return params;
+  }
+
+  // NEW: Handle Google OAuth blocking messages
+  function showGoogleBlockMessage(errorType, message) {
+    clearAllMessages();
+    
+    let displayMessage = message;
+    let type = 'error';
+    
+    // Format message for better UX
+    switch(errorType) {
+      case 'google_blocked':
+        if (message.includes('already registered with manual authentication')) {
+          displayMessage = 'This email is already registered with manual authentication. Please use email/password login.';
+          type = 'warning';
+        } else if (message.includes('verify your email first')) {
+          displayMessage = 'Please verify your email first before using Google Sign-In.';
+          type = 'warning';
+        } else if (message.includes('complete email verification first')) {
+          displayMessage = 'Please complete email verification first before using Google Sign-In.';
+          type = 'warning';
+        }
+        break;
+        
+      case 'manual_user_exists':
+        displayMessage = 'This email is already registered with manual authentication. Please use email/password login.';
+        type = 'warning';
+        break;
+        
+      case 'auth_failed':
+        displayMessage = 'Google authentication failed. Please try again or use email/password login.';
+        type = 'error';
+        break;
+        
+      default:
+        if (message) {
+          displayMessage = message;
+        } else {
+          displayMessage = 'Google authentication failed. Please try again.';
+        }
+    }
+    
+    showMessage(displayMessage, type);
+  }
+
+  // NEW: Handle successful Google authentication
+  function handleSuccessfulGoogleAuth(token) {
+    clearAllMessages();
+    
+    // Save token to localStorage
+    localStorage.setItem('jwt_token', token);
+    
+    // Show brief success message
+    showMessage('Google login successful! Redirecting...', 'success');
+    
+    // Redirect to profile after short delay
+    setTimeout(() => {
+      window.location.href = HOME_PAGE;
+    }, 1500);
+  }
+
   // Check if backend message indicates password expiration
   function isPasswordExpiredMessage(message) {
     if (!message) return false;
@@ -898,7 +984,7 @@
             loginForm.classList.add('active');
         }, 50);
         
-        messageContainer.innerHTML = '';
+        clearAllMessages();
     });
 
     signupToggle.addEventListener('click', () => {
@@ -914,7 +1000,7 @@
             termsCheckboxContainer.classList.add('show');
         }, 50);
         
-        messageContainer.innerHTML = '';
+        clearAllMessages();
         
         // Reset form fields
         signupForm.reset();
@@ -926,11 +1012,11 @@
   async function handleLogin(e) {
     e.preventDefault();
     
-    const email = document.getElementById('loginEmail').value.trim();
+    const email = loginEmailInput.value.trim();
     const password = loginPassword.value;
     
     // Clear any previous messages
-    messageContainer.innerHTML = '';
+    clearAllMessages();
     
     // Basic validation
     if (!email || !password) {
@@ -970,9 +1056,9 @@
                 localStorage.setItem('jwt_token', data.token);
                 
                 // Clear any existing messages
-                messageContainer.innerHTML = '';
+                clearAllMessages();
                 
-                // Redirect to profile.html (CHANGED FROM index.html)
+                // Redirect to profile.html
                 window.location.href = HOME_PAGE;
             } else {
                 // No token received (shouldn't happen for successful login)
@@ -1012,10 +1098,10 @@
     e.preventDefault();
     
     const name = document.getElementById('signupName').value.trim();
-    const email = document.getElementById('signupEmail').value.trim();
+    const email = signupEmailInput.value.trim();
     
     // Clear any previous messages
-    messageContainer.innerHTML = '';
+    clearAllMessages();
     
     // Basic validation
     if (!name || !email) {
@@ -1062,8 +1148,14 @@
             // Success - show backend response message
             if (data.message) {
                 showMessage(data.message, 'success');
+                
+                // If it's a verification message, emphasize it
+                if (data.message.toLowerCase().includes('verification')) {
+                  showMessage('Please check your email inbox (and spam folder) for the verification link.', 'info');
+                }
             } else {
                 showMessage('Account created successfully. Please check your email for verification.', 'success');
+                showMessage('Check your email inbox (and spam folder) for the verification link.', 'info');
             }
             
             // Reset form
@@ -1073,10 +1165,18 @@
             // DO NOT auto-login after signup
             // DO NOT switch forms automatically
             // User will receive verification email, then password email
+            
         } else {
             // Handle signup errors
             if (data.message) {
-                showMessage(data.message, 'error');
+                // Show user-friendly messages
+                if (data.message.includes('already exists') && data.message.includes('Google')) {
+                  showMessage('This email is already registered with Google. Please use Google Sign-In.', 'warning');
+                } else if (data.message.includes('already exists')) {
+                  showMessage('This email is already registered. Please login or reset your password.', 'warning');
+                } else {
+                  showMessage(data.message, 'error');
+                }
             } else {
                 showMessage('Registration failed. Please try again.', 'error');
             }
@@ -1093,10 +1193,10 @@
 
   // Handle reset password request
   async function handleResetPassword() {
-    const email = document.getElementById('loginEmail').value.trim();
+    const email = loginEmailInput.value.trim();
     
     // Clear any previous messages
-    messageContainer.innerHTML = '';
+    clearAllMessages();
     
     // Email validation
     if (!email) {
@@ -1132,8 +1232,14 @@
             // Success - show backend response message
             if (data.message) {
                 showMessage(data.message, 'success');
+                
+                // If it mentions checking inbox, add emphasis
+                if (data.message.toLowerCase().includes('check')) {
+                  showMessage('Please check your email inbox (and spam folder).', 'info');
+                }
             } else {
                 showMessage('Password reset email sent. Please check your inbox.', 'success');
+                showMessage('Check your email inbox (and spam folder).', 'info');
             }
             
             // DO NOT auto-login after reset
@@ -1143,7 +1249,12 @@
         } else {
             // Handle reset errors
             if (data.message) {
-                showMessage(data.message, 'error');
+                // Show user-friendly messages
+                if (data.message.includes('Google Sign-In')) {
+                  showMessage('This email is registered with Google. Please use Google Sign-In.', 'warning');
+                } else {
+                  showMessage(data.message, 'error');
+                }
             } else {
                 showMessage('Password reset failed. Please try again.', 'error');
             }
@@ -1160,7 +1271,7 @@
 
   // Handle Google button clicks - for Vercel backend
   function handleGoogleAuth() {
-    messageContainer.innerHTML = '';
+    clearAllMessages();
     // For Google OAuth, we need to redirect to the backend auth endpoint
     window.location.href = GOOGLE_AUTH_ENDPOINT;
   }
@@ -1170,13 +1281,46 @@
     // Setup form toggle FIRST
     setupFormToggle();
     
-    // CHECK IF COMING FROM "CREATE ACCOUNT" LINK
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('action') === 'create-account') {
-        // Automatically switch to signup form
-        setTimeout(() => {
-            signupToggle.click();
-        }, 300);
+    // NEW: Parse and handle URL parameters
+    const params = parseUrlParams();
+    
+    // Check for token first (highest priority)
+    if (params.token) {
+      handleSuccessfulGoogleAuth(params.token);
+      return; // Stop further initialization while redirecting
+    }
+    
+    // Check for Google authentication errors
+    if (params.error) {
+      showGoogleBlockMessage(params.error, params.message);
+      
+      // Pre-fill email if we can determine it from the message
+      if (params.message && params.message.includes('@')) {
+        // Try to extract email from error message
+        const emailMatch = params.message.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+        if (emailMatch) {
+          const extractedEmail = emailMatch[0];
+          loginEmailInput.value = extractedEmail;
+          signupEmailInput.value = extractedEmail;
+          
+          // If it's a manual user error, switch to login form
+          if (params.error === 'manual_user_exists' || 
+              params.error === 'google_blocked' && params.message.includes('manual authentication')) {
+            // Give a brief delay for UX
+            setTimeout(() => {
+              loginToggle.click();
+              showMessage('Switched to login form. Please use email/password.', 'info');
+            }, 1000);
+          }
+        }
+      }
+    }
+    
+    // Check if coming from "create account" link (lowest priority)
+    if (params.action === 'create-account') {
+      setTimeout(() => {
+        signupToggle.click();
+      }, 300);
     }
     
     // Setup password visibility toggle for login only
@@ -1217,14 +1361,6 @@
     
     // Ensure reset password button is ALWAYS visible
     resetPasswordBtn.style.display = 'flex';
-    
-    // Check for OAuth callback parameter (Google redirect)
-    const urlParams2 = new URLSearchParams(window.location.search);
-    if (urlParams2.has('token')) {
-        const token = urlParams2.get('token');
-        localStorage.setItem('jwt_token', token);
-        window.location.href = HOME_PAGE;
-    }
     
     // DO NOT auto-check for JWT token or auto-redirect
     // User must manually login each time

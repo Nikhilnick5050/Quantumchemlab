@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import Verification from "../models/Verification.js"; // Import Verification model
 import { sendEmail } from "../services/brevo.service.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
@@ -16,6 +17,51 @@ const getFrontendUrl = () => {
     return process.env.FRONTEND_URL_PROD || "https://www.quantumchem.site";
   }
   return process.env.FRONTEND_URL_LOCAL || "http://localhost:3000";
+};
+
+// Helper function to check if Google OAuth should be blocked
+const checkGoogleOAuthBlock = async (email) => {
+  try {
+    console.log(`🔍 Checking Google OAuth block for email: ${email}`);
+    
+    // Check 1: Is there a verified manual user?
+    const verifiedManualUser = await User.findOne({ 
+      email: email, 
+      authProvider: "manual", 
+      isEmailVerified: true 
+    });
+    
+    if (verifiedManualUser) {
+      console.log("🚫 BLOCKED: Email exists as verified manual user");
+      throw new Error("This email is already registered with manual authentication. Please use email/password login.");
+    }
+    
+    // Check 2: Is there an unverified manual user? (legacy cases)
+    const unverifiedManualUser = await User.findOne({ 
+      email: email, 
+      authProvider: "manual", 
+      isEmailVerified: false 
+    });
+    
+    if (unverifiedManualUser) {
+      console.log("🚫 BLOCKED: Email exists as unverified manual user");
+      throw new Error("Please verify your email first before using Google Sign-In.");
+    }
+    
+    // Check 3: Is there a pending verification in Verification collection?
+    const pendingVerification = await Verification.findOne({ email: email });
+    
+    if (pendingVerification) {
+      console.log("🚫 BLOCKED: Email has pending verification");
+      throw new Error("Please complete email verification first before using Google Sign-In.");
+    }
+    
+    console.log("✅ Google OAuth allowed for this email");
+    return true;
+  } catch (error) {
+    console.error("Google OAuth block check error:", error.message);
+    throw error; // Re-throw to be caught in the main callback
+  }
 };
 
 export const googleCallback = async (req, res) => {
@@ -51,6 +97,16 @@ export const googleCallback = async (req, res) => {
 
     console.log(`🔍 Processing Google user: ${email}`);
 
+    // ⭐⭐⭐ CRITICAL: Check if Google OAuth should be blocked ⭐⭐⭐
+    try {
+      await checkGoogleOAuthBlock(email);
+    } catch (blockError) {
+      console.error("🚫 Google OAuth blocked:", blockError.message);
+      return res.redirect(
+        `${FRONTEND_URL}/login.html?error=google_blocked&message=${encodeURIComponent(blockError.message)}`
+      );
+    }
+
     // Find user by email OR googleId
     let user = await User.findOne({ 
       $or: [
@@ -60,8 +116,8 @@ export const googleCallback = async (req, res) => {
     });
 
     if (!user) {
-      // Create new user
-      console.log("👤 Creating new user");
+      // Create new user - only if checks passed
+      console.log("👤 Creating new Google user");
       user = new User({
         name,
         email,
@@ -74,19 +130,30 @@ export const googleCallback = async (req, res) => {
         updatedAt: new Date()
       });
     } else {
-      // Update existing user
+      // Update existing user - with safeguards
       console.log("👤 Updating existing user");
       
+      // ⭐⭐⭐ CRITICAL: Never overwrite authProvider for manual users ⭐⭐⭐
+      if (user.authProvider === "manual") {
+        console.error("🚫 Attempted to convert manual user to Google");
+        return res.redirect(
+          `${FRONTEND_URL}/login.html?error=manual_user_exists&message=${encodeURIComponent("This email is already registered with manual authentication. Please use email/password login.")}`
+        );
+      }
+      
+      // Only update Google-specific fields for Google users
       user.googleId = id;
-      user.authProvider = "google";
+      user.authProvider = "google"; // This is safe now as we've checked it's not "manual"
       user.isEmailVerified = true;
       user.lastLoginAt = new Date();
       user.updatedAt = new Date();
       
+      // Only update picture if not already set
       if (picture && !user.profilePicture) {
         user.profilePicture = picture;
       }
       
+      // Only update name if not already set
       if (!user.name && name) {
         user.name = name;
       }
@@ -304,8 +371,9 @@ This is an automated message. If you didn't create this account, please contact 
   } catch (error) {
     console.error("❌ Google callback error:");
     console.error("Message:", error.message);
+    console.error("Stack:", error.stack);
     
-    const errorUrl = `${FRONTEND_URL}/login.html?error=google_auth_failed`;
+    const errorUrl = `${FRONTEND_URL}/login.html?error=google_auth_failed&message=${encodeURIComponent(error.message)}`;
     console.log("⚠️ Redirecting to error page:", errorUrl);
     
     res.redirect(errorUrl);
