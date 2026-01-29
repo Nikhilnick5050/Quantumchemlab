@@ -476,7 +476,7 @@ QuantumChem Team`;
   }
 };
 
-// LOGIN (MANUAL)
+// LOGIN (MANUAL) - UPDATED WITH WELCOME EMAIL
 export const loginManual = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -508,6 +508,219 @@ export const loginManual = async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: "1d",
     });
+
+    // Send welcome email if this is their first login
+    try {
+      // Check if it's first login (no lastLoginAt or very old)
+      const isFirstLogin = !user.lastLoginAt || 
+        (new Date() - new Date(user.lastLoginAt)) > 24 * 60 * 60 * 1000;
+      
+      if (isFirstLogin) {
+        const plainText = `Welcome to QuantumChem, ${user.name}!
+
+Your manual login was successful!
+
+Account Details:
+- Name: ${user.name}
+- Email: ${user.email}
+- Login Method: Manual Authentication
+- Login Time: ${new Date().toLocaleString()}
+
+Access your dashboard: ${FRONTEND_URL}/profile.html
+
+Security Note:
+• Your password is valid until ${user.passwordExpiresAt.toLocaleDateString()}
+• You can reset it anytime from the login page
+
+Thank you,
+QuantumChem Team
+
+This is an automated message.`;
+
+        await sendEmail({
+          to: user.email,
+          subject: "Welcome to QuantumChem - Login Successful",
+          html: `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to QuantumChem</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #10b981;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .content {
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success-box {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .user-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #4b5563;
+            min-width: 140px;
+        }
+        .info-value {
+            color: #111827;
+        }
+        .dashboard-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 25px 0;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .security-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 25px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .info-row {
+                flex-direction: column;
+            }
+            .info-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">QuantumChem</div>
+        <div style="color: #6b7280; font-size: 14px; margin-top: 5px;">Laboratory Database</div>
+    </div>
+    
+    <div class="content">
+        <div class="success-box">
+            <div style="color: #065f46; font-size: 16px; font-weight: 600; margin-bottom: 5px;">
+                ✓ Login Successful
+            </div>
+            <p style="color: #065f46; margin: 0;">Welcome to QuantumChem, ${user.name}!</p>
+        </div>
+        
+        <h2 style="color: #111827; margin-top: 0;">Great to have you back!</h2>
+        <p>Your manual login was successful. You can now access all features of QuantumChem.</p>
+        
+        <div class="user-info">
+            <div class="info-row">
+                <div class="info-label">Name:</div>
+                <div class="info-value">${user.name}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email:</div>
+                <div class="info-value">${user.email}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Login Method:</div>
+                <div class="info-value">Manual Authentication</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Login Time:</div>
+                <div class="info-value">${new Date().toLocaleString()}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Password Valid Until:</div>
+                <div class="info-value">${user.passwordExpiresAt.toLocaleDateString()}</div>
+            </div>
+        </div>
+        
+        <a href="${FRONTEND_URL}/profile.html" class="dashboard-button">Go to Your Dashboard</a>
+        
+        <div class="security-note">
+            <div style="color: #92400e; font-size: 15px; font-weight: 600; margin-bottom: 8px;">Password Security</div>
+            <p style="margin: 0; color: #92400e; font-size: 14px;">
+                • Your password expires on ${user.passwordExpiresAt.toLocaleDateString()}<br>
+                • You can reset it anytime from the login page<br>
+                • Never share your password with anyone
+            </p>
+        </div>
+        
+        <p style="color: #6b7280; font-size: 14px; text-align: center;">
+            If you didn't login to your account, please contact support immediately.
+        </p>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 QuantumChem Research Platform</p>
+        <p>For security questions, contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p style="margin-top: 10px;">
+            <a href="${FRONTEND_URL}" style="color: #2563eb; margin: 0 10px;">Home</a> | 
+            <a href="${FRONTEND_URL}/profile.html" style="color: #2563eb; margin: 0 10px;">Profile</a> | 
+            <a href="${FRONTEND_URL}/login.html" style="color: #2563eb; margin: 0 10px;">Login</a>
+        </p>
+    </div>
+</body>
+</html>`,
+          text: plainText
+        });
+        console.log("📧 Welcome email sent for manual login:", user.email);
+      }
+    } catch (emailError) {
+      console.error("⚠️ Welcome email failed:", emailError.message);
+      // Don't fail login if email fails
+    }
 
     res.json({ token });
   } catch (err) {
