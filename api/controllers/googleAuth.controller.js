@@ -112,7 +112,7 @@ export const googleCallback = async (req, res) => {
     try {
       const plainText = `Welcome to QuantumChem, ${user.name}!
 
-Your account has been successfully created using Google Sign-In.
+Your account has been successfully logged in using Google Sign-In.
 
 Account Details:
 - Name: ${user.name}
@@ -124,8 +124,9 @@ Access your dashboard: ${FRONTEND_URL}/profile.html
 
 Thank you,
 QuantumChem Team
+founder - Nikhil Shinde
 
-This is an automated message. If you didn't create this account, please contact support@quantumchem.site`;
+This is an automated message. If you didn't create this account, please contact quantumchem25@gmail.com`;
 
       const htmlEmail = `
 <!DOCTYPE html>
