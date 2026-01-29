@@ -248,7 +248,7 @@ This is an automated message. If you didn't create this account, please contact 
         
         <p>You can now access all features of QuantumChem:</p>
         <ul style="color: #4b5563;">
-            <li>Chemical database with 10,000+ compounds</li>
+            <li>Chemical database with 10,00+ compounds</li>
             <li>Research tools and calculations</li>
             <li>Secure collaboration features</li>
         </ul>
@@ -262,11 +262,11 @@ This is an automated message. If you didn't create this account, please contact 
     
     <div class="footer">
         <p>© 2026 QuantumChem Research Platform</p>
-        <p>This is an automated message. If you didn't create this account, please contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p>This is an automated message. If you didn't create this account, please contact <a href="mailto:Quantumchem25@gmail.com" style="color: #2563eb;">Quantumchem25@gmail.com</a></p>
         <p style="margin-top: 10px;">
             <a href="${FRONTEND_URL}" style="color: #2563eb; margin: 0 10px;">Home</a> | 
             <a href="${FRONTEND_URL}/profile.html" style="color: #2563eb; margin: 0 10px;">Profile</a> | 
-            <a href="mailto:support@quantumchem.site" style="color: #2563eb; margin: 0 10px;">Support</a>
+            <a href="mailto:Quantumchem25@gmail.com" style="color: #2563eb; margin: 0 10px;">Support</a>
         </p>
     </div>
 </body>
