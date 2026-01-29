@@ -1107,18 +1107,15 @@
             <p>© 2026 QuantumChem. All rights reserved. | Secure Research Platform v3.2</p>
         </footer>
     </div>
-
-  <script>
-    // Configuration - FIXED: Use correct backend URL
+<script>
+    // Configuration
     function getApiBaseUrl() {
       const currentOrigin = window.location.origin;
       
-      // Local development
       if (currentOrigin === 'http://localhost:3000') {
         return 'http://localhost:3000';
       }
       
-      // Production domains - use Vercel backend
       if (currentOrigin === 'https://www.quantumchem.site' || 
           currentOrigin === 'https://quantumchem.vercel.app') {
         return 'https://quantumchem.vercel.app';
@@ -1132,26 +1129,33 @@
     const TOKEN_KEY = 'jwt_token';
     const USER_KEY = 'qc_user';
     const LOGIN_URL = 'login.html';
-    const HOME_URL = 'index.html';
-
-    // DOM Elements
-    const profileContent = document.getElementById('profile-content');
-    const loadingElement = document.getElementById('loading');
-    const errorElement = document.getElementById('error-message');
-    const errorText = document.getElementById('error-text');
 
     // Main initialization
     document.addEventListener('DOMContentLoaded', async () => {
         console.log('=== Profile Page Initialization ===');
-        console.log('🌐 API Base URL:', API_BASE_URL);
-        console.log('📡 Profile API:', PROFILE_API);
         
         try {
-            // 1. Handle token from URL (Google OAuth flow)
-            handleGoogleOAuthRedirect();
+            // 1. Handle Google OAuth redirect with token in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlToken = urlParams.get('token');
+            const googleAuth = urlParams.get('google_auth');
+            
+            if (urlToken) {
+                console.log('🔗 Token found in URL (Google OAuth flow)');
+                localStorage.setItem(TOKEN_KEY, urlToken);
+                
+                // Clean URL - remove token from address bar
+                const cleanUrl = window.location.origin + window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+                
+                // Show welcome message
+                showMessage(googleAuth === 'true' ? 
+                    'Google authentication successful!' : 
+                    'Login successful!', 'success');
+            }
             
             // 2. Get token from storage
-            const token = getToken();
+            const token = localStorage.getItem(TOKEN_KEY);
             
             if (!token) {
                 console.error('❌ No authentication token found');
@@ -1159,12 +1163,10 @@
                 return;
             }
             
-            console.log('✅ Token found, fetching user profile...');
-            
-            // 3. Fetch user profile from backend
+            // 3. Fetch user profile
             await fetchUserProfile(token);
             
-            // 4. Setup UI interactions
+            // 4. Setup UI
             setupEventListeners();
             
         } catch (error) {
@@ -1173,51 +1175,9 @@
         }
     });
 
-    /**
-     * Handle Google OAuth redirect with token in URL
-     * Format: profile.html?token=JWT_TOKEN_HERE
-     */
-    function handleGoogleOAuthRedirect() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlToken = urlParams.get('token');
-        
-        if (urlToken) {
-            console.log('🔗 Token found in URL (Google OAuth flow)');
-            
-            // Save token to localStorage
-            localStorage.setItem(TOKEN_KEY, urlToken);
-            console.log('✅ Token saved to localStorage');
-            
-            // Clean URL for security (remove token from address bar)
-            const cleanUrl = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, cleanUrl);
-            console.log('✅ Token removed from URL');
-            
-            // Show success message
-            showMessage('Google authentication successful! Loading profile...', 'success');
-        }
-    }
-
-    /**
-     * Get JWT token from localStorage
-     */
-    function getToken() {
-        return localStorage.getItem(TOKEN_KEY);
-    }
-
-    /**
-     * Clear authentication data
-     */
-    function clearAuthData() {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-    }
-
-    /**
-     * Setup event listeners for UI interactions
-     */
+    // Setup event listeners
     function setupEventListeners() {
-        // User dropdown toggle
+        // User dropdown
         const userBtn = document.getElementById('userBtn');
         const dropdown = document.getElementById('userDropdownMenu');
         const arrow = document.getElementById('dropdownArrow');
@@ -1239,106 +1199,11 @@
         });
     }
 
-    /**
-     * Redirect to login page
-     */
-    function redirectToLogin(message = '') {
-        if (message) {
-            console.log(`Redirecting to login: ${message}`);
-            showMessage(message, 'error');
-        }
-        
-        // Clear invalid auth data
-        clearAuthData();
-        
-        // Redirect after short delay
-        setTimeout(() => {
-            window.location.href = LOGIN_URL;
-        }, 1500);
-    }
-
-    /**
-     * Show user-friendly message
-     */
-    function showMessage(text, type = 'info') {
-        // Remove existing messages
-        const existingMessages = document.querySelectorAll('.user-message');
-        existingMessages.forEach(msg => msg.remove());
-        
-        // Create message element
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `user-message message-${type}`;
-        messageDiv.textContent = text;
-        
-        // Styling
-        messageDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            background: ${type === 'success' ? '#10B981' : 
-                         type === 'error' ? '#EF4444' : 
-                         type === 'warning' ? '#F59E0B' : '#3B82F6'};
-            color: white;
-            border-radius: 12px;
-            z-index: 9999;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
-            max-width: 400px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        `;
-        
-        document.body.appendChild(messageDiv);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            messageDiv.style.opacity = '0';
-            messageDiv.style.transform = 'translateX(100px)';
-            messageDiv.style.transition = 'all 0.3s ease';
-            setTimeout(() => messageDiv.remove(), 300);
-        }, 5000);
-    }
-
-    /**
-     * Show loading state
-     */
-    function showLoading() {
-        if (loadingElement) loadingElement.style.display = 'flex';
-        if (profileContent) profileContent.style.display = 'none';
-        if (errorElement) errorElement.style.display = 'none';
-    }
-
-    /**
-     * Hide loading state
-     */
-    function hideLoading() {
-        if (loadingElement) loadingElement.style.display = 'none';
-    }
-
-    /**
-     * Show error state
-     */
-    function showError(message) {
-        hideLoading();
-        if (profileContent) profileContent.style.display = 'none';
-        if (errorElement) {
-            if (errorText) errorText.textContent = message;
-            errorElement.style.display = 'block';
-        }
-    }
-
-    /**
-     * Fetch user profile from backend API
-     */
+    // Fetch user profile
     async function fetchUserProfile(token) {
         showLoading();
         
         try {
-            console.log('📡 Fetching profile from:', PROFILE_API);
-            console.log('🔑 Using token (first 20 chars):', token.substring(0, 20) + '...');
-            
             const response = await fetch(PROFILE_API, {
                 method: 'GET',
                 headers: {
@@ -1347,11 +1212,7 @@
                 }
             });
             
-            console.log('📊 Response status:', response.status);
-            
-            // Handle authentication errors
             if (response.status === 401 || response.status === 403) {
-                console.error('❌ Token expired or invalid');
                 redirectToLogin('Session expired. Please login again.');
                 return;
             }
@@ -1361,400 +1222,223 @@
             }
             
             const data = await response.json();
-            console.log('✅ Profile data received:', data);
             
             if (!data.user) {
-                throw new Error('Invalid API response: missing user object');
+                throw new Error('Invalid API response');
             }
             
-            // Normalize user data
-            const normalizedUser = normalizeUserData(data.user);
-            console.log('📝 Normalized user:', normalizedUser);
-            
-            // Save user data to localStorage
-            saveUserData(normalizedUser);
-            
             // Update UI with user data
-            updateProfileUI(normalizedUser);
+            updateProfileUI(data.user);
             
-            // Show success message
-            showMessage('Profile loaded successfully!', 'success');
+            // Save user data
+            saveUserData(data.user);
             
         } catch (error) {
             console.error('❌ Profile fetch error:', error);
             
-            // Network error
             if (error.message.includes('Failed to fetch')) {
                 showError('Cannot connect to server. Please check your connection.');
-                return;
+            } else {
+                showError(error.message || 'Failed to load profile data');
             }
-            
-            // API error
-            showError(error.message || 'Failed to load profile data');
         }
     }
 
-    /**
-     * Normalize user data from API response
-     * Handles both manual and Google OAuth data formats
-     */
-    function normalizeUserData(userData) {
-        const normalized = {
-            // Basic info
-            name: userData.name || userData.displayName || 'User',
-            email: userData.email || '',
-            authProvider: userData.authProvider || 'manual', // 'manual' or 'google'
-            
-            // Avatar/photo
-            avatarUrl: userData.picture || userData.photoURL || null,
-            
-            // Dates
-            createdAt: userData.createdAt || new Date().toISOString(),
-            lastLoginAt: userData.lastLoginAt || new Date().toISOString(),
-            updatedAt: userData.updatedAt || new Date().toISOString(),
-            
-            // Flags
-            emailVerified: userData.emailVerified || userData.isVerified || false,
-            isActive: userData.isActive !== false,
-            
-            // Metadata
-            loginCount: userData.loginCount || 1,
-            lastLoginIp: userData.lastLoginIp || 'Unknown'
+    // Update UI with user data
+    function updateProfileUI(user) {
+        hideLoading();
+        document.getElementById('profile-content').style.display = 'block';
+        
+        // 1. Basic info
+        document.getElementById('name').textContent = user.name || 'User';
+        document.getElementById('profile-email').textContent = user.email;
+        document.getElementById('email').textContent = user.email;
+        
+        // 2. Profile picture
+        const profileImg = document.getElementById('profile-img');
+        if (profileImg) {
+            profileImg.src = user.picture || user.avatarUrl || 
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=3b82f6&color=fff&size=150`;
+        }
+        
+        // 3. Welcome message
+        document.getElementById('welcome-message').textContent = `Welcome back, ${user.name}!`;
+        
+        // 4. Dates
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
         };
         
-        // Generate avatar URL if not provided
-        if (!normalized.avatarUrl) {
-            const nameForAvatar = normalized.name.replace(/\s+/g, '+');
-            const background = normalized.authProvider === 'google' ? 'DB4437' : '3B82F6';
-            normalized.avatarUrl = `https://ui-avatars.com/api/?name=${nameForAvatar}&background=${background}&color=fff&size=150`;
-        }
+        document.getElementById('last-login').textContent = 
+            formatDate(user.lastLoginAt || new Date().toISOString());
+        document.getElementById('sidebar-last-login').textContent = 
+            new Date(user.lastLoginAt || new Date()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        document.getElementById('account-created').textContent = 
+            formatDate(user.createdAt || new Date().toISOString());
+        document.getElementById('member-since-date').textContent = 
+            new Date(user.createdAt || new Date()).toLocaleDateString('en-US', {year: 'numeric', month: 'long'});
         
-        return normalized;
+        // 5. Auth provider
+        const providerDisplay = user.authProvider === 'google' ? 'Google' : 'Manual';
+        document.getElementById('auth-provider').innerHTML = 
+            `<i class="${user.authProvider === 'google' ? 'fab fa-google' : 'fas fa-envelope'}"></i> ${providerDisplay}`;
+        document.getElementById('auth-provider-badge').textContent = providerDisplay.charAt(0);
+        document.getElementById('auth-method').textContent = providerDisplay;
+        document.getElementById('user-title').textContent = 
+            user.authProvider === 'google' ? 'Google Authenticated User' : 'Manual Login User';
+        
+        // 6. Account age
+        const created = new Date(user.createdAt || new Date());
+        const now = new Date();
+        const diffDays = Math.ceil((now - created) / (1000 * 60 * 60 * 24));
+        document.getElementById('account-age-text').textContent = `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
+        document.getElementById('days-active').textContent = diffDays;
+        
+        // 7. Update header
+        updateHeaderDropdown(user);
     }
 
-    /**
-     * Save normalized user data to localStorage
-     */
-    function saveUserData(userData) {
-        try {
-            // Save full user object
-            localStorage.setItem(USER_KEY, JSON.stringify({
-                ...userData,
-                logged: true,
-                lastSync: new Date().toISOString()
-            }));
-            
-            console.log('💾 User data saved to localStorage');
-            
-            // Dispatch storage event to update other tabs
-            window.dispatchEvent(new StorageEvent('storage', {
-                key: USER_KEY,
-                newValue: JSON.stringify(userData)
-            }));
-            
-        } catch (error) {
-            console.error('❌ Error saving user data:', error);
-        }
-    }
-
-    /**
-     * Update UI with user profile data
-     */
-    function updateProfileUI(user) {
-        try {
-            console.log('🎨 Updating UI with user data:', user);
-            
-            // Hide loading, show content
-            hideLoading();
-            if (profileContent) profileContent.style.display = 'block';
-            
-            // 1. Basic Profile Info
-            const nameElement = document.getElementById('name');
-            const profileEmailElement = document.getElementById('profile-email');
-            const emailElement = document.getElementById('email');
-            
-            if (nameElement) nameElement.textContent = user.name;
-            if (profileEmailElement) profileEmailElement.textContent = user.email;
-            if (emailElement) emailElement.textContent = user.email;
-            
-            // 2. Profile Picture
-            const profileImg = document.getElementById('profile-img');
-            if (profileImg && user.avatarUrl) {
-                profileImg.src = user.avatarUrl;
-                profileImg.alt = `${user.name}'s profile picture`;
-            }
-            
-            // 3. Welcome Message
-            const welcomeMessage = document.getElementById('welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.textContent = `Welcome back, ${user.name}!`;
-            }
-            
-            // 4. Email Verification Status
-            const emailVerifiedEl = document.getElementById('email-verified');
-            if (emailVerifiedEl) {
-                if (user.emailVerified) {
-                    emailVerifiedEl.innerHTML = '<i class="fas fa-check-circle"></i><span>Verified</span>';
-                    emailVerifiedEl.style.background = '#d1fae5';
-                    emailVerifiedEl.style.color = '#065f46';
-                } else {
-                    emailVerifiedEl.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Not Verified</span>';
-                    emailVerifiedEl.style.background = '#fef3c7';
-                    emailVerifiedEl.style.color = '#92400e';
-                }
-            }
-            
-            // 5. Last Login Date & Time
-            const lastLoginElement = document.getElementById('last-login');
-            const sidebarLastLogin = document.getElementById('sidebar-last-login');
-            
-            const formatFullDate = (dateString) => {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            };
-            
-            const formatShortDate = (dateString) => {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            };
-            
-            if (lastLoginElement) {
-                lastLoginElement.textContent = formatFullDate(user.lastLoginAt);
-            }
-            
-            if (sidebarLastLogin) {
-                sidebarLastLogin.textContent = formatShortDate(user.lastLoginAt);
-            }
-            
-            // 6. Account Creation Date
-            const accountCreatedElement = document.getElementById('account-created');
-            const memberSinceElement = document.getElementById('member-since-date');
-            
-            if (accountCreatedElement) {
-                accountCreatedElement.textContent = formatFullDate(user.createdAt);
-            }
-            
-            if (memberSinceElement) {
-                memberSinceElement.textContent = new Date(user.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long'
-                });
-            }
-            
-            // 7. Account Age Calculation
-            const accountAgeElement = document.getElementById('account-age-text');
-            if (accountAgeElement) {
-                const created = new Date(user.createdAt);
-                const now = new Date();
-                const diffTime = Math.abs(now - created);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                let ageText;
-                if (diffDays < 30) {
-                    ageText = `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
-                } else if (diffDays < 365) {
-                    const months = Math.floor(diffDays / 30);
-                    ageText = `${months} month${months !== 1 ? 's' : ''}`;
-                } else {
-                    const years = Math.floor(diffDays / 365);
-                    ageText = `${years} year${years !== 1 ? 's' : ''}`;
-                }
-                
-                accountAgeElement.textContent = ageText;
-            }
-            
-            // 8. Auth Provider Display
-            const authProviderElement = document.getElementById('auth-provider');
-            const authProviderBadge = document.getElementById('auth-provider-badge');
-            const authMethodElement = document.getElementById('auth-method');
-            
-            const providerDisplay = user.authProvider === 'google' ? 'Google' : 'Manual';
-            const providerIcon = user.authProvider === 'google' ? 'fab fa-google' : 'fas fa-envelope';
-            
-            if (authProviderElement) {
-                authProviderElement.innerHTML = `<i class="${providerIcon}"></i> ${providerDisplay}`;
-            }
-            
-            if (authProviderBadge) {
-                authProviderBadge.textContent = providerDisplay.charAt(0);
-            }
-            
-            if (authMethodElement) {
-                authMethodElement.textContent = providerDisplay;
-            }
-            
-            // 9. User Title/Role
-            const userTitleElement = document.getElementById('user-title');
-            if (userTitleElement) {
-                userTitleElement.textContent = user.authProvider === 'google' 
-                    ? 'Google Authenticated User' 
-                    : 'Manual Login User';
-            }
-            
-            // 10. Activity Stats
-            const loginCountElement = document.getElementById('login-count');
-            if (loginCountElement) {
-                loginCountElement.textContent = user.loginCount || '1';
-            }
-            
-            const daysActiveElement = document.getElementById('days-active');
-            if (daysActiveElement) {
-                const created = new Date(user.createdAt);
-                const now = new Date();
-                const diffTime = Math.abs(now - created);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                daysActiveElement.textContent = diffDays;
-            }
-            
-            // 11. Update Header Dropdown (if exists)
-            updateHeaderDropdown(user);
-            
-            // 12. Update Session Status
-            updateSessionStatus();
-            
-            console.log('✅ UI update completed successfully');
-            
-        } catch (error) {
-            console.error('❌ UI update error:', error);
-            showMessage('Error updating profile display', 'error');
-        }
-    }
-
-    /**
-     * Update header dropdown with user info
-     */
+    // Update header dropdown
     function updateHeaderDropdown(user) {
-        const userNameElement = document.getElementById('userName');
-        const userAvatarElement = document.getElementById('userAvatar');
-        const dropdownContent = document.getElementById('dropdownContent');
+        document.getElementById('userName').textContent = user.name || 'User';
         
-        if (userNameElement) {
-            userNameElement.textContent = user.name || 'User';
-        }
+        const avatarUrl = user.picture || user.avatarUrl || 
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=3B82F6&color=fff&size=32`;
+        document.getElementById('userAvatar').src = avatarUrl;
         
-        if (userAvatarElement && user.avatarUrl) {
-            // Use smaller avatar for header
-            const smallAvatarUrl = user.avatarUrl.replace('size=150', 'size=32');
-            userAvatarElement.src = smallAvatarUrl;
-            userAvatarElement.alt = `${user.name}'s avatar`;
-        }
-        
-        if (dropdownContent) {
-            dropdownContent.innerHTML = `
-                <div class="dropdown-header">
-                    <div class="dropdown-avatar">
-                        <img src="${user.avatarUrl}" alt="${user.name}">
-                    </div>
-                    <div class="dropdown-user-info">
-                        <strong>${user.name}</strong>
-                        <small>${user.email}</small>
-                    </div>
+        document.getElementById('dropdownContent').innerHTML = `
+            <div class="dropdown-header">
+                <div class="dropdown-avatar">
+                    <img src="${avatarUrl}" alt="${user.name}">
                 </div>
-                <div class="dropdown-divider"></div>
-                <a href="profile.html" class="dropdown-item profile-item">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Profile</span>
-                </a>
-                <a href="settings.html" class="dropdown-item settings-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item logout-item" onclick="logoutUser()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </a>
-            `;
-        }
+                <div class="dropdown-user-info">
+                    <strong>${user.name}</strong>
+                    <small>${user.email}</small>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="profile.html" class="dropdown-item profile-item">
+                <i class="fas fa-user-circle"></i>
+                <span>Profile</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item logout-item" onclick="logoutUser()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        `;
     }
 
-    /**
-     * Update session status display
-     */
-    function updateSessionStatus() {
-        const statusIcon = document.getElementById('session-status-icon');
-        const statusText = document.getElementById('session-status-text');
+    // Save user data
+    function saveUserData(user) {
+        localStorage.setItem(USER_KEY, JSON.stringify({
+            ...user,
+            logged: true,
+            lastSync: new Date().toISOString()
+        }));
+    }
+
+    // Show message
+    function showMessage(text, type = 'info') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `user-message message-${type}`;
+        messageDiv.textContent = text;
         
-        if (statusIcon && statusText) {
-            statusIcon.style.color = '#10b981';
-            statusText.textContent = 'Session Active';
-            
-            // Animate pulse effect
-            statusIcon.style.animation = 'pulse 2s infinite';
-        }
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background: ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#3B82F6'};
+            color: white;
+            border-radius: 12px;
+            z-index: 9999;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            setTimeout(() => messageDiv.remove(), 300);
+        }, 3000);
     }
 
-    /**
-     * Logout user function
-     */
+    // Loading states
+    function showLoading() {
+        document.getElementById('loading').style.display = 'flex';
+        document.getElementById('profile-content').style.display = 'none';
+        document.getElementById('error-message').style.display = 'none';
+    }
+    
+    function hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+    }
+    
+    function showError(message) {
+        hideLoading();
+        document.getElementById('profile-content').style.display = 'none';
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-text').textContent = message;
+    }
+
+    // Redirect to login
+    function redirectToLogin(message = '') {
+        if (message) showMessage(message, 'error');
+        
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+        
+        setTimeout(() => {
+            window.location.href = LOGIN_URL;
+        }, 1500);
+    }
+
+    // Logout
     function logoutUser() {
         if (confirm('Are you sure you want to logout?')) {
-            clearAuthData();
+            localStorage.removeItem(TOKEN_KEY);
+            localStorage.removeItem(USER_KEY);
             showMessage('Logged out successfully', 'success');
-            
             setTimeout(() => {
                 window.location.href = LOGIN_URL;
             }, 1000);
         }
     }
 
-    /**
-     * Retry loading profile
-     */
-    function retryLoadProfile() {
-        const token = getToken();
+    // Export functions
+    window.refreshProfile = () => {
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (!token) {
+            redirectToLogin('Please login again');
+            return;
+        }
+        showMessage('Refreshing profile...', 'info');
+        fetchUserProfile(token);
+    };
+    
+    window.retryLoadProfile = () => {
+        const token = localStorage.getItem(TOKEN_KEY);
         if (!token) {
             redirectToLogin('Session expired');
             return;
         }
         fetchUserProfile(token);
-    }
-
-    /**
-     * Refresh profile data
-     */
-    function refreshProfile() {
-        console.log('🔄 Refreshing profile...');
-        const token = getToken();
-        if (!token) {
-            redirectToLogin('Please login again');
-            return;
-        }
-        
-        showMessage('Refreshing profile...', 'info');
-        fetchUserProfile(token);
-    }
-
-    /**
-     * Edit profile (placeholder)
-     */
-    function editProfile() {
-        showMessage('Profile editing will be available soon!', 'info');
-    }
-
-    /**
-     * Change profile picture (placeholder)
-     */
-    function changeProfilePicture() {
-        showMessage('Profile picture change will be available soon!', 'info');
-    }
-
-    /**
-     * Toggle user dropdown
-     */
-    function toggleUserDropdown(e) {
+    };
+    
+    window.logoutUser = logoutUser;
+    window.toggleUserDropdown = (e) => {
         if (e) e.stopPropagation();
         const dropdown = document.getElementById('userDropdownMenu');
         const arrow = document.getElementById('dropdownArrow');
@@ -1762,46 +1446,17 @@
             dropdown.classList.toggle('show');
             arrow.classList.toggle('rotate');
         }
-    }
+    };
 
-    // Add CSS animation for message slide-in
-    const animationStyles = document.createElement('style');
-    animationStyles.textContent = `
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                opacity: 0.6;
-                transform: scale(0.9);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0.6;
-                transform: scale(0.9);
-            }
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
     `;
-    document.head.appendChild(animationStyles);
-
-    // Export functions for HTML onclick handlers
-    window.refreshProfile = refreshProfile;
-    window.retryLoadProfile = retryLoadProfile;
-    window.logoutUser = logoutUser;
-    window.editProfile = editProfile;
-    window.changeProfilePicture = changeProfilePicture;
-    window.toggleUserDropdown = toggleUserDropdown;
+    document.head.appendChild(style);
 </script>
 </body>
 </html>
