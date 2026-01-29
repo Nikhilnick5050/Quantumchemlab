@@ -786,7 +786,7 @@
     </div>
 
  <script>
-  // DOM Elements (keep existing)
+  // DOM Elements
   const loginToggle = document.getElementById('loginToggle');
   const signupToggle = document.getElementById('signupToggle');
   const toggleSlider = document.getElementById('toggleSlider');
@@ -807,6 +807,17 @@
   const resetPasswordBtnText = document.getElementById('resetPasswordBtnText');
   const loginEmailInput = document.getElementById('loginEmail');
   const signupEmailInput = document.getElementById('signupEmail');
+
+  // Email state management
+  const emailState = {
+    currentEmail: '',
+    isFromSignup: false,
+    signupName: ''
+  };
+
+  // Message display durations in milliseconds
+  const MESSAGE_DISPLAY_TIME = 18000; // 18 seconds for most messages
+  const VERIFICATION_MESSAGE_TIME = 5000; // 5 seconds for verification sent messages
 
   // DYNAMIC API Configuration for Vercel backend
   function getApiBaseUrl() {
@@ -862,19 +873,44 @@
     
     messageContainer.appendChild(message);
     
-    // Auto remove after 5 seconds with fade out animation
-    setTimeout(() => {
+    // Determine display time based on message content
+    let displayTime = MESSAGE_DISPLAY_TIME; // Default: 18 seconds
+    
+    // Check if this is a verification sent message
+    const isVerificationMessage = 
+      text.toLowerCase().includes('verification') ||
+      text.toLowerCase().includes('check your email') ||
+      text.toLowerCase().includes('email sent') ||
+      text.toLowerCase().includes('check your inbox');
+    
+    // Use shorter time for verification messages
+    if (isVerificationMessage) {
+      displayTime = VERIFICATION_MESSAGE_TIME; // 5 seconds
+    }
+    
+    // Auto remove after calculated time with fade out animation
+    const timeoutId = setTimeout(() => {
         message.style.animation = 'fadeOut 0.5s ease-out forwards';
         setTimeout(() => message.remove(), 500);
-    }, 5000);
+    }, displayTime);
+    
+    // Store timeout ID on message element for potential cleanup
+    message.dataset.timeoutId = timeoutId;
   }
 
   // Clear all messages
   function clearAllMessages() {
+    // Clear any pending timeouts
+    const messages = messageContainer.querySelectorAll('.message');
+    messages.forEach(message => {
+      if (message.dataset.timeoutId) {
+        clearTimeout(parseInt(message.dataset.timeoutId));
+      }
+    });
     messageContainer.innerHTML = '';
   }
 
-  // NEW: Parse URL query parameters
+  // Parse URL query parameters
   function parseUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const params = {
@@ -882,11 +918,12 @@
       message: urlParams.get('message'),
       google_auth: urlParams.get('google_auth'),
       token: urlParams.get('token'),
-      action: urlParams.get('action')
+      action: urlParams.get('action'),
+      verified: urlParams.get('verified')
     };
     
     // Clean up URL (remove query params) but keep hash
-    if (params.error || params.message || params.google_auth || params.token) {
+    if (params.error || params.message || params.google_auth || params.token || params.action) {
       const cleanUrl = window.location.pathname + window.location.hash;
       window.history.replaceState({}, document.title, cleanUrl);
     }
@@ -894,7 +931,56 @@
     return params;
   }
 
-  // NEW: Handle Google OAuth blocking messages
+  // Handle verified email from URL
+  function handleVerifiedEmail() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const verifiedEmail = urlParams.get('verified');
+    
+    if (verifiedEmail) {
+      try {
+        // Decode the email (it should be URL-encoded)
+        const decodedEmail = decodeURIComponent(verifiedEmail);
+        
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(decodedEmail)) {
+          console.warn('Invalid email format from verified parameter:', decodedEmail);
+          return;
+        }
+        
+        // Save to email state
+        emailState.currentEmail = decodedEmail;
+        emailState.isFromSignup = true;
+        
+        // Fill the email field in both forms
+        loginEmailInput.value = decodedEmail;
+        signupEmailInput.value = decodedEmail;
+        
+        // Switch to login form automatically
+        if (!loginToggle.classList.contains('active')) {
+          loginToggle.click();
+        }
+        
+        // Focus on password field after a brief delay
+        setTimeout(() => {
+          loginPassword.focus();
+        }, 300);
+        
+        // Show success message (18 seconds)
+        showMessage('Email verified successfully! Please enter your password to login.', 'success');
+        
+        // Clear the verified parameter from URL
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete('verified');
+        window.history.replaceState({}, document.title, currentUrl.toString());
+        
+      } catch (error) {
+        console.error('Error handling verified email:', error);
+      }
+    }
+  }
+
+  // Handle Google OAuth blocking messages
   function showGoogleBlockMessage(errorType, message) {
     clearAllMessages();
     
@@ -937,14 +1023,14 @@
     showMessage(displayMessage, type);
   }
 
-  // NEW: Handle successful Google authentication
+  // Handle successful Google authentication
   function handleSuccessfulGoogleAuth(token) {
     clearAllMessages();
     
     // Save token to localStorage
     localStorage.setItem('jwt_token', token);
     
-    // Show brief success message
+    // Show brief success message (18 seconds)
     showMessage('Google login successful! Redirecting...', 'success');
     
     // Redirect to profile after short delay
@@ -971,6 +1057,26 @@
     });
   }
 
+  // SYNC EMAIL BETWEEN FORMS
+  function syncEmailBetweenForms(email) {
+    if (!email) return;
+    
+    // Update state
+    emailState.currentEmail = email.trim();
+    
+    // Sync to both form inputs
+    loginEmailInput.value = email.trim();
+    signupEmailInput.value = email.trim();
+  }
+
+  // SYNC EMAIL FROM STATE
+  function syncEmailFromState() {
+    if (emailState.currentEmail) {
+      loginEmailInput.value = emailState.currentEmail;
+      signupEmailInput.value = emailState.currentEmail;
+    }
+  }
+
   // Toggle between login and signup forms
   function setupFormToggle() {
     loginToggle.addEventListener('click', () => {
@@ -978,11 +1084,25 @@
         signupToggle.classList.remove('active');
         toggleSlider.classList.remove('signup');
         
+        // Sync email from state BEFORE showing form
+        syncEmailFromState();
+        
         // Hide signup form first, then show login form
         signupForm.classList.remove('active');
         setTimeout(() => {
             loginForm.classList.add('active');
+            
+            // Focus on password field if email is already filled
+            if (emailState.currentEmail && emailState.isFromSignup) {
+              setTimeout(() => {
+                loginPassword.focus();
+                showMessage('Please enter your password (check your email)', 'info');
+              }, 100);
+            }
         }, 50);
+        
+        // Hide terms checkbox when switching to login
+        termsCheckboxContainer.classList.remove('show');
         
         clearAllMessages();
     });
@@ -991,6 +1111,14 @@
         signupToggle.classList.add('active');
         loginToggle.classList.remove('active');
         toggleSlider.classList.add('signup');
+        
+        // Sync email from state BEFORE showing form
+        syncEmailFromState();
+        
+        // Pre-fill name if available from signup
+        if (emailState.signupName && emailState.isFromSignup) {
+          document.getElementById('signupName').value = emailState.signupName;
+        }
         
         // Hide login form first, then show signup form
         loginForm.classList.remove('active');
@@ -1001,10 +1129,6 @@
         }, 50);
         
         clearAllMessages();
-        
-        // Reset form fields
-        signupForm.reset();
-        termsCheckbox.checked = false;
     });
   }
 
@@ -1030,6 +1154,10 @@
         showMessage('Please enter a valid email address', 'error');
         return;
     }
+    
+    // Update email state (in case user changed it manually)
+    emailState.currentEmail = email;
+    emailState.isFromSignup = false;
     
     // Set loading state
     loginBtn.disabled = true;
@@ -1071,11 +1199,11 @@
                 
                 // Check if message indicates password expiration
                 if (isPasswordExpiredMessage(message)) {
-                    // Password expired - show message
+                    // Password expired - show message (18 seconds)
                     showMessage(message, 'warning');
                     // DO NOT redirect - let user reset password
                 } else {
-                    // Other error messages
+                    // Other error messages (18 seconds)
                     showMessage(message, 'error');
                 }
             } else {
@@ -1093,7 +1221,7 @@
     }
   }
 
-  // Handle signup form submission (backend generates password after email verification)
+  // Handle signup form submission
   async function handleSignup(e) {
     e.preventDefault();
     
@@ -1122,13 +1250,20 @@
         return;
     }
     
+    // SAVE EMAIL AND NAME TO STATE
+    emailState.currentEmail = email;
+    emailState.isFromSignup = true;
+    emailState.signupName = name;
+    
+    // Sync to login form
+    loginEmailInput.value = email;
+    
     // Set loading state
     signupBtn.disabled = true;
     signupBtnText.innerHTML = '<div class="loading"></div> Creating Account...';
     
     try {
         // Send signup request to backend
-        // Backend will send verification email first
         const payload = {
             name: name,
             email: email
@@ -1147,9 +1282,10 @@
         if (response.ok) {
             // Success - show backend response message
             if (data.message) {
+                // Verification sent message (5 seconds)
                 showMessage(data.message, 'success');
                 
-                // If it's a verification message, emphasize it
+                // If it's a verification message, add emphasis (5 seconds)
                 if (data.message.toLowerCase().includes('verification')) {
                   showMessage('Please check your email inbox (and spam folder) for the verification link.', 'info');
                 }
@@ -1158,18 +1294,19 @@
                 showMessage('Check your email inbox (and spam folder) for the verification link.', 'info');
             }
             
-            // Reset form
-            signupForm.reset();
+            // DO NOT reset the form completely
+            // Only reset the password checkbox
             termsCheckbox.checked = false;
             
-            // DO NOT auto-login after signup
-            // DO NOT switch forms automatically
-            // User will receive verification email, then password email
+            // Show hint to switch to login tab (18 seconds)
+            setTimeout(() => {
+              showMessage('Switch to Sign In tab to enter your password once verified', 'info');
+            }, 2000);
             
         } else {
             // Handle signup errors
             if (data.message) {
-                // Show user-friendly messages
+                // Show user-friendly messages (18 seconds)
                 if (data.message.includes('already exists') && data.message.includes('Google')) {
                   showMessage('This email is already registered with Google. Please use Google Sign-In.', 'warning');
                 } else if (data.message.includes('already exists')) {
@@ -1210,6 +1347,10 @@
         return;
     }
     
+    // Update email state
+    emailState.currentEmail = email;
+    emailState.isFromSignup = false;
+    
     // Set loading state for reset button
     resetPasswordBtn.disabled = true;
     resetPasswordBtnText.innerHTML = '<div class="loading"></div> Sending...';
@@ -1233,7 +1374,7 @@
             if (data.message) {
                 showMessage(data.message, 'success');
                 
-                // If it mentions checking inbox, add emphasis
+                // If it mentions checking inbox, add emphasis (5 seconds for verification, 18 for others)
                 if (data.message.toLowerCase().includes('check')) {
                   showMessage('Please check your email inbox (and spam folder).', 'info');
                 }
@@ -1247,7 +1388,7 @@
             loginPassword.value = '';
             
         } else {
-            // Handle reset errors
+            // Handle reset errors (18 seconds)
             if (data.message) {
                 // Show user-friendly messages
                 if (data.message.includes('Google Sign-In')) {
@@ -1276,19 +1417,65 @@
     window.location.href = GOOGLE_AUTH_ENDPOINT;
   }
 
+  // Setup real-time email sync
+  function setupEmailSync() {
+    // Sync email from signup form to login form in real-time
+    signupEmailInput.addEventListener('input', (e) => {
+      const email = e.target.value.trim();
+      if (email) {
+        loginEmailInput.value = email;
+        emailState.currentEmail = email;
+        emailState.isFromSignup = true;
+      }
+    });
+    
+    // Sync email from login form to signup form in real-time
+    loginEmailInput.addEventListener('input', (e) => {
+      const email = e.target.value.trim();
+      if (email) {
+        signupEmailInput.value = email;
+        emailState.currentEmail = email;
+        emailState.isFromSignup = false;
+      }
+    });
+    
+    // Also sync on blur (when user leaves the field)
+    signupEmailInput.addEventListener('blur', (e) => {
+      const email = e.target.value.trim();
+      if (email) {
+        loginEmailInput.value = email;
+        emailState.currentEmail = email;
+      }
+    });
+    
+    loginEmailInput.addEventListener('blur', (e) => {
+      const email = e.target.value.trim();
+      if (email) {
+        signupEmailInput.value = email;
+        emailState.currentEmail = email;
+      }
+    });
+  }
+
   // Initialize the application
   function init() {
-    // Setup form toggle FIRST
-    setupFormToggle();
-    
-    // NEW: Parse and handle URL parameters
+    // Parse and handle URL parameters
     const params = parseUrlParams();
     
     // Check for token first (highest priority)
     if (params.token) {
       handleSuccessfulGoogleAuth(params.token);
-      return; // Stop further initialization while redirecting
+      return;
     }
+    
+    // Handle verified email
+    handleVerifiedEmail();
+    
+    // Setup form toggle
+    setupFormToggle();
+    
+    // Setup email sync
+    setupEmailSync();
     
     // Check for Google authentication errors
     if (params.error) {
@@ -1296,17 +1483,16 @@
       
       // Pre-fill email if we can determine it from the message
       if (params.message && params.message.includes('@')) {
-        // Try to extract email from error message
         const emailMatch = params.message.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
         if (emailMatch) {
           const extractedEmail = emailMatch[0];
-          loginEmailInput.value = extractedEmail;
-          signupEmailInput.value = extractedEmail;
+          // Update state and sync forms
+          emailState.currentEmail = extractedEmail;
+          emailState.isFromSignup = false;
+          syncEmailBetweenForms(extractedEmail);
           
-          // If it's a manual user error, switch to login form
           if (params.error === 'manual_user_exists' || 
-              params.error === 'google_blocked' && params.message.includes('manual authentication')) {
-            // Give a brief delay for UX
+              (params.error === 'google_blocked' && params.message.includes('manual authentication'))) {
             setTimeout(() => {
               loginToggle.click();
               showMessage('Switched to login form. Please use email/password.', 'info');
@@ -1316,7 +1502,7 @@
       }
     }
     
-    // Check if coming from "create account" link (lowest priority)
+    // Check if coming from "create account" link
     if (params.action === 'create-account') {
       setTimeout(() => {
         signupToggle.click();
@@ -1341,10 +1527,8 @@
     termsCheckboxContainer.classList.remove('show');
     
     // Remove all password-related fields from signup form
-    // Only keep name and email as per requirements
     const signupFormGroups = signupForm.querySelectorAll('.form-group');
     if (signupFormGroups.length > 2) {
-        // Remove any extra form groups beyond name and email
         for (let i = 2; i < signupFormGroups.length; i++) {
             const group = signupFormGroups[i];
             if (group.querySelector('input[type="password"]')) {
@@ -1362,8 +1546,10 @@
     // Ensure reset password button is ALWAYS visible
     resetPasswordBtn.style.display = 'flex';
     
-    // DO NOT auto-check for JWT token or auto-redirect
-    // User must manually login each time
+    // Initialize email state from URL or stored email
+    if (emailState.currentEmail) {
+      syncEmailBetweenForms(emailState.currentEmail);
+    }
   }
 
   // Initialize when page loads
