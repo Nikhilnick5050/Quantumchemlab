@@ -5,12 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 import { sendEmail } from "../services/brevo.service.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000"; // UPDATED: Add FRONTEND_URL environment variable
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 const PASSWORD_VALID_DAYS = 4;
 
-// =======================
 // Generate readable temp password
-// =======================
 const generateTempPassword = () => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   const digits = "0123456789";
@@ -34,10 +32,7 @@ const generateTempPassword = () => {
     .join("");
 };
 
-// =======================
-// REGISTER (MANUAL)
-// name + email ONLY
-// =======================
+// REGISTER (MANUAL) - name + email ONLY
 export const registerManual = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -56,23 +51,140 @@ export const registerManual = async (req, res) => {
     await User.create({
       name,
       email,
-      password: null,               // ✅ NO PASSWORD YET
+      password: null,
       authProvider: "manual",
       isEmailVerified: false,
       verificationToken,
     });
 
-    // UPDATED: Use FRONTEND_URL environment variable
     const verifyLink = `${FRONTEND_URL}/api/auth/verify/${verificationToken}`;
+
+    const plainText = `Welcome to QuantumChem!
+
+Please verify your email to receive your login password.
+
+Verification Link: ${verifyLink}
+
+This link will verify your email address and generate a secure temporary password for you.
+
+Thank you,
+QuantumChem Team`;
 
     await sendEmail({
       to: email,
       subject: "Verify your QuantumChem account",
       html: `
-        <h2>Welcome to QuantumChem 🚀</h2>
-        <p>Please verify your email to receive your login password.</p>
-        <a href="${verifyLink}">${verifyLink}</a>
-      `,
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your QuantumChem Account</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #2563eb;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .content {
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            margin: 25px 0;
+            border: none;
+        }
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .button {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">QuantumChem</div>
+        <div style="color: #6b7280; font-size: 14px; margin-top: 5px;">Laboratory Database</div>
+    </div>
+    
+    <div class="content">
+        <h2 style="color: #111827; margin-top: 0;">Welcome to QuantumChem!</h2>
+        
+        <div class="info-box">
+            <p style="margin: 0 0 15px 0;">Hello <strong>${name}</strong>,</p>
+            <p>Thank you for registering with QuantumChem. Please verify your email address to receive your secure login password.</p>
+        </div>
+        
+        <p>Click the button below to verify your email:</p>
+        
+        <a href="${verifyLink}" class="button">Verify Email Address</a>
+        
+        <p style="color: #6b7280; font-size: 14px;">Or copy this link:</p>
+        <p style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e5e7eb; word-break: break-all; font-size: 14px;">
+            ${verifyLink}
+        </p>
+        
+        <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 25px;">
+            <p style="margin: 0; color: #92400e; font-size: 14px;">
+                <strong>Note:</strong> After verification, you'll receive a temporary password valid for ${PASSWORD_VALID_DAYS} days.
+            </p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 QuantumChem Research Platform</p>
+        <p>This link expires in 24 hours. If you didn't request this, please ignore this email.</p>
+    </div>
+</body>
+</html>`,
+      text: plainText
     });
 
     res.json({ message: "Verification email sent" });
@@ -82,10 +194,7 @@ export const registerManual = async (req, res) => {
   }
 };
 
-// =======================
-// VERIFY EMAIL
-// Generates TEMP PASSWORD
-// =======================
+// VERIFY EMAIL - Generates TEMP PASSWORD
 export const verifyEmail = async (req, res) => {
   try {
     const { token } = req.params;
@@ -108,28 +217,266 @@ export const verifyEmail = async (req, res) => {
 
     await user.save();
 
+    const plainText = `Hello ${user.name},
+
+Your QuantumChem account has been successfully verified!
+
+Your temporary login password: ${tempPassword}
+
+This password is valid for ${PASSWORD_VALID_DAYS} days (until ${user.passwordExpiresAt.toLocaleDateString()}).
+
+Login here: ${FRONTEND_URL}/login.html
+
+Security Tips:
+• This is a temporary password
+• You can reset it anytime from the login page
+• Never share your password with anyone
+
+Thank you,
+QuantumChem Team`;
+
     await sendEmail({
       to: user.email,
-      subject: "Your QuantumChem Login Password 🔐",
+      subject: "Your QuantumChem Login Password",
       html: `
-        <h3>Hello ${user.name},</h3>
-        <p>Your temporary login password is:</p>
-        <h2>${tempPassword}</h2>
-        <p>This password is valid for <b>4 days</b>.</p>
-        <p>You can reset it anytime from the login page.</p>
-      `,
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your QuantumChem Password</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #10b981;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .content {
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .password-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            text-align: center;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .password {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #111827;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+        .info-row {
+            display: flex;
+            margin: 10px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #4b5563;
+            min-width: 140px;
+        }
+        .info-value {
+            color: #111827;
+        }
+        .login-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 25px 0;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .security-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 25px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .info-row {
+                flex-direction: column;
+            }
+            .info-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">QuantumChem</div>
+        <div style="color: #10b981; font-size: 14px; margin-top: 5px;">✓ Email Verified Successfully</div>
+    </div>
+    
+    <div class="content">
+        <h2 style="color: #111827; margin-top: 0;">Your Account is Ready!</h2>
+        <p>Hello <strong>${user.name}</strong>, your email has been verified. Here's your temporary login password:</p>
+        
+        <div class="password-box">
+            <div style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">Temporary Password</div>
+            <div class="password">${tempPassword}</div>
+            <div style="color: #6b7280; font-size: 13px; margin-top: 10px;">
+                Valid for ${PASSWORD_VALID_DAYS} days
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-row">
+                <div class="info-label">Name:</div>
+                <div class="info-value">${user.name}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Email:</div>
+                <div class="info-value">${user.email}</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Valid Until:</div>
+                <div class="info-value">${user.passwordExpiresAt.toLocaleDateString()}</div>
+            </div>
+        </div>
+        
+        <a href="${FRONTEND_URL}/login.html" class="login-button">Login to QuantumChem</a>
+        
+        <div class="security-note">
+            <div style="color: #92400e; font-size: 15px; font-weight: 600; margin-bottom: 8px;">Security Information</div>
+            <p style="margin: 0; color: #92400e; font-size: 14px;">
+                • This is a temporary password<br>
+                • You can reset it anytime from the login page<br>
+                • Never share your password with anyone
+            </p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 QuantumChem Research Platform</p>
+        <p>If you didn't request this password, please contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+    </div>
+</body>
+</html>`,
+      text: plainText
     });
 
-    res.send("Email verified. Password sent to your email.");
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Email Verified - QuantumChem</title>
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f9fafb;
+            margin: 0;
+            padding: 20px;
+          }
+          .success-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-top: 4px solid #10b981;
+          }
+          .success-icon {
+            font-size: 48px;
+            color: #10b981;
+            margin-bottom: 20px;
+          }
+          h1 {
+            color: #111827;
+            margin-bottom: 15px;
+          }
+          p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 25px;
+          }
+          .password-info {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="success-box">
+          <div class="success-icon">✓</div>
+          <h1>Email Verified Successfully!</h1>
+          <p>Your email has been verified. A temporary password has been sent to your email address.</p>
+          <div class="password-info">
+            <p style="margin: 0; color: #111827; font-weight: 500;">Please check your inbox (and spam folder) for your password.</p>
+          </div>
+          <p>You can now login to QuantumChem using the password sent to your email.</p>
+          <a href="${FRONTEND_URL}/login.html" style="display: inline-block; background: #2563eb; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 10px;">Go to Login</a>
+        </div>
+      </body>
+      </html>
+    `);
   } catch (err) {
     console.error("Verification Error:", err);
     res.status(500).send("Verification failed");
   }
 };
 
-// =======================
 // LOGIN (MANUAL)
-// =======================
 export const loginManual = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -169,9 +516,7 @@ export const loginManual = async (req, res) => {
   }
 };
 
-// =======================
 // RESET PASSWORD (ALWAYS AVAILABLE)
-// =======================
 export const resetPasswordManual = async (req, res) => {
   try {
     const { email } = req.body;
@@ -179,8 +524,7 @@ export const resetPasswordManual = async (req, res) => {
     const user = await User.findOne({ email, authProvider: "manual" });
     if (!user || !user.isEmailVerified) {
       return res.json({
-        message:
-          "If the email exists, password reset instructions have been sent.",
+        message: "If the email exists, password reset instructions have been sent.",
       });
     }
 
@@ -192,15 +536,195 @@ export const resetPasswordManual = async (req, res) => {
 
     await user.save();
 
+    const plainText = `Password Reset Request
+
+Hello ${user.name},
+
+Your QuantumChem password has been reset.
+
+New temporary password: ${newPassword}
+
+This password is valid for ${PASSWORD_VALID_DAYS} days (until ${user.passwordExpiresAt.toLocaleDateString()}).
+
+Login here: ${FRONTEND_URL}/login.html
+
+If you didn't request this reset, please contact support immediately.
+
+Thank you,
+QuantumChem Team`;
+
     await sendEmail({
       to: user.email,
-      subject: "Your New QuantumChem Password 🔐",
+      subject: "Your New QuantumChem Password",
       html: `
-        <h3>Password Reset</h3>
-        <p>Your new temporary password:</p>
-        <h2>${newPassword}</h2>
-        <p>Valid for 4 days.</p>
-      `,
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset - QuantumChem</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f59e0b;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .content {
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .password-display {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px dashed #e5e7eb;
+            text-align: center;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .new-password {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #111827;
+            padding: 12px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .details-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #8b5cf6;
+            margin: 20px 0;
+        }
+        .detail-row {
+            display: flex;
+            margin: 12px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #4b5563;
+            min-width: 140px;
+        }
+        .detail-value {
+            color: #111827;
+        }
+        .login-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 25px 0;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 25px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 30px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .detail-row {
+                flex-direction: column;
+            }
+            .detail-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">QuantumChem</div>
+        <div style="color: #f59e0b; font-size: 14px; margin-top: 5px;">Password Reset Request</div>
+    </div>
+    
+    <div class="content">
+        <h2 style="color: #111827; margin-top: 0;">Your Password Has Been Reset</h2>
+        <p>Hello <strong>${user.name}</strong>, as requested, here is your new temporary password:</p>
+        
+        <div class="password-display">
+            <div style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">New Temporary Password</div>
+            <div class="new-password">${newPassword}</div>
+            <div style="color: #6b7280; font-size: 13px; margin-top: 10px;">
+                Valid for ${PASSWORD_VALID_DAYS} days
+            </div>
+        </div>
+        
+        <div class="details-box">
+            <div class="detail-row">
+                <div class="detail-label">Name:</div>
+                <div class="detail-value">${user.name}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Email:</div>
+                <div class="detail-value">${user.email}</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Valid Until:</div>
+                <div class="detail-value">${user.passwordExpiresAt.toLocaleDateString()}</div>
+            </div>
+        </div>
+        
+        <a href="${FRONTEND_URL}/login.html" class="login-button">Login with New Password</a>
+        
+        <div class="warning-box">
+            <div style="color: #92400e; font-size: 15px; font-weight: 600; margin-bottom: 8px;">Important Security Notice</div>
+            <p style="margin: 0; color: #92400e; font-size: 14px;">
+                • If you didn't request this password reset, please contact support immediately<br>
+                • This password will expire in ${PASSWORD_VALID_DAYS} days<br>
+                • Never share your password with anyone
+            </p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2026 QuantumChem Research Platform</p>
+        <p>For security questions, contact <a href="mailto:support@quantumchem.site" style="color: #2563eb;">support@quantumchem.site</a></p>
+    </div>
+</body>
+</html>`,
+      text: plainText
     });
 
     res.json({
