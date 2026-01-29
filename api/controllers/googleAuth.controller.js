@@ -248,10 +248,10 @@ This is an automated message. If you didn't create this account, please contact 
         
         <p>You can now access all features of QuantumChem:</p>
         <ul style="color: #4b5563;">
-            <li>Chemical database with 10,00+ compounds</li>
-            <li>Research tools and calculations</li>
-            <li>Secure collaboration features</li>
+            <li>Chemical database with 1000+ compounds</li>
+              <li>Secure collaboration features</li>
         </ul>
+         
         
         <a href="${FRONTEND_URL}/profile.html" class="button">Access Your Dashboard</a>
         
