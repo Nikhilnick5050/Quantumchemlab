@@ -737,7 +737,7 @@ export const resetPasswordManual = async (req, res) => {
     const user = await User.findOne({ email, authProvider: "manual" });
     if (!user || !user.isEmailVerified) {
       return res.json({
-        message: "If the email exists, password reset instructions have been sent.",
+        message: "This email is registered using Google Sign-In. Please continue with Google to access your account.",
       });
     }
 
@@ -942,7 +942,7 @@ founder - Nikhil Shinde`;
     });
 
     res.json({
-      message: "If the email exists, a new password has been sent.",
+      message: "If the email is registered, a new password has been sent. Please check your inbox.",
     });
   } catch (err) {
     console.error("Reset Password Error:", err);
