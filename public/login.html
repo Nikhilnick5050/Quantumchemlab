@@ -832,7 +832,7 @@
   const GOOGLE_AUTH_ENDPOINT = `${API_BASE_URL}/auth/google`;
   
   // Home page path - relative to current domain
-  const HOME_PAGE = 'index.html';
+  const HOME_PAGE = 'profile.html'; // CHANGED FROM index.html TO profile.html
 
   // Password expired keywords to check in backend messages
   const PASSWORD_EXPIRED_KEYWORDS = [
@@ -972,7 +972,7 @@
                 // Clear any existing messages
                 messageContainer.innerHTML = '';
                 
-                // Redirect to index.html
+                // Redirect to profile.html (CHANGED FROM index.html)
                 window.location.href = HOME_PAGE;
             } else {
                 // No token received (shouldn't happen for successful login)
