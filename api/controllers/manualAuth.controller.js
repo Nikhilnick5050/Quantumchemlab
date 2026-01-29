@@ -402,7 +402,7 @@ QuantumChem Team`;
     
     <div class="footer">
         <p>© 2026 QuantumChem Research Platform</p>
-        <p>If you didn't request this password, please contact <a href="mailto:quantumchem25@gmail.com" style="color: #2563eb;">support@quantumchem.site</a></p>
+        <p>If you didn't request this password, please contact <a href="mailto:quantumchem25@gmail.com" style="color: #2563eb;">quantumchem25@gmail.com</a></p>
     </div>
 </body>
 </html>`,
