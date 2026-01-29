@@ -225,7 +225,7 @@ This is an automated message. If you didn't create this account, please contact 
     
     <div class="content">
         <h2 style="color: #111827; margin-top: 0;">Welcome, ${user.name}!</h2>
-        <p>Your account has been successfully created using Google Sign-In.</p>
+        <p>Your account has been successfully logged in using Google Sign-In.</p>
         
         <div class="user-info">
             <div class="info-item">
@@ -274,7 +274,7 @@ This is an automated message. If you didn't create this account, please contact 
 
       await sendEmail({
         to: user.email,
-        subject: "Welcome to QuantumChem - Account Created Successfully",
+        subject: "Welcome to QuantumChem - Account logged in Successfully",
         html: htmlEmail,
         text: plainText  // IMPORTANT: Plain text version reduces spam
       });
