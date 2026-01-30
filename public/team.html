@@ -246,16 +246,13 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem 6rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 4rem;
+            display: flex;
+            justify-content: center;
             position: relative;
         }
 
         @media (max-width: 768px) {
             .team-grid {
-                grid-template-columns: 1fr;
-                gap: 5rem;
                 padding: 0 1.5rem 4rem;
             }
             
@@ -269,6 +266,8 @@
             position: relative;
             opacity: 0;
             transform: translateY(100px);
+            max-width: 600px;
+            width: 100%;
         }
 
         .card-inner {
@@ -411,50 +410,119 @@
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
+            margin-top: 1rem;
         }
 
         .social-link {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            display: flex;
+            display: flex !important;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(0, 243, 255, 0.4);
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             opacity: 1 !important;
             visibility: visible !important;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .social-link i {
             opacity: 1 !important;
             visibility: visible !important;
-            z-index: 2;
+            z-index: 3;
             position: relative;
+            display: block !important;
+            transition: all 0.4s;
+        }
+        
+        /* Social background effects */
+        .social-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+        }
+        
+        .social-particles {
+            position: absolute;
+            inset: -10px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Custom tooltip using CSS - appears on hover */
+        .social-link::after {
+            content: attr(aria-label);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            letter-spacing: 0.5px;
+            z-index: 100;
+            margin-bottom: 5px;
+        }
+        
+        .social-link:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
         .social-link::before {
             content: '';
             position: absolute;
-            inset: 0;
+            inset: -2px;
             border-radius: 50%;
-            padding: 1px;
             background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 0;
+            animation: rotate 3s linear infinite;
+        }
+        
+        /* Platform-specific colors on hover */
+        .social-link.github-link:hover {
+            background: #333;
+            border-color: #24292e;
+            color: white;
+        }
+        
+        .social-link.linkedin-link:hover {
+            background: #0077B5;
+            border-color: #0e6396;
+            color: white;
+        }
+        
+        .social-link.instagram-link:hover {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            border-color: #E1306C;
+            color: white;
+        }
+        
+        .social-link.email-link:hover {
+            background: #EA4335;
+            border-color: #c5221f;
+            color: white;
         }
 
         /* Back to Main */
@@ -611,12 +679,17 @@
             box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
         }
 
-        .social-link:hover::before {
-            opacity: 1;
-        }
-
         .social-link:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.15);
+            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.4);
+        }
+        
+        .social-link:hover::before {
+            opacity: 0.8;
+        }
+        
+        .social-link:hover i {
+            transform: scale(1.2) rotate(360deg);
         }
 
         .back-link:hover::before {
@@ -668,9 +741,45 @@
                 gap: 0.8rem;
             }
             
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+            }
+            
             .footer-nav {
                 gap: 1.5rem;
             }
+        }
+        
+        /* Continuous floating animation for social links */
+        @keyframes float-social {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        .social-link:nth-child(1) {
+            animation: float-social 2.5s ease-in-out infinite;
+            animation-delay: 0s;
+        }
+        
+        .social-link:nth-child(2) {
+            animation: float-social 2.5s ease-in-out infinite;
+            animation-delay: 0.2s;
+        }
+        
+        .social-link:nth-child(3) {
+            animation: float-social 2.5s ease-in-out infinite;
+            animation-delay: 0.4s;
+        }
+        
+        .social-link:nth-child(4) {
+            animation: float-social 2.5s ease-in-out infinite;
+            animation-delay: 0.6s;
         }
     </style>
 </head>
@@ -710,7 +819,7 @@
             </div>
             
             <h1 class="header-title" id="headerTitle">DEVELOPMENT TEAM</h1>
-            <div class="header-subtitle" id="headerSubtitle">THE ARCHITECTS</div>
+            <div class="header-subtitle" id="headerSubtitle">THE ARCHITECT</div>
         </header>
 
         <!-- Team Grid -->
@@ -746,36 +855,32 @@
 
                     <div class="social-links">
                         <!-- GitHub -->
-                        <a href="https://github.com/Nikhilnick5050" target="_blank" class="social-link github-link" title="GitHub" data-platform="github">
+                        <a href="https://github.com/Nikhilnick5050" target="_blank" class="social-link github-link" aria-label="GitHub" data-platform="github">
                             <div class="social-bg"></div>
                             <div class="social-particles"></div>
                             <i class="fab fa-github"></i>
-                            <span class="social-tooltip">GitHub</span>
                         </a>
                         
                         <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/nikhil-shinde-286937367" target="_blank" class="social-link linkedin-link" title="LinkedIn" data-platform="linkedin">
+                        <a href="https://www.linkedin.com/in/nikhil-shinde-286937367" target="_blank" class="social-link linkedin-link" aria-label="LinkedIn" data-platform="linkedin">
                             <div class="social-bg"></div>
                             <div class="social-particles"></div>
                             <i class="fab fa-linkedin-in"></i>
-                            <span class="social-tooltip">LinkedIn</span>
                         </a>
                         
                         <!-- Instagram -->
-                        <a href="https://www.instagram.com/" target="_blank" class="social-link instagram-link" title="Instagram" data-platform="instagram">
+                        <a href="https://www.instagram.com/" target="_blank" class="social-link instagram-link" aria-label="Instagram" data-platform="instagram">
                             <div class="social-bg"></div>
                             <div class="social-particles"></div>
                             <i class="fab fa-instagram"></i>
-                            <span class="social-tooltip">Instagram</span>
                         </a>
                         
                         <!-- Email -->
                         <a href="mailto:quantumchem25@gmail.com?subject=QuantumChem%20Project&body=Hi%20Nikhil,%20I%20would%20like%20to%20discuss%20about%20QuantumChem%20project." 
-                           class="social-link email-link" title="Email" data-platform="email">
+                           class="social-link email-link" aria-label="Email" data-platform="email">
                             <div class="social-bg"></div>
                             <div class="social-particles"></div>
                             <i class="fas fa-envelope"></i>
-                            <span class="social-tooltip">Email</span>
                         </a>
                     </div>
 
@@ -784,17 +889,37 @@
                         document.addEventListener('DOMContentLoaded', function() {
                             const socialLinks = document.querySelectorAll('#nikhilCard .social-link');
                             
-                            // Initial entrance animation with stagger
-                            gsap.from(socialLinks, {
-                                scale: 0,
-                                opacity: 0,
-                                rotation: -180,
-                                y: 50,
-                                duration: 0.8,
-                                stagger: 0.1,
-                                ease: "back.out(1.7)",
-                                delay: 1.3
+                            // Force visibility immediately
+                            socialLinks.forEach(link => {
+                                link.style.opacity = '1';
+                                link.style.visibility = 'visible';
+                                link.style.display = 'flex';
                             });
+                            
+                            // Initial entrance animation with stagger - starting from visible state
+                            gsap.fromTo(socialLinks, 
+                                {
+                                    scale: 0,
+                                    y: 30,
+                                    rotation: -90
+                                },
+                                {
+                                    scale: 1,
+                                    y: 0,
+                                    rotation: 0,
+                                    opacity: 1,
+                                    duration: 0.8,
+                                    stagger: 0.1,
+                                    ease: "back.out(1.7)",
+                                    delay: 1.5,
+                                    onStart: function() {
+                                        socialLinks.forEach(link => {
+                                            link.style.opacity = '1';
+                                            link.style.visibility = 'visible';
+                                        });
+                                    }
+                                }
+                            );
 
                             socialLinks.forEach((link, index) => {
                                 // Magnetic effect
@@ -988,542 +1113,6 @@
                             // Scroll-triggered animation
                             ScrollTrigger.create({
                                 trigger: '#nikhilCard',
-                                start: 'top 80%',
-                                onEnter: () => {
-                                    socialLinks.forEach((link, i) => {
-                                        gsap.from(link, {
-                                            scale: 0,
-                                            rotation: 720,
-                                            opacity: 0,
-                                            duration: 1,
-                                            delay: i * 0.1,
-                                            ease: "elastic.out(1, 0.5)"
-                                        });
-                                    });
-                                },
-                                once: true
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
-
-            <!-- Parth -->
-            <div class="member-card" id="parthCard">
-                <div class="card-inner">
-                    <div class="avatar-container">
-                        <div class="avatar-frame"></div>
-                        <img src="https://i.pinimg.com/736x/d9/6e/4d/d96e4d4cba3db0a6075b68bf944791fb.jpg" 
-                             alt="Parth Dahifale" 
-                             class="member-avatar">
-                    </div>
-
-                    <div class="member-info">
-                        <h2 class="member-name">PARTH DAHIFALE</h2>
-                        <div class="member-role">FRONTEND & PYTHON DEVELOPER</div>
-                        <div class="member-college">VIT, PUNE</div>
-                        <p class="member-bio">
-                            Creating intuitive user interfaces with focus on responsive design, 
-                            performance optimization, and Python backend integration.
-                        </p>
-                    </div>
-
-                    <div class="skills-container">
-                        <div class="skill-tag">Frontend Development</div>
-                        <div class="skill-tag">Python Programming</div>
-                        <div class="skill-tag">UI/UX Design</div>
-                        <div class="skill-tag">React.js</div>
-                        <div class="skill-tag">Data Visualization</div>
-                        <div class="skill-tag">API Integration</div>
-                    </div>
-
-                    <div class="social-links">
-                        <!-- GitHub -->
-                        <a href="https://github.com/" target="_blank" class="social-link github-link" title="GitHub" data-platform="github">
-                            <div class="social-bg"></div>
-                            <div class="social-particles"></div>
-                            <i class="fab fa-github"></i>
-                            <span class="social-tooltip">GitHub</span>
-                        </a>
-                        
-                        <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/" target="_blank" class="social-link linkedin-link" title="LinkedIn" data-platform="linkedin">
-                            <div class="social-bg"></div>
-                            <div class="social-particles"></div>
-                            <i class="fab fa-linkedin-in"></i>
-                            <span class="social-tooltip">LinkedIn</span>
-                        </a>
-                        
-                        <!-- Instagram -->
-                        <a href="https://www.instagram.com/parth_hit24/?hl=en" target="_blank" class="social-link instagram-link" title="Instagram" data-platform="instagram">
-                            <div class="social-bg"></div>
-                            <div class="social-particles"></div>
-                            <i class="fab fa-instagram"></i>
-                            <span class="social-tooltip">Instagram</span>
-                        </a>
-                        
-                        <!-- Email -->
-                        <a href="mailto:quantumchem25@gmail.com?subject=QuantumChem%20Project&body=Hi%20Parth,%20I%20would%20like%20to%20discuss%20about%20QuantumChem%20project." 
-                           class="social-link email-link" title="Email" data-platform="email">
-                            <div class="social-bg"></div>
-                            <div class="social-particles"></div>
-                            <i class="fas fa-envelope"></i>
-                            <span class="social-tooltip">Email</span>
-                        </a>
-                    </div>
-
-                    <style>
-                        /* Enhanced Social Links Styling */
-                        .social-links {
-                            position: relative;
-                            z-index: 10;
-                        }
-
-                        .social-link {
-                            position: relative;
-                            width: 56px;
-                            height: 56px;
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            background: rgba(255, 255, 255, 0.05);
-                            border: 2px solid rgba(255, 255, 255, 0.1);
-                            color: var(--text-secondary);
-                            font-size: 1.3rem;
-                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                            overflow: visible;
-                            opacity: 1 !important;
-                            visibility: visible !important;
-                            cursor: pointer;
-                        }
-
-                        .social-link i {
-                            position: relative;
-                            z-index: 3;
-                            opacity: 1 !important;
-                            visibility: visible !important;
-                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                        }
-
-                        /* Background layer for color transitions */
-                        .social-bg {
-                            position: absolute;
-                            inset: 0;
-                            border-radius: 50%;
-                            opacity: 0;
-                            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                            z-index: 1;
-                        }
-
-                        /* Particle container */
-                        .social-particles {
-                            position: absolute;
-                            inset: -20px;
-                            pointer-events: none;
-                            z-index: 0;
-                        }
-
-                        /* Tooltip styling */
-                        .social-tooltip {
-                            position: absolute;
-                            top: -35px;
-                            left: 50%;
-                            transform: translateX(-50%) translateY(-5px);
-                            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-                            color: white;
-                            padding: 6px 14px;
-                            border-radius: 8px;
-                            font-size: 0.75rem;
-                            font-weight: 600;
-                            white-space: nowrap;
-                            opacity: 0;
-                            visibility: hidden;
-                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                            pointer-events: none;
-                            letter-spacing: 0.5px;
-                            z-index: 100;
-                        }
-
-                        .social-tooltip::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -4px;
-                            left: 50%;
-                            transform: translateX(-50%) rotate(45deg);
-                            width: 8px;
-                            height: 8px;
-                            background: var(--accent-purple);
-                        }
-
-                        /* Platform-specific colors */
-                        .github-link .social-bg {
-                            background: linear-gradient(135deg, #333, #24292e);
-                        }
-
-                        .linkedin-link .social-bg {
-                            background: linear-gradient(135deg, #0077B5, #0e6396);
-                        }
-
-                        .instagram-link .social-bg {
-                            background: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-                        }
-
-                        .email-link .social-bg {
-                            background: linear-gradient(135deg, #EA4335, #c5221f);
-                        }
-
-                        /* Hover effects */
-                        .social-link:hover {
-                            transform: translateY(-8px) scale(1.15);
-                            border-color: transparent;
-                            box-shadow: 
-                                0 15px 35px rgba(0, 243, 255, 0.3),
-                                0 5px 15px rgba(157, 0, 255, 0.2),
-                                inset 0 0 20px rgba(255, 255, 255, 0.1);
-                        }
-
-                        .social-link:hover .social-bg {
-                            opacity: 1;
-                        }
-
-                        .social-link:hover i {
-                            color: white;
-                            transform: scale(1.2) rotate(360deg);
-                        }
-
-                        .social-link:hover .social-tooltip {
-                            opacity: 1;
-                            visibility: visible;
-                            transform: translateX(-50%) translateY(0);
-                        }
-
-                        /* Active state */
-                        .social-link:active {
-                            transform: translateY(-5px) scale(1.05);
-                        }
-
-                        /* Ripple effect on click */
-                        @keyframes ripple {
-                            0% {
-                                transform: scale(1);
-                                opacity: 0.6;
-                            }
-                            100% {
-                                transform: scale(2.5);
-                                opacity: 0;
-                            }
-                        }
-
-                        /* Glow pulse animation */
-                        @keyframes glow-pulse {
-                            0%, 100% {
-                                box-shadow: 
-                                    0 0 20px rgba(0, 243, 255, 0.3),
-                                    0 0 40px rgba(157, 0, 255, 0.2);
-                            }
-                            50% {
-                                box-shadow: 
-                                    0 0 30px rgba(0, 243, 255, 0.5),
-                                    0 0 60px rgba(157, 0, 255, 0.3);
-                            }
-                        }
-
-                        /* Floating animation for idle state */
-                        @keyframes float-social {
-                            0%, 100% {
-                                transform: translateY(0);
-                            }
-                            50% {
-                                transform: translateY(-5px);
-                            }
-                        }
-
-                        /* Apply subtle float to each link with stagger */
-                        .social-link:nth-child(1) {
-                            animation: float-social 3s ease-in-out infinite;
-                            animation-delay: 0s;
-                        }
-
-                        .social-link:nth-child(2) {
-                            animation: float-social 3s ease-in-out infinite;
-                            animation-delay: 0.2s;
-                        }
-
-                        .social-link:nth-child(3) {
-                            animation: float-social 3s ease-in-out infinite;
-                            animation-delay: 0.4s;
-                        }
-
-                        .social-link:nth-child(4) {
-                            animation: float-social 3s ease-in-out infinite;
-                            animation-delay: 0.6s;
-                        }
-
-                        /* Magnetic effect helper */
-                        .social-link::before {
-                            content: '';
-                            position: absolute;
-                            inset: -2px;
-                            border-radius: 50%;
-                            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
-                            opacity: 0;
-                            transition: opacity 0.4s;
-                            z-index: 0;
-                            animation: rotate 3s linear infinite;
-                        }
-
-                        .social-link:hover::before {
-                            opacity: 0.6;
-                        }
-
-                        /* Responsive adjustments */
-                        @media (max-width: 768px) {
-                            .social-link {
-                                width: 50px;
-                                height: 50px;
-                                font-size: 1.1rem;
-                            }
-
-                            .social-link:hover {
-                                transform: translateY(-5px) scale(1.1);
-                            }
-                        }
-
-                        /* Disable animations for reduced motion */
-                        @media (prefers-reduced-motion: reduce) {
-                            .social-link,
-                            .social-link:nth-child(1),
-                            .social-link:nth-child(2),
-                            .social-link:nth-child(3),
-                            .social-link:nth-child(4) {
-                                animation: none !important;
-                            }
-
-                            .social-link::before {
-                                animation: none !important;
-                            }
-                        }
-                    </style>
-
-                    <script>
-                        // Enhanced GSAP animations for social links
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const socialLinks = document.querySelectorAll('#parthCard .social-link');
-                            
-                            // Initial entrance animation with stagger
-                            gsap.from(socialLinks, {
-                                scale: 0,
-                                opacity: 0,
-                                rotation: -180,
-                                y: 50,
-                                duration: 0.8,
-                                stagger: 0.1,
-                                ease: "back.out(1.7)",
-                                delay: 1.5
-                            });
-
-                            socialLinks.forEach((link, index) => {
-                                // Magnetic effect
-                                link.addEventListener('mousemove', (e) => {
-                                    const rect = link.getBoundingClientRect();
-                                    const x = e.clientX - rect.left - rect.width / 2;
-                                    const y = e.clientY - rect.top - rect.height / 2;
-                                    
-                                    gsap.to(link, {
-                                        x: x * 0.3,
-                                        y: y * 0.3,
-                                        duration: 0.3,
-                                        ease: "power2.out"
-                                    });
-                                });
-
-                                link.addEventListener('mouseleave', () => {
-                                    gsap.to(link, {
-                                        x: 0,
-                                        y: 0,
-                                        duration: 0.5,
-                                        ease: "elastic.out(1, 0.5)"
-                                    });
-                                });
-
-                                // Hover animation sequence
-                                link.addEventListener('mouseenter', function() {
-                                    const icon = this.querySelector('i');
-                                    const bg = this.querySelector('.social-bg');
-                                    
-                                    // Icon animation
-                                    gsap.to(icon, {
-                                        scale: 1.3,
-                                        rotation: 360,
-                                        duration: 0.6,
-                                        ease: "back.out(1.7)"
-                                    });
-
-                                    // Background fade in
-                                    gsap.to(bg, {
-                                        opacity: 1,
-                                        scale: 1.1,
-                                        duration: 0.4,
-                                        ease: "power2.out"
-                                    });
-
-                                    // Create particle burst
-                                    createSocialParticleBurst(this);
-
-                                    // Glow pulse
-                                    gsap.to(this, {
-                                        boxShadow: '0 0 30px rgba(0, 243, 255, 0.6), 0 0 60px rgba(157, 0, 255, 0.4)',
-                                        duration: 0.3,
-                                        ease: "power2.out"
-                                    });
-                                });
-
-                                link.addEventListener('mouseleave', function() {
-                                    const icon = this.querySelector('i');
-                                    const bg = this.querySelector('.social-bg');
-                                    
-                                    // Reset icon
-                                    gsap.to(icon, {
-                                        scale: 1,
-                                        rotation: 0,
-                                        duration: 0.4,
-                                        ease: "back.out(1.7)"
-                                    });
-
-                                    // Reset background
-                                    gsap.to(bg, {
-                                        opacity: 0,
-                                        scale: 1,
-                                        duration: 0.3,
-                                        ease: "power2.out"
-                                    });
-
-                                    // Reset glow
-                                    gsap.to(this, {
-                                        boxShadow: '0 0 0px rgba(0, 243, 255, 0), 0 0 0px rgba(157, 0, 255, 0)',
-                                        duration: 0.3,
-                                        ease: "power2.out"
-                                    });
-                                });
-
-                                // Click animation with ripple
-                                link.addEventListener('click', function(e) {
-                                    // Ripple effect
-                                    const ripple = document.createElement('div');
-                                    ripple.style.cssText = `
-                                        position: absolute;
-                                        inset: 0;
-                                        border-radius: 50%;
-                                        background: radial-gradient(circle, rgba(0, 243, 255, 0.6) 0%, transparent 70%);
-                                        pointer-events: none;
-                                        z-index: 2;
-                                    `;
-                                    this.appendChild(ripple);
-
-                                    gsap.to(ripple, {
-                                        scale: 2.5,
-                                        opacity: 0,
-                                        duration: 0.6,
-                                        ease: "power2.out",
-                                        onComplete: () => ripple.remove()
-                                    });
-
-                                    // Bounce animation
-                                    gsap.to(this, {
-                                        scale: 0.9,
-                                        duration: 0.1,
-                                        yoyo: true,
-                                        repeat: 1,
-                                        ease: "power2.inOut"
-                                    });
-
-                                    // Multiple particle bursts
-                                    createSocialParticleBurst(this, 30);
-                                    setTimeout(() => createSocialParticleBurst(this, 20), 100);
-                                });
-
-                                // Continuous subtle animation
-                                gsap.to(link, {
-                                    y: '-=8',
-                                    duration: 2 + index * 0.3,
-                                    repeat: -1,
-                                    yoyo: true,
-                                    ease: "sine.inOut",
-                                    delay: index * 0.2
-                                });
-
-                                // Rotating border gradient
-                                const borderGradient = link.querySelector('::before');
-                                gsap.to(link, {
-                                    '--rotation': '360deg',
-                                    duration: 4,
-                                    repeat: -1,
-                                    ease: "none"
-                                });
-                            });
-
-                            // Create particle burst for social links
-                            function createSocialParticleBurst(element, count = 15) {
-                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-                                
-                                const rect = element.getBoundingClientRect();
-                                const centerX = rect.left + rect.width / 2;
-                                const centerY = rect.top + rect.height / 2;
-                                
-                                const platform = element.getAttribute('data-platform');
-                                let colors = ['#00f3ff', '#9d00ff', '#ff00ff'];
-                                
-                                // Platform-specific colors
-                                if (platform === 'github') colors = ['#333', '#666', '#999'];
-                                if (platform === 'linkedin') colors = ['#0077B5', '#00a0dc', '#0e6396'];
-                                if (platform === 'instagram') colors = ['#E1306C', '#833AB4', '#FD1D1D'];
-                                if (platform === 'email') colors = ['#EA4335', '#FF6B6B', '#c5221f'];
-                                
-                                for (let i = 0; i < count; i++) {
-                                    const particle = document.createElement('div');
-                                    const size = Math.random() * 6 + 3;
-                                    const color = colors[Math.floor(Math.random() * colors.length)];
-                                    
-                                    particle.style.cssText = `
-                                        position: fixed;
-                                        width: ${size}px;
-                                        height: ${size}px;
-                                        border-radius: 50%;
-                                        background: ${color};
-                                        box-shadow: 0 0 10px ${color};
-                                        z-index: 1000;
-                                        pointer-events: none;
-                                        opacity: 1;
-                                    `;
-                                    
-                                    document.body.appendChild(particle);
-                                    
-                                    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
-                                    const velocity = Math.random() * 100 + 80;
-                                    const distance = velocity * (Math.random() * 0.5 + 0.5);
-                                    
-                                    gsap.set(particle, {
-                                        x: centerX,
-                                        y: centerY
-                                    });
-                                    
-                                    gsap.to(particle, {
-                                        x: centerX + Math.cos(angle) * distance,
-                                        y: centerY + Math.sin(angle) * distance,
-                                        opacity: 0,
-                                        scale: 0,
-                                        rotation: Math.random() * 360,
-                                        duration: Math.random() * 0.8 + 0.6,
-                                        ease: "power2.out",
-                                        onComplete: () => particle.remove()
-                                    });
-                                }
-                            }
-
-                            // Scroll-triggered animation
-                            ScrollTrigger.create({
-                                trigger: '#parthCard',
                                 start: 'top 80%',
                                 onEnter: () => {
                                     socialLinks.forEach((link, i) => {
@@ -1995,7 +1584,7 @@
                     opacity: 0,
                     y: 100,
                     rotationX: 5,
-                    rotationY: index % 2 === 0 ? -3 : 3,
+                    rotationY: 0,
                     scale: 0.9
                 });
                 
@@ -2089,27 +1678,45 @@
             // Animate social links - ENSURE THEY'RE VISIBLE
             const socialLinks = card.querySelectorAll('.social-link');
             socialLinks.forEach((link, i) => {
-                // Force initial visibility
-                gsap.set(link, {
-                    opacity: 1,
-                    visibility: 'visible'
-                });
+                // Force initial and continuous visibility
+                link.style.opacity = '1';
+                link.style.visibility = 'visible';
+                link.style.display = 'flex';
                 
-                gsap.from(link, {
-                    opacity: 0,
-                    scale: 0,
-                    rotation: 360,
-                    duration: 0.8,
-                    delay: index * 0.3 + 0.7 + i * 0.1,
-                    ease: "back.out(1.7)",
-                    onComplete: () => {
-                        // Ensure they stay visible
-                        gsap.set(link, {
-                            opacity: 1,
-                            visibility: 'visible'
-                        });
+                const icon = link.querySelector('i');
+                if (icon) {
+                    icon.style.opacity = '1';
+                    icon.style.visibility = 'visible';
+                    icon.style.display = 'block';
+                }
+                
+                // Entrance animation
+                gsap.fromTo(link, 
+                    {
+                        scale: 0,
+                        y: 20,
+                        rotation: 180
+                    },
+                    {
+                        scale: 1,
+                        y: 0,
+                        rotation: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        delay: index * 0.3 + 0.7 + i * 0.15,
+                        ease: "back.out(1.7)",
+                        onStart: () => {
+                            link.style.opacity = '1';
+                            link.style.visibility = 'visible';
+                        },
+                        onComplete: () => {
+                            // Ensure they stay visible after animation
+                            link.style.opacity = '1';
+                            link.style.visibility = 'visible';
+                            link.style.display = 'flex';
+                        }
                     }
-                });
+                );
             });
             
             // Create particle burst on card entrance

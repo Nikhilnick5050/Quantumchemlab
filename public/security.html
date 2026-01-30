@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security | Quantum Chemistry Lab</title>
+    <title>Security - QuantumChem | Enterprise-Grade Platform Security</title>
+    <meta name="description" content="Learn about QuantumChem's security practices, data protection, and authentication mechanisms. Transparent, trusted, and secure.">
     
-    <!-- Meta Tags -->
-    <meta name="description" content="Security measures and protocols for Quantum Chemistry Lab platform">
-    
-    <!-- Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -24,550 +28,1160 @@
         }
 
         :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --font-primary: 'Inter', sans-serif;
-            --font-secondary: 'Poppins', sans-serif;
+            /* Color Palette */
+            --primary-bg: #0a0e27;
+            --secondary-bg: #111632;
+            --card-bg: #1a1f3a;
+            --card-hover: #232947;
+            --accent-blue: #4f46e5;
+            --accent-blue-light: #6366f1;
+            --accent-green: #10b981;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-color: #2d3348;
+            --gradient-start: #4f46e5;
+            --gradient-end: #7c3aed;
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            --spacing-3xl: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
         }
 
         body {
             font-family: var(--font-primary);
-            background: var(--primary);
+            background: var(--primary-bg);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Header */
-        .main-header {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* Navigation */
+        .navbar {
+            background: rgba(17, 22, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .navbar {
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-brand a {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
-            color: white;
-        }
-
-        .nav-brand i {
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        /* Hero */
-        .page-hero {
-            padding: 6rem 0 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-
-        .page-hero h1 {
-            font-family: var(--font-secondary);
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-        }
-
-        /* Content */
-        .security-content {
-            padding: 4rem 0;
-        }
-
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section h2 {
-            font-family: var(--font-secondary);
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .section h3 {
-            font-family: var(--font-secondary);
             color: var(--text-primary);
-            margin: 1.5rem 0 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .section p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .section ul {
-            color: var(--text-secondary);
-            margin-left: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .security-feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: var(--secondary);
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .security-icon {
-            color: var(--accent);
-            font-size: 1.5rem;
-            min-width: 40px;
-        }
-
-        .security-level {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            font-family: var(--font-heading);
             font-weight: 600;
-            margin-right: 0.5rem;
+            font-size: 1.25rem;
         }
 
-        .high {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
         }
 
-        .medium {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-        }
-
-        .low {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
-        }
-
-        .best-practice {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .best-practice h4 {
-            color: var(--success);
-            margin-bottom: 0.5rem;
-        }
-
-        .warning-box {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid var(--warning);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .warning-box h4 {
-            color: var(--warning);
-            margin-bottom: 0.5rem;
-        }
-
-        .security-tips {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .tip-card {
-            background: var(--secondary);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .tip-card i {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .tip-card h4 {
-            margin-bottom: 0.5rem;
-        }
-
-        .compliance-badges {
+        .nav-links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
         }
 
-        .badge {
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-blue-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: var(--spacing-3xl) 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(79, 70, 229, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: var(--accent-blue-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Security Grid */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: var(--spacing-xl);
+        }
+
+        .security-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .security-card:hover {
+            background: var(--card-hover);
+            border-color: rgba(79, 70, 229, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.5rem;
+            color: var(--accent-blue-light);
+        }
+
+        .security-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .security-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .security-card ul {
+            list-style: none;
+            margin-top: var(--spacing-md);
+        }
+
+        .security-card ul li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .security-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* Authentication Flow */
+        .auth-flow {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .auth-flow-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .auth-flow-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .auth-flow-header p {
+            color: var(--text-secondary);
+        }
+
+        .auth-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: var(--spacing-xl);
+        }
+
+        .auth-method {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            position: relative;
+        }
+
+        .method-badge {
+            position: absolute;
+            top: -12px;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .auth-method h4 {
+            font-family: var(--font-heading);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
         }
 
-        .badge i {
-            color: var(--success);
+        .auth-method h4 i {
+            color: var(--accent-blue-light);
         }
 
-        /* Footer */
-        .main-footer {
-            background: var(--secondary);
-            padding: 3rem 0 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h4 {
-            margin-bottom: 1rem;
-        }
-
-        .footer-column ul {
+        .auth-steps {
             list-style: none;
         }
 
-        .footer-column li {
-            margin-bottom: 0.5rem;
+        .auth-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: var(--spacing-md);
+            align-items: flex-start;
         }
 
-        .footer-column a {
+        .step-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-blue-light);
+        }
+
+        .step-content h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .security-note {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--accent-green);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            border-radius: var(--radius-sm);
+        }
+
+        .security-note p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .security-note strong {
+            color: var(--accent-green);
+        }
+
+        /* Privacy Principles */
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: var(--spacing-xl);
+        }
+
+        .privacy-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .privacy-item i {
+            font-size: 2rem;
+            color: var(--accent-blue-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .privacy-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .privacy-item p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Compliance Section */
+        .compliance-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: var(--spacing-xl);
+        }
+
+        .compliance-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .compliance-badge i {
+            font-size: 2.5rem;
+            color: var(--accent-blue-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .compliance-badge h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .compliance-badge p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+        }
+
+        .contact-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            min-width: 280px;
+            text-align: left;
+        }
+
+        .contact-method h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-method h4 i {
+            color: var(--accent-blue-light);
+        }
+
+        .contact-method a {
+            color: var(--accent-blue-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-method p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: var(--spacing-2xl) 0 var(--spacing-lg);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
 
-        .footer-column a:hover {
-            color: var(--accent);
+        .footer-links a:hover {
+            color: var(--text-primary);
         }
 
         .footer-bottom {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-blue-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
+            .hero h1 {
+                font-size: 2rem;
             }
-            
-            .page-hero h1 {
-                font-size: 2.5rem;
+
+            .hero p {
+                font-size: 1rem;
             }
-            
-            .security-tips {
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .security-grid,
+            .auth-methods,
+            .privacy-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .footer-content {
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
             }
         }
     </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <a href="index.html">
-                        <i class="fas fa-atom"></i>
-                        <span>QuantumChem</span>
-                    </a>
-                </div>
-            </nav>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
+                <span>QuantumChem</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#platform">Platform</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#contact" class="active">Contact</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="page-hero">
-        <div class="container">
-            <h1>Security</h1>
-            <p>Protecting your data and ensuring platform security is our top priority</p>
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <div class="hero-badge">
+                <i class="fas fa-shield-halved"></i>
+                <span>Security & Trust</span>
+            </div>
+            <h1>Built on a foundation of security and transparency</h1>
+            <p>At QuantumChem, protecting your data and maintaining platform integrity is our highest priority. We implement industry-standard security practices across every layer of our infrastructure.</p>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Last Security Review: December 21, 2025</span>
+            </div>
         </div>
     </section>
 
-    <!-- Security Content -->
-    <section class="security-content">
+    <!-- Platform Security Overview -->
+    <section class="section" id="platform">
         <div class="container">
-            <div class="section">
-                <h2>Our Security Commitment</h2>
-                <p>At Quantum Chemistry Lab, we take security seriously. We implement multiple layers of protection to safeguard your data, maintain platform integrity, and ensure safe access to chemical information.</p>
-                <p>Our security measures are designed to meet industry standards and comply with relevant regulations for chemical data management.</p>
+            <div class="section-header reveal">
+                <h2>Platform Security</h2>
+                <p>Multiple layers of protection to safeguard your data and ensure system reliability</p>
             </div>
 
-            <div class="section">
-                <h2>Security Features</h2>
-                
-                <div class="security-feature">
-                    <div class="security-icon">
+            <div class="security-grid">
+                <div class="security-card reveal">
+                    <div class="card-icon">
                         <i class="fas fa-lock"></i>
                     </div>
-                    <div>
-                        <h3>Encryption</h3>
-                        <p><span class="security-level high">High Security</span> All data transmitted between your device and our servers is encrypted using TLS 1.3. Sensitive data at rest is encrypted using AES-256 encryption.</p>
-                    </div>
+                    <h3>Encryption</h3>
+                    <p>All data in transit is protected using TLS encryption, ensuring confidentiality and integrity during transmission.</p>
+                    <ul>
+                        <li>TLS 1.3 for secure connections</li>
+                        <li>Strong encryption standards for stored data</li>
+                        <li>End-to-end data protection</li>
+                    </ul>
                 </div>
 
-                <div class="security-feature">
-                    <div class="security-icon">
-                        <i class="fas fa-user-shield"></i>
+                <div class="security-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-server"></i>
                     </div>
-                    <div>
-                        <h3>Authentication & Access Control</h3>
-                        <p><span class="security-level high">High Security</span> Multi-factor authentication support, role-based access control, and session management ensure only authorized users access sensitive data.</p>
-                    </div>
+                    <h3>Infrastructure Security</h3>
+                    <p>Our platform infrastructure is secured with multiple defense layers.</p>
+                    <ul>
+                        <li>Network-level firewalls</li>
+                        <li>Rate limiting and abuse prevention</li>
+                        <li>Isolated deployment environments</li>
+                        <li>Protection against common web attacks</li>
+                    </ul>
                 </div>
 
-                <div class="security-feature">
-                    <div class="security-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div>
-                        <h3>Network Security</h3>
-                        <p><span class="security-level high">High Security</span> Firewalls, DDoS protection, intrusion detection systems, and regular security audits protect our network infrastructure.</p>
-                    </div>
-                </div>
-
-                <div class="security-feature">
-                    <div class="security-icon">
+                <div class="security-card reveal">
+                    <div class="card-icon">
                         <i class="fas fa-database"></i>
                     </div>
-                    <div>
-                        <h3>Data Protection</h3>
-                        <p><span class="security-level high">High Security</span> Regular backups, disaster recovery plans, and data integrity checks ensure your information is safe and recoverable.</p>
-                    </div>
-                </div>
-
-                <div class="security-feature">
-                    <div class="security-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div>
-                        <h3>Monitoring & Logging</h3>
-                        <p><span class="security-level medium">Medium Security</span> 24/7 security monitoring, anomaly detection, and comprehensive audit logs help us identify and respond to security incidents.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Compliance & Standards</h2>
-                <p>We adhere to industry best practices and security standards:</p>
-                
-                <div class="compliance-badges">
-                    <div class="badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span>GDPR Compliant</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span>ISO 27001 Framework</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span>OWASP Top 10</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-check-circle"></i>
-                        <span>NIST Guidelines</span>
-                    </div>
-                </div>
-                
-                <div class="best-practice">
-                    <h4>Chemical Data Security Best Practices</h4>
+                    <h3>Data Protection</h3>
+                    <p>Comprehensive measures to protect and preserve your information.</p>
                     <ul>
-                        <li>Classification of chemical data based on sensitivity</li>
-                        <li>Secure storage of hazardous material information</li>
-                        <li>Access controls for regulated substances data</li>
-                        <li>Compliance with chemical safety regulations</li>
-                        <li>Regular security training for team members</li>
+                        <li>Regular automated backups</li>
+                        <li>Data integrity verification</li>
+                        <li>Controlled access to production systems</li>
+                        <li>Recovery procedures in place</li>
+                    </ul>
+                </div>
+
+                <div class="security-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Monitoring & Response</h3>
+                    <p>Active monitoring and incident response to maintain security.</p>
+                    <ul>
+                        <li>Real-time error and anomaly detection</li>
+                        <li>Authentication and request logging</li>
+                        <li>Audit trails for critical actions</li>
+                        <li>Rapid incident response procedures</li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="section">
-                <h2>Your Security Responsibilities</h2>
-                <p>While we work hard to secure our platform, security is a shared responsibility. Here's how you can help:</p>
-                
-                <div class="security-tips">
-                    <div class="tip-card">
-                        <i class="fas fa-key"></i>
-                        <h4>Strong Passwords</h4>
-                        <p>Use unique, complex passwords and enable multi-factor authentication when available.</p>
+    <!-- Authentication & Access Control -->
+    <section class="section" id="authentication">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Authentication & Access Control</h2>
+                <p>Secure authentication mechanisms to protect your account and data</p>
+            </div>
+
+            <div class="auth-flow reveal">
+                <div class="auth-flow-header">
+                    <h3>How We Protect Your Account</h3>
+                    <p>QuantumChem offers two secure authentication methods designed for your convenience and safety</p>
+                </div>
+
+                <div class="auth-methods">
+                    <!-- Manual Email Login -->
+                    <div class="auth-method">
+                        <div class="method-badge">Primary Method</div>
+                        <h4><i class="fas fa-envelope"></i> Email Verification Login</h4>
+                        <div class="auth-steps">
+                            <div class="auth-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Request Login</h5>
+                                    <p>Enter your verified email address on the login page</p>
+                                </div>
+                            </div>
+                            <div class="auth-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Receive Temporary Password</h5>
+                                    <p>A secure temporary password is sent to your email instantly</p>
+                                </div>
+                            </div>
+                            <div class="auth-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Secure Access</h5>
+                                    <p>Use the temporary password to log in securely</p>
+                                </div>
+                            </div>
+                            <div class="auth-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>Auto-Expiry Protection</h5>
+                                    <p>Temporary passwords automatically expire after 4 days for security</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="security-note">
+                            <p><strong>Security Feature:</strong> Passwords expire automatically after 4 days. You can request a new password reset at any time through the secure reset flow.</p>
+                        </div>
                     </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-user-check"></i>
-                        <h4>Account Security</h4>
-                        <p>Never share your login credentials and log out from shared computers.</p>
+
+                    <!-- Google OAuth -->
+                    <div class="auth-method">
+                        <div class="method-badge">Alternative Method</div>
+                        <h4><i class="fab fa-google"></i> Google OAuth 2.0</h4>
+                        <div class="auth-steps">
+                            <div class="auth-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Click Google Sign-In</h5>
+                                    <p>Select "Continue with Google" on the login page</p>
+                                </div>
+                            </div>
+                            <div class="auth-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Authorize via Google</h5>
+                                    <p>Authenticate through Google's secure OAuth 2.0 flow</p>
+                                </div>
+                            </div>
+                            <div class="auth-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Instant Access</h5>
+                                    <p>Gain immediate secure access to your QuantumChem account</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="security-note">
+                            <p><strong>Trusted Authentication:</strong> Google OAuth 2.0 is an industry-standard protocol trusted by millions of applications worldwide.</p>
+                        </div>
                     </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h4>Phishing Awareness</h4>
-                        <p>Be cautious of suspicious emails or links asking for your credentials.</p>
+                </div>
+
+                <!-- Password Reset -->
+                <div class="auth-method" style="margin-top: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h4><i class="fas fa-key"></i> Password Reset Flow</h4>
+                    <div class="auth-steps">
+                        <div class="auth-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h5>Initiate Reset</h5>
+                                <p>Click "Forgot Password" or "Reset Password" on the login page</p>
+                            </div>
+                        </div>
+                        <div class="auth-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h5>Secure Email Delivery</h5>
+                                <p>Receive a new temporary password via secure email</p>
+                            </div>
+                        </div>
+                        <div class="auth-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h5>Regain Access</h5>
+                                <p>Log in with your new temporary password immediately</p>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="tip-card">
-                        <i class="fas fa-sync-alt"></i>
-                        <h4>Regular Updates</h4>
-                        <p>Keep your browser and operating system updated with the latest security patches.</p>
+                    <div class="security-note">
+                        <p><strong>Always Available:</strong> Password reset is available 24/7 with instant email delivery. Old passwords are invalidated immediately upon reset.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="section">
-                <h2>Incident Response</h2>
-                <p>We have established procedures for handling security incidents:</p>
-                <ul>
-                    <li>24/7 monitoring for security anomalies</li>
-                    <li>Dedicated incident response team</li>
-                    <li>Timely notification of affected users</li>
-                    <li>Post-incident analysis and improvement</li>
-                    <li>Regular security drills and testing</li>
-                </ul>
-                
-                <div class="warning-box">
-                    <h4>Reporting Security Issues</h4>
-                    <p>If you discover a security vulnerability or suspect unauthorized access, please report it immediately to:</p>
-                    <p style="margin-top: 0.5rem;"><strong>Email:</strong> <a href="mailto:quantumchem25@gmail.com" style="color: var(--warning);">security@quantumchemlab.com</a></p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">We appreciate responsible disclosure and will respond promptly to all security reports.</p>
+            <div class="security-grid" style="margin-top: 3rem;">
+                <div class="security-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Token-Based Sessions</h3>
+                    <p>Secure session management using industry-standard token authentication.</p>
+                </div>
+
+                <div class="security-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>Server-Side Validation</h3>
+                    <p>All authentication requests are validated server-side to prevent tampering.</p>
+                </div>
+
+                <div class="security-card reveal">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Access Control</h3>
+                    <p>Strict authorization checks ensure users can only access their own data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy & Data Principles -->
+    <section class="section" id="privacy">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Data Privacy Principles</h2>
+                <p>Our commitment to responsible data handling and user privacy</p>
+            </div>
+
+            <div class="privacy-grid">
+                <div class="privacy-item reveal">
+                    <i class="fas fa-minimize"></i>
+                    <h4>Data Minimization</h4>
+                    <p>We collect only the information necessary to provide our services</p>
+                </div>
+
+                <div class="privacy-item reveal">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Purpose Limitation</h4>
+                    <p>Data is used exclusively for its intended purpose</p>
+                </div>
+
+                <div class="privacy-item reveal">
+                    <i class="fas fa-clock"></i>
+                    <h4>Storage Limitation</h4>
+                    <p>Information is retained only as long as necessary</p>
+                </div>
+
+                <div class="privacy-item reveal">
+                    <i class="fas fa-lock"></i>
+                    <h4>Confidentiality</h4>
+                    <p>Protection against unauthorized access and misuse</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compliance & Standards -->
+    <section class="section" id="compliance">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Security Standards & Best Practices</h2>
+                <p>We align with recognized security frameworks and industry guidelines</p>
+            </div>
+
+            <div class="compliance-badges">
+                <div class="compliance-badge reveal">
+                    <i class="fas fa-shield-halved"></i>
+                    <h4>GDPR-Aligned</h4>
+                    <p>Data protection principles</p>
+                </div>
+
+                <div class="compliance-badge reveal">
+                    <i class="fas fa-code"></i>
+                    <h4>OWASP Top 10</h4>
+                    <p>Web security guidelines</p>
+                </div>
+
+                <div class="compliance-badge reveal">
+                    <i class="fas fa-plug"></i>
+                    <h4>Secure API Design</h4>
+                    <p>Industry best practices</p>
+                </div>
+
+                <div class="compliance-badge reveal">
+                    <i class="fas fa-user-lock"></i>
+                    <h4>Privacy by Design</h4>
+                    <p>Built-in data protection</p>
                 </div>
             </div>
 
-            <div class="section">
-                <h2>Data Privacy & Security</h2>
-                <p>Our security practices are designed to protect both your personal information and the chemical data you work with:</p>
+            <div class="security-card reveal" style="max-width: 800px; margin: 3rem auto 0;">
+                <h3>User Responsibilities</h3>
+                <p style="margin-bottom: 1rem;">Security is a shared responsibility. Help us protect your account by:</p>
                 <ul>
-                    <li><strong>Data Minimization:</strong> We only collect necessary information</li>
-                    <li><strong>Purpose Limitation:</strong> Data is used only for intended purposes</li>
-                    <li><strong>Storage Limitation:</strong> Data is retained only as long as necessary</li>
-                    <li><strong>Integrity & Confidentiality:</strong> Protection against unauthorized processing</li>
-                </ul>
-                <p>For more details about how we handle your personal data, please see our <a href="privacy-policy.html">Privacy Policy</a>.</p>
-            </div>
-
-            <div class="section">
-                <h2>Third-Party Security</h2>
-                <p>We carefully vet and monitor third-party services we use:</p>
-                <ul>
-                    <li>Regular security assessments of vendors</li>
-                    <li>Data processing agreements with service providers</li>
-                    <li>Monitoring of third-party security incidents</li>
-                    <li>Contingency plans for service disruptions</li>
+                    <li>Using strong, unique passwords for your account</li>
+                    <li>Keeping your login credentials private and secure</li>
+                    <li>Logging out from shared or public devices</li>
+                    <li>Being cautious of phishing attempts and suspicious emails</li>
+                    <li>Keeping your browser and operating system updated</li>
                 </ul>
             </div>
+        </div>
+    </section>
 
-            <div class="section">
-                <h2>Security Updates</h2>
-                <p>We continuously improve our security measures and will update this page as our security practices evolve. We recommend checking this page periodically for updates.</p>
-                <p><strong>Last Security Review:</strong> December 21, 2025</p>
-            </div>
+    <!-- Contact Security Team -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact-section reveal">
+                <h3>Responsible Security Disclosure</h3>
+                <p>If you discover a security vulnerability or have security concerns, please report them to us responsibly. We appreciate the security research community and aim to respond promptly.</p>
 
-            <div class="section">
-                <h2>Contact Our Security Team</h2>
-                <p>For security-related inquiries or to report security concerns:</p>
-                <ul>
-                    <li><strong>Security Team:</strong> <a href="mailto:security@quantumchem25.com">security@quantumchem25.com</a></li>
-                    <li><strong>Emergency Contact:</strong> +91 8623947038 (Security incidents only)</li>
-                    <li><strong>PGP Key:</strong> Available upon request for secure communication</li>
-                    <li><strong>Office Hours:</strong> Monday-Friday, 9AM-6PM IST</li>
-                </ul>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <h4><i class="fas fa-envelope"></i> Security Email</h4>
+                        <a href="mailto:quantumchem25@gmail.com">quantumchem25@gmail.com</a>
+                        <p>For vulnerability reports and security inquiries</p>
+                    </div>
+
+                    <div class="contact-method">
+                        <h4><i class="fab fa-whatsapp"></i> WhatsApp (Security Only)</h4>
+                        <a href="https://wa.me/918149277038">+91 81492 77038</a>
+                        <p>Monday–Friday, 9 AM – 6 PM IST<br>Urgent security matters only</p>
+                    </div>
+                </div>
+
+                <div class="security-note" style="max-width: 600px; margin: 2rem auto 0; text-align: left;">
+                    <p><strong>What to include in your report:</strong> Description of the vulnerability, steps to reproduce, potential impact, and any relevant screenshots or proof-of-concept code. We appreciate responsible disclosure and will acknowledge valid reports promptly.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
+                        <span>QuantumChem</span>
+                    </div>
+                    <p>Security-first computational chemistry platform. Protecting your research data with enterprise-grade security practices.</p>
+                </div>
+
+                <div class="footer-section">
                     <h4>Platform</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#database">Chemicals</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                    <ul class="footer-links">
+                       <li><a href="index.html" target="_blank" rel="noopener noreferrer">Home</a></li>
+                        <li><a href="acknowledgement.html" target="_blank" rel="noopener noreferrer">Acknowledgement</a></li>
+                        <li><a href="tutorials.html" target="_blank" rel="noopener noreferrer">Tutorials</a></li>
+                        <li><a href="documentation.html" target="_blank" rel="noopener noreferrer">Documentation</a></li>
                     </ul>
                 </div>
-                
-                
-                
-                <div class="footer-column">
+
+                <div class="footer-section">
                     <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                        <li><a href="security.html">Security</a></li>
+                    <ul class="footer-links">
+                       <li><a href="privacy &policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="terms.html" target="_blank">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" target="_blank">Cookie Policy</a></li>
+                        <li><a href="disclaimer.html" target="_blank">Disclaimer</a></li>
                     </ul>
                 </div>
-                
-                <div class="footer-column">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:quantumchem25@gmail.com">Email Support</a></li>
-                        <li><a href="contact.html">Contact Form</a></li>
-                        <li>PCCOE, Pune</li>
-                        <li>+918149277038</li>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="team.html" target="_blank" rel="noopener noreferrer">Team</a></li>
+                        <li><a href="contact.html" target="_blank" rel="noopener noreferrer">Contact</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Report Issue</a></li>
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
+                <p>&copy; 2026 QuantumChem. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Initial check on page load
+        revealOnScroll();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
