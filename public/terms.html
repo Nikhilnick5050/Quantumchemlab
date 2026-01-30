@@ -1,12 +1,12 @@
-]<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4222089495408727"
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service | Quantum Chemistry Lab</title>
-    <meta name="description" content="Terms and Conditions for Quantum Chemistry Lab Chemical Database">
+    <title>Terms of Service | QuantumChem</title>
+    <meta name="description" content="Terms and Conditions for QuantumChem Chemical Database">
     <meta name="keywords" content="terms of service, terms and conditions, legal, chemistry database">
     
     <!-- Favicon -->
@@ -22,9 +22,6 @@
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- jsPDF Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
         /* ===== CSS VARIABLES ===== */
@@ -415,116 +412,37 @@
             color: var(--accent);
         }
 
-        /* ===== CONSENT SECTION ===== */
-        .consent-section {
-            background: var(--secondary);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            margin-top: 2rem;
-            border: 1px solid var(--glass-border);
-        }
-
-        .consent-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .consent-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: var(--radius-md);
-            margin: 1.5rem 0;
-            transition: var(--transition-fast);
-        }
-
-        .consent-checkbox:hover {
-            background: rgba(30, 41, 59, 0.7);
-        }
-
-        .consent-checkbox input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        .consent-checkbox label {
-            color: var(--text-primary);
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.875rem 2rem;
-            border-radius: var(--radius-md);
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition-normal);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            min-width: 160px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--glass-border);
-            color: var(--text-primary);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
         /* ===== FOOTER ===== */
         .main-footer {
             background: var(--secondary);
-            padding: 3rem 0 2rem;
+            padding: 2rem 0;
             border-top: 1px solid var(--glass-border);
             margin-top: 4rem;
         }
 
-        .footer-content {
-            text-align: center;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .footer-text {
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .footer-text i {
-            color: #ef4444;
-            margin: 0 0.25rem;
         }
 
         /* ===== BACK TO TOP BUTTON ===== */
@@ -597,12 +515,8 @@
                 display: none;
             }
             
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
+            .footer-links {
+                gap: 1rem;
             }
         }
 
@@ -622,6 +536,12 @@
                 height: 40px;
                 font-size: 1rem;
             }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
         }
 
         /* ===== PRINT STYLES ===== */
@@ -629,9 +549,7 @@
             .main-header,
             .sidebar,
             .back-to-top,
-            .main-footer,
-            .action-buttons,
-            .consent-section {
+            .main-footer {
                 display: none !important;
             }
             
@@ -671,7 +589,7 @@
                 
                 <div class="nav-links">
                     <a href="index.html" class="nav-link">Home</a>
-                    <a href="chemicals.html" class="nav-link">Chemicals</a>
+                   
                     <a href="privacy.html" class="nav-link">Privacy</a>
                     <a href="contact.html" class="nav-link">Contact</a>
                 </div>
@@ -684,10 +602,10 @@
         <div class="container">
             <div class="hero-content" data-aos="fade-up">
                 <h1 class="hero-title">Terms of Service</h1>
-                <p class="hero-subtitle">Please read these terms and conditions carefully before using Quantum Chemistry Lab services</p>
+                <p class="hero-subtitle">Please read these Terms of Service carefully before using QuantumChem</p>
                 <div class="last-updated">
                     <i class="fas fa-calendar-alt"></i>
-                    <span>Last Updated: December 2025</span>
+                    <span>Last Updated: January 2026</span>
                 </div>
             </div>
         </div>
@@ -707,6 +625,7 @@
                     <li class="nav-item"><a href="#content"><i class="fas fa-chevron-right"></i> User Content</a></li>
                     <li class="nav-item"><a href="#prohibited"><i class="fas fa-chevron-right"></i> Prohibited Uses</a></li>
                     <li class="nav-item"><a href="#liability"><i class="fas fa-chevron-right"></i> Liability</a></li>
+                    <li class="nav-item"><a href="#governing"><i class="fas fa-chevron-right"></i> Governing Law</a></li>
                     <li class="nav-item"><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </aside>
@@ -723,11 +642,11 @@
                     </div>
                     
                     <p class="section-text">
-                        Welcome to Quantum Chemistry Lab ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, services, and applications (collectively, the "Services").
+                        Welcome to QuantumChem ("we", "our", or "us"). These Terms of Service ("Terms") govern your access to and use of our website, platform, and related services (collectively, the "Services").
                     </p>
                     
                     <p class="section-text">
-                        Quantum Chemistry Lab is an advanced chemical database platform providing comprehensive information about laboratory chemicals, safety protocols, and research tools for educational and research purposes.
+                        QuantumChem is an educational chemical information platform designed to help students and learners understand chemical concepts, properties, and safety awareness for academic purposes only.
                     </p>
                     
                     <div class="notice-box">
@@ -736,7 +655,7 @@
                             <h4 class="notice-title">Important Notice</h4>
                         </div>
                         <p class="notice-text">
-                            These Terms constitute a legally binding agreement between you and Quantum Chemistry Lab. By accessing or using our Services, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Services.
+                            These Terms constitute a legally binding agreement between you and QuantumChem. By accessing or using our Services, you agree to be bound by these Terms and our Privacy Policy.
                         </p>
                     </div>
                 </section>
@@ -755,11 +674,15 @@
                     </p>
                     
                     <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
-                        <li style="margin-bottom: 0.5rem;">You are at least 18 years of age or have parental/guardian consent</li>
-                        <li style="margin-bottom: 0.5rem;">You have the legal capacity to enter into a binding agreement</li>
+                        <li style="margin-bottom: 0.5rem;">You are at least 18 years old or have permission from a parent or guardian</li>
+                        <li style="margin-bottom: 0.5rem;">You have the legal capacity to agree to these Terms</li>
                         <li style="margin-bottom: 0.5rem;">You will comply with all applicable laws and regulations</li>
-                        <li>You accept all terms and conditions herein</li>
+                        <li>You accept and agree to be bound by these Terms and our Privacy Policy</li>
                     </ul>
+                    
+                    <p class="section-text">
+                        If you do not agree with any part of these Terms, you must not use the Services.
+                    </p>
                     
                     <div class="warning-box">
                         <div class="notice-header">
@@ -781,15 +704,15 @@
                         <h2 class="section-title">3. Use License</h2>
                     </div>
                     
-                    <h3 class="section-subtitle">3.1 Grant of License</h3>
+                    <h3 class="section-subtitle">3.1 License Grant</h3>
                     <p class="section-text">
-                        Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:
+                        We grant you a limited, non-exclusive, non-transferable, and revocable license to:
                     </p>
                     
                     <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
-                        <li style="margin-bottom: 0.5rem;">Access and use the Services for personal, educational, or research purposes</li>
-                        <li style="margin-bottom: 0.5rem;">View, download, and print chemical information for non-commercial use</li>
-                        <li>Use our database for academic research and laboratory reference</li>
+                        <li style="margin-bottom: 0.5rem;">Access and use QuantumChem for educational and informational purposes only</li>
+                        <li style="margin-bottom: 0.5rem;">View chemical information for learning and academic reference</li>
+                        <li>Use the platform for non-commercial study and coursework</li>
                     </ul>
                     
                     <h3 class="section-subtitle">3.2 Restrictions</h3>
@@ -798,11 +721,11 @@
                     </p>
                     
                     <ol style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
-                        <li style="margin-bottom: 0.5rem;">Modify, copy, or create derivative works of the Services</li>
-                        <li style="margin-bottom: 0.5rem;">Use the Services for any commercial purpose without our express written consent</li>
-                        <li style="margin-bottom: 0.5rem;">Attempt to decompile or reverse engineer any software contained in our Services</li>
-                        <li style="margin-bottom: 0.5rem;">Remove any copyright or other proprietary notations</li>
-                        <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
+                        <li style="margin-bottom: 0.5rem;">Use the Services for commercial purposes without written permission</li>
+                        <li style="margin-bottom: 0.5rem;">Copy, modify, or redistribute platform content</li>
+                        <li style="margin-bottom: 0.5rem;">Attempt to reverse engineer or interfere with platform functionality</li>
+                        <li style="margin-bottom: 0.5rem;">Remove copyright or ownership notices</li>
+                        <li>Mirror or host QuantumChem content on other servers</li>
                     </ol>
                 </section>
 
@@ -816,15 +739,19 @@
                     </div>
                     
                     <p class="section-text">
-                        To access certain features of the Services, you may be required to create an account. You agree to:
+                        Some features may require account creation. You agree to:
                     </p>
                     
                     <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
-                        <li style="margin-bottom: 0.5rem;">Provide accurate, current, and complete information during registration</li>
-                        <li style="margin-bottom: 0.5rem;">Maintain and promptly update your account information</li>
-                        <li style="margin-bottom: 0.5rem;">Maintain the security of your password and accept all risks of unauthorized access</li>
+                        <li style="margin-bottom: 0.5rem;">Provide accurate and up-to-date information</li>
+                        <li style="margin-bottom: 0.5rem;">Maintain the confidentiality of your login credentials</li>
+                        <li style="margin-bottom: 0.5rem;">Accept responsibility for all activities under your account</li>
                         <li>Take responsibility for all activities that occur under your account</li>
                     </ul>
+                    
+                    <p class="section-text">
+                        QuantumChem is not responsible for unauthorized access resulting from user negligence.
+                    </p>
                     
                     <div class="info-box">
                         <div class="notice-header">
@@ -851,9 +778,13 @@
                         You retain ownership of any content you submit, post, or display ("User Content") on or through the Services. By submitting User Content, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and display such content in connection with the Services.
                     </p>
                     
+                    <p class="section-text">
+                        You retain ownership of content you submit where applicable. By submitting content, you grant QuantumChem permission to display and manage such content for platform functionality.
+                    </p>
+                    
                     <h3 class="section-subtitle">5.2 Content Guidelines</h3>
                     <p class="section-text">
-                        You are solely responsible for your User Content and the consequences of posting or publishing it. You represent and warrant that your content does not violate any third-party rights, including intellectual property rights, and complies with all applicable laws.
+                        You are solely responsible for ensuring your content does not violate laws, safety rules, or third-party rights.
                     </p>
                 </section>
 
@@ -867,22 +798,26 @@
                     </div>
                     
                     <p class="section-text">
-                        You agree not to use the Services for any purpose that is unlawful or prohibited by these Terms. Prohibited uses include, but are not limited to:
+                        You agree not to use QuantumChem for:
                     </p>
+                    
+                    <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 2rem;">
+                        <li style="margin-bottom: 0.5rem;">Illegal, unsafe, or harmful chemical activities</li>
+                        <li style="margin-bottom: 0.5rem;">Misuse of chemical information</li>
+                        <li style="margin-bottom: 0.5rem;">Ignoring safety warnings or regulations</li>
+                        <li style="margin-bottom: 0.5rem;">Attempting unauthorized access to systems</li>
+                        <li>Automated scraping, abuse, or service disruption</li>
+                    </ul>
                     
                     <div class="warning-box">
                         <div class="notice-header">
                             <i class="fas fa-skull-crossbones"></i>
-                            <h4 class="notice-title">Chemical Safety Violations</h4>
+                            <h4 class="notice-title">Chemical Safety Notice</h4>
                         </div>
                         <p class="notice-text">
-                            You may not use our Services to create illegal or dangerous substances, bypass safety protocols or regulations, misuse chemical information for harmful purposes, or ignore safety warnings and precautions.
+                            QuantumChem strictly prohibits use of the platform for real-world chemical experimentation without proper professional supervision.
                         </p>
                     </div>
-                    
-                    <p class="section-text">
-                        Additional restrictions include using any automated means to access the Services, interfering with service performance, attempting unauthorized access to our systems, or using the Services to transmit malicious code.
-                    </p>
                 </section>
 
                 <!-- Liability -->
@@ -891,28 +826,42 @@
                         <div class="section-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h2 class="section-title">7. Limitation of Liability</h2>
+                        <h2 class="section-title">7. Disclaimer & Limitation of Liability</h2>
                     </div>
                     
-                    <h3 class="section-subtitle">7.1 Disclaimer of Warranties</h3>
+                    <h3 class="section-subtitle">7.1 Disclaimer</h3>
                     <p class="section-text">
-                        The Services are provided "as is" and "as available" without any warranties of any kind, either express or implied. We do not warrant that the Services will be uninterrupted, error-free, or meet your specific requirements.
+                        QuantumChem is provided "as is" and "as available". We make no warranties regarding accuracy, completeness, or uninterrupted availability.
                     </p>
                     
                     <h3 class="section-subtitle">7.2 Limitation of Liability</h3>
                     <p class="section-text">
-                        To the maximum extent permitted by law, Quantum Chemistry Lab shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+                        To the maximum extent permitted by law, QuantumChem and its contributors shall not be liable for any indirect, incidental, or consequential damages, including loss of data, misuse of information, or personal injury.
                     </p>
                     
                     <div class="warning-box">
                         <div class="notice-header">
                             <i class="fas fa-exclamation-circle"></i>
-                            <h4 class="notice-title">Chemical Safety Disclaimer</h4>
+                            <h4 class="notice-title">⚠️ IMPORTANT: Chemical Safety Notice</h4>
                         </div>
                         <p class="notice-text">
-                            <strong>CRITICAL WARNING:</strong> Chemical information provided on our platform is for educational and research purposes only. We are not responsible for injuries or damages resulting from the use of chemical information, incorrect application of safety procedures, laboratory accidents, or regulatory violations by users.
+                            All chemical information on QuantumChem is provided for educational purposes only. We are not responsible for injuries, damages, laboratory incidents, or regulatory violations resulting from the use or misuse of information on this platform. Always consult official safety documents and qualified professionals.
                         </p>
                     </div>
+                </section>
+
+                <!-- Governing Law -->
+                <section id="governing" class="terms-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h2 class="section-title">8. Governing Law</h2>
+                    </div>
+                    
+                    <p class="section-text">
+                        These Terms are governed by the laws of India. Any disputes shall fall under the jurisdiction of courts in Pune, Maharashtra.
+                    </p>
                 </section>
 
                 <!-- Contact -->
@@ -921,50 +870,24 @@
                         <div class="section-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
-                        <h2 class="section-title">8. Contact Information</h2>
+                        <h2 class="section-title">9. Contact Information</h2>
                     </div>
                     
                     <p class="section-text">
-                        If you have any questions about these Terms, please contact us:
+                        For questions regarding these Terms, contact:
                     </p>
                     
                     <div class="info-box">
                         <div class="notice-header">
                             <i class="fas fa-building"></i>
-                            <h4 class="notice-title">Quantum Chemistry Lab Legal Department</h4>
+                            <h4 class="notice-title">QuantumChem Team</h4>
                         </div>
                         <p class="notice-text">
-                            For legal inquiries, copyright issues, or terms-related questions:<br>
                             Email: quantumchem25@gmail.com<br>
-                            Phone: +91-8623947038<br>
-                            Address: PCCOE, Pune, Maharashtra
+                            Location: PCCOE, Pune, Maharashtra
                         </p>
                     </div>
                 </section>
-
-                <!-- Consent Section -->
-                <div class="consent-section" aria-label="Terms of Service consent section">
-                    <h3 class="consent-title">Final Acceptance</h3>
-                    <p class="section-text">
-                        By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.
-                    </p>
-                    
-                    <div class="consent-checkbox">
-                        <input type="checkbox" id="consentCheckbox">
-                        <label for="consentCheckbox">I accept the Terms of Service</label>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" id="printBtn" aria-label="Print the Terms of Service">
-                            <i class="fas fa-print"></i>
-                            Print Terms
-                        </button>
-                        <button class="btn btn-secondary" id="downloadBtn" aria-label="Download the Terms of Service as a PDF">
-                            <i class="fas fa-download"></i>
-                            Download PDF
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -972,11 +895,19 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    © 2025 Quantum Chemistry Lab. All rights reserved.<br>
-                    Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE, Pune
-                </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="team.html">Team</a>
+                <a href="sources.html">Sources</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="privacy.html">Privacy</a>
+                
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> QuantumChem. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1062,165 +993,14 @@
             });
         });
 
-        // Check if consent is given
-        function requireConsent() {
-            return document.getElementById('consentCheckbox').checked;
-        }
-
-        // Print functionality
-        document.getElementById('printBtn').addEventListener('click', function() {
-            if (!requireConsent()) {
-                alert("Please accept the Terms of Service before printing.");
-                return;
-            }
-            window.print();
-        });
-
-        // PDF download functionality
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            if (!requireConsent()) {
-                alert("Please accept the Terms of Service before downloading.");
-                return;
-            }
-
-            // Initialize jsPDF
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Set document properties
-            doc.setProperties({
-                title: 'Quantum Chemistry Lab - Terms of Service',
-                subject: 'Terms and Conditions',
-                author: 'Quantum Chemistry Lab',
-                keywords: 'terms, service, chemistry, database',
-                creator: 'Quantum Chemistry Lab'
-            });
-            
-            // Add title
-            doc.setFontSize(20);
-            doc.setTextColor(59, 130, 246);
-            doc.text('Terms of Service', 105, 20, { align: 'center' });
-            
-            doc.setFontSize(12);
-            doc.setTextColor(100, 100, 100);
-            doc.text('Quantum Chemistry Lab', 105, 30, { align: 'center' });
-            doc.text('Last Updated: December 2024', 105, 35, { align: 'center' });
-            
-            // Get all text content from terms sections
-            let pdfContent = '';
-            const sections = document.querySelectorAll('.terms-section');
-            
-            sections.forEach((section, index) => {
-                const title = section.querySelector('.section-title')?.textContent || '';
-                const paragraphs = section.querySelectorAll('.section-text');
-                
-                pdfContent += title + '\n\n';
-                
-                paragraphs.forEach(p => {
-                    pdfContent += p.textContent + '\n\n';
-                });
-                
-                // Add notice box content
-                const notices = section.querySelectorAll('.notice-box, .warning-box, .info-box');
-                notices.forEach(notice => {
-                    const noticeTitle = notice.querySelector('.notice-title')?.textContent || '';
-                    const noticeText = notice.querySelector('.notice-text')?.textContent || '';
-                    
-                    if (noticeTitle) pdfContent += '⚠️ ' + noticeTitle + '\n';
-                    if (noticeText) pdfContent += noticeText + '\n\n';
-                });
-                
-                pdfContent += '\n';
-            });
-            
-            // Add consent statement
-            pdfContent += '\n\n---\n';
-            pdfContent += 'By using Quantum Chemistry Lab services, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions outlined in this document.\n\n';
-            pdfContent += '© 2025 Quantum Chemistry Lab. All rights reserved.';
-            
-            // Configure text
-            doc.setFontSize(11);
-            doc.setTextColor(0, 0, 0);
-            
-            // Split text into pages
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const margin = 20;
-            const maxWidth = pageWidth - (margin * 2);
-            
-            const lines = doc.splitTextToSize(pdfContent, maxWidth);
-            
-            // Add text to PDF with pagination
-            let yPosition = 50;
-            const lineHeight = 7;
-            
-            lines.forEach((line, index) => {
-                // Check if we need a new page
-                if (yPosition > 270) {
-                    doc.addPage();
-                    yPosition = 20;
-                }
-                
-                // Add section headers in bold
-                if (line.match(/^\d+\.\s+/)) {
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(line, margin, yPosition);
-                    doc.setFont('helvetica', 'normal');
-                } else if (line.includes('⚠️')) {
-                    // Style notices
-                    doc.setTextColor(245, 158, 11);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(line.replace('⚠️ ', ''), margin, yPosition);
-                    doc.setTextColor(0, 0, 0);
-                    doc.setFont('helvetica', 'normal');
-                } else {
-                    doc.text(line, margin, yPosition);
-                }
-                
-                yPosition += lineHeight;
-            });
-            
-            // Add page numbers
-            const pageCount = doc.getNumberOfPages();
-            for (let i = 1; i <= pageCount; i++) {
-                doc.setPage(i);
-                doc.setFontSize(10);
-                doc.setTextColor(100, 100, 100);
-                doc.text(`Page ${i} of ${pageCount}`, pageWidth - 30, 285);
-            }
-            
-            // Save the PDF
-            doc.save('Quantum-Chemistry-Lab-Terms-of-Service.pdf');
-            
-            // Show success message
-            const downloadBtn = document.getElementById('downloadBtn');
-            const originalText = downloadBtn.innerHTML;
-            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-            downloadBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            
-            setTimeout(() => {
-                downloadBtn.innerHTML = originalText;
-                downloadBtn.style.background = '';
-            }, 2000);
-        });
-
         // Update current year in footer
         document.addEventListener('DOMContentLoaded', function() {
-            const yearElement = document.querySelector('.footer-text');
-            if (yearElement) {
-                yearElement.innerHTML = yearElement.innerHTML.replace('2025', new Date().getFullYear());
+            // Update copyright year
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
             }
-            
-            // Auto-accept checkbox when user scrolls to bottom
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.innerHeight + window.scrollY;
-                const pageHeight = document.documentElement.scrollHeight;
-                
-                if (scrollPosition >= pageHeight - 100) {
-                    document.getElementById('consentCheckbox').checked = true;
-                }
-            });
         });
     </script>
 </body>
 </html>
-

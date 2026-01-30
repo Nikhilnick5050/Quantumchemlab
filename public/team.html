@@ -1,271 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4222089495408727"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Development Team | Quantum Chemistry Lab</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>QUANTUMCHEM | Development Team</title>
     
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-      
+        :root {
+            --primary-dark: #000000;
+            --primary: #0a0a14;
+            --accent-blue: #00f3ff;
+            --accent-purple: #9d00ff;
+            --accent-pink: #ff00ff;
+            --accent-cyan: #00ffea;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.5);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #0a0a14;
-            --secondary: #12121f;
-            --accent: #00ff88;
-            --accent-glow: rgba(0, 255, 136, 0.3);
-            --purple: #9d4edd;
-            --cyan: #00d9ff;
-            --pink: #ff00aa;
-            --gold: #ffd700;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --neon-shadow: 0 0 20px var(--accent-glow);
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--primary);
-            color: white;
-            overflow-x: hidden;
+        /* Quantum Loader */
+        .quantum-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .loader-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .loader-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .loader-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 3rem;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            padding: 3px;
+            position: relative;
+        }
+
+        .loader-logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .loader-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            letter-spacing: 5px;
+        }
+
+        .loader-number {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            position: relative;
+        }
+
+        .loader-subtext {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            opacity: 0;
+            letter-spacing: 3px;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.2s;
+        }
+
+        /* Main Container */
+        .quantum-container {
+            opacity: 0;
             min-height: 100vh;
             position: relative;
         }
 
-        .team-hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(circle at 20% 50%, rgba(18, 18, 31, 0.8) 0%, rgba(10, 10, 20, 1) 100%);
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(157, 0, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 243, 255, 0.1) 0%, transparent 40%);
+            z-index: -1;
         }
 
-        .quantum-text {
-            font-size: 8rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--accent), var(--cyan), var(--purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        /* Header */
+        .quantum-header {
+            padding: 8rem 2rem 6rem;
             text-align: center;
             position: relative;
-            z-index: 2;
-            letter-spacing: 5px;
-            text-shadow: 
-                0 0 30px var(--accent-glow),
-                0 0 60px rgba(0, 217, 255, 0.3),
-                0 0 90px rgba(157, 78, 221, 0.2);
-            animation: textGlow 3s ease-in-out infinite alternate;
         }
 
-        @keyframes textGlow {
-            0% {
-                filter: drop-shadow(0 0 10px var(--accent));
-            }
-            100% {
-                filter: drop-shadow(0 0 25px var(--accent)) drop-shadow(0 0 35px var(--purple));
-            }
-        }
-
-        .team-title {
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, #fff, var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .header-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 3rem;
             position: relative;
         }
 
-        .team-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            border-radius: 2px;
-        }
-
-        .floating-particles {
+        .logo-circle {
             position: absolute;
             width: 100%;
             height: 100%;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
+            border: 2px solid var(--accent-blue);
             border-radius: 50%;
-            background: var(--accent);
-            animation: float 15s infinite linear;
-            opacity: 0.3;
+            animation: rotate 20s linear infinite;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(100px, 100px) rotate(90deg);
-            }
-            50% {
-                transform: translate(200px, 0) rotate(180deg);
-            }
-            75% {
-                transform: translate(100px, -100px) rotate(270deg);
-            }
+        .logo-circle:nth-child(2) {
+            border-color: var(--accent-purple);
+            animation-direction: reverse;
+            animation-duration: 15s;
         }
 
-        .team-section {
-            padding: 8rem 2rem;
-            position: relative;
-            background: var(--secondary);
-            z-index: 2;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-intro {
-            text-align: center;
-            margin-bottom: 6rem;
-            position: relative;
-        }
-
-        .intro-text {
-            font-size: 1.5rem;
-            color: #a0a0c0;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-            position: relative;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .intro-text::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            padding: 2px;
-            background: linear-gradient(45deg, transparent, var(--accent), transparent);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .team-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 25px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-            isolation: isolate;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            padding: 2px;
-            background: linear-gradient(45deg, var(--accent), var(--purple), var(--cyan));
-            border-radius: 25px;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: -1;
-        }
-
-        .team-card:hover::before {
-            opacity: 1;
-        }
-
-        .team-card:hover {
-            transform: translateY(-20px) scale(1.02);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                0 0 60px var(--accent-glow);
-        }
-
-        .card-header {
-            padding: 2rem 2rem 0;
-            position: relative;
-        }
-
-        .member-image {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            overflow: hidden;
-            border: 4px solid transparent;
-            background: linear-gradient(45deg, var(--accent), var(--purple)) border-box;
-            box-shadow: 0 0 30px var(--accent-glow);
-        }
-
-        .member-image::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, var(--accent), var(--purple), var(--cyan));
-            border-radius: 50%;
-            z-index: -1;
-            animation: rotate 4s linear infinite;
+        .logo-circle:nth-child(3) {
+            border-color: var(--accent-pink);
+            animation-duration: 25s;
         }
 
         @keyframes rotate {
@@ -273,306 +210,274 @@
             100% { transform: rotate(360deg); }
         }
 
-        .member-image img {
+        .header-logo img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .header-title {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .header-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Team Grid */
+        .team-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 4rem;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 5rem;
+                padding: 0 1.5rem 4rem;
+            }
+            
+            .header-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* Member Card */
+        .member-card {
+            position: relative;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .card-inner {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .card-inner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(0, 243, 255, 0.05) 50%,
+                transparent 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        /* Avatar */
+        .avatar-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .avatar-frame {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--accent-blue), var(--accent-purple), var(--accent-pink), var(--accent-blue));
+            animation: rotate 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        .avatar-frame::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .member-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 2;
+            border: 3px solid transparent;
+        }
+
+        /* Member Info */
+        .member-info {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
 
         .member-name {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #fff, var(--cyan));
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-blue));
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1;
         }
 
         .member-role {
-            text-align: center;
-            color: var(--accent);
-            font-size: 1.1rem;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
         }
 
-        .card-body {
-            padding: 2rem;
-        }
-
-        .member-desc {
-            color: #b0b0d0;
-            line-height: 1.8;
-            margin-bottom: 2rem;
+        .member-college {
             font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
         }
 
-        .expertise {
+        .member-bio {
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        /* Skills */
+        .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
         }
 
         .skill-tag {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 0.7rem 1.3rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
             font-weight: 500;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(0, 255, 136, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 0 0 25px 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .social-link::before {
+        .skill-tag::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.3), transparent);
+            transition: left 0.6s;
         }
 
-        .social-link:hover::before {
-            left: 100%;
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .social-link.github:hover {
-            background: #333;
-            color: white;
-        }
-
-        .social-link.linkedin:hover {
-            background: #0077b5;
-            color: white;
-        }
-
-        .social-link.whatsapp:hover {
-            background: #25d366;
-            color: white;
-        }
-
-        .social-link.phone:hover {
-            background: var(--purple);
-            color: white;
-        }
-
-        .achievements {
-            margin-top: 6rem;
-            text-align: center;
-        }
-
-        .achievements-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, var(--gold), #ff9500);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .achievement-card {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 2.5rem;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .achievement-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-
-        .achievement-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--accent), var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .achievement-text {
-            color: #b0b0d0;
-            font-size: 1.1rem;
-        }
-
-        .timeline {
-            margin-top: 8rem;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            display: flex;
-            margin-bottom: 4rem;
-            position: relative;
-            opacity: 0;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            flex: 1;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            margin: 0 2rem;
-            position: relative;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--accent);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 20px var(--accent);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content::before {
-            right: -30px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::before {
-            left: -30px;
-        }
-
-        .timeline-date {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .tech-stack {
-            margin-top: 8rem;
-            text-align: center;
-        }
-
-        .tech-icons {
+        /* Social Links */
+        .social-links {
             display: flex;
             justify-content: center;
+            gap: 1rem;
             flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 3rem;
         }
 
-        .tech-icon {
-            width: 80px;
-            height: 80px;
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            font-size: 2.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
-        .tech-icon:hover {
-            transform: translateY(-10px) scale(1.1);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px var(--accent-glow);
+        .social-link i {
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 2;
+            position: relative;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 1px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Back to Main */
+        .back-container {
+            text-align: center;
+            padding: 4rem 0 2rem;
         }
 
         .back-link {
-            display: inline-block;
-            margin-top: 4rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, var(--accent), var(--purple));
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 2.5rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-blue);
             text-decoration: none;
-            border-radius: 25px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            z-index: 1;
         }
 
         .back-link::before {
@@ -582,8 +487,136 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        /* Enhanced Footer */
+        .quantum-footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-nav-link {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-blue);
+            transition: width 0.3s;
+        }
+
+        .footer-info {
+            margin-top: 2rem;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            filter: blur(1px);
+            opacity: 0;
+        }
+
+        /* Performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .cursor, .cursor-ring {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* Hover Effects */
+        .member-card:hover .card-inner::before {
+            opacity: 1;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
         }
 
         .back-link:hover::before {
@@ -592,561 +625,1711 @@
 
         .back-link:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-nav-link:hover {
+            color: var(--accent-blue);
         }
 
-        @keyframes floatUpDown {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        .footer-nav-link:hover::after {
+            width: 100%;
         }
 
-        .floating {
-            animation: floatUpDown 3s ease-in-out infinite;
-        }
-
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            .quantum-text {
-                font-size: 4rem;
-            }
-            
-            .team-title {
+            .loader-text {
                 font-size: 2.5rem;
             }
             
-            .team-grid {
-                grid-template-columns: 1fr;
+            .loader-number {
+                font-size: 4rem;
             }
             
-            .timeline::before {
-                left: 30px;
+            .header-title {
+                font-size: 2.5rem;
             }
             
-            .timeline-item {
-                flex-direction: row !important;
-                margin-left: 60px;
+            .member-name {
+                font-size: 2rem;
             }
             
-            .timeline-content::before {
-                left: -40px !important;
-                right: auto !important;
+            .avatar-container {
+                width: 160px;
+                height: 160px;
             }
-        }
-
-        /* Special Effects - Removed scan line animation */
-        .hologram-effect {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hologram-effect::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(0, 255, 136, 0.1) 50%,
-                transparent 70%
-            );
-            animation: hologram 4s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes hologram {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            
+            .member-avatar {
+                width: 140px;
+                height: 140px;
             }
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
+            
+            .social-links {
+                gap: 0.8rem;
+            }
+            
+            .footer-nav {
+                gap: 1.5rem;
             }
         }
     </style>
-    </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-    <!-- Scan Line Effect -->
-    <div class="scan-line"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
 
-    <!-- Hero Section -->
-    <section class="team-hero">
-        <div class="floating-particles" id="particles"></div>
-        <h1 class="quantum-text" id="quantumText">QuantumChem TEAM</h1>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="container">
-            <!-- Section Intro -->
-            <div class="section-intro">
-                <h2 class="team-title">The Visionaries Behind Quantum Chemistry Lab</h2>
-                <div class="intro-text">
-                    Meet the extraordinary minds pioneering the future of chemical informatics. 
-                    Our team combines cutting-edge technology with deep scientific expertise 
-                    to revolutionize how we understand and interact with chemical data.
-                </div>
+    <!-- Quantum Loader -->
+    <div class="quantum-loader" id="quantumLoader">
+        <div class="loader-grid"></div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
             </div>
-
-            <!-- Team Members Grid -->
-            <div class="team-grid">
-                <!-- Member 1 -->
-                <div class="team-card" id="member1">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/6c/8f/65/6c8f65f299050228d55403231afd2f8b.jpg" alt="Nikhil Shinde">
-                        </div>
-                        <h3 class="member-name">Nikhil Shinde</h3>
-                        <div class="member-role">Project Lead & Backend Architect</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Mastermind behind the Quantum Chemistry Database architecture. 
-                            With expertise in distributed systems and chemical informatics, 
-                            Nikhil orchestrates the seamless integration of complex algorithms 
-                            with intuitive user interfaces.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Backend Development</span>
-                            <span class="skill-tag">Database Design</span>
-                            <span class="skill-tag">Chemical Informatics</span>
-                            <span class="skill-tag">System Architecture</span>
-                            <span class="skill-tag">API Development</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/Nikhilnick5050" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/nikhil-shinde-286937367" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/918623947038" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+918623947038" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 2 -->
-                <div class="team-card" id="member2">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/c8/3c/e0/c83ce0a9c72ee9933c8fee416b5d531b.jpg" alt="Aniket Khope">
-                        </div>
-                        <h3 class="member-name">Aniket Khope</h3>
-                        <div class="member-role">Data Scientist & Research Lead</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Pioneering machine learning applications in chemical prediction 
-                            and safety analysis. Aniket's algorithms power the intelligent 
-                            features that make our platform truly revolutionary.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Machine Learning</span>
-                            <span class="skill-tag">Data Analysis</span>
-                            <span class="skill-tag">Predictive Modeling</span>
-                            <span class="skill-tag">Statistical Analysis</span>
-                            <span class="skill-tag">AI Integration</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/aniketkhope2106-spec" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/aniket-khope" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/919730318530" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+919730318530" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 3 -->
-                <div class="team-card" id="member3">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/14/cd/98/14cd988dd7a60ed6917180946faefab7.jpg" alt="Om Malge">
-                        </div>
-                        <h3 class="member-name">Om Malhge</h3>
-                        <div class="member-role">Frontend Developer & UI/UX Designer</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Creates immersive, intuitive interfaces that transform complex 
-                            chemical data into beautiful, interactive visualizations. Om 
-                            bridges the gap between scientific complexity and user-friendly design.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">UI/UX Design</span>
-                            <span class="skill-tag">Frontend Development</span>
-                            <span class="skill-tag">3D Visualization</span>
-                            <span class="skill-tag">Interactive Design</span>
-                            <span class="skill-tag">Animation</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/ommalghe" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/om-malghe-85a58239a" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/917715007222" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+917715007222" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Member 4 -->
-                <div class="team-card" id="member4">
-                    <div class="card-header">
-                        <div class="member-image">
-                            <img src="https://i.pinimg.com/736x/55/00/6a/55006afa0bc5431fb2a84938a01f26e3.jpg" alt="Piyush Waghmare">
-                        </div>
-                        <h3 class="member-name">Piyush Waghmare</h3>
-                        <div class="member-role">Content Specialist & Documentation</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="member-desc">
-                            Ensures clarity, accuracy, and accessibility of all scientific 
-                            content. Piyush transforms complex chemical concepts into 
-                            comprehensive documentation and user-friendly guides.
-                        </p>
-                        <div class="expertise">
-                            <span class="skill-tag">Technical Writing</span>
-                            <span class="skill-tag">Documentation</span>
-                            <span class="skill-tag">Content Strategy</span>
-                            <span class="skill-tag">Quality Assurance</span>
-                            <span class="skill-tag">User Training</span>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/piyushwaghmare9" target="_blank" class="social-link github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/piyush-waghmare-aa0151381/" target="_blank" class="social-link linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://wa.me/918624980508" target="_blank" class="social-link whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="tel:+918624980508" class="social-link phone">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            
-            <!-- Achievements -->
-<div class="achievements">
-    <h3 class="achievements-title">Our Collective Achievements</h3>
-    <div class="achievements-grid">
-        <div class="achievement-card">
-            <div class="achievement-icon">
-                <i class="fas fa-database"></i>
-            </div>
-            <div class="achievement-number">1000+</div>
-            <div class="achievement-text">Chemicals in Database</div>
-        </div>
-        <div class="achievement-card">
-            <div class="achievement-icon">
-                <i class="fas fa-project-diagram"></i>
-            </div>
-            <div class="achievement-number">1</div>
-            <div class="achievement-text">Research Projects Completed</div>
+            <div class="loader-text">QUANTUMCHEM</div>
+            <div class="loader-number" id="loaderNumber">10</div>
+            <div class="loader-subtext">SYSTEM INITIALIZING</div>
         </div>
     </div>
-</div>
 
-            <!-- Tech Stack -->
-            <div class="tech-stack">
-                <h3 class="achievements-title">Technologies We Master</h3>
-                <div class="tech-icons">
-                    <div class="tech-icon">
-                        <i class="fab fa-js-square"></i>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="floatingParticles"></div>
+
+    <!-- Main Container -->
+    <div class="quantum-container" id="quantumContainer">
+        <!-- Header -->
+        <header class="quantum-header">
+            <div class="header-logo">
+                <div class="logo-circle"></div>
+                <div class="logo-circle"></div>
+                <div class="logo-circle"></div>
+                <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
+            </div>
+            
+            <h1 class="header-title" id="headerTitle">DEVELOPMENT TEAM</h1>
+            <div class="header-subtitle" id="headerSubtitle">THE ARCHITECTS</div>
+        </header>
+
+        <!-- Team Grid -->
+        <div class="team-grid">
+            <!-- Nikhil -->
+            <div class="member-card" id="nikhilCard">
+                <div class="card-inner">
+                    <div class="avatar-container">
+                        <div class="avatar-frame"></div>
+                        <img src="https://i.pinimg.com/736x/6c/8f/65/6c8f65f299050228d55403231afd2f8b.jpg" 
+                             alt="Nikhil Shinde" 
+                             class="member-avatar">
                     </div>
-                    
-                    <div class="tech-icon">
-                        <i class="fab fa-react"></i>
+
+                    <div class="member-info">
+                        <h2 class="member-name">NIKHIL SHINDE</h2>
+                        <div class="member-role">BACKEND & SYSTEM DESIGNER</div>
+                        <div class="member-college">PCCOE, PUNE</div>
+                        <p class="member-bio">
+                            Architecting robust backend systems with focus on scalability, 
+                            performance optimization, and cloud infrastructure solutions.
+                        </p>
                     </div>
-                    <div class="tech-icon">
-                        <i class="fas fa-database"></i>
+
+                    <div class="skills-container">
+                        <div class="skill-tag">Backend Architecture</div>
+                        <div class="skill-tag">System Design</div>
+                        <div class="skill-tag">Database Design</div>
+                        <div class="skill-tag">API Development</div>
+                        <div class="skill-tag">DevOps</div>
+                        <div class="skill-tag">Cloud Infrastructure</div>
                     </div>
-                    <div class="tech-icon">
-                        <i class="fab fa-node-js"></i>
+
+                    <div class="social-links">
+                        <!-- GitHub -->
+                        <a href="https://github.com/Nikhilnick5050" target="_blank" class="social-link github-link" title="GitHub" data-platform="github">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-github"></i>
+                            <span class="social-tooltip">GitHub</span>
+                        </a>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/nikhil-shinde-286937367" target="_blank" class="social-link linkedin-link" title="LinkedIn" data-platform="linkedin">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-linkedin-in"></i>
+                            <span class="social-tooltip">LinkedIn</span>
+                        </a>
+                        
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/" target="_blank" class="social-link instagram-link" title="Instagram" data-platform="instagram">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-instagram"></i>
+                            <span class="social-tooltip">Instagram</span>
+                        </a>
+                        
+                        <!-- Email -->
+                        <a href="mailto:nikhil.shinde@quantumchem.io?subject=QuantumChem%20Project&body=Hi%20Nikhil,%20I%20would%20like%20to%20discuss%20about%20QuantumChem%20project." 
+                           class="social-link email-link" title="Email" data-platform="email">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fas fa-envelope"></i>
+                            <span class="social-tooltip">Email</span>
+                        </a>
                     </div>
-                    <div class="tech-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
+
+                    <script>
+                        // Enhanced GSAP animations for Nikhil's social links
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const socialLinks = document.querySelectorAll('#nikhilCard .social-link');
+                            
+                            // Initial entrance animation with stagger
+                            gsap.from(socialLinks, {
+                                scale: 0,
+                                opacity: 0,
+                                rotation: -180,
+                                y: 50,
+                                duration: 0.8,
+                                stagger: 0.1,
+                                ease: "back.out(1.7)",
+                                delay: 1.3
+                            });
+
+                            socialLinks.forEach((link, index) => {
+                                // Magnetic effect
+                                link.addEventListener('mousemove', (e) => {
+                                    const rect = link.getBoundingClientRect();
+                                    const x = e.clientX - rect.left - rect.width / 2;
+                                    const y = e.clientY - rect.top - rect.height / 2;
+                                    
+                                    gsap.to(link, {
+                                        x: x * 0.3,
+                                        y: y * 0.3,
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                link.addEventListener('mouseleave', () => {
+                                    gsap.to(link, {
+                                        x: 0,
+                                        y: 0,
+                                        duration: 0.5,
+                                        ease: "elastic.out(1, 0.5)"
+                                    });
+                                });
+
+                                // Hover animation sequence
+                                link.addEventListener('mouseenter', function() {
+                                    const icon = this.querySelector('i');
+                                    const bg = this.querySelector('.social-bg');
+                                    
+                                    // Icon animation
+                                    gsap.to(icon, {
+                                        scale: 1.3,
+                                        rotation: 360,
+                                        duration: 0.6,
+                                        ease: "back.out(1.7)"
+                                    });
+
+                                    // Background fade in
+                                    gsap.to(bg, {
+                                        opacity: 1,
+                                        scale: 1.1,
+                                        duration: 0.4,
+                                        ease: "power2.out"
+                                    });
+
+                                    // Create particle burst
+                                    createNikhilParticleBurst(this);
+
+                                    // Glow pulse
+                                    gsap.to(this, {
+                                        boxShadow: '0 0 30px rgba(0, 243, 255, 0.6), 0 0 60px rgba(157, 0, 255, 0.4)',
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                link.addEventListener('mouseleave', function() {
+                                    const icon = this.querySelector('i');
+                                    const bg = this.querySelector('.social-bg');
+                                    
+                                    // Reset icon
+                                    gsap.to(icon, {
+                                        scale: 1,
+                                        rotation: 0,
+                                        duration: 0.4,
+                                        ease: "back.out(1.7)"
+                                    });
+
+                                    // Reset background
+                                    gsap.to(bg, {
+                                        opacity: 0,
+                                        scale: 1,
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+
+                                    // Reset glow
+                                    gsap.to(this, {
+                                        boxShadow: '0 0 0px rgba(0, 243, 255, 0), 0 0 0px rgba(157, 0, 255, 0)',
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                // Click animation with ripple
+                                link.addEventListener('click', function(e) {
+                                    // Ripple effect
+                                    const ripple = document.createElement('div');
+                                    ripple.style.cssText = `
+                                        position: absolute;
+                                        inset: 0;
+                                        border-radius: 50%;
+                                        background: radial-gradient(circle, rgba(0, 243, 255, 0.6) 0%, transparent 70%);
+                                        pointer-events: none;
+                                        z-index: 2;
+                                    `;
+                                    this.appendChild(ripple);
+
+                                    gsap.to(ripple, {
+                                        scale: 2.5,
+                                        opacity: 0,
+                                        duration: 0.6,
+                                        ease: "power2.out",
+                                        onComplete: () => ripple.remove()
+                                    });
+
+                                    // Bounce animation
+                                    gsap.to(this, {
+                                        scale: 0.9,
+                                        duration: 0.1,
+                                        yoyo: true,
+                                        repeat: 1,
+                                        ease: "power2.inOut"
+                                    });
+
+                                    // Multiple particle bursts
+                                    createNikhilParticleBurst(this, 30);
+                                    setTimeout(() => createNikhilParticleBurst(this, 20), 100);
+                                });
+
+                                // Continuous subtle animation
+                                gsap.to(link, {
+                                    y: '-=8',
+                                    duration: 2 + index * 0.3,
+                                    repeat: -1,
+                                    yoyo: true,
+                                    ease: "sine.inOut",
+                                    delay: index * 0.2
+                                });
+                            });
+
+                            // Create particle burst for social links
+                            function createNikhilParticleBurst(element, count = 15) {
+                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                                
+                                const rect = element.getBoundingClientRect();
+                                const centerX = rect.left + rect.width / 2;
+                                const centerY = rect.top + rect.height / 2;
+                                
+                                const platform = element.getAttribute('data-platform');
+                                let colors = ['#00f3ff', '#9d00ff', '#ff00ff'];
+                                
+                                // Platform-specific colors
+                                if (platform === 'github') colors = ['#333', '#666', '#999'];
+                                if (platform === 'linkedin') colors = ['#0077B5', '#00a0dc', '#0e6396'];
+                                if (platform === 'instagram') colors = ['#E1306C', '#833AB4', '#FD1D1D'];
+                                if (platform === 'email') colors = ['#EA4335', '#FF6B6B', '#c5221f'];
+                                
+                                for (let i = 0; i < count; i++) {
+                                    const particle = document.createElement('div');
+                                    const size = Math.random() * 6 + 3;
+                                    const color = colors[Math.floor(Math.random() * colors.length)];
+                                    
+                                    particle.style.cssText = `
+                                        position: fixed;
+                                        width: ${size}px;
+                                        height: ${size}px;
+                                        border-radius: 50%;
+                                        background: ${color};
+                                        box-shadow: 0 0 10px ${color};
+                                        z-index: 1000;
+                                        pointer-events: none;
+                                        opacity: 1;
+                                    `;
+                                    
+                                    document.body.appendChild(particle);
+                                    
+                                    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+                                    const velocity = Math.random() * 100 + 80;
+                                    const distance = velocity * (Math.random() * 0.5 + 0.5);
+                                    
+                                    gsap.set(particle, {
+                                        x: centerX,
+                                        y: centerY
+                                    });
+                                    
+                                    gsap.to(particle, {
+                                        x: centerX + Math.cos(angle) * distance,
+                                        y: centerY + Math.sin(angle) * distance,
+                                        opacity: 0,
+                                        scale: 0,
+                                        rotation: Math.random() * 360,
+                                        duration: Math.random() * 0.8 + 0.6,
+                                        ease: "power2.out",
+                                        onComplete: () => particle.remove()
+                                    });
+                                }
+                            }
+
+                            // Scroll-triggered animation
+                            ScrollTrigger.create({
+                                trigger: '#nikhilCard',
+                                start: 'top 80%',
+                                onEnter: () => {
+                                    socialLinks.forEach((link, i) => {
+                                        gsap.from(link, {
+                                            scale: 0,
+                                            rotation: 720,
+                                            opacity: 0,
+                                            duration: 1,
+                                            delay: i * 0.1,
+                                            ease: "elastic.out(1, 0.5)"
+                                        });
+                                    });
+                                },
+                                once: true
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 
-            <!-- Back Link -->
-            <div style="text-align: center; margin-top: 6rem;">
-                <a href="chemical.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Main Platform
-                </a>
+            <!-- Parth -->
+            <div class="member-card" id="parthCard">
+                <div class="card-inner">
+                    <div class="avatar-container">
+                        <div class="avatar-frame"></div>
+                        <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" 
+                             alt="Parth Dahifale" 
+                             class="member-avatar">
+                    </div>
+
+                    <div class="member-info">
+                        <h2 class="member-name">PARTH DAHIFALE</h2>
+                        <div class="member-role">FRONTEND & PYTHON DEVELOPER</div>
+                        <div class="member-college">VIT, PUNE</div>
+                        <p class="member-bio">
+                            Creating intuitive user interfaces with focus on responsive design, 
+                            performance optimization, and Python backend integration.
+                        </p>
+                    </div>
+
+                    <div class="skills-container">
+                        <div class="skill-tag">Frontend Development</div>
+                        <div class="skill-tag">Python Programming</div>
+                        <div class="skill-tag">UI/UX Design</div>
+                        <div class="skill-tag">React.js</div>
+                        <div class="skill-tag">Data Visualization</div>
+                        <div class="skill-tag">API Integration</div>
+                    </div>
+
+                    <div class="social-links">
+                        <!-- GitHub -->
+                        <a href="https://github.com/" target="_blank" class="social-link github-link" title="GitHub" data-platform="github">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-github"></i>
+                            <span class="social-tooltip">GitHub</span>
+                        </a>
+                        
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/" target="_blank" class="social-link linkedin-link" title="LinkedIn" data-platform="linkedin">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-linkedin-in"></i>
+                            <span class="social-tooltip">LinkedIn</span>
+                        </a>
+                        
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/" target="_blank" class="social-link instagram-link" title="Instagram" data-platform="instagram">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fab fa-instagram"></i>
+                            <span class="social-tooltip">Instagram</span>
+                        </a>
+                        
+                        <!-- Email -->
+                        <a href="mailto:parth.dahifale@quantumchem.io?subject=QuantumChem%20Project&body=Hi%20Parth,%20I%20would%20like%20to%20discuss%20about%20QuantumChem%20project." 
+                           class="social-link email-link" title="Email" data-platform="email">
+                            <div class="social-bg"></div>
+                            <div class="social-particles"></div>
+                            <i class="fas fa-envelope"></i>
+                            <span class="social-tooltip">Email</span>
+                        </a>
+                    </div>
+
+                    <style>
+                        /* Enhanced Social Links Styling */
+                        .social-links {
+                            position: relative;
+                            z-index: 10;
+                        }
+
+                        .social-link {
+                            position: relative;
+                            width: 56px;
+                            height: 56px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: rgba(255, 255, 255, 0.05);
+                            border: 2px solid rgba(255, 255, 255, 0.1);
+                            color: var(--text-secondary);
+                            font-size: 1.3rem;
+                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                            overflow: visible;
+                            opacity: 1 !important;
+                            visibility: visible !important;
+                            cursor: pointer;
+                        }
+
+                        .social-link i {
+                            position: relative;
+                            z-index: 3;
+                            opacity: 1 !important;
+                            visibility: visible !important;
+                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                        }
+
+                        /* Background layer for color transitions */
+                        .social-bg {
+                            position: absolute;
+                            inset: 0;
+                            border-radius: 50%;
+                            opacity: 0;
+                            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                            z-index: 1;
+                        }
+
+                        /* Particle container */
+                        .social-particles {
+                            position: absolute;
+                            inset: -20px;
+                            pointer-events: none;
+                            z-index: 0;
+                        }
+
+                        /* Tooltip styling */
+                        .social-tooltip {
+                            position: absolute;
+                            top: -35px;
+                            left: 50%;
+                            transform: translateX(-50%) translateY(-5px);
+                            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+                            color: white;
+                            padding: 6px 14px;
+                            border-radius: 8px;
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                            white-space: nowrap;
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                            pointer-events: none;
+                            letter-spacing: 0.5px;
+                            z-index: 100;
+                        }
+
+                        .social-tooltip::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -4px;
+                            left: 50%;
+                            transform: translateX(-50%) rotate(45deg);
+                            width: 8px;
+                            height: 8px;
+                            background: var(--accent-purple);
+                        }
+
+                        /* Platform-specific colors */
+                        .github-link .social-bg {
+                            background: linear-gradient(135deg, #333, #24292e);
+                        }
+
+                        .linkedin-link .social-bg {
+                            background: linear-gradient(135deg, #0077B5, #0e6396);
+                        }
+
+                        .instagram-link .social-bg {
+                            background: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+                        }
+
+                        .email-link .social-bg {
+                            background: linear-gradient(135deg, #EA4335, #c5221f);
+                        }
+
+                        /* Hover effects */
+                        .social-link:hover {
+                            transform: translateY(-8px) scale(1.15);
+                            border-color: transparent;
+                            box-shadow: 
+                                0 15px 35px rgba(0, 243, 255, 0.3),
+                                0 5px 15px rgba(157, 0, 255, 0.2),
+                                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                        }
+
+                        .social-link:hover .social-bg {
+                            opacity: 1;
+                        }
+
+                        .social-link:hover i {
+                            color: white;
+                            transform: scale(1.2) rotate(360deg);
+                        }
+
+                        .social-link:hover .social-tooltip {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateX(-50%) translateY(0);
+                        }
+
+                        /* Active state */
+                        .social-link:active {
+                            transform: translateY(-5px) scale(1.05);
+                        }
+
+                        /* Ripple effect on click */
+                        @keyframes ripple {
+                            0% {
+                                transform: scale(1);
+                                opacity: 0.6;
+                            }
+                            100% {
+                                transform: scale(2.5);
+                                opacity: 0;
+                            }
+                        }
+
+                        /* Glow pulse animation */
+                        @keyframes glow-pulse {
+                            0%, 100% {
+                                box-shadow: 
+                                    0 0 20px rgba(0, 243, 255, 0.3),
+                                    0 0 40px rgba(157, 0, 255, 0.2);
+                            }
+                            50% {
+                                box-shadow: 
+                                    0 0 30px rgba(0, 243, 255, 0.5),
+                                    0 0 60px rgba(157, 0, 255, 0.3);
+                            }
+                        }
+
+                        /* Floating animation for idle state */
+                        @keyframes float-social {
+                            0%, 100% {
+                                transform: translateY(0);
+                            }
+                            50% {
+                                transform: translateY(-5px);
+                            }
+                        }
+
+                        /* Apply subtle float to each link with stagger */
+                        .social-link:nth-child(1) {
+                            animation: float-social 3s ease-in-out infinite;
+                            animation-delay: 0s;
+                        }
+
+                        .social-link:nth-child(2) {
+                            animation: float-social 3s ease-in-out infinite;
+                            animation-delay: 0.2s;
+                        }
+
+                        .social-link:nth-child(3) {
+                            animation: float-social 3s ease-in-out infinite;
+                            animation-delay: 0.4s;
+                        }
+
+                        .social-link:nth-child(4) {
+                            animation: float-social 3s ease-in-out infinite;
+                            animation-delay: 0.6s;
+                        }
+
+                        /* Magnetic effect helper */
+                        .social-link::before {
+                            content: '';
+                            position: absolute;
+                            inset: -2px;
+                            border-radius: 50%;
+                            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+                            opacity: 0;
+                            transition: opacity 0.4s;
+                            z-index: 0;
+                            animation: rotate 3s linear infinite;
+                        }
+
+                        .social-link:hover::before {
+                            opacity: 0.6;
+                        }
+
+                        /* Responsive adjustments */
+                        @media (max-width: 768px) {
+                            .social-link {
+                                width: 50px;
+                                height: 50px;
+                                font-size: 1.1rem;
+                            }
+
+                            .social-link:hover {
+                                transform: translateY(-5px) scale(1.1);
+                            }
+                        }
+
+                        /* Disable animations for reduced motion */
+                        @media (prefers-reduced-motion: reduce) {
+                            .social-link,
+                            .social-link:nth-child(1),
+                            .social-link:nth-child(2),
+                            .social-link:nth-child(3),
+                            .social-link:nth-child(4) {
+                                animation: none !important;
+                            }
+
+                            .social-link::before {
+                                animation: none !important;
+                            }
+                        }
+                    </style>
+
+                    <script>
+                        // Enhanced GSAP animations for social links
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const socialLinks = document.querySelectorAll('#parthCard .social-link');
+                            
+                            // Initial entrance animation with stagger
+                            gsap.from(socialLinks, {
+                                scale: 0,
+                                opacity: 0,
+                                rotation: -180,
+                                y: 50,
+                                duration: 0.8,
+                                stagger: 0.1,
+                                ease: "back.out(1.7)",
+                                delay: 1.5
+                            });
+
+                            socialLinks.forEach((link, index) => {
+                                // Magnetic effect
+                                link.addEventListener('mousemove', (e) => {
+                                    const rect = link.getBoundingClientRect();
+                                    const x = e.clientX - rect.left - rect.width / 2;
+                                    const y = e.clientY - rect.top - rect.height / 2;
+                                    
+                                    gsap.to(link, {
+                                        x: x * 0.3,
+                                        y: y * 0.3,
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                link.addEventListener('mouseleave', () => {
+                                    gsap.to(link, {
+                                        x: 0,
+                                        y: 0,
+                                        duration: 0.5,
+                                        ease: "elastic.out(1, 0.5)"
+                                    });
+                                });
+
+                                // Hover animation sequence
+                                link.addEventListener('mouseenter', function() {
+                                    const icon = this.querySelector('i');
+                                    const bg = this.querySelector('.social-bg');
+                                    
+                                    // Icon animation
+                                    gsap.to(icon, {
+                                        scale: 1.3,
+                                        rotation: 360,
+                                        duration: 0.6,
+                                        ease: "back.out(1.7)"
+                                    });
+
+                                    // Background fade in
+                                    gsap.to(bg, {
+                                        opacity: 1,
+                                        scale: 1.1,
+                                        duration: 0.4,
+                                        ease: "power2.out"
+                                    });
+
+                                    // Create particle burst
+                                    createSocialParticleBurst(this);
+
+                                    // Glow pulse
+                                    gsap.to(this, {
+                                        boxShadow: '0 0 30px rgba(0, 243, 255, 0.6), 0 0 60px rgba(157, 0, 255, 0.4)',
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                link.addEventListener('mouseleave', function() {
+                                    const icon = this.querySelector('i');
+                                    const bg = this.querySelector('.social-bg');
+                                    
+                                    // Reset icon
+                                    gsap.to(icon, {
+                                        scale: 1,
+                                        rotation: 0,
+                                        duration: 0.4,
+                                        ease: "back.out(1.7)"
+                                    });
+
+                                    // Reset background
+                                    gsap.to(bg, {
+                                        opacity: 0,
+                                        scale: 1,
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+
+                                    // Reset glow
+                                    gsap.to(this, {
+                                        boxShadow: '0 0 0px rgba(0, 243, 255, 0), 0 0 0px rgba(157, 0, 255, 0)',
+                                        duration: 0.3,
+                                        ease: "power2.out"
+                                    });
+                                });
+
+                                // Click animation with ripple
+                                link.addEventListener('click', function(e) {
+                                    // Ripple effect
+                                    const ripple = document.createElement('div');
+                                    ripple.style.cssText = `
+                                        position: absolute;
+                                        inset: 0;
+                                        border-radius: 50%;
+                                        background: radial-gradient(circle, rgba(0, 243, 255, 0.6) 0%, transparent 70%);
+                                        pointer-events: none;
+                                        z-index: 2;
+                                    `;
+                                    this.appendChild(ripple);
+
+                                    gsap.to(ripple, {
+                                        scale: 2.5,
+                                        opacity: 0,
+                                        duration: 0.6,
+                                        ease: "power2.out",
+                                        onComplete: () => ripple.remove()
+                                    });
+
+                                    // Bounce animation
+                                    gsap.to(this, {
+                                        scale: 0.9,
+                                        duration: 0.1,
+                                        yoyo: true,
+                                        repeat: 1,
+                                        ease: "power2.inOut"
+                                    });
+
+                                    // Multiple particle bursts
+                                    createSocialParticleBurst(this, 30);
+                                    setTimeout(() => createSocialParticleBurst(this, 20), 100);
+                                });
+
+                                // Continuous subtle animation
+                                gsap.to(link, {
+                                    y: '-=8',
+                                    duration: 2 + index * 0.3,
+                                    repeat: -1,
+                                    yoyo: true,
+                                    ease: "sine.inOut",
+                                    delay: index * 0.2
+                                });
+
+                                // Rotating border gradient
+                                const borderGradient = link.querySelector('::before');
+                                gsap.to(link, {
+                                    '--rotation': '360deg',
+                                    duration: 4,
+                                    repeat: -1,
+                                    ease: "none"
+                                });
+                            });
+
+                            // Create particle burst for social links
+                            function createSocialParticleBurst(element, count = 15) {
+                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                                
+                                const rect = element.getBoundingClientRect();
+                                const centerX = rect.left + rect.width / 2;
+                                const centerY = rect.top + rect.height / 2;
+                                
+                                const platform = element.getAttribute('data-platform');
+                                let colors = ['#00f3ff', '#9d00ff', '#ff00ff'];
+                                
+                                // Platform-specific colors
+                                if (platform === 'github') colors = ['#333', '#666', '#999'];
+                                if (platform === 'linkedin') colors = ['#0077B5', '#00a0dc', '#0e6396'];
+                                if (platform === 'instagram') colors = ['#E1306C', '#833AB4', '#FD1D1D'];
+                                if (platform === 'email') colors = ['#EA4335', '#FF6B6B', '#c5221f'];
+                                
+                                for (let i = 0; i < count; i++) {
+                                    const particle = document.createElement('div');
+                                    const size = Math.random() * 6 + 3;
+                                    const color = colors[Math.floor(Math.random() * colors.length)];
+                                    
+                                    particle.style.cssText = `
+                                        position: fixed;
+                                        width: ${size}px;
+                                        height: ${size}px;
+                                        border-radius: 50%;
+                                        background: ${color};
+                                        box-shadow: 0 0 10px ${color};
+                                        z-index: 1000;
+                                        pointer-events: none;
+                                        opacity: 1;
+                                    `;
+                                    
+                                    document.body.appendChild(particle);
+                                    
+                                    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+                                    const velocity = Math.random() * 100 + 80;
+                                    const distance = velocity * (Math.random() * 0.5 + 0.5);
+                                    
+                                    gsap.set(particle, {
+                                        x: centerX,
+                                        y: centerY
+                                    });
+                                    
+                                    gsap.to(particle, {
+                                        x: centerX + Math.cos(angle) * distance,
+                                        y: centerY + Math.sin(angle) * distance,
+                                        opacity: 0,
+                                        scale: 0,
+                                        rotation: Math.random() * 360,
+                                        duration: Math.random() * 0.8 + 0.6,
+                                        ease: "power2.out",
+                                        onComplete: () => particle.remove()
+                                    });
+                                }
+                            }
+
+                            // Scroll-triggered animation
+                            ScrollTrigger.create({
+                                trigger: '#parthCard',
+                                start: 'top 80%',
+                                onEnter: () => {
+                                    socialLinks.forEach((link, i) => {
+                                        gsap.from(link, {
+                                            scale: 0,
+                                            rotation: 720,
+                                            opacity: 0,
+                                            duration: 1,
+                                            delay: i * 0.1,
+                                            ease: "elastic.out(1, 0.5)"
+                                        });
+                                    });
+                                },
+                                once: true
+                            });
+                        });
+                    </script>
+                </div>
             </div>
         </div>
-    </section>
+
+        <!-- Back to Main -->
+        <div class="back-container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                RETURN TO MAIN PLATFORM
+            </a>
+        </div>
+
+        <!-- Enhanced Footer -->
+        <footer class="quantum-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
+                </div>
+                
+                <nav class="footer-nav">
+                    <a href="index.html" class="footer-nav-link">Home</a>
+                    <a href="sources.html" class="footer-nav-link">Sources</a>
+                    <a href="documentation.html" class="footer-nav-link">Documentation</a>
+                    <a href="acknowledgement.html" class="footer-nav-link">Acknowledgement</a>
+                    <a href="chemical.html" class="footer-nav-link">Laboratory</a>
+                </nav>
+                
+                <div class="footer-info">
+                    <div class="copyright">QUANTUMCHEM © 2026</div>
+                    <div class="footer-text">ARCHITECTING THE FUTURE OF DIGITAL SOLUTIONS</div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+        // Register GSAP Plugins
+        gsap.registerPlugin(ScrollTrigger);
 
-        // Quantum Text Animation
-        const quantumText = document.getElementById('quantumText');
-        gsap.from(quantumText, {
-            duration: 2,
-            text: "",
-            ease: "power2.inOut",
-            onComplete: () => {
-                gsap.to(quantumText, {
-                    duration: 3,
-                    scale: 1.1,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "power1.inOut"
-                });
-            }
-        });
+        // Global Variables
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let cursorRingX = 0;
+        let cursorRingY = 0;
+        let isMobile = window.innerWidth <= 768;
+        let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = `${Math.random() * 10 + 2}px`;
-                particle.style.height = particle.style.width;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, 255, ${Math.random() * 0.5 + 0.2})`;
-                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(particle);
-            }
-        }
+        // Quantum Loader Animation
+        function initLoader() {
+            const loader = document.getElementById('quantumLoader');
+            const loaderNumber = document.getElementById('loaderNumber');
+            const mainContainer = document.getElementById('quantumContainer');
 
-        // Animate team cards on scroll
-        gsap.utils.toArray('.team-card').forEach((card, i) => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                },
-                y: 100,
-                opacity: 0,
+            // Animate loader text
+            gsap.to('.loader-text', {
+                opacity: 1,
+                duration: 1.5,
+                delay: 0.5,
+                ease: "power2.out"
+            });
+
+            gsap.to('.loader-subtext', {
+                opacity: 1,
                 duration: 1,
-                delay: i * 0.2,
+                delay: 1,
+                ease: "power2.out"
+            });
+
+            gsap.to('.loader-logo', {
+                scale: 1,
+                rotation: 360,
+                duration: 2,
+                delay: 0.3,
                 ease: "back.out(1.7)"
             });
-        });
 
-      
-        // Achievement counters animation
-        gsap.utils.toArray('.achievement-number').forEach(number => {
-            const target = parseInt(number.textContent);
-            const obj = { value: 0 };
-            
-            ScrollTrigger.create({
-                trigger: number,
-                start: "top 80%",
-                onEnter: () => {
-                    gsap.to(obj, {
-                        value: target,
-                        duration: 2,
+            // Count from 10 to 100 with dynamic speed
+            let count = 10;
+            let speed = 30;
+            const countInterval = setInterval(() => {
+                count++;
+                loaderNumber.textContent = count;
+                
+                // Gradually slow down
+                if (count < 30) speed = 25;
+                else if (count < 50) speed = 35;
+                else if (count < 70) speed = 45;
+                else if (count < 90) speed = 60;
+                else speed = 80;
+                
+                // Particle burst on milestones
+                if (count % 10 === 0) {
+                    createNumberParticleBurst(count);
+                    gsap.to(loaderNumber, {
+                        scale: 1.2,
+                        duration: 0.3,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: "power2.out"
+                    });
+                }
+                
+                if (count >= 100) {
+                    clearInterval(countInterval);
+                    
+                    // Final animation sequence
+                    gsap.to(loaderNumber, {
+                        scale: 1.5,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.in"
+                    });
+                    
+                    gsap.to('.loader-text', {
+                        opacity: 0,
+                        y: -20,
+                        duration: 0.5,
+                        ease: "power2.in"
+                    });
+                    
+                    gsap.to('.loader-subtext', {
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "power2.in"
+                    });
+                    
+                    gsap.to('.loader-logo', {
+                        scale: 0,
+                        rotation: 720,
+                        duration: 0.8,
+                        ease: "power2.in"
+                    });
+                    
+                    // Hide loader and show main content
+                    gsap.to(loader, {
+                        opacity: 0,
+                        duration: 0.8,
+                        delay: 0.3,
                         ease: "power2.out",
-                        onUpdate: () => {
-                            number.textContent = Math.floor(obj.value) + (number.textContent.includes('+') ? '+' : '');
+                        onComplete: () => {
+                            loader.style.display = 'none';
+                            initMainContent();
                         }
                     });
                 }
-            });
-        });
+            }, speed);
 
-        // Tech icons hover animation
-        gsap.utils.toArray('.tech-icon').forEach(icon => {
-            icon.addEventListener('mouseenter', () => {
-                gsap.to(icon, {
-                    rotation: 360,
-                    duration: 0.5,
-                    ease: "back.out(1.7)"
-                });
-            });
-            
-            icon.addEventListener('mouseleave', () => {
-                gsap.to(icon, {
-                    rotation: 0,
-                    duration: 0.5,
-                    ease: "back.out(1.7)"
-                });
-            });
-        });
-
-        // Social links animation
-        gsap.utils.toArray('.social-link').forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                gsap.to(link, {
-                    scale: 1.2,
-                    rotation: 10,
-                    duration: 0.3,
-                    ease: "back.out(1.7)"
-                });
-            });
-            
-            link.addEventListener('mouseleave', () => {
-                gsap.to(link, {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 0.3,
-                    ease: "back.out(1.7)"
-                });
-            });
-        });
-
-        // Background pulse animation
-        gsap.to('body', {
-            backgroundPosition: '0% 0%',
-            backgroundSize: '400% 400%',
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-       
-
-        // Skill tags animation
-        gsap.utils.toArray('.skill-tag').forEach((tag, i) => {
-            gsap.from(tag, {
-                scrollTrigger: {
-                    trigger: tag,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                scale: 0,
-                rotation: 180,
-                duration: 0.5,
-                delay: i * 0.1,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        // Member images animation
-        gsap.utils.toArray('.member-image').forEach((image, i) => {
-            gsap.from(image, {
-                scrollTrigger: {
-                    trigger: image,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                },
-                scale: 0,
-                rotation: 360,
+            // Show number
+            gsap.to(loaderNumber, {
+                opacity: 1,
                 duration: 1,
-                delay: i * 0.2,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        // Page entrance animation
-        gsap.from('body', {
-            opacity: 0,
-            duration: 1,
-            ease: "power2.inOut"
-        });
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            
-            // Add floating animation to team cards
-            gsap.utils.toArray('.team-card').forEach(card => {
-                gsap.to(card, {
-                    y: -10,
-                    duration: 2,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: Math.random() * 2
-                });
-            });
-        });
-
-        // Mouse follower effect
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            gsap.to('.team-hero', {
-                backgroundPosition: `${x * 100}% ${y * 100}%`,
-                duration: 0.5,
+                delay: 1.2,
                 ease: "power2.out"
             });
-        });
+        }
 
-        // Add hologram effect to team cards on hover
-        document.querySelectorAll('.team-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.classList.add('hologram-effect');
+        // Create particle burst for number milestones
+        function createNumberParticleBurst(number) {
+            if (prefersReducedMotion) return;
+            
+            const loaderNumber = document.getElementById('loaderNumber');
+            const rect = loaderNumber.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Create particles
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    background: linear-gradient(45deg, #00f3ff, #9d00ff);
+                    z-index: 10001;
+                    opacity: 1;
+                    filter: blur(1px);
+                    pointer-events: none;
+                `;
+                
+                // Start from center
+                gsap.set(particle, {
+                    x: centerX,
+                    y: centerY
+                });
+                
+                document.body.appendChild(particle);
+                
+                // Burst animation
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 80 + 40;
+                const duration = Math.random() * 0.8 + 0.4;
+                
+                gsap.to(particle, {
+                    x: `+=${Math.cos(angle) * distance}`,
+                    y: `+=${Math.sin(angle) * distance}`,
+                    opacity: 0,
+                    scale: 0,
+                    duration: duration,
+                    ease: "power2.out",
+                    onComplete: () => particle.remove()
+                });
+            }
+        }
+
+        // Initialize main content
+        function initMainContent() {
+            const container = document.getElementById('quantumContainer');
+            
+            // Show main container
+            gsap.to(container, {
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            // Animate header
+            const headerTitle = document.getElementById('headerTitle');
+            const headerSubtitle = document.getElementById('headerSubtitle');
+            
+            gsap.to(headerTitle, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                delay: 0.3,
+                ease: "back.out(1.7)"
             });
             
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('hologram-effect');
+            gsap.to(headerSubtitle, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.6,
+                ease: "power2.out"
             });
+
+            // Animate logo circles
+            const circles = document.querySelectorAll('.logo-circle');
+            circles.forEach((circle, i) => {
+                gsap.from(circle, {
+                    scale: 0,
+                    rotation: 180,
+                    duration: 1,
+                    delay: 0.4 + i * 0.2,
+                    ease: "back.out(1.7)"
+                });
+            });
+
+            // Initialize floating particles
+            initFloatingParticles();
+            
+            // Initialize cursor
+            if (!isMobile && !prefersReducedMotion) initCursor();
+            
+            // Animate cards
+            animateCards();
+            
+            // Initialize interactions
+            initInteractions();
+            
+            // Animate back link
+            gsap.from('.back-link', {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 2,
+                ease: "back.out(1.7)"
+            });
+            
+            // Animate footer
+            gsap.from('.footer-logo', {
+                scale: 0,
+                rotation: 360,
+                duration: 1.2,
+                delay: 2.2,
+                ease: "back.out(1.7)"
+            });
+            
+            gsap.from('.footer-nav', {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                delay: 2.4,
+                ease: "power2.out"
+            });
+            
+            gsap.from('.footer-info', {
+                opacity: 0,
+                y: 20,
+                duration: 1,
+                delay: 2.6,
+                ease: "power2.out"
+            });
+        }
+
+        // Initialize floating particles
+        function initFloatingParticles() {
+            if (prefersReducedMotion) return;
+            
+            const particlesContainer = document.getElementById('floatingParticles');
+            const particleCount = isMobile ? 40 : 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 4 + 1;
+                const colors = ['#00f3ff', '#9d00ff', '#ff00ff', '#00ffea'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Animate appearance
+                gsap.to(particle, {
+                    opacity: Math.random() * 0.3 + 0.1,
+                    duration: Math.random() * 2 + 1,
+                    delay: Math.random() * 2,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        // Floating animation
+                        gsap.to(particle, {
+                            y: `+=${Math.random() * 100 - 50}`,
+                            x: `+=${Math.random() * 100 - 50}`,
+                            duration: Math.random() * 15 + 10,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "sine.inOut"
+                        });
+                    }
+                });
+            }
+        }
+
+        // Initialize custom cursor
+        function initCursor() {
+            const cursor = document.querySelector('.cursor');
+            const cursorRing = document.querySelector('.cursor-ring');
+            
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            // Smooth cursor animation
+            function updateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                
+                cursorRingX += (mouseX - cursorRingX) * 0.05;
+                cursorRingY += (mouseY - cursorRingY) * 0.05;
+                
+                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                cursorRing.style.transform = `translate(${cursorRingX}px, ${cursorRingY}px)`;
+                
+                requestAnimationFrame(updateCursor);
+            }
+            
+            updateCursor();
+            
+            // Cursor hover effects
+            const hoverElements = document.querySelectorAll('.member-card, .skill-tag, .social-link, .back-link, .footer-nav-link');
+            
+            hoverElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    gsap.to(cursor, {
+                        scale: 2,
+                        backgroundColor: '#ff00ff',
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                    
+                    gsap.to(cursorRing, {
+                        scale: 1.8,
+                        borderColor: '#ff00ff',
+                        borderWidth: '1px',
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                    
+                    // Element specific effects
+                    if (element.classList.contains('member-card')) {
+                        gsap.to(element.querySelector('.card-inner'), {
+                            y: -15,
+                            scale: 1.03,
+                            duration: 0.4,
+                            ease: "back.out(1.7)"
+                        });
+                        
+                        // Avatar animation
+                        const avatar = element.querySelector('.member-avatar');
+                        gsap.to(avatar, {
+                            scale: 1.1,
+                            duration: 0.4,
+                            ease: "back.out(1.7)"
+                        });
+                    }
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    gsap.to(cursor, {
+                        scale: 1,
+                        backgroundColor: '#00f3ff',
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                    
+                    gsap.to(cursorRing, {
+                        scale: 1,
+                        borderColor: '#00f3ff',
+                        borderWidth: '2px',
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                    
+                    // Reset element effects
+                    if (element.classList.contains('member-card')) {
+                        gsap.to(element.querySelector('.card-inner'), {
+                            y: 0,
+                            scale: 1,
+                            duration: 0.4,
+                            ease: "back.out(1.7)"
+                        });
+                        
+                        const avatar = element.querySelector('.member-avatar');
+                        gsap.to(avatar, {
+                            scale: 1,
+                            duration: 0.4,
+                            ease: "back.out(1.7)"
+                        });
+                    }
+                });
+            });
+        }
+
+        // Animate cards with scroll trigger
+        function animateCards() {
+            const cards = gsap.utils.toArray('.member-card');
+            
+            cards.forEach((card, index) => {
+                // Initial state
+                gsap.set(card, {
+                    opacity: 0,
+                    y: 100,
+                    rotationX: 5,
+                    rotationY: index % 2 === 0 ? -3 : 3,
+                    scale: 0.9
+                });
+                
+                // Scroll trigger animation
+                ScrollTrigger.create({
+                    trigger: card,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    onEnter: () => animateCardEntrance(card, index),
+                    once: true
+                });
+                
+                // Continuous floating animation
+                if (!prefersReducedMotion) {
+                    gsap.to(card, {
+                        y: "-=15",
+                        duration: 3,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut",
+                        delay: Math.random() * 2
+                    });
+                }
+            });
+        }
+
+        // Animate individual card entrance
+        function animateCardEntrance(card, index) {
+            const timeline = gsap.timeline({
+                defaults: { ease: "back.out(1.7)" }
+            });
+            
+            timeline
+                .to(card, {
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: index * 0.3
+                })
+                .to(card, {
+                    y: 0,
+                    rotationX: 0,
+                    rotationY: 0,
+                    scale: 1,
+                    duration: 1.2
+                }, "<");
+            
+            // Animate avatar frame
+            const avatarFrame = card.querySelector('.avatar-frame');
+            gsap.from(avatarFrame, {
+                scale: 0,
+                rotation: 360,
+                duration: 1.2,
+                delay: index * 0.3,
+                ease: "back.out(1.7)"
+            });
+            
+            // Animate avatar
+            const avatar = card.querySelector('.member-avatar');
+            gsap.from(avatar, {
+                scale: 0,
+                rotation: -180,
+                duration: 1,
+                delay: index * 0.3 + 0.2,
+                ease: "back.out(1.7)"
+            });
+            
+            // Animate name
+            const name = card.querySelector('.member-name');
+            gsap.from(name, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                delay: index * 0.3 + 0.4,
+                ease: "power2.out"
+            });
+            
+            // Animate skills
+            const skills = card.querySelectorAll('.skill-tag');
+            skills.forEach((skill, i) => {
+                gsap.from(skill, {
+                    opacity: 0,
+                    scale: 0,
+                    y: 20,
+                    rotation: Math.random() * 90 - 45,
+                    duration: 0.6,
+                    delay: index * 0.3 + 0.5 + i * 0.05,
+                    ease: "back.out(1.7)"
+                });
+            });
+            
+            // Animate social links - ENSURE THEY'RE VISIBLE
+            const socialLinks = card.querySelectorAll('.social-link');
+            socialLinks.forEach((link, i) => {
+                // Force initial visibility
+                gsap.set(link, {
+                    opacity: 1,
+                    visibility: 'visible'
+                });
+                
+                gsap.from(link, {
+                    opacity: 0,
+                    scale: 0,
+                    rotation: 360,
+                    duration: 0.8,
+                    delay: index * 0.3 + 0.7 + i * 0.1,
+                    ease: "back.out(1.7)",
+                    onComplete: () => {
+                        // Ensure they stay visible
+                        gsap.set(link, {
+                            opacity: 1,
+                            visibility: 'visible'
+                        });
+                    }
+                });
+            });
+            
+            // Create particle burst on card entrance
+            if (!prefersReducedMotion) {
+                createCardParticleBurst(card);
+            }
+        }
+
+        // Create particle burst for card entrance
+        function createCardParticleBurst(card) {
+            const rect = card.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: linear-gradient(45deg, #00f3ff, #9d00ff);
+                    z-index: 100;
+                    opacity: 1;
+                    filter: blur(1px);
+                    pointer-events: none;
+                `;
+                
+                gsap.set(particle, {
+                    x: centerX,
+                    y: centerY
+                });
+                
+                document.body.appendChild(particle);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 150 + 80;
+                const duration = Math.random() * 0.8 + 0.5;
+                
+                gsap.to(particle, {
+                    x: `+=${Math.cos(angle) * distance}`,
+                    y: `+=${Math.sin(angle) * distance}`,
+                    opacity: 0,
+                    scale: 0,
+                    duration: duration,
+                    ease: "power2.out",
+                    onComplete: () => particle.remove()
+                });
+            }
+        }
+
+        // Initialize interactions
+        function initInteractions() {
+            // Skill tag hover effects
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.addEventListener('mouseenter', () => {
+                    if (prefersReducedMotion) return;
+                    
+                    gsap.to(tag, {
+                        scale: 1.1,
+                        y: -5,
+                        backgroundColor: 'rgba(0, 243, 255, 0.2)',
+                        borderColor: 'rgba(0, 243, 255, 0.6)',
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                });
+                
+                tag.addEventListener('mouseleave', () => {
+                    if (prefersReducedMotion) return;
+                    
+                    gsap.to(tag, {
+                        scale: 1,
+                        y: 0,
+                        backgroundColor: 'rgba(0, 243, 255, 0.1)',
+                        borderColor: 'rgba(0, 243, 255, 0.3)',
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                });
+            });
+            
+            // Social link hover effects with platform colors
+            const socialLinks = document.querySelectorAll('.social-link');
+            socialLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    if (prefersReducedMotion) return;
+                    
+                    gsap.to(link, {
+                        scale: 1.2,
+                        y: -8,
+                        rotate: 360,
+                        duration: 0.5,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    // Platform specific colors
+                    const icon = link.querySelector('i');
+                    if (icon.classList.contains('fa-github')) {
+                        gsap.to(link, {
+                            backgroundColor: '#333',
+                            color: 'white',
+                            duration: 0.3
+                        });
+                    } else if (icon.classList.contains('fa-linkedin-in')) {
+                        gsap.to(link, {
+                            backgroundColor: '#0077B5',
+                            color: 'white',
+                            duration: 0.3
+                        });
+                    } else if (icon.classList.contains('fa-instagram')) {
+                        gsap.to(link, {
+                            background: 'linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D)',
+                            color: 'white',
+                            duration: 0.3
+                        });
+                    } else if (icon.classList.contains('fa-envelope')) {
+                        gsap.to(link, {
+                            backgroundColor: '#EA4335',
+                            color: 'white',
+                            duration: 0.3
+                        });
+                    }
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    if (prefersReducedMotion) return;
+                    
+                    gsap.to(link, {
+                        scale: 1,
+                        y: 0,
+                        rotate: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                });
+            });
+            
+            // Back link hover effect
+            const backLink = document.querySelector('.back-link');
+            backLink.addEventListener('mouseenter', () => {
+                gsap.to(backLink, {
+                    backgroundColor: 'rgba(0, 243, 255, 0.2)',
+                    borderColor: 'rgba(0, 243, 255, 0.5)',
+                    color: '#00f3ff',
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            backLink.addEventListener('mouseleave', () => {
+                gsap.to(backLink, {
+                    backgroundColor: 'rgba(0, 243, 255, 0.1)',
+                    borderColor: 'rgba(0, 243, 255, 0.3)',
+                    color: '#00f3ff',
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Footer nav link hover effects
+            const footerNavLinks = document.querySelectorAll('.footer-nav-link');
+            footerNavLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    gsap.to(link, {
+                        color: '#00f3ff',
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    gsap.to(link, {
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            });
+            
+            // Mobile touch interactions
+            if (isMobile) {
+                const cards = document.querySelectorAll('.member-card');
+                
+                cards.forEach(card => {
+                    let tapStartTime;
+                    
+                    card.addEventListener('touchstart', () => {
+                        tapStartTime = Date.now();
+                        
+                        gsap.to(card.querySelector('.card-inner'), {
+                            scale: 0.98,
+                            duration: 0.2,
+                            ease: "power2.out"
+                        });
+                    });
+                    
+                    card.addEventListener('touchend', () => {
+                        const tapDuration = Date.now() - tapStartTime;
+                        
+                        gsap.to(card.querySelector('.card-inner'), {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: "back.out(1.7)"
+                        });
+                    });
+                });
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
         });
 
-        // Text reveal animation for descriptions
-        gsap.utils.toArray('.member-desc').forEach(desc => {
-            gsap.from(desc, {
-                scrollTrigger: {
-                    trigger: desc,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                },
-                text: "",
-                duration: 2,
-                ease: "power2.inOut",
-                delay: 0.5
-            });
-        });
+        // Start everything
+        document.addEventListener('DOMContentLoaded', initLoader);
     </script>
 </body>
 </html>

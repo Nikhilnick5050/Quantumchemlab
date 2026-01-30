@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Chemistry Lab | Acknowledgements</title>
+    <title>QuantumChem | Acknowledgements</title>
     
     <!-- Meta Tags -->
-    <meta name="description" content="Acknowledgements for Quantum Chemistry Lab - Advanced Chemical Database Project">
-    <meta name="keywords" content="chemistry, laboratory, acknowledgements, research, team, PCCOE">
-    <meta name="author" content="Chemistry Research Team">
+    <meta name="description" content="Acknowledgements for QuantumChem - Advanced Chemical Database Platform">
+    <meta name="keywords" content="chemistry, database, acknowledgements, research, quantum chemistry, PCCOE">
+    <meta name="author" content="QuantumChem Team">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +18,10 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     
     <!-- Styles -->
     <style>
@@ -43,15 +45,21 @@
             --info: #0ea5e9;
             --purple: #8b5cf6;
             --pink: #ec4899;
+            --instagram: #E4405F;
+            --github: #333;
+            --facebook: #1877F2;
+            --youtube: #FF0000;
             
             /* Gradients */
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-glow: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
             
             /* Glass Effect */
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: blur(20px);
             
             /* Typography */
             --font-primary: 'Inter', sans-serif;
@@ -64,10 +72,11 @@
             --radius-lg: 20px;
             --radius-xl: 30px;
             
-            /* Transitions */
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
+            /* Shadows */
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.3);
         }
 
         html {
@@ -81,6 +90,23 @@
             color: #f8fafc;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -99,6 +125,12 @@
 
         h1 {
             font-size: clamp(2.5rem, 5vw, 4.5rem);
+            background: var(--gradient-glow);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradient-shift 8s ease infinite;
         }
 
         h2 {
@@ -114,11 +146,9 @@
             color: #cbd5e1;
         }
 
-        .gradient-text {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         /* ===== BUTTONS ===== */
@@ -132,33 +162,53 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: var(--transition-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             outline: none;
             position: relative;
             overflow: hidden;
             text-decoration: none;
+            isolation: isolate;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
             background: var(--gradient-accent);
             color: white;
+            box-shadow: var(--shadow-md);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
         }
 
         .btn-outline {
             background: transparent;
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .btn-outline:hover {
             border-color: var(--accent);
             background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
         }
 
         /* ===== HEADER ===== */
@@ -167,11 +217,17 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid var(--glass-border);
             z-index: 1000;
-            transition: var(--transition-normal);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(0);
+        }
+
+        .main-header.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: var(--shadow-md);
         }
 
         .navbar {
@@ -192,21 +248,23 @@
         .nav-brand i {
             font-size: 2rem;
             color: var(--accent);
-            animation: logoGlow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes logoGlow {
-            0%, 100% { filter: drop-shadow(0 0 5px var(--accent)); }
-            50% { filter: drop-shadow(0 0 15px var(--accent)); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         .logo-text h1 {
             font-size: 1.5rem;
             margin-bottom: 0.25rem;
-        }
-
-        .logo-text h1 span {
-            color: var(--accent);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: none;
         }
 
         .logo-subtitle {
@@ -218,7 +276,7 @@
         /* ===== HERO SECTION ===== */
         .hero-section {
             position: relative;
-            padding: 8rem 0 6rem;
+            padding: 10rem 0 8rem;
             overflow: hidden;
             background: var(--gradient-dark);
         }
@@ -234,6 +292,13 @@
             margin-bottom: 2rem;
             color: var(--accent-light);
             font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
         }
 
         .hero-title {
@@ -246,20 +311,56 @@
             max-width: 600px;
             margin-bottom: 3rem;
             color: #cbd5e1;
+            opacity: 0.9;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
         }
 
         /* ===== CONTENT SECTIONS ===== */
         .content-section {
-            padding: 6rem 0;
+            padding: 8rem 0;
+            position: relative;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 6rem;
         }
 
         .section-title {
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
         }
 
         .section-subtitle {
@@ -267,344 +368,387 @@
             color: #94a3b8;
             max-width: 600px;
             margin: 0 auto;
+            opacity: 0.8;
         }
 
-        /* ===== SPECIAL THANKS SECTION ===== */
-        .special-thanks-section {
-            background: var(--secondary);
-        }
-
-        .thanks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .thanks-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: var(--transition-normal);
+        /* ===== MENTOR SECTION ===== */
+        .mentor-section {
             position: relative;
             overflow: hidden;
         }
 
-        .thanks-card::before {
+        .mentor-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            backdrop-filter: var(--glass-blur);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mentor-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.05), transparent);
             transform: translateX(-100%);
-            transition: transform 0.6s ease;
+            transition: transform 0.8s ease;
         }
 
-        .thanks-card:hover::before {
+        .mentor-card:hover::before {
             transform: translateX(100%);
         }
 
-        .thanks-card:hover {
-            transform: translateY(-5px);
+        .mentor-card:hover {
+            transform: translateY(-10px) scale(1.01);
             border-color: var(--accent);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
         }
 
-        .thanks-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: var(--radius-md);
+        .mentor-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        .thanks-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        /* ===== TEAM SECTION ===== */
-        .team-section {
-            background: var(--primary);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
         }
 
-        .team-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: var(--transition-normal);
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .team-avatar {
-            width: 100px;
-            height: 100px;
+        .mentor-avatar {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--accent);
-            border: 3px solid rgba(59, 130, 246, 0.3);
+            border: 3px solid transparent;
+            background: var(--gradient-accent) border-box;
+            position: relative;
+            padding: 3px;
+            animation: rotate-gradient 4s linear infinite;
+            flex-shrink: 0;
         }
 
-        .team-name {
-            font-size: 1.5rem;
-            text-align: center;
+        @keyframes rotate-gradient {
+            0% { background: linear-gradient(0deg, var(--accent), var(--accent-light)) border-box; }
+            100% { background: linear-gradient(360deg, var(--accent), var(--accent-light)) border-box; }
+        }
+
+        .mentor-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mentor-avatar:hover img {
+            transform: scale(1.05);
+        }
+
+        .mentor-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .mentor-name {
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
             color: white;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
         }
 
-        .team-role {
-            color: var(--accent);
-            font-weight: 600;
-            text-align: center;
+        .mentor-title {
+            color: var(--accent-light);
+            font-size: 1.1rem;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .team-description {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .team-contact {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .contact-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: var(--radius-md);
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-decoration: none;
-            text-align: center;
-            transition: var(--transition-normal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            max-width: 120px;
-        }
-
-        .contact-btn.whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .contact-btn.phone {
-            background: var(--accent);
-            color: white;
-        }
-
-        .contact-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* ===== CONTACT SECTION ===== */
-        .contact-section {
-            background: var(--secondary);
-        }
-
-        .contact-grid {
+        .mentor-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
-        .contact-card {
-            background: var(--glass-bg);
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition-normal);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-card:hover {
-            transform: translateY(-5px);
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-item:hover::before {
+            opacity: 1;
+        }
+
+        .stat-item:hover {
             border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
-        .contact-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
+        .stat-label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 600;
             color: white;
         }
 
-        .contact-buttons {
+        .mentor-contact {
             display: flex;
             gap: 1rem;
-            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
 
-        .contact-buttons .btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        .contact-buttons .btn.whatsapp {
-            background: #25D366;
-        }
-
-        /* ===== GITHUB SECTION ===== */
-        .github-section {
-            background: var(--primary);
-        }
-
-        .github-title {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .github-subtitle {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 3rem;
-        }
-
-        .profiles-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .profile-card {
-            background: var(--glass-bg);
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-md);
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            text-align: center;
-            transition: var(--transition-normal);
+            transition: all 0.3s ease;
         }
 
-        .profile-card:hover {
-            transform: translateY(-10px);
+        .contact-info:hover {
             border-color: var(--accent);
+            transform: translateY(-3px);
+            background: rgba(59, 130, 246, 0.05);
         }
 
-        .profile-icon {
-            font-size: 3rem;
+        .contact-info i {
             color: var(--accent);
-            margin-bottom: 1rem;
         }
 
-        .profile-name {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: white;
+        .mentor-quote {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--accent);
+            position: relative;
         }
 
-        .profile-role {
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
+        .mentor-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.3;
+            font-family: serif;
         }
 
-        /* ===== FOOTER ===== */
+        .mentor-quote p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #e2e8f0;
+            line-height: 1.8;
+        }
+
+        /* ===== MODERN FOOTER ===== */
         .main-footer {
-            background: var(--secondary);
-            padding: 4rem 0 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 3rem 0 2rem;
             border-top: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.05));
+            pointer-events: none;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-brand i {
-            font-size: 2rem;
-            color: var(--accent);
-        }
-
-        .footer-description {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            line-height: 1.6;
+            position: relative;
+            z-index: 2;
         }
 
         .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .footer-column h4 {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
             color: white;
         }
 
-        .footer-column ul {
-            list-style: none;
+        .footer-links a:hover::after {
+            width: 100%;
         }
 
-        .footer-column li {
-            margin-bottom: 0.75rem;
+        .footer-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .footer-column a {
+        .footer-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            border-color: var(--accent);
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .footer-brand-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-brand-text p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #94a3b8;
             text-decoration: none;
-            transition: var(--transition-fast);
-            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .footer-column a:hover {
-            color: var(--accent);
-            padding-left: 0.5rem;
+        .social-icon:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
         }
 
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid var(--glass-border);
+        .instagram:hover {
+            background: var(--instagram);
+            color: white;
+        }
+
+        .github:hover {
+            background: var(--github);
+            color: white;
+        }
+
+        .facebook:hover {
+            background: var(--facebook);
+            color: white;
+        }
+
+        .youtube:hover {
+            background: var(--youtube);
+            color: white;
+        }
+
+        .copyright {
             text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .footer-bottom i {
-            color: #ef4444;
-            margin: 0 0.25rem;
+        .copyright p {
+            color: #64748b;
+            font-size: 0.85rem;
         }
 
         /* ===== BACK TO TOP ===== */
@@ -612,21 +756,22 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition-normal);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
             z-index: 100;
+            box-shadow: var(--shadow-md);
         }
 
         .back-to-top.visible {
@@ -635,18 +780,22 @@
         }
 
         .back-to-top:hover {
-            background: var(--accent-dark);
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
+            .footer-main {
+                flex-direction: column;
+                text-align: center;
             }
             
-            .footer-links {
+            .footer-logo-section {
+                justify-content: center;
+            }
+            
+            .mentor-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -657,42 +806,82 @@
             }
             
             .hero-section {
-                padding: 6rem 0 4rem;
+                padding: 8rem 0 6rem;
             }
             
             .content-section {
-                padding: 4rem 0;
+                padding: 6rem 0;
             }
             
-            .thanks-grid {
+            .mentor-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .mentor-avatar {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .mentor-stats {
                 grid-template-columns: 1fr;
             }
             
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .profiles-container {
-                grid-template-columns: 1fr;
+            .mentor-contact {
+                justify-content: center;
             }
             
             .footer-links {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+            
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+            
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mentor-card {
+                padding: 2rem;
+            }
+            
+            .mentor-name {
+                font-size: 1.8rem;
+            }
+            
+            .contact-info {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-links a {
+                font-size: 0.9rem;
+            }
+            
+            .footer-logo-section {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="particles" id="particles"></div>
+
     <!-- Header -->
     <header class="main-header" id="mainHeader">
         <div class="container">
@@ -702,13 +891,13 @@
                         <i class="fas fa-atom"></i>
                         <div class="logo-text">
                             <h1>Quantum<span>Chem</span></h1>
-                            <p class="logo-subtitle">Laboratory Database</p>
+                            <p class="logo-subtitle">Advanced Chemical Database</p>
                         </div>
                     </a>
                 </div>
                 
                 <div class="nav-actions">
-                    <a href="index.html" class="btn-outline">
+                    <a href="index.html" class="btn btn-outline">
                         <i class="fas fa-arrow-left"></i>
                         Back to Database
                     </a>
@@ -720,147 +909,149 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-heart"></i>
                     <span>With Gratitude</span>
                 </div>
                 
-                <h1 class="hero-title">
-                    <span class="gradient-text">Acknowledgements</span>
+                <h1 class="hero-title" id="mainTitle">
+                    Acknowledgements
                 </h1>
                 
-                <p class="hero-subtitle">
-                    Recognizing the contributions and support that made the Quantum Chemistry Lab possible
+                <p class="hero-subtitle" id="heroSubtitle">
+                    Expressing our sincere gratitude to all those who contributed to the success of QuantumChem
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Special Thanks Section -->
-    <section class="content-section special-thanks-section">
+    <!-- Mentor Section -->
+    <section class="content-section mentor-section">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Special Thanks</h2>
-                <p class="section-subtitle">For invaluable guidance</p>
+            <div class="section-header">
+                <h2 class="section-title">Our Esteemed Mentor</h2>
+                <p class="section-subtitle">Guiding light in our academic journey</p>
             </div>
             
-            <div class="thanks-grid">
-                <div class="thanks-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="thanks-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
+            <div class="mentor-card" id="mentorCard">
+                <div class="mentor-header">
+                    <div class="mentor-avatar">
+                        <img src="https://fe.pccoepune.com/images/faculty/Kharche.webp" 
+                             alt="Dr. Amol Kharche"
+                             onerror="this.src='https://media.licdn.com/dms/image/v2/D5603AQEau1VihGUzPA/profile-displayphoto-crop_800_800/B56ZgsJvGMHQAI-/0/1753087406943?e=1771459200&v=beta&t=4zRmp-UUp1dobGkh8z3mYtJkM7Rn9AMNEWBRJKib45I'">
                     </div>
-                    <h3 class="thanks-title">Dr. Amol Kharche</h3>
-                    <p style="color: #94a3b8;">
-                       We express our sincere and heartfelt gratitude to our Project Guide and Mentor, Dr. Amol Kharche, for the invaluable guidance, continuous support, and constant encouragement provided throughout the development of this project. His profound expertise in chemistry and strong command of quantum chemical principles played a crucial role in shaping the conceptual framework and technical direction of this work. His clear explanations of complex topics helped us strengthen our fundamentals and approach the subject with confidence and clarity. Through his constructive feedback and insightful suggestions, we were able to refine our methodology, improve accuracy, and enhance the overall quality of the project. His emphasis on scientific discipline, ethical research practices, and academic rigor ensured that this project met institutional and university standards. He consistently motivated us to think analytically, explore beyond conventional learning, and apply theoretical knowledge to practical and computational aspects of chemistry. His patience in addressing our doubts, guidance during challenges, and encouragement during critical phases of the project were instrumental in the successful completion of this project. This work stands as a reflection of his dedication to education, commitment to student development, and passion for chemistry, and we consider ourselves fortunate to have completed this project under his esteemed mentorship.
+                    
+                    <div class="mentor-info">
+                        <h2 class="mentor-name">Dr. Amol Kharche</h2>
+                        <p class="mentor-title">Assistant Professor | M.Sc., SET, Ph.D.</p>
+                        
+                        <div class="mentor-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Experience</span>
+                                <span class="stat-value">15+ Years</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Qualification</span>
+                                <span class="stat-value">Ph.D. Chemistry</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Specialization</span>
+                                <span class="stat-value">Organic Chemistry</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mentor-contact">
+                            <div class="contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <span>amol.kharche@pccoepune.org</span>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 9764265362</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mentor-quote">
+                    <p>
+                        "Dr. Amol Kharche has been an exceptional mentor and guide throughout our project journey. 
+                        His profound expertise in chemistry, coupled with his ability to explain complex quantum 
+                        chemical principles with clarity and precision, has been instrumental in shaping our 
+                        understanding and approach. His mentorship extended beyond academic guidance to instill 
+                        in us the values of scientific discipline, ethical research practices, and methodological 
+                        rigor. We are profoundly grateful for his continuous support, constructive feedback, 
+                        and unwavering encouragement at every stage of this project's development."
                     </p>
                 </div>
                 
-                
-        </div>
-    </section>
-
-    <!-- Project Team Section -->
-    <section class="content-section team-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Project Team</h2>
-                <p class="section-subtitle">The dedicated individuals behind this initiative</p>
-            </div>
-            
-           
-
-    <!-- GitHub Section -->
-    <section class="content-section github-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="github-title">Development Team</h2>
-                <p class="github-subtitle">Connect with the developers on GitHub</p>
-            </div>
-            
-            <div class="profiles-container">
-                <!-- Nikhil Shinde -->
-                <div class="profile-card" data-aos="zoom-in" data-aos-delay="100">
-                    <i class="fab fa-github profile-icon"></i>
-                    <h3 class="profile-name">Nikhil Shinde</h3>
-                    <p class="profile-role">Project Lead</p>
-                </div>
-                
-                <!-- Aniket Khope -->
-                <div class="profile-card" data-aos="zoom-in" data-aos-delay="200">
-                    <i class="fab fa-github profile-icon"></i>
-                    <h3 class="profile-name">Aniket Khope</h3>
-                    <p class="profile-role">Data Researcher</p>
-                </div>
-                
-                <!-- Om Malge -->
-                <div class="profile-card" data-aos="zoom-in" data-aos-delay="300">
-                    <i class="fab fa-github profile-icon"></i>
-                    <h3 class="profile-name">Om Malge</h3>
-                    <p class="profile-role">Frontend Developer</p>
-                </div>
-                
-                <!-- Piyush Waghmare -->
-                <div class="profile-card" data-aos="zoom-in" data-aos-delay="400">
-                    <i class="fab fa-github profile-icon"></i>
-                    <h3 class="profile-name">Piyush Waghmare</h3>
-                    <p class="profile-role">Content Specialist</p>
+                <div style="margin-top: 3rem;">
+                    <h3 style="color: var(--accent-light); margin-bottom: 1rem; font-size: 1.3rem;">
+                        Areas of Expertise
+                    </h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <span style="background: rgba(59, 130, 246, 0.1); color: var(--accent-light); padding: 0.5rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                            Organic Synthesis
+                        </span>
+                        <span style="background: rgba(59, 130, 246, 0.1); color: var(--accent-light); padding: 0.5rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                            Chemical Kinetics
+                        </span>
+                        <span style="background: rgba(59, 130, 246, 0.1); color: var(--accent-light); padding: 0.5rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                            Quantum Chemistry
+                        </span>
+                        <span style="background: rgba(59, 130, 246, 0.1); color: var(--accent-light); padding: 0.5rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.3s ease;">
+                            Research Methodology
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Modern Footer -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <i class="fas fa-atom"></i>
-                        <div class="logo-text">
-                            <h2>Quantum<span>Chem</span></h2>
-                            <p>Advanced Chemical Database</p>
+                <div class="footer-main">
+                    <div class="footer-logo-section">
+                        <a href="index.html" class="footer-logo">
+                            <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo">
+                        </a>
+                        <div class="footer-brand-text">
+                            <h3>QuantumChem</h3>
+                            <p>Advanced Chemical Database Platform</p>
                         </div>
-                    </a>
-                    <p class="footer-description">
-                        A comprehensive platform for chemical research, safety management, 
-                        and scientific collaboration developed by PCCOE Chemistry Research Team.
-                    </p>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/quantumchem25/?hl=en" target="_blank" class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://github.com/nikhilnick5050" target="_blank" class="social-icon github">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61585853281971" target="_blank" class="social-icon facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@Quantumchem-k6l" target="_blank" class="social-icon youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="index.html#Chemicals">Chemicals</a></li>
-                            <li><a href="acknowledgement.html">Acknowledgements</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="sources.html">Sources</a></li>
-                            <li><a href="acknowledgement.html">Acknowledgement</a></li>
-                            <li><a href="tutorials.html">Tutorials</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Team</h4>
-                        <ul>
-                            <li><a href="#team">Project Team</a></li>
-                            <li><a href="#contact">Contact Us</a></li>
-                            <li><a href="#github">GitHub Profiles</a></li>
-                        </ul>
-                    </div>
+                    <a href="index.html">Home</a>
+                    <a href="sources.html">Sources</a>
+                    <a href="documentation.html">Documentation</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="contact.html">Contact</a>
                 </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="currentYear"></span> QuantumChem. All rights reserved.</p>
+                </div>
             </div>
         </div>
     </footer>
@@ -871,50 +1062,238 @@
     </button>
 
     <!-- JavaScript -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Header scroll effect
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
+
+        // Hero section animation
+        gsap.from('.hero-badge', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.from('#mainTitle', {
+            duration: 1.2,
+            y: 50,
+            opacity: 0,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        gsap.from('#heroSubtitle', {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            delay: 0.6,
+            ease: 'power3.out'
+        });
+
+        // Mentor card animation with scroll trigger
+        gsap.from('#mentorCard', {
+            scrollTrigger: {
+                trigger: '#mentorCard',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            duration: 1.2,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        // Stat items animation
+        gsap.utils.toArray('.stat-item').forEach((item, i) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 90%'
+                },
+                duration: 0.8,
+                y: 30,
+                opacity: 0,
+                delay: i * 0.1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random color
+                const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#0ea5e9'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.4 + 0.1;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                gsap.to(particle, {
+                    y: '+=100',
+                    x: `+=${Math.random() * 100 - 50}`,
+                    duration: duration,
+                    delay: delay,
+                    repeat: -1,
+                    ease: 'none'
+                });
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
 
         // Back to Top functionality
         const backToTop = document.getElementById('backToTop');
         
-        if (backToTop) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+                gsap.to(backToTop, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            } else {
+                backToTop.classList.remove('visible');
+                gsap.to(backToTop, {
+                    scale: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            gsap.to(window, {
+                duration: 1.2,
+                scrollTo: 0,
+                ease: 'power3.inOut'
             });
-            
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+        });
+
+        // Hover effects for cards
+        const cards = document.querySelectorAll('.mentor-card, .stat-item, .contact-info, .social-icon');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.02,
+                    duration: 0.3,
+                    ease: 'power2.out'
                 });
             });
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
             });
+        });
+
+        // Footer links hover animation
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        footerLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(link, {
+                    y: -2,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                gsap.to(link, {
+                    y: 0,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Logo hover animation
+        const footerLogo = document.querySelector('.footer-logo');
+        footerLogo.addEventListener('mouseenter', () => {
+            gsap.to(footerLogo, {
+                rotation: 5,
+                scale: 1.05,
+                duration: 0.3,
+                ease: 'back.out(1.7)'
+            });
+        });
+        
+        footerLogo.addEventListener('mouseleave', () => {
+            gsap.to(footerLogo, {
+                rotation: 0,
+                scale: 1,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        // Text gradient animation
+        const gradientTitles = document.querySelectorAll('.mentor-name, .section-title');
+        gradientTitles.forEach(title => {
+            gsap.to(title, {
+                backgroundPosition: '100% 50%',
+                duration: 8,
+                repeat: -1,
+                ease: 'none',
+                yoyo: true
+            });
+        });
+
+        // Page load animation
+        gsap.from('body', {
+            duration: 1,
+            opacity: 0,
+            ease: 'power2.inOut'
+        });
+
+        // Footer entrance animation
+        gsap.from('.main-footer', {
+            scrollTrigger: {
+                trigger: '.main-footer',
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+            },
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out'
         });
     </script>
 </body>

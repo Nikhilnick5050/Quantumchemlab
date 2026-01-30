@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Chemistry Lab | Disclaimer</title>
+    <title>Disclaimer | QuantumChem</title>
     
     <!-- Meta Tags -->
-    <meta name="description" content="Disclaimer for Quantum Chemistry Lab - Advanced Chemical Database">
-    <meta name="keywords" content="chemistry, laboratory, disclaimer, legal, chemicals, safety">
-    <meta name="author" content="Chemistry Research Team">
+    <meta name="description" content="QuantumChem disclaimer. Chemical information for educational purposes only.">
+    <meta name="keywords" content="chemistry, chemical database, students, learning, safety, disclaimer">
+    <meta name="author" content="QuantumChem Team">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <!-- Styles -->
     <style>
-        /* ===== RESET & BASE STYLES ===== */
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -31,143 +28,46 @@
         }
 
         :root {
-            /* Color Palette */
             --primary: #0f172a;
             --secondary: #1e293b;
             --accent: #3b82f6;
-            --accent-light: #60a5fa;
-            --accent-dark: #1d4ed8;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --info: #0ea5e9;
             --success: #10b981;
+            --gray: #94a3b8;
+            --light: #f8fafc;
             
-            /* Gradients */
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
             
-            /* Glass Effect */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            
-            /* Typography */
-            --font-primary: 'Inter', sans-serif;
-            --font-secondary: 'Poppins', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            
-            /* Spacing */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 30px;
-            
-            /* Transitions */
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
+            --radius: 8px;
+            --transition: 0.3s ease;
         }
 
         body {
-            font-family: var(--font-primary);
+            font-family: var(--font-main);
             background: var(--primary);
-            color: #f8fafc;
+            color: var(--light);
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
+        /* ===== LAYOUT ===== */
         .container {
-            width: 100%;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* ===== TYPOGRAPHY ===== */
-        h1, h2, h3, h4 {
-            font-family: var(--font-secondary);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.5rem;
-        }
-
-        h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 1rem;
-        }
-
-        .gradient-text {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 0.875rem 1.75rem;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition-normal);
-            border: none;
-            outline: none;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
+            padding: 0 20px;
         }
 
         /* ===== HEADER ===== */
         .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
             background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
             z-index: 1000;
         }
 
@@ -175,139 +75,178 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 0;
         }
 
-        .nav-brand .logo {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 12px;
             text-decoration: none;
             color: white;
         }
 
-        .nav-brand i {
-            font-size: 2rem;
-            color: var(--accent);
-            animation: logoGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { filter: drop-shadow(0 0 5px var(--accent)); }
-            50% { filter: drop-shadow(0 0 15px var(--accent)); }
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            border: 2px solid var(--accent);
         }
 
         .logo-text h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
+            font-size: 20px;
+            font-weight: 600;
         }
 
-        .logo-text h1 span {
+        .logo-text span {
             color: var(--accent);
         }
 
         .logo-subtitle {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            letter-spacing: 1px;
+            font-size: 11px;
+            color: var(--gray);
+            margin-top: 2px;
         }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== BUTTON ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: white;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== HERO ===== */
         .hero-section {
-            padding: 10rem 0 6rem;
-            background: var(--gradient-dark);
-            position: relative;
-            overflow: hidden;
+            padding: 120px 0 40px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            text-align: center;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: var(--radius-xl);
-            padding: 0.5rem 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--accent-light);
-            font-size: 0.9rem;
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #60a5fa;
         }
 
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #cbd5e1;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        /* ===== CONTENT SECTIONS ===== */
+        /* ===== CONTENT ===== */
         .content-section {
-            padding: 6rem 0;
+            padding: 40px 0;
         }
 
-        .disclaimer-content {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 3rem;
-            margin-bottom: 3rem;
+        .content-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 30px;
         }
 
-        .warning-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 30px 0 15px;
+            color: white;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 10px;
+            color: white;
+        }
+
+        p {
+            font-size: 15px;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ===== HIGHLIGHT SECTIONS ===== */
+        .highlight {
+            padding: 20px;
+            border-radius: var(--radius);
+            margin: 25px 0;
+            background: rgba(239, 68, 68, 0.08);
             border-left: 4px solid var(--danger);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            margin: 2rem 0;
         }
 
-        .warning-box i {
-            color: var(--danger);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .highlight.warning {
+            background: rgba(239, 68, 68, 0.08);
+            border-left-color: var(--danger);
         }
 
-        .important-box {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-left: 4px solid var(--warning);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            margin: 2rem 0;
+        .highlight.important {
+            background: rgba(245, 158, 11, 0.08);
+            border-left-color: var(--warning);
         }
 
-        .important-box i {
-            color: var(--warning);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .highlight.info {
+            background: rgba(14, 165, 233, 0.08);
+            border-left-color: #0ea5e9;
         }
 
-        .info-box {
-            background: rgba(14, 165, 233, 0.1);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-left: 4px solid var(--info);
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            margin: 2rem 0;
+        .highlight.legal {
+            background: rgba(16, 185, 129, 0.08);
+            border-left-color: var(--success);
         }
 
-        .info-box i {
-            color: var(--info);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .highlight i {
+            margin-right: 10px;
+            font-size: 16px;
         }
 
         /* ===== TERMS LIST ===== */
         .terms-list {
-            margin: 2rem 0;
+            margin: 25px 0;
         }
 
         .term-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .term-item:last-child {
@@ -317,251 +256,218 @@
         }
 
         .term-number {
-            width: 36px;
-            height: 36px;
+            display: inline-block;
             background: rgba(59, 130, 246, 0.1);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: var(--accent);
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        /* ===== FOOTER ===== */
-        .main-footer {
-            background: var(--secondary);
-            padding: 4rem 0 2rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            color: white;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-brand i {
-            font-size: 2rem;
-            color: var(--accent);
-        }
-
-        .footer-description {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            line-height: 1.6;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .footer-column h4 {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: white;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-column a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: var(--transition-fast);
-            font-size: 0.9rem;
-        }
-
-        .footer-column a:hover {
-            color: var(--accent);
-            padding-left: 0.5rem;
-        }
-
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid var(--glass-border);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
             text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
+            line-height: 28px;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 14px;
         }
 
-        .footer-bottom i {
-            color: #ef4444;
-            margin: 0 0.25rem;
+        /* ===== ACTION BUTTONS ===== */
+        .action-buttons {
+            text-align: center;
+            margin-top: 40px;
         }
 
-        /* ===== BACK TO TOP ===== */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
+        .btn-primary {
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-normal);
+            padding: 12px 24px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* ===== CLEAN FOOTER ===== */
+        .main-footer {
+            background: var(--secondary);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-links {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            z-index: 100;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
         }
 
-        .back-to-top:hover {
-            background: var(--accent-dark);
-            transform: translateY(-5px);
+        .footer-links a:hover {
+            color: var(--accent);
         }
 
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .footer-links {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .copyright {
+            color: var(--gray);
+            font-size: 13px;
+            margin-top: 10px;
         }
 
+        .copyright i {
+            color: #ef4444;
+            margin: 0 3px;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .container {
-                padding: 0 1rem;
+                padding: 0 15px;
             }
+            
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            h3 { font-size: 17px; }
             
             .hero-section {
-                padding: 8rem 0 4rem;
+                padding: 100px 0 30px;
             }
             
-            .content-section {
-                padding: 4rem 0;
-            }
-            
-            .disclaimer-content {
-                padding: 2rem;
+            .content-card {
+                padding: 25px;
             }
             
             .footer-links {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 20px;
             }
             
-            .term-item {
+            .logo-img {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .logo-text h1 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 22px; }
+            h2 { font-size: 18px; }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .footer-links {
                 flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            
+            .hero-badge {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .hero-subtitle {
+                font-size: 14px;
             }
         }
     </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
     <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <a href="index.html" class="logo">
-                        <i class="fas fa-atom"></i>
-                        <div class="logo-text">
-                            <h1>Quantum<span>Chem</span></h1>
-                            <p class="logo-subtitle">Laboratory Database</p>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="nav-actions">
-                    <a href="index.html" class="btn-outline">
-                        <i class="fas fa-arrow-left"></i>
-                        Back to Database
-                    </a>
-                </div>
-            </nav>
-        </div>
-    </header>
+  <header class="main-header">
+  <div class="container">
+    <nav class="navbar">
 
-    <!-- Hero Section -->
+      <div class="nav-brand">
+        <a href="index.html" class="logo">
+          <img 
+            src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg"
+            alt="QuantumChem logo"
+            class="logo-img"
+          >
+          <div class="logo-text">
+            <h1>Quantum<span>Chem</span></h1>
+            <p class="logo-subtitle"></p>
+          </div>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn">
+          <i class="fas fa-arrow-left"></i>
+          Back
+        </a>
+      </div>
+
+    </nav>
+  </div>
+</header>
+
+    <!-- Hero -->
     <section class="hero-section">
         <div class="container">
-            <div class="hero-content" data-aos="fade-up">
-                <div class="hero-badge">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>Legal Notice</span>
-                </div>
-                
-                <h1 class="hero-title">
-                    <span class="gradient-text">Disclaimer</span>
-                </h1>
-                
-                <p class="section-subtitle" style="font-size: 1.25rem; color: #cbd5e1;">
-                    Important legal information about the use of Quantum Chemistry Lab database
-                </p>
+            <div class="hero-badge">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Legal Notice</span>
             </div>
+            
+            <h1>Disclaimer</h1>
+            
+            <p class="hero-subtitle">
+                Important information about using QuantumChem chemical database
+            </p>
         </div>
     </section>
 
-    <!-- Disclaimer Content -->
+    <!-- Content -->
     <section class="content-section">
         <div class="container">
-            <div class="disclaimer-content" data-aos="fade-up">
-                <div class="warning-box">
+            <div class="content-card">
+                <div class="highlight warning">
                     <i class="fas fa-radiation-alt"></i>
-                    <h3>⚠️ Important Warning</h3>
+                    <h3>Important Warning</h3>
                     <p>
-                        The information provided in this database is for <strong>EDUCATIONAL AND RESEARCH PURPOSES ONLY</strong>. 
-                        It is NOT intended to be used as professional advice or for practical laboratory applications 
-                        without proper supervision by qualified professionals.
+                        The information in this database is for <strong>EDUCATIONAL PURPOSES ONLY</strong>. 
+                        It is NOT for professional advice or lab use without proper supervision.
                     </p>
                 </div>
 
                 <h2>General Disclaimer</h2>
                 <p>
-                    This Quantum Chemistry Lab database is an academic project developed by students of 
-                    PCCOE, Pune. While we strive to provide accurate and up-to-date information about 
-                    laboratory chemicals, we make no representations or warranties of any kind, express 
-                    or implied, about the completeness, accuracy, reliability, suitability, or availability 
-                    with respect to the information contained in this database.
+                    QuantumChem is a student project to help understand chemical concepts. 
+                    We try to provide accurate information but make no guarantees about completeness or accuracy.
                 </p>
 
-                <div class="important-box">
-                    <i class="fas fa-skull-crossbones"></i>
-                    <h3>🚫 No Liability for Chemical Handling</h3>
+                <div class="highlight legal">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Governing Law & Jurisdiction</h3>
                     <p>
-                        The creators, contributors, and affiliated institutions of this database 
-                        <strong>SHALL NOT BE HELD LIABLE</strong> for any damages, injuries, or losses 
-                        resulting from the use, misuse, or misinterpretation of information provided 
-                        in this database. Chemical handling requires professional training and should 
-                        only be performed under appropriate supervision.
+                        <strong>Governing Law:</strong> India<br>
+                        <strong>Jurisdiction:</strong> Pune, Maharashtra
+                    </p>
+                </div>
+
+                <div class="highlight important">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <h3>No Liability for Chemical Handling</h3>
+                    <p>
+                        QuantumChem and its creators <strong>ARE NOT LIABLE</strong> for any damages, 
+                        injuries, or losses from using information in this database.
                     </p>
                 </div>
 
@@ -569,235 +475,145 @@
                 
                 <div class="terms-list">
                     <div class="term-item">
-                        <div class="term-number">1</div>
-                        <div>
-                            <h3>Educational Purpose Only</h3>
-                            <p>
-                                This database is intended for educational and informational purposes. 
-                                It should not be used as a substitute for professional chemical safety 
-                                training, Material Safety Data Sheets (MSDS), or official laboratory 
-                                protocols.
-                            </p>
-                        </div>
+                        <span class="term-number">1</span>
+                        <h3>Educational Purpose Only</h3>
+                        <p>
+                            For educational and informational purposes only. 
+                            Not a replacement for professional safety training.
+                        </p>
                     </div>
 
                     <div class="term-item">
-                        <div class="term-number">2</div>
-                        <div>
-                            <h3>Professional Consultation Required</h3>
-                            <p>
-                                Always consult with qualified chemists, safety officers, or laboratory 
-                                supervisors before handling any chemicals. Follow institutional safety 
-                                protocols and wear appropriate personal protective equipment (PPE).
-                            </p>
-                        </div>
+                        <span class="term-number">2</span>
+                        <h3>Professional Consultation Required</h3>
+                        <p>
+                            Always consult qualified professionals before handling chemicals. 
+                            Follow safety protocols.
+                        </p>
                     </div>
 
                     <div class="term-item">
-                        <div class="term-number">3</div>
-                        <div>
-                            <h3>Accuracy of Information</h3>
-                            <p>
-                                While we endeavor to keep the information up-to-date and correct, we 
-                                make no representations or warranties of any kind about the accuracy 
-                                of chemical properties, safety data, or handling recommendations.
-                            </p>
-                        </div>
+                        <span class="term-number">3</span>
+                        <h3>Accuracy of Information</h3>
+                        <p>
+                            We try to keep information correct but make no warranties 
+                            about accuracy.
+                        </p>
                     </div>
 
                     <div class="term-item">
-                        <div class="term-number">4</div>
-                        <div>
-                            <h3>External Links</h3>
-                            <p>
-                                Our database may contain links to external websites. We have no control 
-                                over the nature, content, and availability of those sites. The inclusion 
-                                of any links does not necessarily imply a recommendation or endorsement 
-                                of the views expressed within them.
-                            </p>
-                        </div>
+                        <span class="term-number">4</span>
+                        <h3>Service Availability</h3>
+                        <p>
+                            We don't guarantee uninterrupted service. May modify or 
+                            discontinue service without notice.
+                        </p>
                     </div>
 
                     <div class="term-item">
-                        <div class="term-number">5</div>
-                        <div>
-                            <h3>Intellectual Property</h3>
-                            <p>
-                                All content, design, and code of this database are protected by copyright. 
-                                Chemical data compiled from publicly available sources may be subject to 
-                                their respective copyrights and usage terms.
-                            </p>
-                        </div>
+                        <span class="term-number">5</span>
+                        <h3>User Responsibility</h3>
+                        <p>
+                            You are responsible for how you use QuantumChem information. 
+                            Use caution and common sense.
+                        </p>
+                    </div>
+
+                    <div class="term-item">
+                        <span class="term-number">6</span>
+                        <h3>Account & Data Responsibility</h3>
+                        <p>
+                            If you create an account, you're responsible for its security. 
+                            Not responsible for data loss from user negligence.
+                        </p>
+                    </div>
+
+                    <div class="term-item">
+                        <span class="term-number">7</span>
+                        <h3>Independent Project</h3>
+                        <p>
+                            QuantumChem is an independent academic project. 
+                            Does not represent official PCCOE lab protocols.
+                        </p>
                     </div>
                 </div>
 
-                <div class="info-box">
+                <div class="highlight info">
                     <i class="fas fa-shield-alt"></i>
-                    <h3>🔬 Safety First</h3>
+                    <h3>Safety First</h3>
                     <p>
-                        When working with chemicals, always: 
-                        <strong>Read MSDS sheets, Use proper ventilation, Wear appropriate PPE, 
-                        Follow institutional protocols, and Have emergency equipment readily available.</strong>
+                        Always: <strong>Read safety sheets, Use ventilation, Wear protection, 
+                        Follow safety rules, Have emergency equipment ready.</strong>
                     </p>
                 </div>
 
                 <h2>Limitation of Liability</h2>
                 <p>
-                    In no event shall Quantum Chemistry Lab, its developers, contributors, or 
-                    affiliated institutions be liable for any direct, indirect, incidental, 
-                    special, exemplary, or consequential damages (including, but not limited to, 
-                    procurement of substitute goods or services; loss of use, data, or profits; 
-                    or business interruption) however caused and on any theory of liability, 
-                    whether in contract, strict liability, or tort (including negligence or 
-                    otherwise) arising in any way out of the use of this database.
+                    QuantumChem, its developers, or contributors are not liable for 
+                    damages from using this database.
                 </p>
 
                 <h2>Acceptance of Terms</h2>
                 <p>
-                    By accessing and using the Quantum Chemistry Lab database, you acknowledge 
-                    that you have read, understood, and agree to be bound by this disclaimer. 
-                    If you do not agree with any part of this disclaimer, you must not use 
-                    this database.
+                    By using QuantumChem, you agree to this disclaimer. 
+                    If you don't agree, don't use the database.
                 </p>
 
-                <div class="warning-box">
+                <div class="highlight warning">
                     <i class="fas fa-file-contract"></i>
-                    <h3>📄 Official Documentation Required</h3>
+                    <h3>Official Documentation Required</h3>
                     <p>
-                        For laboratory work, always refer to: 
-                        <strong>Official Material Safety Data Sheets (MSDS), Manufacturer's instructions, 
-                        Institutional safety manuals, and Government regulations (OSHA, EPA, etc.)</strong>
+                        For actual lab work, always use: 
+                        <strong>Official MSDS sheets, Manufacturer instructions, 
+                        Safety manuals, Government regulations.</strong>
                     </p>
                 </div>
 
                 <h2>Contact for Corrections</h2>
                 <p>
-                    If you find any inaccuracies in our database or have concerns about specific 
-                    information, please contact us immediately at: 
-                    <strong>chemistry.team@pccoepune.org</strong>
+                    Found errors? Contact: <strong>quantumchem25@gmail.com</strong>
                 </p>
                 <p>
-                    We are committed to maintaining accurate information and will review any 
-                    concerns promptly.
+                    We aim for accuracy and will review concerns promptly.
                 </p>
-            </div>
 
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="index.html" class="btn-primary" style="margin-right: 1rem;">
-                    <i class="fas fa-home"></i>
-                    Back to Home
-                </a>
-                <a href="privacy.html" class="btn-outline">
-                    <i class="fas fa-shield-alt"></i>
-                    View Privacy Policy
-                </a>
+                <div class="action-buttons">
+                    <a href="index.html" class="btn btn-primary" style="margin-right: 10px;">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                    <a href="privacy.html" class="btn">
+                        <i class="fas fa-shield-alt"></i>
+                        Privacy Policy
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Clean Footer -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <i class="fas fa-atom"></i>
-                        <div class="logo-text">
-                            <h2>Quantum<span>Chem</span></h2>
-                            <p>Advanced Chemical Database</p>
-                        </div>
-                    </a>
-                    <p class="footer-description">
-                        A comprehensive platform for chemical research, safety management, 
-                        and scientific collaboration. For educational purposes only.
-                    </p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="index.html#Chemicals">Chemicals</a></li>
-                            <li><a href="acknowledgement.html">Acknowledgements</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="privacy.html">Privacy Policy</a></li>
-                            <li><a href="terms.html">Terms of Service</a></li>
-                            <li><a href="security.html">Security</a></li>
-                            <li><a href="disclaimer.html">Disclaimer</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="sources.html">Sources</a></li>
-                            <li><a href="acknowledgement.html">Acknowledgement</a></li>
-                            <li><a href="tutorials.html">Tutorials</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="team.html">Team</a>
+                <a href="privacy.html">Privacy</a>
+            
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="contact.html">Contact</a>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Quantum Chemistry Lab. All rights reserved.</p>
-                <p>Made with <i class="fas fa-heart"></i> by Chemistry Research Team | PCCOE</p>
-                <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #64748b;">
-                    <i class="fas fa-exclamation-triangle"></i> 
-                    For educational purposes only. Use chemicals with proper supervision.
-                </p>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> QuantumChem. All rights reserved.</p>
+            
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
     <!-- JavaScript -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
-
-        // Back to Top functionality
-        const backToTop = document.getElementById('backToTop');
-        
-        if (backToTop) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
-            });
-            
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        // Add current year to copyright
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearElement = document.querySelector('.footer-bottom p');
-            if (yearElement) {
-                yearElement.innerHTML = yearElement.innerHTML.replace('2025', new Date().getFullYear());
-            }
-        });
+        // Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
