@@ -86,11 +86,12 @@
         }
 
         .logo img {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             position: relative;
             z-index: 2;
+            object-fit: cover;
         }
 
         .logo-circle {
@@ -103,12 +104,16 @@
         }
 
         .logo-circle:nth-child(2) {
+            width: 115%;
+            height: 115%;
             border-color: var(--accent-purple);
             animation-direction: reverse;
             animation-duration: 15s;
         }
 
         .logo-circle:nth-child(3) {
+            width: 130%;
+            height: 130%;
             border-color: var(--accent-pink);
             animation-duration: 25s;
         }
@@ -198,9 +203,10 @@
         .academic-seal img {
             width: 100px;
             height: 100px;
-            border-radius: 15px;
+            border-radius: 50%;
             position: relative;
             z-index: 2;
+            object-fit: cover;
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
         }
 
@@ -640,6 +646,58 @@
             color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .nav-links.mobile-active {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 280px;
+            background: var(--secondary-bg);
+            flex-direction: column;
+            padding: 5rem 2rem 2rem;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+            border-left: 2px solid var(--border-color);
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         /* Responsive */
@@ -649,6 +707,26 @@
             }
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            .nav-links.mobile-active {
+                display: flex;
+            }
+            
+            .nav-links.mobile-active li {
+                width: 100%;
+                margin: 0;
+            }
+            
+            .nav-links.mobile-active a {
+                display: block;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .nav-links.mobile-active .contact-btn {
+                margin-top: 1rem;
+                text-align: center;
             }
         }
 
@@ -1157,6 +1235,52 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-active');
+            mobileOverlay.classList.toggle('active');
+            
+            // Toggle hamburger to X
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('mobile-active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking overlay
+        mobileOverlay.addEventListener('click', () => {
+            navLinks.classList.remove('mobile-active');
+            mobileOverlay.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Close menu when clicking a link
+        const navLinkItems = navLinks.querySelectorAll('a');
+        navLinkItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-active');
+                mobileOverlay.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+    </script>
 
 </body>
 </html>
