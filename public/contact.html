@@ -202,6 +202,83 @@
             color: var(--accent);
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 999;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
         /* Hero */
         .page-hero {
             min-height: 70vh;
@@ -905,6 +982,27 @@
             .nav-menu {
                 display: none;
             }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -987,9 +1085,24 @@
                     <a href="team.html" class="nav-link">Team</a>
                     <a href="contact.html" class="nav-link active">Contact</a>
                 </div>
+
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+            <a href="team.html" class="mobile-nav-link">👥 Team</a>
+            <a href="contact.html" class="mobile-nav-link active">📞 Contact</a>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section class="page-hero">
@@ -1019,7 +1132,7 @@
                             <i class="fas fa-envelope"></i>
                             <div class="contact-item-content">
                                 <h4>Email</h4>
-                                <a href="javascript:void(0)">quantumchem25@gmail.com</a>
+                                <a href="javascript:void(0)"><span class="__cf_email__" data-cfemail="90e1e5f1fee4e5fdf3f8f5fda2a5d0f7fdf1f9fcbef3fffd">[email&#160;protected]</span></a>
                                 <p>Response within 24 hours</p>
                             </div>
                         </div>
@@ -1135,8 +1248,7 @@
             <div class="map-container">
                 <h3><i class="fas fa-map-marked-alt"></i> Find Us Here</h3>
                 <div class="map-wrapper">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.9686785394634!2d73.76959931490052!3d18.64767098733584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9c4f2e4f3e9%3A0x1d1d1d1d1d1d1d1d!2sPimpri%20Chinchwad%20College%20Of%20Engineering%2C%20Nigdi%2C%20Pimpri-Chinchwad%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin
-" 
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.9686785394634!2d73.76959931490052!3d18.64767098733584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9c4f2e4f3e9%3A0x1d1d1d1d1d1d1d1d!2sPimpri%20Chinchwad%20College%20Of%20Engineering%2C%20Nigdi%2C%20Pimpri-Chinchwad%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin" 
                             allowfullscreen="" 
                             loading="lazy" 
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -1228,7 +1340,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Particles.js
         particlesJS('particles-js', {
             particles: {
@@ -1596,6 +1708,33 @@
                 header.style.boxShadow = 'none';
             }
         });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
 
         console.log('✨ Quantumchem Contact Page Loaded! ✨');
     </script>
