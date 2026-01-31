@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Us | Quantumchem</title>
+    <meta name="description" content="Learn about Quantumchem - Advanced Chemistry Learning & Research Platform">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 80px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            padding: 50px 0 100px;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(178, 75, 243, 0.15) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            text-align: center;
+        }
+
+        .intro-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-card p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+        }
+
+        .about-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .about-card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .about-card h3 {
+            color: var(--accent-light);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .about-card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-card ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card li {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .about-card strong {
+            color: var(--accent-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            color: var(--accent-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-item p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, rgba(178, 75, 243, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 2px solid var(--purple);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .team-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card .title {
+            color: var(--purple);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-card .credentials {
+            color: var(--accent-light);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card .info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-card .info-item {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .team-card .info-item strong {
+            color: var(--accent-light);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #00d4ff10 0%, #b24bf320 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .contact-info p {
+            margin: 0.75rem 0;
+        }
+
+        .contact-info a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        .main-footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .about-card {
+                padding: 1.5rem;
+            }
+
+            .intro-card {
+                padding: 2rem;
+            }
+
+            .team-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="nav-brand">
+                    <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="Quantumchem Logo" class="nav-logo">
+                    <div class="logo-text">
+                        <h1>QUANTUMCHEM</h1>
+                        <p class="logo-subtitle">Chemistry Platform</p>
+                    </div>
+                </a>
+                
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="team.html" class="nav-link">Team</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+            <a href="team.html" class="mobile-nav-link">👥 Team</a>
+            <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+        </div>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-atom"></i> ABOUT QUANTUMCHEM</h1>
+                <p>Advanced Chemistry Learning & Research Platform</p>
+                <p style="margin-top: 1rem;">Empowering the next generation of chemistry learners with technology, expertise, and innovation</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="intro-card">
+                <h2>Who We Are</h2>
+                <p>QuantumChem is a modern, technology-driven learning and research platform designed for engineering chemistry education. We bring together structured academic course materials, laboratory tutorials, a comprehensive chemical database, and safety-first learning practices to support students, educators, and researchers in mastering chemistry with clarity, accuracy, and confidence.</p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-eye"></i> Our Vision</h2>
+                <p>Our vision is to create a single trusted digital platform where learners can:</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-brain"></i>
+                        <h4>Understand Deeply</h4>
+                        <p>Grasp chemical concepts with clarity and comprehensive explanations</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-flask"></i>
+                        <h4>Practice Responsibly</h4>
+                        <p>Learn laboratory techniques with safety-first protocols</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-database"></i>
+                        <h4>Explore Safely</h4>
+                        <p>Access chemical data in a secure, educational environment</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4>Learn Flexibly</h4>
+                        <p>Study at your own pace with expert guidance</p>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem;">We aim to bridge the gap between theory, laboratory practice, and modern digital tools.</p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-book-open"></i> Engineering Chemistry Courses</h2>
+                <p>QuantumChem provides comprehensive course materials aligned with Engineering Chemistry I, covering essential topics:</p>
+                <ul>
+                    <li><strong>Water Technology & Green Chemistry</strong> - Sustainable practices and environmental protection</li>
+                    <li><strong>Fuels and Combustion</strong> - Energy sources and combustion principles</li>
+                    <li><strong>Corrosion and Corrosion Control</strong> - Material protection and prevention strategies</li>
+                    <li><strong>Polymers, Nanomaterials, and Novel Carbon Compounds</strong> - Advanced materials science</li>
+                </ul>
+                <div class="highlight-box">
+                    <p><strong>Each unit includes:</strong> Structured notes, numerical explanations, video lectures, and academic references for comprehensive learning.</p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-vial"></i> Laboratory Tutorials & Manuals</h2>
+                <p>We offer step-by-step laboratory tutorials covering key engineering chemistry experiments:</p>
+                <ul>
+                    <li>Safety in the Engineering Chemistry Laboratory</li>
+                    <li>Water hardness determination by EDTA method</li>
+                    <li>Alkalinity and chloride determination</li>
+                    <li>Conductometric and potentiometric titrations</li>
+                    <li>UV-Visible spectrophotometry techniques</li>
+                    <li>Polymer and resin synthesis procedures</li>
+                </ul>
+                <p><strong>Content is provided through:</strong> Detailed PDFs, instructional videos, and guided learning paths.</p>
+                <div class="highlight-box">
+                    <p><i class="fas fa-shield-alt"></i> <strong>All laboratory content follows a safety-first and educational-only approach.</strong></p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-database"></i> QuantumChem Chemical Database</h2>
+                <p>QuantumChem hosts a growing database of <strong>1000+ laboratory chemicals</strong>, including:</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-flask-vial"></i>
+                        <h4>Acids & Bases</h4>
+                        <p>Complete reference data</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-cube"></i>
+                        <h4>Salts</h4>
+                        <p>Properties and applications</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-atom"></i>
+                        <h4>Organic Compounds</h4>
+                        <p>Structures and reactions</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-fill-drip"></i>
+                        <h4>Indicators & Solvents</h4>
+                        <p>Laboratory essentials</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-wind"></i>
+                        <h4>Gases</h4>
+                        <p>Properties and handling</p>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;">Each chemical entry includes: Chemical name and formula, molecular weight and classification, basic safety information, and learning-oriented descriptions.</p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-rocket"></i> Advanced Platform Features</h2>
+                <p>QuantumChem integrates modern technology to enhance learning:</p>
+                
+                <h3>🔍 Intelligent Search</h3>
+                <ul>
+                    <li>Autocomplete search functionality</li>
+                    <li>Property-based filtering</li>
+                    <li>Category-wise browsing</li>
+                </ul>
+
+                <h3>🤖 AI-Assisted Analysis</h3>
+                <ul>
+                    <li>Chemical property predictions</li>
+                    <li>Reaction insights and analysis</li>
+                    <li>Safety awareness guidance</li>
+                </ul>
+                <p><em>AI outputs are educational aids, not professional instructions.</em></p>
+
+                <h3>🧬 3D Molecular Visualization</h3>
+                <ul>
+                    <li>Interactive molecular structures</li>
+                    <li>Orbital and bonding representation</li>
+                    <li>Visual understanding of chemical geometry</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-shield-alt"></i> Safety-First Philosophy</h2>
+                <p>Safety is central to QuantumChem. Our comprehensive approach includes:</p>
+                <ul>
+                    <li><strong>Dedicated Safety Policy</strong> - Clear guidelines for all users</li>
+                    <li><strong>Chemical Handling Guidance</strong> - Proper procedures and best practices</li>
+                    <li><strong>MSDS Awareness</strong> - Material Safety Data Sheet information</li>
+                    <li><strong>Laboratory Safety Tutorials</strong> - Step-by-step safety protocols</li>
+                </ul>
+                <div class="highlight-box">
+                    <p><strong>QuantumChem promotes responsible learning, not unsupervised experimentation.</strong> Always follow institutional safety protocols and work under qualified supervision.</p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-lock"></i> Secure & Accessible Learning</h2>
+                <p>QuantumChem provides secure access through multiple authentication methods:</p>
+                <ul>
+                    <li>Manual login with secure credentials</li>
+                    <li>Google Sign-In (OAuth) integration</li>
+                    <li>Privacy-focused data handling</li>
+                    <li>GDPR-aligned policies</li>
+                </ul>
+                <p>User data is handled responsibly, following privacy best practices and secure authentication standards.</p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-chalkboard-teacher"></i> Academic Leadership & Expertise</h2>
+                <p>QuantumChem's academic content is guided by experienced educators committed to excellence in chemistry education.</p>
+                
+                <div class="team-card">
+                    <h3>Dr. Amol Kharche</h3>
+                    <p class="title">Assistant Professor | Academic Advisor</p>
+                    <p class="credentials">M.Sc., SET, Ph.D.</p>
+                    
+                    <div class="info">
+                        <div class="info-item">
+                            <strong>Specialization</strong>
+                            <p>Organic Chemistry</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>Experience</strong>
+                            <p>15+ Years</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>Contribution</strong>
+                            <p>Academic Structure & Laboratory Guidance</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 1.5rem; color: #cbd5e1;">Dr. Kharche contributes academic structure, laboratory guidance, and syllabus alignment to ensure high-quality educational content across all platform materials.</p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-users"></i> Who Can Use QuantumChem</h2>
+                <p>QuantumChem is designed for a diverse community of learners:</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <h4>Engineering Students</h4>
+                        <p>Complete course support</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-book-reader"></i>
+                        <h4>Chemistry Learners</h4>
+                        <p>All skill levels welcome</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h4>Educators</h4>
+                        <p>Teaching resources</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-microscope"></i>
+                        <h4>Researchers</h4>
+                        <p>Academic references</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Exam Preparation</h4>
+                        <p>Self-study materials</p>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; text-align: center; font-size: 1.1rem; color: var(--accent-light);">
+                    <strong>No prior advanced knowledge is required to begin your chemistry learning journey with us.</strong>
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-laptop-code"></i> Learning Beyond the Classroom</h2>
+                <p>QuantumChem supports modern learning through flexible, accessible resources:</p>
+                <ul>
+                    <li><strong>Downloadable Resources</strong> - Take learning materials offline</li>
+                    <li><strong>Video Libraries</strong> - Visual explanations and demonstrations</li>
+                    <li><strong>Virtual Lab Concepts</strong> - Understand experiments before performing them</li>
+                    <li><strong>Structured Learning Paths</strong> - Guided progression through topics</li>
+                </ul>
+                <div class="highlight-box">
+                    <p><i class="fas fa-globe"></i> <strong>Learners can explore chemistry anytime, anywhere</strong> - bringing the laboratory and classroom to wherever you are.</p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-heart"></i> Our Commitment</h2>
+                <p>We are committed to maintaining the highest standards in chemistry education:</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> <strong>Accuracy and Clarity</strong> - Every piece of content is carefully reviewed</li>
+                    <li><i class="fas fa-check"></i> <strong>Responsible Knowledge Use</strong> - Promoting safe and ethical chemistry practices</li>
+                    <li><i class="fas fa-check"></i> <strong>Continuous Improvement</strong> - Regular platform updates and enhancements</li>
+                    <li><i class="fas fa-check"></i> <strong>Academic Growth Support</strong> - Helping learners achieve their educational goals</li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--accent-light);">
+                    QuantumChem evolves continuously based on educational needs and user feedback.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2><i class="fas fa-exclamation-circle"></i> Legal & Educational Disclaimer</h2>
+                <div class="highlight-box">
+                    <p><strong>QuantumChem is an educational platform only.</strong></p>
+                    <ul style="margin-top: 1rem;">
+                        <li>We do not provide industrial or medical advice</li>
+                        <li>We do not supervise real laboratories</li>
+                        <li>Users are responsible for practical execution</li>
+                        <li>Always follow institutional safety guidelines</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="about-card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%); border-color: var(--accent);">
+                <h2><i class="fas fa-envelope"></i> Contact & Support</h2>
+                <p>For questions, feedback, or collaboration opportunities, we're here to help:</p>
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:quantumchem25@gmail.com">quantumchem25@gmail.com</a></p>
+                    <p><i class="fas fa-phone"></i> Phone: <a href="tel:+918149277038">+91 81492 77038</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Pimpri Chinchwad College of Engineering, Pune, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 QuantumChem. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.2
+        });
+
+        gsap.from('.hero-content p', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 0.5,
+            stagger: 0.2
+        });
+
+        gsap.from('.intro-card', {
+            scrollTrigger: {
+                trigger: '.intro-card',
+                start: 'top 85%',
+            },
+            duration: 1,
+            y: 80,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.utils.toArray('.about-card').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 85%',
+                },
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: i * 0.1
+            });
+        });
+
+        gsap.utils.toArray('.feature-item').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 90%',
+                },
+                duration: 0.6,
+                y: 30,
+                opacity: 0,
+                ease: 'back.out(1.7)',
+                delay: i * 0.1
+            });
+        });
+
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.pageYOffset > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
