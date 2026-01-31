@@ -10,3 +10,4 @@ console.log("GOOGLE_CLIENT_SECRET:", process.env.GOOGLE_CLIENT_SECRET ? "SET (fi
 console.log("GOOGLE_CALLBACK_URL_PROD:", process.env.GOOGLE_CALLBACK_URL_PROD || "MISSING");
 console.log("NODE_ENV:", process.env.NODE_ENV || "MISSING");
 console.log("VERCEL:", process.env.VERCEL || "FALSE");
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "SET" : "MISSING");

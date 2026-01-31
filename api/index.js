@@ -8,6 +8,7 @@ import connectDB from "../config/db.js";
 import manualAuthRoutes from "./routes/manualAuth.routes.js";
 import googleAuthRoutes from "./routes/googleAuth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import chatRoutes from "./routes/chat.routes.js"; // Already imported!
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,7 @@ connectDB();
 app.use("/api/auth", manualAuthRoutes);
 app.use("/api/auth", googleAuthRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes); // Already registered!
 
 /* ---------- HEALTH ---------- */
 app.get("/api/health", (req, res) => {
