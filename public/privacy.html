@@ -1,182 +1,751 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Privacy Policy | QuantumChem</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Privacy Policy for QuantumChem - Advanced Chemical Database Platform">
-  <style>
-    :root {
-      --quantum-blue: #00d4ff;
-      --dark-space: #0a192f;
-      --text-light: #e6f1ff;
-      --card-bg: rgba(255, 255, 255, 0.05);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Terms & Conditions | Quantumchem</title>
+    <meta name="description" content="Terms and Conditions for Quantumchem Platform">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #020617, var(--dark-space));
-      color: var(--text-light);
-      line-height: 1.7;
-    }
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
 
-    header {
-      padding: 40px 20px;
-      text-align: center;
-      background: radial-gradient(circle at top, #0f2a44, #020617);
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    header h1 {
-      color: var(--quantum-blue);
-      font-size: 2.4rem;
-      margin-bottom: 10px;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
 
-    section {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 14px;
-      padding: 30px;
-      margin-bottom: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
 
-    h2 {
-      color: var(--quantum-blue);
-      margin-top: 0;
-    }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
 
-    ul {
-      padding-left: 20px;
-    }
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #94a3b8;
-    }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
 
-    a {
-      color: var(--quantum-blue);
-      text-decoration: none;
-    }
-  </style>
-    <!-- Vercel Web Analytics -->
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .page-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 80px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 50px 0 100px;
+        }
+
+        .policy-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .policy-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+        }
+
+        .policy-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .policy-card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .policy-card h3 {
+            color: var(--accent-light);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .policy-card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .policy-card ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .policy-card li {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .policy-card strong {
+            color: var(--accent-light);
+        }
+
+        .highlight-box {
+            background: rgba(255, 0, 110, 0.1);
+            border-left: 4px solid #ff006e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #00d4ff10 0%, #b24bf320 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        .main-footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .policy-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
 
-<header>
-  <h1>Privacy Policy</h1>
-  <p>QuantumChem – Advanced Chemical Database</p>
-</header>
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="nav-brand">
+                    <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="Quantumchem Logo" class="nav-logo">
+                    <div class="logo-text">
+                        <h1>QUANTUMCHEM</h1>
+                        <p class="logo-subtitle">Chemistry Platform</p>
+                    </div>
+                </a>
+                
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="team.html" class="nav-link">Team</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
 
-<main>
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-  <section>
-    <h2>1. Introduction</h2>
-    <p>
-      Welcome to <strong>QuantumChem</strong>. Your privacy is important to us.
-      This Privacy Policy explains how we handle information when you use our
-      website and services.
-    </p>
-  </section>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+            <a href="team.html" class="mobile-nav-link">👥 Team</a>
+            <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+        </div>
+    </div>
 
-  <section>
-    <h2>2. Information We Collect</h2>
-    <p>
-      QuantumChem is an <strong>educational and informational platform</strong>.
-      We do <strong>not</strong> collect personal data such as:
-    </p>
-    <ul>
-      <li>Names</li>
-      <li>Email addresses</li>
-      <li>Phone numbers</li>
-      <li>Payment information</li>
-    </ul>
-    <p>
-      We may collect <em>non-personal, anonymous data</em> such as browser type
-      or device information for performance and analytics purposes.
-    </p>
-  </section>
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-file-contract"></i> TERMS & CONDITIONS</h1>
+                <p>Please read these terms carefully before using our platform</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">Last Updated: January 31, 2026</p>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <h2>3. Cookies</h2>
-    <p>
-      QuantumChem may use basic cookies to improve user experience.
-      These cookies do not store personally identifiable information.
-    </p>
-  </section>
+    <section class="content-section">
+        <div class="container">
+            <div class="policy-card">
+                <h2><i class="fas fa-rocket"></i> 1. Platform Overview</h2>
+                <p>Quantumchem provides:</p>
+                <ul>
+                    <li>Engineering chemistry courses and educational materials</li>
+                    <li>Lecture notes and comprehensive tutorials</li>
+                    <li>Laboratory experiment guides and safety protocols</li>
+                    <li>Chemical databases (acids, bases, salts, organic compounds, indicators, solvents, gases)</li>
+                    <li>Secure login-based access and personalized features</li>
+                </ul>
+                <p>Use of any section (Home, Chemicals, Tutorials, Lectures, Features, Resources, Blog, Documentation, Help Center) implies acceptance of these Terms.</p>
+            </div>
 
-  <section>
-    <h2>4. Use of Information</h2>
-    <p>Any collected non-personal information is used only to:</p>
-    <ul>
-      <li>Improve website performance</li>
-      <li>Enhance user experience</li>
-      <li>Analyze site usage trends</li>
-    </ul>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-user-lock"></i> 2. User Accounts & Access</h2>
+                <p>When creating and using your account, you must:</p>
+                <ul>
+                    <li>Keep login credentials confidential and secure</li>
+                    <li>Be aware that temporary passwords expire after 4 days</li>
+                    <li>Initiate password resets yourself when needed</li>
+                    <li>Not share your account with others</li>
+                    <li>Notify us immediately of any unauthorized access</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Security Warning:</strong> Unauthorized access attempts are strictly prohibited and may result in account termination and legal action.
+                </div>
+            </div>
 
-  <section>
-    <h2>5. Third-Party Services</h2>
-    <p>
-      QuantumChem may include third-party tools (e.g., analytics, fonts,
-      animation libraries). These services may collect data according to their
-      own privacy policies.
-    </p>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-check-circle"></i> 3. Acceptable Use Policy</h2>
+                <p>To maintain a safe and productive environment, users must NOT:</p>
+                <ul>
+                    <li>Copy, redistribute, or sell course material without explicit permission</li>
+                    <li>Misuse laboratory or chemical data in any harmful manner</li>
+                    <li>Attempt to bypass, disable, or interfere with security systems</li>
+                    <li>Upload malicious content, viruses, or harmful code</li>
+                    <li>Harass, abuse, or harm other users</li>
+                    <li>Use the platform for any illegal activities</li>
+                    <li>Create multiple accounts to circumvent restrictions</li>
+                    <li>Scrape or data mine content without authorization</li>
+                </ul>
+            </div>
 
-  <section>
-    <h2>6. Data Security</h2>
-    <p>
-      We take reasonable measures to protect the website and its content.
-      However, no online platform can guarantee 100% security.
-    </p>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-copyright"></i> 4. Intellectual Property</h2>
+                <p>All content on Quantumchem is protected by copyright and intellectual property laws, including:</p>
+                <ul>
+                    <li>Course materials, lectures, and educational content</li>
+                    <li>Laboratory tutorials and experimental procedures</li>
+                    <li>Chemical database entries and documentation</li>
+                    <li>Website design, graphics, and source code</li>
+                    <li>Logos, trademarks, and branding elements</li>
+                </ul>
+                <p>All rights belong to Quantumchem unless otherwise stated. Unauthorized use is prohibited.</p>
+            </div>
 
-  <section>
-    <h2>7. Educational Disclaimer</h2>
-    <p>
-      All chemical data provided on QuantumChem is for
-      <strong>educational purposes only</strong>.
-      Always follow official laboratory safety guidelines and MSDS documents.
-    </p>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-flask-vial"></i> 5. Laboratory & Safety Disclaimer</h2>
+                <p>Laboratory tutorials and safety guides are provided for <strong>educational reference only</strong>.</p>
+                <div class="highlight-box">
+                    <strong>Important Disclaimer:</strong> Quantumchem is NOT responsible for:
+                    <ul style="margin-top: 1rem;">
+                        <li>Laboratory accidents or injuries</li>
+                        <li>Incorrect experimental results</li>
+                        <li>Improper chemical handling or storage</li>
+                        <li>Damage to equipment or property</li>
+                        <li>Environmental contamination</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Always follow institutional safety protocols, MSDS guidelines, and work under qualified supervision.</strong></p>
+                </div>
+            </div>
 
-  <section>
-    <h2>8. Changes to This Policy</h2>
-    <p>
-      We may update this Privacy Policy from time to time.
-      Changes will be posted on this page with an updated revision date.
-    </p>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-link"></i> 6. Third-Party Services</h2>
+                <p>Quantumchem may integrate third-party tools and services such as:</p>
+                <ul>
+                    <li>Analytics and tracking services</li>
+                    <li>Authentication providers (Google OAuth)</li>
+                    <li>Font libraries and UI frameworks</li>
+                    <li>Advertising services (Google AdSense)</li>
+                    <li>CDN and hosting services</li>
+                </ul>
+                <p>We are not responsible for the policies, actions, or content of third-party services. Please review their terms and privacy policies independently.</p>
+            </div>
 
-  <section>
-    <h2>9. Contact</h2>
-    <p>
-      If you have questions about this Privacy Policy, you may contact us at:
-      <br><br>
-      📧 <strong>support@quantumchem.org</strong>
-    </p>
-  </section>
+            <div class="policy-card">
+                <h2><i class="fas fa-ban"></i> 7. Termination of Access</h2>
+                <p>Quantumchem reserves the right to, at its sole discretion:</p>
+                <ul>
+                    <li>Suspend or terminate user accounts</li>
+                    <li>Remove or modify content</li>
+                    <li>Restrict access to features or the entire platform</li>
+                    <li>Take legal action when necessary</li>
+                </ul>
+                <p>Termination may occur for violations of these Terms, suspicious activity, or to protect the platform and other users. No refunds will be provided for terminated accounts.</p>
+            </div>
 
-</main>
+            <div class="policy-card">
+                <h2><i class="fas fa-exclamation-triangle"></i> 8. Limitation of Liability</h2>
+                <p>The platform is provided <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> without warranties of any kind.</p>
+                <p>Quantumchem is NOT liable for:</p>
+                <ul>
+                    <li>Data loss or corruption</li>
+                    <li>Academic outcomes or performance</li>
+                    <li>Site downtime or technical issues</li>
+                    <li>Misuse or misinterpretation of information</li>
+                    <li>Indirect, incidental, or consequential damages</li>
+                    <li>Lost profits or business opportunities</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Maximum Liability:</strong> In no event shall Quantumchem's liability exceed the amount paid by the user (if any) for access to the platform.
+                </div>
+            </div>
 
-<footer>
-  © 2025 QuantumChem. All rights reserved.
-</footer>
+            <div class="policy-card">
+                <h2><i class="fas fa-edit"></i> 9. Modifications to Terms</h2>
+                <p>These Terms & Conditions may be updated at any time without prior notice.</p>
+                <ul>
+                    <li>Changes will be posted on this page with an updated date</li>
+                    <li>Continued use of the platform after changes constitutes acceptance</li>
+                    <li>Users are responsible for reviewing terms regularly</li>
+                </ul>
+                <p>Material changes may be communicated via email or platform notification.</p>
+            </div>
 
+            <div class="policy-card">
+                <h2><i class="fas fa-balance-scale"></i> 10. Governing Law</h2>
+                <p>These Terms & Conditions are governed by and construed in accordance with the <strong>laws of India</strong>.</p>
+                <p>Any disputes arising from use of the platform shall be subject to the exclusive jurisdiction of the courts in Pune, Maharashtra, India.</p>
+            </div>
+
+            <div class="policy-card">
+                <h2><i class="fas fa-handshake"></i> 11. User Conduct</h2>
+                <p>Users agree to:</p>
+                <ul>
+                    <li>Provide accurate and truthful information</li>
+                    <li>Respect other users and maintain professional conduct</li>
+                    <li>Use the platform for lawful educational purposes only</li>
+                    <li>Report any bugs, security issues, or violations</li>
+                    <li>Comply with all applicable local, national, and international laws</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h2><i class="fas fa-comments"></i> 12. Feedback & Suggestions</h2>
+                <p>We welcome feedback and suggestions for improving the platform. By providing feedback, you grant Quantumchem:</p>
+                <ul>
+                    <li>A perpetual, irrevocable, worldwide license to use the feedback</li>
+                    <li>The right to implement suggestions without compensation</li>
+                    <li>No obligation to credit or acknowledge contributions</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h2><i class="fas fa-envelope-open-text"></i> 13. Contact Information</h2>
+                <p>For questions, concerns, or support regarding these Terms & Conditions:</p>
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:quantumchem25@gmail.com">quantumchem25@gmail.com</a></p>
+                    <p><i class="fas fa-phone"></i> Phone: <a href="tel:+918149277038">+91 81492 77038</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Location: Pimpri Chinchwad College of Engineering, Pune, India</p>
+                </div>
+            </div>
+
+            <div class="policy-card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%); border-color: var(--accent);">
+                <h2><i class="fas fa-check-double"></i> Acceptance of Terms</h2>
+                <p style="font-size: 1.1rem; color: var(--accent-light);">
+                    By accessing or using Quantumchem, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions and our Privacy Policy.
+                </p>
+                <p style="margin-top: 1rem;">
+                    If you do not agree with any part of these terms, please discontinue use of the platform immediately.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Quantumchem. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.2
+        });
+
+        gsap.utils.toArray('.policy-card').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 85%',
+                },
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: i * 0.1
+            });
+        });
+
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.pageYOffset > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
