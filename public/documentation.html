@@ -2,49 +2,763 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Documentation | QuantumChem</title>
     <meta name="description" content="QuantumChem documentation - Simple chemical information platform for students.">
     
-    <!-- Optimized: Inline critical CSS only -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
     <style>
-        /* CRITICAL CSS - Above the fold */
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--primary:#0a0e27;--secondary:#1a1f3a;--accent:#00d4ff;--accent-light:#4de8ff;--purple:#b24bf3;--glass-bg:rgba(26,31,58,0.7);--glass-border:rgba(0,212,255,0.2)}
-        html{scroll-behavior:smooth}
-        body{font-family:'Inter',system-ui,sans-serif;background:var(--primary);color:#fff;overflow-x:hidden;position:relative;line-height:1.6}
-        .container{max-width:1200px;margin:0 auto;padding:0 1rem;position:relative;z-index:1}
-        
-        /* Header - Critical */
-        .main-header{background:rgba(10,14,39,0.95);backdrop-filter:blur(20px);border-bottom:2px solid var(--glass-border);padding:1rem 0;position:fixed;top:0;width:100%;z-index:998}
-        .navbar{display:flex;align-items:center;justify-content:space-between}
-        .nav-brand{display:flex;align-items:center;gap:1rem;text-decoration:none;min-width:0;flex-shrink:1}
-        .nav-logo{width:50px;height:50px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:0 0 20px rgba(0,212,255,0.4);animation:rotateLogo 20s linear infinite;flex-shrink:0}
-        @keyframes rotateLogo{to{transform:rotate(360deg)}}
-        .logo-text{display:flex;flex-direction:column;min-width:0;overflow:hidden}
-        .logo-text h1{font-family:'Orbitron',sans-serif;font-size:clamp(1rem,3vw,1.5rem);background:linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
-        .logo-subtitle{font-size:0.7rem;color:var(--accent-light);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:0.5rem;margin-left:1rem}
-        .mobile-menu-toggle span{width:25px;height:3px;background:linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%);border-radius:3px;transition:all 0.3s ease}
-        
-        /* Hero - Critical */
-        .page-hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 0 60px}
-        .hero-content h1{font-family:'Orbitron',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:1rem;background:linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;letter-spacing:2px}
-        .hero-content p{font-size:clamp(0.9rem,2vw,1.1rem);color:var(--accent-light);max-width:700px;margin:0 auto;line-height:1.6}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Styles - Matching Terms.html */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes rotateLogo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 80px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Documentation Layout */
+        .documentation-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            padding: 30px 0 50px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar h3 {
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            border-color: var(--glass-border);
+        }
+
+        .sidebar-link.active {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Documentation Content */
+        .documentation-content {
+            padding-right: 20px;
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+            scroll-margin-top: 100px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .doc-section:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        .doc-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .doc-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .doc-section p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .doc-section ul {
+            color: #cbd5e1;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .doc-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: rgba(255, 77, 77, 0.1);
+            border-left: 4px solid #ff4d4d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #ff4d4d;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .note-box {
+            background: rgba(255, 170, 51, 0.1);
+            border-left: 4px solid #ffaa33;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .note-box h4 {
+            color: #ffaa33;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .data-table {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .data-table thead tr {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .data-table th {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            color: #cbd5e1;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--accent-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-card h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .contact-card p {
+            margin: 0.75rem 0;
+        }
+
+        .contact-card strong {
+            color: var(--accent-light);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            background: transparent;
+            color: white;
+        }
+
+        .btn-primary {
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--purple);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #b24bf3 0%, #00d4ff 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(178, 75, 243, 0.3);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .footer-link.active {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .documentation-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 20px;
+            }
+
+            .documentation-content {
+                padding-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .doc-section {
+                padding: 1.5rem;
+            }
+
+            .doc-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .doc-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.1rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.6rem;
+            }
+
+            .mobile-menu-toggle {
+                padding: 0.25rem;
+                margin-left: 0.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
-    
-    <!-- Load non-critical CSS asynchronously -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap"></noscript>
-    
-    <!-- Icons - Minimal -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
 <body>
-    <!-- Simple background without heavy particles.js -->
-    <div style="position:fixed;width:100%;height:100%;top:0;left:0;z-index:0;background:radial-gradient(circle at 20% 30%,rgba(0,212,255,0.1) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(178,75,243,0.1) 0%,transparent 50%)"></div>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
 
     <header class="main-header">
         <div class="container">
@@ -57,13 +771,13 @@
                     </div>
                 </a>
                 
-                <div class="nav-menu" style="display:flex;gap:2rem">
-                    <a href="index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:0.5rem 1rem;transition:all 0.3s ease;position:relative" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#fff'">Home</a>
-                    <a href="team.html" style="color:#fff;text-decoration:none;font-weight:600;padding:0.5rem 1rem;transition:all 0.3s ease;position:relative" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#fff'">Team</a>
-                    <a href="contact.html" style="color:#fff;text-decoration:none;font-weight:600;padding:0.5rem 1rem;transition:all 0.3s ease;position:relative" onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#fff'">Contact</a>
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="team.html" class="nav-link">Team</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
                 </div>
 
-                <div class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -72,12 +786,11 @@
         </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" style="display:none;position:fixed;top:90px;left:0;width:100%;background:rgba(10,14,39,0.98);backdrop-filter:blur(20px);border-bottom:2px solid var(--glass-border);z-index:997;padding:2rem;transform:translateY(-100%);opacity:0;transition:all 0.4s ease">
-        <div style="display:flex;flex-direction:column;gap:1.5rem">
-            <a href="index.html" style="color:#fff;text-decoration:none;font-weight:600;font-size:1.2rem;padding:1rem;background:var(--glass-bg);border:2px solid var(--glass-border);border-radius:15px;text-align:center;transition:all 0.3s ease" onmouseover="this.style.background='linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%)';this.style.borderColor='#00d4ff';this.style.transform='translateX(5px)'" onmouseout="this.style.background='var(--glass-bg)';this.style.borderColor='var(--glass-border)';this.style.transform='translateX(0)'">🏠 Home</a>
-            <a href="team.html" style="color:#fff;text-decoration:none;font-weight:600;font-size:1.2rem;padding:1rem;background:var(--glass-bg);border:2px solid var(--glass-border);border-radius:15px;text-align:center;transition:all 0.3s ease" onmouseover="this.style.background='linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%)';this.style.borderColor='#00d4ff';this.style.transform='translateX(5px)'" onmouseout="this.style.background='var(--glass-bg)';this.style.borderColor='var(--glass-border)';this.style.transform='translateX(0)'">👥 Team</a>
-            <a href="contact.html" style="color:#fff;text-decoration:none;font-weight:600;font-size:1.2rem;padding:1rem;background:var(--glass-bg);border:2px solid var(--glass-border);border-radius:15px;text-align:center;transition:all 0.3s ease" onmouseover="this.style.background='linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%)';this.style.borderColor='#00d4ff';this.style.transform='translateX(5px)'" onmouseout="this.style.background='var(--glass-bg)';this.style.borderColor='var(--glass-border)';this.style.transform='translateX(0)'">📞 Contact</a>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+            <a href="team.html" class="mobile-nav-link">👥 Team</a>
+            <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
         </div>
     </div>
 
@@ -90,295 +803,301 @@
         </div>
     </section>
 
-    <!-- Documentation Layout -->
     <div class="container">
-        <div class="documentation-layout" style="display:grid;grid-template-columns:250px 1fr;gap:30px;padding:30px 0 50px">
+        <div class="documentation-layout">
             <!-- Sidebar -->
-            <aside class="sidebar" style="position:sticky;top:100px;height:fit-content;background:var(--glass-bg);border-radius:20px;padding:20px;border:2px solid var(--glass-border);backdrop-filter:blur(10px)">
-                <div style="margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid var(--glass-border)">
-                    <h3 style="color:var(--accent);font-size:16px;font-weight:600">📚 Documentation Guide</h3>
-                </div>
-                
-                <div style="display:flex;flex-direction:column;gap:8px">
-                    <a href="#overview" onclick="scrollToSection('overview');return false" style="color:var(--accent);text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px;background:rgba(0,212,255,0.1);border:1px solid var(--glass-border)">🏠 Overview</a>
-                    <a href="#objectives" onclick="scrollToSection('objectives');return false" style="color:#cbd5e1;text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='rgba(0,212,255,0.1)';this.style.color='var(--accent)';this.style.borderColor='var(--glass-border)'" onmouseout="this.style.background='transparent';this.style.color='#cbd5e1';this.style.borderColor='transparent'">🎯 Objectives</a>
-                    <a href="#sources" onclick="scrollToSection('sources');return false" style="color:#cbd5e1;text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='rgba(0,212,255,0.1)';this.style.color='var(--accent)';this.style.borderColor='var(--glass-border)'" onmouseout="this.style.background='transparent';this.style.color='#cbd5e1';this.style.borderColor='transparent'">📊 Data Sources</a>
-                    <a href="#features" onclick="scrollToSection('features');return false" style="color:#cbd5e1;text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='rgba(0,212,255,0.1)';this.style.color='var(--accent)';this.style.borderColor='var(--glass-border)'" onmouseout="this.style.background='transparent';this.style.color='#cbd5e1';this.style.borderColor='transparent'">⚙️ Features</a>
-                    <a href="#guide" onclick="scrollToSection('guide');return false" style="color:#cbd5e1;text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='rgba(0,212,255,0.1)';this.style.color='var(--accent)';this.style.borderColor='var(--glass-border)'" onmouseout="this.style.background='transparent';this.style.color='#cbd5e1';this.style.borderColor='transparent'">📖 User Guide</a>
-                    <a href="#contact" onclick="scrollToSection('contact');return false" style="color:#cbd5e1;text-decoration:none;padding:10px 12px;border-radius:10px;transition:all 0.3s ease;font-size:14px;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='rgba(0,212,255,0.1)';this.style.color='var(--accent)';this.style.borderColor='var(--glass-border)'" onmouseout="this.style.background='transparent';this.style.color='#cbd5e1';this.style.borderColor='transparent'">📧 Contact</a>
+            <aside class="sidebar">
+                <h3>📚 Documentation Guide</h3>
+                <div class="sidebar-links">
+                    <a href="#overview" class="sidebar-link active" data-section="overview">🏠 Overview</a>
+                    <a href="#objectives" class="sidebar-link" data-section="objectives">🎯 Objectives</a>
+                    <a href="#sources" class="sidebar-link" data-section="sources">📊 Data Sources</a>
+                    <a href="#features" class="sidebar-link" data-section="features">⚙️ Features</a>
+                    <a href="#guide" class="sidebar-link" data-section="guide">📖 User Guide</a>
+                    <a href="#contact" class="sidebar-link" data-section="contact">📧 Contact</a>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <main class="documentation-content" style="padding-right:20px">
+            <main class="documentation-content">
                 <!-- Overview Section -->
-                <section id="overview" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">📖 Project Overview</h2>
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1.5rem;font-size:1.05rem">QuantumChem is an advanced educational platform developed by students of Pimpri Chinchwad College of Engineering (PCCOE). Our mission is to create a comprehensive, technology-driven learning environment for chemistry education.</p>
+                <section id="overview" class="doc-section">
+                    <h2>📖 Project Overview</h2>
+                    <p>QuantumChem is an advanced educational platform developed by students of Pimpri Chinchwad College of Engineering (PCCOE). Our mission is to create a comprehensive, technology-driven learning environment for chemistry education.</p>
                     
-                    <div style="background:rgba(0,212,255,0.1);border-left:4px solid var(--accent);padding:1.5rem;border-radius:10px;margin:1.5rem 0">
-                        <h4 style="color:var(--accent);margin-bottom:0.5rem;font-size:1.1rem">🎯 Project Purpose</h4>
-                        <p style="color:#cbd5e1;margin-bottom:0">QuantumChem provides a complete digital ecosystem for learning chemical properties, safety protocols, laboratory techniques, and theoretical concepts through interactive, student-friendly interfaces.</p>
+                    <div class="info-box">
+                        <h4>🎯 Project Purpose</h4>
+                        <p>QuantumChem provides a complete digital ecosystem for learning chemical properties, safety protocols, laboratory techniques, and theoretical concepts through interactive, student-friendly interfaces.</p>
                     </div>
 
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">🔬 Independent Academic Project</h3>
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1rem">QuantumChem is developed independently by students as an academic project. It does not represent official PCCOE laboratory protocols, institutional guidelines, or professional laboratory standards.</p>
+                    <h3>🔬 Independent Academic Project</h3>
+                    <p>QuantumChem is developed independently by students as an academic project. It does not represent official PCCOE laboratory protocols, institutional guidelines, or professional laboratory standards.</p>
                 </section>
 
                 <!-- Objectives Section -->
-                <section id="objectives" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">🎯 Project Objectives</h2>
+                <section id="objectives" class="doc-section">
+                    <h2>🎯 Project Objectives</h2>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">📚 Educational Goals</h3>
-                    <ul style="color:#cbd5e1;margin-left:1.5rem;margin-bottom:1.5rem">
-                        <li style="margin-bottom:0.5rem">Support undergraduate engineering chemistry curriculum</li>
-                        <li style="margin-bottom:0.5rem">Provide structured course materials and laboratory tutorials</li>
-                        <li style="margin-bottom:0.5rem">Offer comprehensive chemical database with safety information</li>
-                        <li style="margin-bottom:0.5rem">Facilitate interactive learning through modern technology</li>
+                    <h3>📚 Educational Goals</h3>
+                    <ul>
+                        <li>Support undergraduate engineering chemistry curriculum</li>
+                        <li>Provide structured course materials and laboratory tutorials</li>
+                        <li>Offer comprehensive chemical database with safety information</li>
+                        <li>Facilitate interactive learning through modern technology</li>
                     </ul>
                     
-                    <div style="background:rgba(255,77,77,0.1);border-left:4px solid #ff4d4d;padding:1.5rem;border-radius:10px;margin:1.5rem 0">
-                        <h4 style="color:#ff4d4d;margin-bottom:0.5rem;font-size:1.1rem">⚠️ Important Note</h4>
-                        <p style="color:#cbd5e1;margin-bottom:0">QuantumChem is for <strong style="color:#ff4d4d">EDUCATIONAL PURPOSES ONLY</strong>. It does not replace professional laboratory training, official MSDS documents, institutional safety protocols, or professional chemical advice.</p>
+                    <div class="warning-box">
+                        <h4>⚠️ Important Note</h4>
+                        <p>QuantumChem is for <strong>EDUCATIONAL PURPOSES ONLY</strong>. It does not replace professional laboratory training, official MSDS documents, institutional safety protocols, or professional chemical advice.</p>
                     </div>
                 </section>
 
                 <!-- Sources Section -->
-                <section id="sources" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">📊 Data Sources</h2>
+                <section id="sources" class="doc-section">
+                    <h2>📊 Data Sources</h2>
                     
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1.5rem;font-size:1.05rem">QuantumChem integrates information from multiple reputable academic and scientific sources:</p>
+                    <p>QuantumChem integrates information from multiple reputable academic and scientific sources:</p>
                     
-                    <div style="background:rgba(0,212,255,0.05);border:2px solid var(--glass-border);border-radius:15px;padding:1rem;margin:1.5rem 0;overflow-x:auto">
-                        <table style="width:100%;border-collapse:collapse;min-width:500px">
+                    <div class="data-table">
+                        <table>
                             <thead>
-                                <tr style="background:rgba(0,212,255,0.1)">
-                                    <th style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:var(--accent);font-weight:600;font-size:0.9rem">Source</th>
-                                    <th style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:var(--accent);font-weight:600;font-size:0.9rem">Purpose</th>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Purpose</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">PubChem Database</td>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">Chemical structures, properties, and identifiers</td>
+                                    <td>PubChem Database</td>
+                                    <td>Chemical structures, properties, and identifiers</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">ChemSpider Database</td>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">Data verification and cross-referencing</td>
+                                    <td>ChemSpider Database</td>
+                                    <td>Data verification and cross-referencing</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">Academic Textbooks</td>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:1px solid var(--glass-border);color:#cbd5e1">Educational content and explanations</td>
+                                    <td>Academic Textbooks</td>
+                                    <td>Educational content and explanations</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:none;color:#cbd5e1">Public Safety Resources</td>
-                                    <td style="padding:12px 15px;text-align:left;border-bottom:none;color:#cbd5e1">General safety information and guidelines</td>
+                                    <td>Public Safety Resources</td>
+                                    <td>General safety information and guidelines</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">📈 Data Accuracy</h3>
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1rem">We strive to provide accurate, up-to-date information but make no guarantees about absolute completeness or accuracy. Always verify critical chemical information from official, authoritative sources before any practical application.</p>
+                    <h3>📈 Data Accuracy</h3>
+                    <p>We strive to provide accurate, up-to-date information but make no guarantees about absolute completeness or accuracy. Always verify critical chemical information from official, authoritative sources before any practical application.</p>
                 </section>
 
                 <!-- Features Section -->
-                <section id="features" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">⚙️ Platform Features</h2>
+                <section id="features" class="doc-section">
+                    <h2>⚙️ Platform Features</h2>
                     
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin:2rem 0">
-                        <div style="background:rgba(0,212,255,0.05);border:2px solid var(--glass-border);border-radius:15px;padding:1.5rem;text-align:center;transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.background='rgba(0,212,255,0.05)'">
-                            <i class="fas fa-graduation-cap" style="font-size:2rem;color:var(--accent);margin-bottom:1rem"></i>
-                            <h4 style="color:var(--accent-light);font-size:1.1rem;margin-bottom:0.75rem">Course Materials</h4>
-                            <p style="color:#94a3b8;font-size:0.9rem;line-height:1.6">Complete Engineering Chemistry I syllabus coverage</p>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Course Materials</h4>
+                            <p>Complete Engineering Chemistry I syllabus coverage</p>
                         </div>
-                        <div style="background:rgba(0,212,255,0.05);border:2px solid var(--glass-border);border-radius:15px;padding:1.5rem;text-align:center;transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.background='rgba(0,212,255,0.05)'">
-                            <i class="fas fa-flask" style="font-size:2rem;color:var(--accent);margin-bottom:1rem"></i>
-                            <h4 style="color:var(--accent-light);font-size:1.1rem;margin-bottom:0.75rem">Lab Tutorials</h4>
-                            <p style="color:#94a3b8;font-size:0.9rem;line-height:1.6">Step-by-step laboratory experiment guides</p>
+                        <div class="feature-card">
+                            <i class="fas fa-flask"></i>
+                            <h4>Lab Tutorials</h4>
+                            <p>Step-by-step laboratory experiment guides</p>
                         </div>
-                        <div style="background:rgba(0,212,255,0.05);border:2px solid var(--glass-border);border-radius:15px;padding:1.5rem;text-align:center;transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.background='rgba(0,212,255,0.05)'">
-                            <i class="fas fa-database" style="font-size:2rem;color:var(--accent);margin-bottom:1rem"></i>
-                            <h4 style="color:var(--accent-light);font-size:1.1rem;margin-bottom:0.75rem">Chemical Database</h4>
-                            <p style="color:#94a3b8;font-size:0.9rem;line-height:1.6">1000+ chemicals with properties & safety data</p>
+                        <div class="feature-card">
+                            <i class="fas fa-database"></i>
+                            <h4>Chemical Database</h4>
+                            <p>1000+ chemicals with properties & safety data</p>
                         </div>
                     </div>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">💻 Technical Features</h3>
-                    <ul style="color:#cbd5e1;margin-left:1.5rem;margin-bottom:1.5rem">
-                        <li style="margin-bottom:0.5rem">Responsive, modern design with mobile optimization</li>
-                        <li style="margin-bottom:0.5rem">Intelligent chemical search with filtering</li>
-                        <li style="margin-bottom:0.5rem">Interactive 3D molecular visualization</li>
-                        <li style="margin-bottom:0.5rem">AI-assisted chemical analysis tools</li>
-                        <li style="margin-bottom:0.5rem">Secure user authentication system</li>
+                    <h3>💻 Technical Features</h3>
+                    <ul>
+                        <li>Responsive, modern design with mobile optimization</li>
+                        <li>Intelligent chemical search with filtering</li>
+                        <li>Interactive 3D molecular visualization</li>
+                        <li>AI-assisted chemical analysis tools</li>
+                        <li>Secure user authentication system</li>
                     </ul>
                 </section>
 
                 <!-- User Guide Section -->
-                <section id="guide" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">📖 User Guide</h2>
+                <section id="guide" class="doc-section">
+                    <h2>📖 User Guide</h2>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">🚀 Getting Started</h3>
-                    <ol style="color:#cbd5e1;margin-left:1.5rem;margin-bottom:1.5rem">
-                        <li style="margin-bottom:0.5rem">Access course materials through the learning modules</li>
-                        <li style="margin-bottom:0.5rem">Use the search functionality to find specific chemicals</li>
-                        <li style="margin-bottom:0.5rem">Browse laboratory tutorials for practical guidance</li>
-                        <li style="margin-bottom:0.5rem">Explore chemical database for reference information</li>
-                        <li style="margin-bottom:0.5rem">Utilize AI tools for enhanced learning support</li>
+                    <h3>🚀 Getting Started</h3>
+                    <ol>
+                        <li>Access course materials through the learning modules</li>
+                        <li>Use the search functionality to find specific chemicals</li>
+                        <li>Browse laboratory tutorials for practical guidance</li>
+                        <li>Explore chemical database for reference information</li>
+                        <li>Utilize AI tools for enhanced learning support</li>
                     </ol>
                     
-                    <div style="background:rgba(255,170,51,0.1);border-left:4px solid #ffaa33;padding:1.5rem;border-radius:10px;margin:1.5rem 0">
-                        <h4 style="color:#ffaa33;margin-bottom:0.5rem;font-size:1.1rem">🛡️ Safety Awareness</h4>
-                        <p style="color:#cbd5e1;margin-bottom:1rem">QuantumChem provides educational safety information. For actual laboratory work:</p>
-                        <ul style="color:#cbd5e1;margin-left:1.5rem">
-                            <li style="margin-bottom:0.5rem">Always consult official MSDS documentation</li>
-                            <li style="margin-bottom:0.5rem">Follow institutional safety protocols strictly</li>
-                            <li style="margin-bottom:0.5rem">Use proper personal protective equipment (PPE)</li>
-                            <li style="margin-bottom:0.5rem">Work only under qualified supervision</li>
-                            <li style="margin-bottom:0.5rem">Maintain proper laboratory safety practices</li>
+                    <div class="note-box">
+                        <h4>🛡️ Safety Awareness</h4>
+                        <p>QuantumChem provides educational safety information. For actual laboratory work:</p>
+                        <ul>
+                            <li>Always consult official MSDS documentation</li>
+                            <li>Follow institutional safety protocols strictly</li>
+                            <li>Use proper personal protective equipment (PPE)</li>
+                            <li>Work only under qualified supervision</li>
+                            <li>Maintain proper laboratory safety practices</li>
                         </ul>
                     </div>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">✅ Responsible Use</h3>
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1rem">Users are solely responsible for how they utilize information from QuantumChem. Exercise caution, apply common sense, and always prioritize safety in any chemical-related activities.</p>
+                    <h3>✅ Responsible Use</h3>
+                    <p>Users are solely responsible for how they utilize information from QuantumChem. Exercise caution, apply common sense, and always prioritize safety in any chemical-related activities.</p>
                 </section>
 
                 <!-- Contact Section -->
-                <section id="contact" class="doc-section" style="margin-bottom:40px;scroll-margin-top:100px;background:var(--glass-bg);border-radius:20px;padding:2rem;border:2px solid var(--glass-border);transition:all 0.3s ease" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 20px 60px rgba(0,212,255,0.2)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                    <h2 style="font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--accent);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:2px solid var(--glass-border)">📧 Contact & Support</h2>
+                <section id="contact" class="doc-section">
+                    <h2>📧 Contact & Support</h2>
                     
-                    <h3 style="font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--accent-light);margin:1.5rem 0 1rem">📞 Project Contact</h3>
-                    <p style="color:#cbd5e1;line-height:1.8;margin-bottom:1.5rem">For questions, corrections, feedback, or collaboration opportunities regarding QuantumChem:</p>
+                    <h3>📞 Project Contact</h3>
+                    <p>For questions, corrections, feedback, or collaboration opportunities regarding QuantumChem:</p>
                     
-                    <div style="background:linear-gradient(135deg,rgba(0,212,255,0.1) 0%,rgba(178,75,243,0.1) 100%);border:2px solid var(--accent);border-radius:15px;padding:2rem;text-align:center;margin:2rem 0">
-                        <h4 style="color:var(--accent);margin-bottom:1rem;font-family:'Orbitron',sans-serif">📨 Contact Email</h4>
-                        <p style="margin:0.75rem 0"><i class="fas fa-envelope" style="margin-right:0.5rem"></i> <strong>quantumchem25@gmail.com</strong></p>
-                        <p style="margin:0.75rem 0"><i class="fas fa-phone" style="margin-right:0.5rem"></i> +91 81492 77038</p>
-                        <p style="margin:0.75rem 0"><i class="fas fa-map-marker-alt" style="margin-right:0.5rem"></i> Pimpri Chinchwad College of Engineering, Pune</p>
-                        <p style="margin-top:1.5rem;color:#94a3b8;font-size:0.9rem">Please allow reasonable time for response. This is a student-run academic project.</p>
+                    <div class="contact-card">
+                        <h4>📨 Contact Email</h4>
+                        <p><i class="fas fa-envelope"></i> <strong>quantumchem25@gmail.com</strong></p>
+                        <p><i class="fas fa-phone"></i> +91 81492 77038</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Pimpri Chinchwad College of Engineering, Pune</p>
+                        <p style="margin-top: 1.5rem; color: #94a3b8; font-size: 0.9rem;">Please allow reasonable time for response. This is a student-run academic project.</p>
                     </div>
                     
-                    <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:2rem;flex-wrap:wrap">
-                        <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;padding:1rem 2rem;border-radius:15px;font-weight:600;text-decoration:none;transition:all 0.3s ease;border:2px solid var(--accent);background:transparent;color:white" onmouseover="this.style.background='linear-gradient(135deg,#00d4ff 0%,#b24bf3 100%)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 25px rgba(0,212,255,0.3)'" onmouseout="this.style.background='transparent';this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="fas fa-home"></i> Back to Home</a>
-                        <a href="team.html" style="display:inline-flex;align-items:center;gap:10px;padding:1rem 2rem;border-radius:15px;font-weight:600;text-decoration:none;transition:all 0.3s ease;border:2px solid var(--purple);background:transparent;color:white" onmouseover="this.style.background='linear-gradient(135deg,#b24bf3 0%,#00d4ff 100%)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 25px rgba(178,75,243,0.3)'" onmouseout="this.style.background='transparent';this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="fas fa-users"></i> Meet Our Team</a>
+                    <div class="action-buttons">
+                        <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Back to Home</a>
+                        <a href="team.html" class="btn btn-secondary"><i class="fas fa-users"></i> Meet Our Team</a>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer style="background:rgba(10,14,39,0.95);padding:40px 0 20px;border-top:2px solid var(--glass-border);margin-top:2rem">
+    <footer class="main-footer">
         <div class="container">
-            <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap">
-                <a href="index.html" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;transition:all 0.3s ease" onmouseover="this.style.color='var(--accent)';this.style.background='rgba(0,212,255,0.1)';this.style.transform='translateY(-3px)'" onmouseout="this.style.color='var(--accent-light)';this.style.background='transparent';this.style.transform='translateY(0)'">Home</a>
-                <a href="team.html" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;transition:all 0.3s ease" onmouseover="this.style.color='var(--accent)';this.style.background='rgba(0,212,255,0.1)';this.style.transform='translateY(-3px)'" onmouseout="this.style.color='var(--accent-light)';this.style.background='transparent';this.style.transform='translateY(0)'">Team</a>
-                <a href="documentation.html" style="color:var(--accent);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;background:rgba(0,212,255,0.1)">Documentation</a>
-                <a href="privacy.html" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;transition:all 0.3s ease" onmouseover="this.style.color='var(--accent)';this.style.background='rgba(0,212,255,0.1)';this.style.transform='translateY(-3px)'" onmouseout="this.style.color='var(--accent-light)';this.style.background='transparent';this.style.transform='translateY(0)'">Privacy</a>
-                <a href="disclaimer.html" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;transition:all 0.3s ease" onmouseover="this.style.color='var(--accent)';this.style.background='rgba(0,212,255,0.1)';this.style.transform='translateY(-3px)'" onmouseout="this.style.color='var(--accent-light)';this.style.background='transparent';this.style.transform='translateY(0)'">Disclaimer</a>
-                <a href="contact.html" style="color:var(--accent-light);text-decoration:none;font-weight:600;font-size:1rem;padding:0.5rem 1rem;border-radius:10px;transition:all 0.3s ease" onmouseover="this.style.color='var(--accent)';this.style.background='rgba(0,212,255,0.1)';this.style.transform='translateY(-3px)'" onmouseout="this.style.color='var(--accent-light)';this.style.background='transparent';this.style.transform='translateY(0)'">Contact</a>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Home</a>
+                <a href="team.html" class="footer-link">Team</a>
+                <a href="documentation.html" class="footer-link active">Documentation</a>
+                <a href="privacy.html" class="footer-link">Privacy</a>
+                <a href="disclaimer.html" class="footer-link">Disclaimer</a>
+                <a href="contact.html" class="footer-link">Contact</a>
             </div>
             
-            <div style="text-align:center;color:#a0aec0;padding-top:20px;font-size:0.9rem">
+            <div class="footer-bottom">
                 <p>&copy; <span id="currentYear"></span> QuantumChem. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Load non-critical CSS deferred -->
-    <style>
-        /* NON-CRITICAL CSS - Load after content */
-        @media (max-width: 992px) {
-            .mobile-menu-toggle { display: flex; }
-            .nav-menu { display: none !important; }
-            .logo-text h1 { font-size: 1.3rem; letter-spacing: 1.5px; }
-            .logo-subtitle { font-size: 0.7rem; letter-spacing: 1px; }
-            .documentation-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; margin-bottom: 20px; }
-            .documentation-content { padding-right: 0; }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-logo { width: 45px; height: 45px; }
-            .logo-text h1 { font-size: 1.1rem; }
-            .logo-subtitle { font-size: 0.65rem; }
-            .doc-section { padding: 1.5rem !important; }
-            h2 { font-size: 1.6rem !important; }
-            h3 { font-size: 1.2rem !important; }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-logo { width: 40px; height: 40px; }
-            .logo-text h1 { font-size: 1rem; }
-            .logo-subtitle { font-size: 0.6rem; }
-            .mobile-menu-toggle { padding: 0.25rem; margin-left: 0.5rem; }
-            .footer-links { flex-direction: column; gap: 1rem; }
-            .action-buttons { flex-direction: column; align-items: center; }
-        }
-    </style>
-
-    <!-- Minimal JavaScript -->
     <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Initialize GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.2
+        });
+
+        gsap.utils.toArray('.doc-section').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 85%',
+                },
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: i * 0.1
+            });
+        });
+
         // Set current year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
+
         // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const toggle = document.getElementById('mobileMenuToggle');
-            if (menu.style.display === 'block') {
-                menu.style.transform = 'translateY(-100%)';
-                menu.style.opacity = '0';
-                toggle.classList.remove('active');
-                setTimeout(() => menu.style.display = 'none', 400);
-            } else {
-                menu.style.display = 'block';
-                setTimeout(() => {
-                    menu.style.transform = 'translateY(0)';
-                    menu.style.opacity = '1';
-                    toggle.classList.add('active');
-                }, 10);
-            }
-        }
-        
-        // Smooth scroll to section
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                window.scrollTo({
-                    top: section.offsetTop - 80,
-                    behavior: 'smooth'
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
                 });
-                
-                // Update active sidebar link
-                document.querySelectorAll('.sidebar a').forEach(link => {
-                    link.style.background = 'transparent';
-                    link.style.color = '#cbd5e1';
-                    link.style.borderColor = 'transparent';
-                });
-                
-                const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-                if (activeLink) {
-                    activeLink.style.background = 'rgba(0,212,255,0.1)';
-                    activeLink.style.color = 'var(--accent)';
-                    activeLink.style.borderColor = 'var(--glass-border)';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
                 }
-            }
+            });
         }
-        
+
         // Header scroll effect
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', () => {
             const header = document.querySelector('.main-header');
             if (window.pageYOffset > 100) {
                 header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
             } else {
                 header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
             }
         });
-        
-        // Update active sidebar on scroll
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.doc-section');
+
+        // Sidebar active link management
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('.doc-section');
+
+        function updateActiveLink() {
             let current = '';
             
             sections.forEach(section => {
@@ -390,15 +1109,29 @@
                 }
             });
             
-            document.querySelectorAll('.sidebar a').forEach(link => {
-                link.style.background = 'transparent';
-                link.style.color = '#cbd5e1';
-                link.style.borderColor = 'transparent';
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Smooth scroll to section
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
                 
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.style.background = 'rgba(0,212,255,0.1)';
-                    link.style.color = 'var(--accent)';
-                    link.style.borderColor = 'var(--glass-border)';
+                if (section) {
+                    const offsetTop = section.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });

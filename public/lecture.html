@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Notes | QuantumChem - Chemistry Learning Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tutorials | QuantumChem - Chemistry Learning Platform</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -39,8 +39,6 @@
             --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
             --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --accent-pink: #ec4899;
         }
 
         html {
@@ -51,8 +49,8 @@
             font-family: 'Inter', sans-serif;
             background: var(--primary);
             color: var(--text-primary);
-            line-height: 1.7;
-            font-size: 15px;
+            line-height: 1.6;
+            font-size: 14px;
             overflow-x: hidden;
             position: relative;
         }
@@ -99,7 +97,7 @@
             66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
-        /* Navigation */
+        /* Navigation - Enhanced for Mobile */
         .navbar {
             position: fixed;
             top: 0;
@@ -128,15 +126,8 @@
             gap: 0.6rem;
             text-decoration: none;
             color: var(--text-primary);
-        }
-
-        .logo-container {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-width: 0;
+            flex-shrink: 1;
         }
 
         .logo img {
@@ -147,46 +138,12 @@
             border: 3px solid var(--accent);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
             animation: rotateLogo 20s linear infinite;
-            position: relative;
-            z-index: 2;
+            flex-shrink: 0;
         }
 
         @keyframes rotateLogo {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        .logo-circle {
-            position: absolute;
-            border: 2px solid;
-            border-radius: 50%;
-            animation: rotate 20s linear infinite;
-        }
-
-        .logo-circle:nth-child(1) {
-            width: 100%;
-            height: 100%;
-            border-color: var(--accent);
-        }
-
-        .logo-circle:nth-child(2) {
-            width: 115%;
-            height: 115%;
-            border-color: var(--purple);
-            animation-direction: reverse;
-            animation-duration: 15s;
-        }
-
-        .logo-circle:nth-child(3) {
-            width: 130%;
-            height: 130%;
-            border-color: var(--accent-pink);
-            animation-duration: 25s;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .logo-text {
@@ -198,6 +155,9 @@
             background-clip: text;
             color: transparent;
             letter-spacing: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .logo-text span {
@@ -271,6 +231,7 @@
             padding: 0.5rem;
             background: none;
             border: none;
+            z-index: 1001;
         }
 
         .mobile-menu-btn span {
@@ -307,20 +268,21 @@
             transform: translateY(-100%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 0;
-            overflow: hidden;
         }
 
         .mobile-menu.active {
             transform: translateY(0);
             opacity: 1;
-            max-height: 500px;
         }
 
         .mobile-nav-links {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
             list-style: none;
         }
 
@@ -328,13 +290,14 @@
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             padding: 1rem;
             background: var(--glass-bg);
             border: 2px solid var(--glass-border);
             border-radius: 15px;
             text-align: center;
             transition: all 0.3s ease;
+            display: block;
         }
 
         .mobile-nav-links a:hover {
@@ -347,85 +310,36 @@
         .page-hero {
             padding: 150px 0 80px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-            border-bottom: 2px solid var(--glass-border);
+            text-align: center;
             position: relative;
             z-index: 1;
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        .hero-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .academic-seal {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            display: flex;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            gap: 0.5rem;
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
-        .academic-seal-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .academic-seal img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            position: relative;
-            z-index: 2;
-            object-fit: cover;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-        }
-
-        .seal-circle {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid;
-        }
-
-        .seal-circle:nth-child(1) {
-            width: 110%;
-            height: 110%;
-            border-color: var(--accent);
-            animation: rotate 20s linear infinite;
-        }
-
-        .seal-circle:nth-child(2) {
-            width: 125%;
-            height: 125%;
-            border-color: var(--purple);
-            animation: rotate 15s linear infinite reverse;
-        }
-
-        .seal-circle:nth-child(3) {
-            width: 140%;
-            height: 140%;
-            border-color: var(--accent-pink);
-            animation: rotate 25s linear infinite;
-        }
-
-        .hero-text h1 {
+        .page-hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -434,377 +348,538 @@
             letter-spacing: 5px;
         }
 
-        .course-subtitle {
+        .page-hero p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 400;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Instructor Card */
-        .instructor-highlight {
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
             margin-top: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .instructor-highlight:hover {
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .instructor-avatar {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            flex-shrink: 0;
-        }
-
-        .instructor-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-            z-index: 2;
-            border: 3px solid var(--primary);
-        }
-
-        .avatar-frame {
-            position: absolute;
-            width: 110%;
-            height: 110%;
-            top: -5%;
-            left: -5%;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg, 
-                var(--accent), 
-                var(--purple), 
-                var(--accent-pink), 
-                var(--accent)
-            );
-            animation: rotate 3s linear infinite;
-            opacity: 0.7;
-        }
-
-        .instructor-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-            color: var(--accent-light);
-        }
-
-        .instructor-title {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .instructor-details {
-            display: flex;
-            gap: 1.5rem;
             flex-wrap: wrap;
-            font-size: 0.85rem;
-            color: var(--text-muted);
         }
 
-        .instructor-details span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
         }
 
         /* Main Content */
-        .notes-section {
+        .tutorials-section {
             padding: 3rem 0;
             position: relative;
             z-index: 1;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        /* Unit Cards */
-        .units-grid {
-            display: grid;
-            gap: 2.5rem;
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .unit-card {
+        .filter-btn {
+            padding: 0.65rem 1.25rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-light);
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        /* Tutorials Grid */
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tutorial-card {
             background: var(--glass-bg);
             border-radius: 20px;
-            border: 2px solid var(--glass-border);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s;
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
-        .unit-card:hover {
-            border-color: var(--accent);
+        .tutorial-card:hover {
+            transform: translateY(-8px);
             box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
-            transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
-        .unit-header {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(178, 75, 243, 0.15));
-            padding: 2rem;
-            border-bottom: 2px solid var(--glass-border);
+        .tutorial-header {
             position: relative;
+            height: 180px;
             overflow: hidden;
         }
 
-        .unit-header::before {
-            content: '';
+        .tutorial-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .tutorial-card:hover .tutorial-image {
+            transform: scale(1.1);
+        }
+
+        .tutorial-category {
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .unit-number {
-            display: inline-block;
-            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .unit-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: white;
-            line-height: 1.3;
-        }
-
-        .unit-duration {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .unit-content {
-            padding: 2rem;
-        }
-
-        .unit-topics {
-            background: rgba(10, 14, 39, 0.6);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 4px solid var(--accent);
-        }
-
-        .topics-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .topics-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .topics-label {
+            top: 0.85rem;
+            left: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
             color: var(--accent-light);
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 700;
-            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            border: 2px solid var(--glass-border);
+        }
+
+        .tutorial-duration {
+            position: absolute;
+            top: 0.85rem;
+            right: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-secondary);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .tutorial-content {
+            padding: 1.25rem;
+        }
+
+        .tutorial-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
             margin-bottom: 0.75rem;
+            color: white;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .tutorial-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .lab-manual-btn {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .topics-content {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-
-        /* Resources Section */
-        .unit-resources {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .resource-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 1rem 1.5rem;
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.2);
             border: 2px solid rgba(16, 185, 129, 0.4);
-            border-radius: 12px;
             color: var(--accent-green);
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s;
+            margin: 1rem 0;
+            width: 100%;
+            justify-content: center;
         }
 
-        .resource-btn:hover {
-            background: rgba(16, 185, 129, 0.25);
-            border-color: var(--accent-green);
-            transform: translateY(-3px);
+        .lab-manual-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
         }
 
-        .resource-btn i {
-            font-size: 1.1rem;
+        .tutorial-credits {
+            background: rgba(10, 14, 39, 0.6);
+            padding: 0.85rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 3px solid var(--accent);
         }
 
-        /* Video Lectures */
-        .video-lectures {
-            margin-top: 2rem;
+        .credit-title {
+            color: var(--accent-light);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
         }
 
-        .lectures-header {
+        .credit-content {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .credit-highlight {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .tutorial-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.65rem 0.85rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--glass-border);
+            justify-content: center;
+            gap: 0.4rem;
         }
 
-        .lectures-header h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+        .action-btn.primary {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             color: white;
+            border: 2px solid transparent;
         }
 
-        .lectures-count {
-            background: var(--accent-orange);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
         }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-
-        .video-item {
-            background: rgba(10, 14, 39, 0.6);
+        .action-btn.secondary {
+            background: transparent;
+            color: var(--text-secondary);
             border: 2px solid var(--glass-border);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--accent-light);
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .learning-path,
+        .faq-section,
+        .resources-section {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .learning-path:hover,
+        .faq-section:hover,
+        .resources-section:hover {
+            border-color: var(--accent);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Path Steps */
+        .path-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .path-step {
+            background: rgba(10, 14, 39, 0.6);
+            padding: 1.5rem;
             border-radius: 12px;
-            padding: 1.2rem;
+            border: 2px solid var(--glass-border);
             text-align: center;
             transition: all 0.3s;
-            text-decoration: none;
-            display: block;
         }
 
-        .video-item:hover {
-            border-color: #ff0000;
-            background: rgba(255, 0, 0, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+        .path-step:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
 
-        .video-icon {
+        .step-number {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 auto 0.85rem;
+        }
+
+        .step-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* FAQ */
+        .faq-grid {
+            display: grid;
+            gap: 0.85rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(10, 14, 39, 0.6);
+            border-radius: 12px;
+            border: 2px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            padding: 1.15rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-question h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.15rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.15rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Resources */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .resource-item {
+            background: rgba(10, 14, 39, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s;
+        }
+
+        .resource-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .resource-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #ff0000, #cc0000);
+            background: rgba(0, 212, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 0.75rem;
-            font-size: 1.3rem;
-            color: white;
+            color: var(--accent);
+            font-size: 1.25rem;
         }
 
-        .video-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+        .resource-item h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
         }
 
-        .video-title {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-family: 'JetBrains Mono', monospace;
+        .resource-item p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            color: var(--accent-light);
         }
 
         /* Footer */
         .footer {
             background: rgba(10, 14, 39, 0.95);
             border-top: 2px solid var(--glass-border);
-            padding: 2rem 0 1rem;
-            margin-top: 4rem;
+            padding: 2.5rem 0 1.5rem;
+            margin-top: 3rem;
             position: relative;
             z-index: 1;
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
-            text-align: center;
         }
 
-        .footer-brand {
-            margin-bottom: 1.5rem;
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .footer-brand .logo {
-            display: inline-flex;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
         }
 
         .footer-tagline {
-            color: var(--text-muted);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
             font-size: 0.9rem;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: var(--accent-light);
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             transition: color 0.3s;
         }
 
@@ -812,29 +887,35 @@
             color: var(--accent);
         }
 
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
         .footer-social {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            gap: 1rem;
         }
 
         .footer-social a {
             color: var(--text-secondary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
         }
 
         .footer-social a:hover {
             color: var(--accent);
             transform: translateY(-3px);
-        }
-
-        .copyright {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--glass-border);
         }
 
         /* Responsive */
@@ -851,11 +932,15 @@
                 display: block;
             }
 
-            .logo-text {
-                font-size: 1.3rem;
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
             }
 
-            .logo-container,
+            .logo-text {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
             .logo img {
                 width: 50px;
                 height: 50px;
@@ -863,54 +948,77 @@
         }
 
         @media (max-width: 768px) {
-            .hero-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            .nav-container {
+                padding: 0 1rem;
             }
-            
-            .hero-text h1 {
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .page-hero h1 {
                 font-size: 2rem;
             }
             
-            .instructor-highlight {
-                flex-direction: column;
-                text-align: center;
+            .tutorials-grid {
+                grid-template-columns: 1fr;
             }
             
-            .video-grid {
+            .footer-main {
                 grid-template-columns: 1fr;
             }
 
-            .unit-title {
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .category-filter {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .mobile-menu-btn {
+                padding: 0.25rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .page-hero h1 {
+                font-size: 1.5rem;
+                letter-spacing: 3px;
+            }
+
+            .section-header h2 {
                 font-size: 1.5rem;
             }
-
-            .unit-resources {
-                grid-template-columns: 1fr;
-            }
         }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .unit-card {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .unit-card:nth-child(1) { animation-delay: 0.1s; }
-        .unit-card:nth-child(2) { animation-delay: 0.2s; }
-        .unit-card:nth-child(3) { animation-delay: 0.3s; }
-        .unit-card:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -922,16 +1030,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <div class="logo-container">
-                    <div class="logo-circle"></div>
-                    <div class="logo-circle"></div>
-                    <div class="logo-circle"></div>
-                    <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
-                </div>
+                <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
                 <div class="logo-text"><span>Quantum</span>Chem</div>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="tutorials.html">Tutorials</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="mailto:quantumchem25@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> Get in Touch</a></li>
@@ -948,401 +1052,537 @@
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-nav-links">
             <li><a href="index.html">🏠 Home</a></li>
-            <li><a href="tutorials.html">📚 Tutorials</a></li>
+            <li><a href="about.html">ℹ️ About</a></li>
+            <li><a href="Lectures.html">📚 Tutorials</a></li>
             <li><a href="contact.html">📞 Contact</a></li>
             <li><a href="mailto:quantumchem25@gmail.com">✉️ Get in Touch</a></li>
         </ul>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="page-hero">
         <div class="hero-content">
-            <div class="hero-header">
-                <div class="academic-seal">
-                    <div class="academic-seal-container">
-                        <div class="seal-circle"></div>
-                        <div class="seal-circle"></div>
-                        <div class="seal-circle"></div>
-                        <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
-                    </div>
-                </div>
-                <div class="hero-text">
-                    <h1>Engineering Chemistry </h1>
-                    <p class="course-subtitle">Comprehensive Course Materials & Lecture Notes</p>
-                </div>
+            <div class="hero-badge">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Interactive Learning Platform</span>
             </div>
-
-            <!-- Instructor Highlight -->
-            <div class="instructor-highlight">
-                <div class="instructor-avatar">
-                    <div class="avatar-frame"></div>
-                    <img src="https://fe.pccoepune.com/images/faculty/Kharche.webp" alt="Dr. Amol Kharche">
+            <h1>Master Chemistry</h1>
+            <p>Professional tutorials for chemical concepts, laboratory techniques, and database mastery. Learn at your own pace with expert guidance.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label">Practical Tutorials</span>
                 </div>
-                <div class="instructor-info">
-                    <h3>Dr. Amol Kharche</h3>
-                    <p class="instructor-title">Assistant Professor | M.Sc., SET, Ph.D.</p>
-                    <div class="instructor-details">
-                        <span><i class="fas fa-graduation-cap"></i> Ph.D. Chemistry</span>
-                        <span><i class="fas fa-flask"></i> Organic Chemistry</span>
-                        <span><i class="fas fa-calendar-alt"></i> 15+ Years Experience</span>
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number">Advanced</span>
+                    <span class="stat-label">Lab Manuals</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Active Learners</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <div class="notes-section">
+    <div class="tutorials-section">
         <div class="container">
-            <div class="units-grid">
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All Tutorials</button>
+                <button class="filter-btn" data-category="laboratory">Laboratory</button>
+                <button class="filter-btn" data-category="analysis">Analysis</button>
+                <button class="filter-btn" data-category="safety">Safety</button>
+            </div>
+
+            <!-- Tutorials Grid -->
+            <div class="tutorials-grid">
+                <!-- Practical 1 -->
+                <div class="tutorial-card" data-category="safety">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/d9/f4/f9/d9f4f92d20842253b0765a0613df19ea.jpg" alt="Safety in the Engineering Chemistry Laboratory" class="tutorial-image">
+                        <span class="tutorial-category">Safety</span>
+                        <span class="tutorial-duration"><i class="fas fa-shield-alt"></i> Practical 1</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Safety in the Engineering Chemistry Laboratory</h3>
+                        <p class="tutorial-description">Comprehensive guide to laboratory safety protocols, equipment handling, and emergency procedures for engineering chemistry labs.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 2 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/e1/ec/16/e1ec16946e075ce0cd2576f2496fcf64.jpg" alt="Total Hardness of Water" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-vial"></i> Practical 2</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Determination of Total Hardness of Water by EDTA Method</h3>
+                        <p class="tutorial-description">Learn complexometric titration technique to determine calcium and magnesium ions in water samples using EDTA.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 3 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/47/29/f0/4729f0dde48020404d94a3e29e1333d8.jpg" alt="Alkalinity of Water" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-flask"></i> Practical 3</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Determination of Type and Extent of Alkalinity of Water</h3>
+                        <p class="tutorial-description">Identify and quantify various forms of alkalinity in water samples through systematic titration methods.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 4 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/1f/b3/c1/1fb3c135c6750d370efc3497e5535412.jpg" alt="Chloride Ion Determination" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-chart-line"></i> Practical 4</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Determination of Chloride Ion by Argentometric Method</h3>
+                        <p class="tutorial-description">Master precipitation titration technique to determine chloride ion concentration in water samples using silver nitrate.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 5 -->
+                <div class="tutorial-card" data-category="laboratory">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/36/1d/6f/361d6f946fdb641006ad036d110d1bb9.jpg" alt="Dissociation Constant" class="tutorial-image">
+                        <span class="tutorial-category">Laboratory</span>
+                        <span class="tutorial-duration"><i class="fas fa-flask"></i> Practical 5</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Determination of Dissociation Constant of Acetic Acid</h3>
+                        <p class="tutorial-description">Use pH meter to measure and calculate the dissociation constant (Ka) of weak acids through systematic pH measurements.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 6 -->
+                <div class="tutorial-card" data-category="laboratory">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/b1/fc/3d/b1fc3d6c5283b4a51f66984ed07ef369.jpg" alt="Conductivity Titration" class="tutorial-image">
+                        <span class="tutorial-category">Laboratory</span>
+                        <span class="tutorial-duration"><i class="fas fa-bolt"></i> Practical 6</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Titration Using Conductivity Meter</h3>
+                        <p class="tutorial-description">Determine the strength of acid through conductometric titration of strong acid and strong base mixtures.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 7 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/1200x/a3/18/c7/a318c7d74e02ed3c4a0d8c63de0de84e.jpg" alt="Proximate Analysis of Coal" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-fire"></i> Practical 7</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Proximate Analysis of Coal</h3>
+                        <p class="tutorial-description">Determine moisture, volatile matter, ash content, and fixed carbon in coal samples through systematic analysis.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 8 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/7d/0f/a3/7d0fa3b91ba1fb58ea60402e8759ef88.jpg" alt="Potentiometric Estimation" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-chart-bar"></i> Practical 8</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Estimation of Fe(II) Potentiometrically</h3>
+                        <p class="tutorial-description">Quantitative determination of ferrous iron using potentiometric titration with standard oxidizing agents.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 9 -->
+                <div class="tutorial-card" data-category="analysis">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/37/28/5f/37285f0e614d5dbe4028489d69b97c34.jpg" alt="UV-Vis Spectrophotometry" class="tutorial-image">
+                        <span class="tutorial-category">Analysis</span>
+                        <span class="tutorial-duration"><i class="fas fa-wave-square"></i> Practical 9</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Maximum Wavelength of Absorption & Beer's Law</h3>
+                        <p class="tutorial-description">Determine maximum absorption wavelength of KMnO₄, verify Beer's law, and find concentration of unknown samples.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 10 -->
+                <div class="tutorial-card" data-category="laboratory">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/736x/ab/dd/42/abdd425ecf08aa017b26b3d13cb1a761.jpg" alt="Electrochemical Equivalent" class="tutorial-image">
+                        <span class="tutorial-category">Laboratory</span>
+                        <span class="tutorial-duration"><i class="fas fa-battery-full"></i> Practical 10</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Determination of Electrochemical Equivalent (ECE) of Cu</h3>
+                        <p class="tutorial-description">Calculate the electrochemical equivalent of copper through controlled electrolysis experiments and weight measurements.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practical 11 -->
+                <div class="tutorial-card" data-category="laboratory">
+                    <div class="tutorial-header">
+                        <img src="https://i.pinimg.com/1200x/8e/af/24/8eaf241af1acccc85d1afc05fef38caa.jpg" alt="Phenol Formaldehyde Resin" class="tutorial-image">
+                        <span class="tutorial-category">Laboratory</span>
+                        <span class="tutorial-duration"><i class="fas fa-flask"></i> Practical 11</span>
+                    </div>
+                    <div class="tutorial-content">
+                        <h3 class="tutorial-title">Preparation of Phenol Formaldehyde Resin</h3>
+                        <p class="tutorial-description">Synthesize thermosetting phenolic resin through controlled polymerization of phenol and formaldehyde under specific conditions.</p>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ" target="_blank" class="lab-manual-btn">
+                            <i class="fas fa-download"></i> Download Lab Manual (PDF)
+                        </a>
+                        
+                        <div class="tutorial-credits">
+                            <div class="credit-title">Instructor</div>
+                            <div class="credit-content">
+                                By <span class="credit-highlight">Dr. Amol Khare</span><br>
+                                Ph.D. Chemistry • PCCOE Chemistry Department
+                            </div>
+                        </div>
+                        
+                        <div class="tutorial-actions">
+                            <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="action-btn primary">
+                                <i class="fab fa-youtube"></i> Watch Video
+                            </a>
+                            <a href="https://drive.google.com/file/d/1SLDyKBlsNdlOBow6l6fNmAD0Wimd8HoZ/view" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Path -->
+            <div class="learning-path">
+                <div class="section-header">
+                    <h2>Learning Path</h2>
+                    <p>Structured approach to master chemistry laboratory techniques</p>
+                </div>
                 
-                <!-- Unit 1 -->
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <span class="unit-number">Unit 01</span>
-                        <h2 class="unit-title">Water Technology and Green Chemistry</h2>
-                        <p class="unit-duration"><i class="fas fa-clock"></i> 8 Hours</p>
+                <div class="path-steps">
+                    <div class="path-step">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Safety Fundamentals</h3>
+                        <p class="step-description">Learn essential lab safety and handling</p>
                     </div>
-                    <div class="unit-content">
-                        <div class="unit-topics">
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-tint"></i> Part A: Water Technology
-                                </div>
-                                <div class="topics-content">
-                                    Hardness of water, its types, units of hardness and hardness calculation. Chemical analysis of water by determination of hardness by EDTA method. Alkalinity of water and its determination. Numerical on EDTA method and alkalinity. Disadvantages of hard water in boilers. Water softening techniques: Permutit and Ion exchange method. Dissolved oxygen (DO), biological oxygen demand (BOD) and Chemical oxygen demand (COD).
-                                </div>
-                            </div>
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-leaf"></i> Part B: Green Chemistry
-                                </div>
-                                <div class="topics-content">
-                                    Introduction of Green Chemistry: Definition, goals, principles and green synthesis of Polycarbonate.
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div class="path-step">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Basic Techniques</h3>
+                        <p class="step-description">Master fundamental lab procedures</p>
+                    </div>
+                    
+                    <div class="path-step">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Analytical Methods</h3>
+                        <p class="step-description">Quantitative and qualitative analysis</p>
+                    </div>
+                    
+                    <div class="path-step">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Advanced Synthesis</h3>
+                        <p class="step-description">Apply advanced synthesis techniques</p>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Resources -->
-                        <div class="unit-resources">
-                            <a href="https://drive.google.com/file/d/1EGDxGrSosO5BgIyVC5E2YHVqDvddUgGw/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1vpVb4DYrjvsQanj5bvDXlXRA8_mEVM2u/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1203sdNrTMHG70J_Pix7Fe0_7GBXH6uDD/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 3
-                            </a>
+            <!-- FAQ -->
+            <div class="faq-section">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Common questions about our tutorials</p>
+                </div>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Are these tutorials free?</h3>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
-
-                        <!-- Video Lectures -->
-                        <div class="video-lectures">
-                            <div class="lectures-header">
-                                <h3>Video Lectures</h3>
-                                <span class="lectures-count">5 Videos</span>
-                            </div>
-                            <div class="video-grid">
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 1</div>
-                                    <div class="video-title">Water Hardness</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 2</div>
-                                    <div class="video-title">EDTA Method</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 3</div>
-                                    <div class="video-title">Softening Techniques</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 4</div>
-                                    <div class="video-title">BOD & COD</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 5</div>
-                                    <div class="video-title">Green Chemistry</div>
-                                </a>
-                            </div>
+                        <div class="faq-answer">
+                            <p>Yes! All tutorials, lab manuals, and videos are completely free to access.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I download lab manuals?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Click the green "Download Lab Manual" button on each practical card to access PDFs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do I need prior knowledge?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Basic chemistry knowledge is helpful, but our tutorials are designed to guide you through each practical step-by-step.</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Unit 2 -->
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <span class="unit-number">Unit 02</span>
-                        <h2 class="unit-title">Fuels and Combustion</h2>
-                        <p class="unit-duration"><i class="fas fa-clock"></i> 7 Hours</p>
+            <!-- Resources -->
+            <div class="resources-section">
+                <div class="section-header">
+                    <h2>Additional Resources</h2>
+                    <p>Enhance your learning with supplementary materials</p>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <div class="resource-icon"><i class="fas fa-book"></i></div>
+                        <h3>Reference Guides</h3>
+                        <p>PDF guides for chemical properties and safety</p>
+                        <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="resource-link">
+                            Access Library <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="unit-content">
-                        <div class="unit-topics">
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-fire"></i> Part A: Fuels
-                                </div>
-                                <div class="topics-content">
-                                    Fuels: definition, calorific value and its units. Calorific value (CV), gross calorific value (GCV), net calorific value (NCV). Determination of calorific value - Bomb calorimeter, Boy's calorimeter and numerical. i) Solid fuels: coal, proximate and ultimate analysis of coal, numerical based on analysis of coal. ii) Liquid fuels: composition of petroleum, refining of petroleum. Synthesis, properties, advantages and disadvantages of Power alcohol and Biodiesel. iii) Gaseous fuels: Hydrogen gas as a future fuel, production by steam reforming of methane and by electrolysis of water. Challenges in storage and transportation of H₂ gas.
-                                </div>
-                            </div>
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-burn"></i> Part B: Combustion
-                                </div>
-                                <div class="topics-content">
-                                    Combustion: chemical reactions, calculations on air requirement for combustion.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Resources -->
-                        <div class="unit-resources">
-                            <a href="https://drive.google.com/file/d/1ramIwrYDbDhjCg7mpbXFJcYHfKO6fAmw/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1cd5oGLm1v9XcQPHQ_HEM3bdFq3b45Qii/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 2
-                            </a>
-                        </div>
-
-                        <!-- Video Lectures -->
-                        <div class="video-lectures">
-                            <div class="lectures-header">
-                                <h3>Video Lectures</h3>
-                                <span class="lectures-count">5 Videos</span>
-                            </div>
-                            <div class="video-grid">
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 1</div>
-                                    <div class="video-title">Calorific Value</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 2</div>
-                                    <div class="video-title">Solid Fuels</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 3</div>
-                                    <div class="video-title">Liquid Fuels</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 4</div>
-                                    <div class="video-title">Hydrogen Fuel</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 5</div>
-                                    <div class="video-title">Combustion</div>
-                                </a>
-                            </div>
-                        </div>
+                    
+                    <div class="resource-item">
+                        <div class="resource-icon"><i class="fas fa-video"></i></div>
+                        <h3>Video Library</h3>
+                        <p>Complete collection of instructional videos</p>
+                        <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="resource-link">
+                            Watch Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <div class="resource-icon"><i class="fas fa-flask"></i></div>
+                        <h3>Virtual Lab</h3>
+                        <p>Interactive simulations for practice</p>
+                        <a href="index.html" class="resource-link">
+                            Start Exploring <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Unit 3 -->
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <span class="unit-number">Unit 03</span>
-                        <h2 class="unit-title">Corrosion and Corrosion Control</h2>
-                        <p class="unit-duration"><i class="fas fa-clock"></i> 7 Hours</p>
-                    </div>
-                    <div class="unit-content">
-                        <div class="unit-topics">
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-shield-alt"></i> Part A: Corrosion
-                                </div>
-                                <div class="topics-content">
-                                    Corrosion: introduction, types of corrosion, mechanism of atmospheric corrosion and wet corrosion. Galvanic series. Factors affecting corrosion: nature of metal and nature of environment. Different types of corrosion: Pitting corrosion, concentration cell corrosion, stress corrosion and soil corrosion.
-                                </div>
-                            </div>
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-tools"></i> Part B: Corrosion Control
-                                </div>
-                                <div class="topics-content">
-                                    Corrosion control: methods of prevention of corrosion - cathodic and anodic protection, metallic coatings and its types - anodic and cathodic coatings. Methods to apply metallic coatings - hot dipping, cladding, electroplating and cementation.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Resources -->
-                        <div class="unit-resources">
-                            <a href="https://drive.google.com/file/d/12VwE3n2F5uHyT380Cf6nu6i1sl-mXmfD/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1_F88QKpwIYMQfbkDzNtr4NrlC9iVkkal/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 2
-                            </a>
-                        </div>
-
-                        <!-- Video Lectures -->
-                        <div class="video-lectures">
-                            <div class="lectures-header">
-                                <h3>Video Lectures</h3>
-                                <span class="lectures-count">5 Videos</span>
-                            </div>
-                            <div class="video-grid">
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 1</div>
-                                    <div class="video-title">Introduction</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 2</div>
-                                    <div class="video-title">Types of Corrosion</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 3</div>
-                                    <div class="video-title">Galvanic Series</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 4</div>
-                                    <div class="video-title">Protection Methods</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 5</div>
-                                    <div class="video-title">Metallic Coatings</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Unit 4 -->
-                <div class="unit-card">
-                    <div class="unit-header">
-                        <span class="unit-number">Unit 04</span>
-                        <h2 class="unit-title">Chemistry of Polymers and Novel Carbon Compounds</h2>
-                        <p class="unit-duration"><i class="fas fa-clock"></i> 8 Hours</p>
-                    </div>
-                    <div class="unit-content">
-                        <div class="unit-topics">
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-link"></i> Part A: Polymers
-                                </div>
-                                <div class="topics-content">
-                                    Polymers: definition, classification of polymers on the basis of thermal behavior, properties of polymers: degree of polymerization, crystallinity, Tg & Tm and factors affecting Tg. Polymerization and its types. Advanced polymeric materials: Structure, properties and applications of liquid crystal polymer - Kevlar, conducting polymers - Polyacetylene, electroluminescent polymer PPV and biodegradable polymers PHBV.
-                                </div>
-                            </div>
-                            <div class="topics-section">
-                                <div class="topics-label">
-                                    <i class="fas fa-cube"></i> Part B: Nanomaterials
-                                </div>
-                                <div class="topics-content">
-                                    Nanomaterials: definition, types of nanomaterials and properties of nanomaterials. Quantum dots: Types, properties and applications of QDs. Structure properties and applications of Graphene and Carbon Nano Tubes (CNTs).                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Resources -->
-                        <div class="unit-resources">
-                            <a href="https://drive.google.com/file/d/16UIvNzngSR19gW-VQcixHp83P8mOC2uP/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1_aIkPyxr5-rf93EwC5xjZfY8UtqbyRcE/view?usp=drive_link" target="_blank" class="resource-btn">
-                                <i class="fas fa-file-pdf"></i>
-                                View Notes - Part 2
-                            </a>
-                        </div>
-
-                        <!-- Video Lectures -->
-                        <div class="video-lectures">
-                            <div class="lectures-header">
-                                <h3>Video Lectures</h3>
-                                <span class="lectures-count">5 Videos</span>
-                            </div>
-                            <div class="video-grid">
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 1</div>
-                                    <div class="video-title">Polymer Classification</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 2</div>
-                                    <div class="video-title">Advanced Polymers</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 3</div>
-                                    <div class="video-title">Nanomaterials Intro</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 4</div>
-                                    <div class="video-title">Quantum Dots</div>
-                                </a>
-                                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" class="video-item">
-                                    <div class="video-icon">
-                                        <i class="fab fa-youtube"></i>
-                                    </div>
-                                    <div class="video-label">Lecture 5</div>
-                                    <div class="video-title">CNTs & Graphene</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -1350,45 +1590,53 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-brand">
-                <a href="index.html" class="logo">
-                    <div class="logo-container">
-                        <div class="logo-circle"></div>
-                        <div class="logo-circle"></div>
-                        <div class="logo-circle"></div>
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
                         <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
-                    </div>
-                    <div class="logo-text"><span>Quantum</span>Chem</div>
-                </a>
-                <p class="footer-tagline">
-                    Comprehensive chemistry education platform providing structured course materials and expert guidance.
-                </p>
+                        <div class="logo-text"><span>Quantum</span>Chem</div>
+                    </a>
+                    <p class="footer-tagline">
+                        Advanced Chemical Database Platform for research and learning. Empowering students with professional tools.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="Lectures.html">Lectures</a></li>
+                        <li><a href="features.html">Features</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank">Videos</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="help.html">Safety</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="mailto:quantumchem25@gmail.com">Email</a></li>
+                    </ul>
+                </div>
             </div>
-
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="tutorials.html">Tutorials</a>
-                <a href="features.html">Features</a>
-                <a href="contact.html">Contact</a>
-            </div>
-
-            <div class="footer-social">
-                <a href="https://www.facebook.com/profile.php?id=61585853281971" target="_blank" title="Facebook">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://www.instagram.com/quantumchem25/" target="_blank" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="mailto:quantumchem25@gmail.com" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-
-            <div class="copyright">
-                © 2026 QuantumChem. All rights reserved.
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 QuantumChem. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/profile.php?id=61585853281971" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/quantumchem25/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:quantumchem25@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
         </div>
     </footer>
@@ -1431,7 +1679,7 @@
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from('.hero-text h1', {
+        gsap.from('.hero-content h1', {
             duration: 1.2,
             y: 100,
             opacity: 0,
@@ -1439,7 +1687,7 @@
             delay: 0.2
         });
 
-        gsap.utils.toArray('.unit-card').forEach((elem, i) => {
+        gsap.utils.toArray('.tutorial-card').forEach((elem, i) => {
             gsap.from(elem, {
                 scrollTrigger: {
                     trigger: elem,
@@ -1449,7 +1697,7 @@
                 y: 50,
                 opacity: 0,
                 ease: 'power3.out',
-                delay: i * 0.1
+                delay: (i % 3) * 0.1
             });
         });
 
@@ -1480,6 +1728,34 @@
                 }
             });
         }
+        
+        // Category Filter
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                document.querySelectorAll('.tutorial-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                document.querySelectorAll('.faq-item.active').forEach(activeItem => {
+                    if (activeItem !== item) activeItem.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
+        });
 
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -1493,6 +1769,5 @@
             }
         });
     </script>
-
 </body>
 </html>
