@@ -97,7 +97,7 @@
             z-index: 1;
         }
 
-        /* Header Styles - IMPROVED MOBILE */
+        /* Header Styles - COMPLETELY REDESIGNED FOR MOBILE */
         .main-header {
             position: fixed;
             top: 0;
@@ -107,7 +107,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--glass-border);
             z-index: 998;
-            padding: 0.8rem 0;
+            padding: 0.7rem 0;
             transition: all 0.3s ease;
         }
 
@@ -121,11 +121,10 @@
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.7rem;
             text-decoration: none;
-            min-width: 0;
             flex: 1;
-            overflow: hidden;
+            min-width: 0;
         }
 
         .nav-logo {
@@ -133,8 +132,8 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
             animation: rotateLogo 20s linear infinite;
             flex-shrink: 0;
         }
@@ -148,32 +147,28 @@
             display: flex;
             flex-direction: column;
             min-width: 0;
-            overflow: hidden;
             flex: 1;
         }
 
         .logo-text h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            letter-spacing: 1.5px;
             line-height: 1.2;
+            white-space: nowrap;
         }
 
         .logo-subtitle {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--accent-light);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-top: 2px;
         }
 
         .nav-menu {
@@ -215,13 +210,13 @@
             flex-direction: column;
             gap: 4px;
             cursor: pointer;
-            padding: 0.4rem;
+            padding: 0.5rem;
             flex-shrink: 0;
             z-index: 999;
         }
 
         .mobile-menu-toggle span {
-            width: 25px;
+            width: 24px;
             height: 2.5px;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             border-radius: 3px;
@@ -231,7 +226,7 @@
         .mobile-menu {
             display: none;
             position: fixed;
-            top: 70px;
+            top: 68px;
             left: 0;
             width: 100%;
             background: rgba(10, 14, 39, 0.98);
@@ -242,6 +237,8 @@
             transform: translateY(-100%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: calc(100vh - 68px);
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -260,7 +257,7 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            padding: 0.8rem 1rem;
+            padding: 0.9rem 1rem;
             background: var(--glass-bg);
             border: 2px solid var(--glass-border);
             border-radius: 12px;
@@ -275,37 +272,43 @@
             transform: translateX(5px);
         }
 
-        /* Hero Section - IMPROVED MOBILE */
+        /* Hero Section - FIXED FOR MOBILE */
         .page-hero {
-            min-height: 40vh;
+            min-height: 35vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 0 60px;
+            padding: 110px 0 50px;
         }
 
         .hero-content h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.8rem, 5vw, 5rem);
+            font-size: clamp(1.6rem, 5vw, 5rem);
             font-weight: 900;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            line-height: 1.3;
             word-wrap: break-word;
-            hyphens: auto;
+        }
+
+        .hero-content h1 i {
+            font-size: 0.9em;
+            margin-right: 0.3em;
         }
 
         .hero-content p {
-            font-size: clamp(0.9rem, 2vw, 1.4rem);
+            font-size: clamp(0.85rem, 2vw, 1.4rem);
             color: var(--accent-light);
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
+            padding: 0 1rem;
         }
 
         /* Documentation Layout */
@@ -367,9 +370,10 @@
             border: 1px solid var(--glass-border);
         }
 
-        /* Documentation Content */
+        /* Documentation Content - FIXED TEXT OVERFLOW */
         .documentation-content {
             padding-right: 20px;
+            overflow-x: hidden;
         }
 
         .doc-section {
@@ -380,6 +384,7 @@
             padding: 2rem;
             border: 2px solid var(--glass-border);
             transition: all 0.3s ease;
+            overflow-x: hidden;
         }
 
         .doc-section:hover {
@@ -395,6 +400,7 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--glass-border);
+            word-wrap: break-word;
         }
 
         .doc-section h3 {
@@ -402,6 +408,7 @@
             font-size: 1.3rem;
             color: var(--accent-light);
             margin: 1.5rem 0 1rem;
+            word-wrap: break-word;
         }
 
         .doc-section p {
@@ -409,16 +416,36 @@
             line-height: 1.8;
             margin-bottom: 1rem;
             font-size: 1.05rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .doc-section ul {
             color: #cbd5e1;
             margin-left: 1.5rem;
             margin-bottom: 1.5rem;
+            padding-right: 0.5rem;
         }
 
         .doc-section li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.7;
+        }
+
+        .doc-section ol {
+            color: #cbd5e1;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .doc-section ol li {
+            margin-bottom: 0.75rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.7;
         }
 
         .info-box {
@@ -427,12 +454,19 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1.5rem 0;
+            overflow-x: hidden;
         }
 
         .info-box h4 {
             color: var(--accent);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            word-wrap: break-word;
+        }
+
+        .info-box p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .warning-box {
@@ -441,12 +475,19 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1.5rem 0;
+            overflow-x: hidden;
         }
 
         .warning-box h4 {
             color: #ff4d4d;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            word-wrap: break-word;
+        }
+
+        .warning-box p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .note-box {
@@ -455,12 +496,23 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1.5rem 0;
+            overflow-x: hidden;
         }
 
         .note-box h4 {
             color: #ffaa33;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            word-wrap: break-word;
+        }
+
+        .note-box p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .note-box ul {
+            margin-top: 0.5rem;
         }
 
         .data-table {
@@ -496,6 +548,7 @@
             text-align: left;
             border-bottom: 1px solid var(--glass-border);
             color: #cbd5e1;
+            word-wrap: break-word;
         }
 
         .data-table tbody tr:last-child td {
@@ -534,6 +587,7 @@
             color: var(--accent-light);
             font-size: 1.1rem;
             margin-bottom: 0.75rem;
+            word-wrap: break-word;
         }
 
         .feature-card p {
@@ -541,6 +595,7 @@
             font-size: 0.9rem;
             line-height: 1.6;
             margin: 0;
+            word-wrap: break-word;
         }
 
         .contact-card {
@@ -556,14 +611,18 @@
             color: var(--accent);
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
+            word-wrap: break-word;
         }
 
         .contact-card p {
             margin: 0.75rem 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .contact-card strong {
             color: var(--accent-light);
+            word-break: break-all;
         }
 
         .action-buttons {
@@ -586,6 +645,7 @@
             border: 2px solid;
             background: transparent;
             color: white;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -652,7 +712,7 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design - IMPROVED */
+        /* Responsive Design - COMPLETELY REDESIGNED */
         @media (max-width: 992px) {
             .nav-menu {
                 display: none;
@@ -689,14 +749,9 @@
                 padding: 0.6rem 0;
             }
 
-            .navbar {
-                gap: 0.3rem;
-            }
-
             .nav-logo {
-                width: 45px;
-                height: 45px;
-                border-width: 2px;
+                width: 44px;
+                height: 44px;
             }
 
             .logo-text h1 {
@@ -705,32 +760,25 @@
             }
 
             .logo-subtitle {
-                font-size: 0.65rem;
-                letter-spacing: 1px;
+                font-size: 0.6rem;
             }
 
             .mobile-menu {
-                top: 65px;
-                padding: 1.2rem;
+                top: 64px;
             }
 
             .page-hero {
-                padding: 100px 0 50px;
-                min-height: 35vh;
+                padding: 100px 0 45px;
             }
 
             .hero-content h1 {
-                font-size: 2rem;
-                letter-spacing: 2px;
-                margin-bottom: 1rem;
-            }
-
-            .hero-content p {
-                font-size: 0.95rem;
+                font-size: 1.8rem;
+                letter-spacing: 1.5px;
             }
 
             .doc-section {
                 padding: 1.5rem;
+                margin-bottom: 30px;
             }
 
             .doc-section h2 {
@@ -738,17 +786,23 @@
             }
 
             .doc-section h3 {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
+            }
+
+            .doc-section p,
+            .doc-section li {
+                font-size: 0.95rem;
             }
 
             .feature-grid {
                 grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 0 0.8rem;
+                padding: 0 0.75rem;
             }
 
             .main-header {
@@ -766,12 +820,11 @@
             }
 
             .logo-subtitle {
-                font-size: 0.6rem;
-                letter-spacing: 0.5px;
+                font-size: 0.55rem;
             }
 
             .mobile-menu-toggle {
-                padding: 0.3rem;
+                padding: 0.4rem;
             }
 
             .mobile-menu-toggle span {
@@ -786,53 +839,68 @@
 
             .mobile-nav-link {
                 font-size: 0.95rem;
-                padding: 0.7rem;
+                padding: 0.8rem;
             }
 
             .page-hero {
-                padding: 85px 0 40px;
-                min-height: 30vh;
+                padding: 85px 0 35px;
             }
 
             .hero-content h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 letter-spacing: 1px;
-                line-height: 1.3;
-            }
-
-            .hero-content h1 i {
-                font-size: 1.4rem;
             }
 
             .hero-content p {
                 font-size: 0.85rem;
-                line-height: 1.5;
             }
 
             .doc-section {
                 padding: 1.2rem;
-                margin-bottom: 30px;
+                border-radius: 15px;
             }
 
             .doc-section h2 {
                 font-size: 1.3rem;
-                margin-bottom: 1rem;
+                margin-bottom: 1.2rem;
             }
 
             .doc-section h3 {
-                font-size: 1.05rem;
+                font-size: 1.1rem;
             }
 
-            .doc-section p {
-                font-size: 0.95rem;
+            .doc-section p,
+            .doc-section li {
+                font-size: 0.9rem;
+                line-height: 1.7;
             }
 
-            .info-box, .warning-box, .note-box {
-                padding: 1rem;
+            .doc-section ul,
+            .doc-section ol {
+                margin-left: 1.2rem;
+                padding-right: 0;
+            }
+
+            .info-box,
+            .warning-box,
+            .note-box {
+                padding: 1.2rem;
+                margin: 1.2rem 0;
+            }
+
+            .info-box h4,
+            .warning-box h4,
+            .note-box h4 {
+                font-size: 1rem;
             }
 
             .data-table {
-                padding: 0.5rem;
+                padding: 0.75rem;
+                margin: 1.2rem 0;
+            }
+
+            .contact-card {
+                padding: 1.5rem;
             }
 
             .footer-links {
@@ -843,23 +911,27 @@
 
             .footer-link {
                 font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
             }
 
             .action-buttons {
                 flex-direction: column;
-                align-items: stretch;
                 gap: 1rem;
             }
 
             .btn {
                 width: 100%;
                 justify-content: center;
-                padding: 0.9rem 1.5rem;
-                font-size: 0.95rem;
+                padding: 0.9rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 360px) {
+            .container {
+                padding: 0 0.6rem;
+            }
+
             .nav-logo {
                 width: 35px;
                 height: 35px;
@@ -870,15 +942,28 @@
             }
 
             .logo-subtitle {
-                font-size: 0.55rem;
-            }
-
-            .hero-content h1 {
-                font-size: 1.4rem;
+                font-size: 0.5rem;
             }
 
             .mobile-menu {
                 top: 55px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.3rem;
+            }
+
+            .doc-section {
+                padding: 1rem;
+            }
+
+            .doc-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .doc-section p,
+            .doc-section li {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -1213,10 +1298,10 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.main-header');
             if (window.pageYOffset > 100) {
-                header.style.padding = '0.5rem 0';
+                header.style.padding = '0.4rem 0';
                 header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
             } else {
-                header.style.padding = '0.8rem 0';
+                header.style.padding = '0.7rem 0';
                 header.style.boxShadow = 'none';
             }
         });
