@@ -2284,15 +2284,80 @@
     <div class="container">
         <nav class="navbar">
             <!-- Brand Logo -->
-            <a href="index.html" class="nav-brand">
-                <div class="logo">
-                    <i class="fas fa-atom"></i>
-                    <div class="logo-text">
-                        <h1>Quantum<span>Chem</span></h1>
-                        <p class="logo-subtitle">Laboratory Database</p>
-                    </div>
-                </div>
-            </a>
+          <!-- Mobile Popup Button - Only shows on phone -->
+<a href="#" class="mobile-popup-btn" id="mobilePopupBtn">
+    <i class="fas fa-th-large"></i>
+    <span>Quick Links</span>
+</a>
+
+<!-- Mobile Popup Menu -->
+<div class="mobile-popup-menu" id="mobilePopupMenu">
+    <a href="https://quantumchemblog.wordpress.com/" class="nav-link" data-text="Blog" target="_blank">
+        <i class="fas fa-blog"></i>
+        <span>Blog</span>
+    </a>
+    <a href="Lectures.html" class="nav-link" data-text="Lectures" target="_blank">
+        <i class="fas fa-book"></i>
+        <span>Lectures</span>
+    </a>
+    <a href="tutorials.html" class="nav-link" data-text="Tutorials" target="_blank">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Tutorials</span>
+    </a>
+    <a href="features.html" class="nav-link" data-text="Features" target="_blank">
+        <i class="fas fa-star"></i>
+        <span>Features</span>
+    </a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const popupBtn = document.getElementById('mobilePopupBtn');
+    const popupMenu = document.getElementById('mobilePopupMenu');
+    
+    if (popupBtn && popupMenu) {
+        // Toggle popup menu
+        popupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            popupMenu.classList.toggle('active');
+            
+            // Change icon when active
+            const icon = this.querySelector('i');
+            if (popupMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+                this.style.background = 'linear-gradient(135deg, #DC2626 0%, #EF4444 100%)';
+                this.querySelector('span').textContent = 'Close';
+            } else {
+                icon.className = 'fas fa-th-large';
+                this.style.background = 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)';
+                this.querySelector('span').textContent = 'Quick Links';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!popupBtn.contains(e.target) && !popupMenu.contains(e.target)) {
+                popupMenu.classList.remove('active');
+                const icon = popupBtn.querySelector('i');
+                icon.className = 'fas fa-th-large';
+                popupBtn.style.background = 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)';
+                popupBtn.querySelector('span').textContent = 'Quick Links';
+            }
+        });
+        
+        // Close menu when clicking on a link
+        popupMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                popupMenu.classList.remove('active');
+                const icon = popupBtn.querySelector('i');
+                icon.className = 'fas fa-th-large';
+                popupBtn.style.background = 'linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%)';
+                popupBtn.querySelector('span').textContent = 'Quick Links';
+            });
+        });
+    }
+});
+</script>
 
             <!-- Navigation Menu -->
             <div class="nav-menu" id="navMenu">
