@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="QuantumChem Database - Comprehensive chemical research platform with 10000+ laboratory chemicals, AI analysis, and 3D visualization">
-    <title>Features - QuantumChem Database</title>
+    <meta name="description" content="QuantumChem - Comprehensive chemical research platform with engineering chemistry courses and laboratory tutorials">
+    <title>Features - QuantumChem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* Reset and Base Styles */
@@ -33,12 +34,8 @@
             --accent-blue: #00d4ff;
             --accent-cyan: #0ff;
             --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
             --accent-gradient: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%);
-            
-            /* Status Colors */
-            --color-safe: #10b981;
-            --color-warning: #f59e0b;
-            --color-danger: #ef4444;
             
             /* Spacing */
             --spacing-xs: 0.5rem;
@@ -79,7 +76,7 @@
             padding: 0 var(--spacing-lg);
         }
 
-        /* Header Styles */
+        /* Header Styles - FIXED FOR MOBILE */
         .site-header {
             position: fixed;
             top: 0;
@@ -91,7 +88,7 @@
         }
 
         .site-header.scrolled {
-            background: rgba(10, 14, 39, 0.8);
+            background: rgba(10, 14, 39, 0.95);
             backdrop-filter: blur(20px);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
@@ -112,6 +109,7 @@
             text-decoration: none;
             color: var(--text-primary);
             transition: transform var(--transition-normal);
+            z-index: 1001;
         }
 
         .logo-link:hover {
@@ -173,31 +171,114 @@
             width: 100%;
         }
 
+        /* Mobile Menu Toggle - FIXED */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
-            gap: 4px;
-            background: none;
-            border: none;
+            gap: 5px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
             cursor: pointer;
-            padding: 8px;
+            padding: 10px;
+            z-index: 1001;
+            position: relative;
+            transition: all var(--transition-normal);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.05);
         }
 
         .mobile-menu-toggle span {
             width: 24px;
-            height: 2px;
+            height: 2.5px;
             background: var(--text-primary);
+            border-radius: 2px;
             transition: all var(--transition-normal);
         }
 
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu - FIXED */
         .mobile-menu {
-            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            z-index: 1000;
+            transition: right var(--transition-normal);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+            z-index: 999;
+        }
+
+        .mobile-menu.active ~ .mobile-menu-overlay,
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu-content {
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .mobile-nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 500;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: color var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
+            color: var(--accent-blue);
+        }
+
+        .mobile-nav-link i {
+            width: 20px;
         }
 
         /* Hero Section */
         .hero-section {
             position: relative;
-            min-height: 70vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -225,7 +306,6 @@
             background: var(--accent-blue);
             top: -250px;
             left: -100px;
-            animation-delay: 0s;
         }
 
         .orb-2 {
@@ -234,28 +314,12 @@
             background: var(--accent-purple);
             bottom: -200px;
             right: -100px;
-            animation-delay: 7s;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-cyan);
-            top: 50%;
-            right: 20%;
-            animation-delay: 14s;
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
         }
 
         .hero-content {
@@ -280,44 +344,17 @@
             font-size: clamp(1rem, 2vw, 1.25rem);
             color: var(--text-secondary);
             line-height: 1.8;
-            margin-bottom: var(--spacing-xl);
             max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-2xl);
-            margin-top: var(--spacing-2xl);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 0 auto;
         }
 
         /* Section Styles */
-        .section-overview {
+        .section {
             padding: var(--spacing-2xl) 0;
+        }
+
+        .section-alt {
+            background: var(--bg-secondary);
         }
 
         .section-header {
@@ -334,8 +371,8 @@
         .section-description {
             font-size: 1.125rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto var(--spacing-lg);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .animated-divider {
@@ -346,106 +383,137 @@
             border-radius: 2px;
         }
 
-        /* Features Grid */
-        .features-grid-section {
-            padding: var(--spacing-2xl) 0;
-        }
-
-        .features-grid {
+        /* Course Units Section */
+        .course-units-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: var(--spacing-lg);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .feature-card {
-            position: relative;
+        .unit-card {
             background: var(--bg-card);
             padding: var(--spacing-xl);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
             transition: all var(--transition-normal);
-            overflow: hidden;
         }
 
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--accent-gradient);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
+        .unit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
         }
 
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
+        .unit-header {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
+            justify-content: space-between;
+            align-items: start;
             margin-bottom: var(--spacing-md);
-            position: relative;
-            z-index: 1;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
         }
 
-        .feature-icon svg {
-            width: 30px;
-            height: 30px;
+        .unit-number {
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--accent-blue);
         }
 
-        .feature-title {
-            font-size: 1.375rem;
+        .unit-hours {
+            background: rgba(0, 212, 255, 0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .unit-topic {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Laboratory Tutorials Section */
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .tutorial-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .tutorial-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tutorial-content {
+            padding: var(--spacing-xl);
+        }
+
+        .tutorial-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent-blue);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tutorial-title {
+            font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: var(--spacing-sm);
-            position: relative;
-            z-index: 1;
+            color: var(--text-primary);
         }
 
-        .feature-description {
+        .tutorial-description {
             color: var(--text-secondary);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
         }
 
-        .feature-highlight {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: var(--accent-gradient);
-            transition: width var(--transition-slow);
+        .tutorial-instructor {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .feature-card:hover .feature-highlight {
-            width: 100%;
+        .tutorial-instructor i {
+            color: var(--accent-green);
         }
 
-        /* Database Section */
-        .database-section {
-            padding: var(--spacing-2xl) 0;
-            background: var(--bg-secondary);
-        }
-
-        .database-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .search-container {
+        /* Chemical Database Section Styles */
+        .filter-tabs-container {
             max-width: 900px;
             margin: 0 auto var(--spacing-2xl);
         }
@@ -474,16 +542,26 @@
             background: var(--accent-blue);
             color: var(--text-primary);
             border-color: var(--accent-blue);
+            transform: translateY(-2px);
         }
 
-        /* Security Flow */
-        .security-flow-section {
-            padding: var(--spacing-2xl) 0;
+        .database-cta {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
+        .database-cta-text {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Secure Access Flow Styles */
         .flow-timeline {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(6, 1fr);
             gap: 0;
             align-items: center;
             max-width: 1200px;
@@ -497,16 +575,16 @@
         }
 
         .step-number {
-            display: inline-block;
+            display: inline-flex;
             width: 40px;
             height: 40px;
             background: var(--accent-gradient);
             border-radius: 50%;
-            display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             margin: 0 auto var(--spacing-md);
+            font-size: 0.9rem;
         }
 
         .step-icon {
@@ -525,12 +603,11 @@
         .flow-step:hover .step-icon {
             transform: scale(1.1);
             border-color: var(--accent-blue);
-            box-shadow: var(--shadow-glow);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
-        .step-icon svg {
-            width: 32px;
-            height: 32px;
+        .step-icon i {
+            font-size: 1.8rem;
             color: var(--accent-blue);
         }
 
@@ -538,6 +615,7 @@
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: var(--spacing-xs);
+            color: var(--text-primary);
         }
 
         .step-description {
@@ -551,6 +629,7 @@
             background: linear-gradient(to right, var(--accent-blue) 0%, var(--accent-purple) 100%);
             position: relative;
             opacity: 0.3;
+            margin: 0 -20px;
         }
 
         .flow-connector::after {
@@ -566,79 +645,6 @@
             border-left: 8px solid var(--accent-purple);
         }
 
-        /* Performance Section */
-        .performance-section {
-            padding: var(--spacing-2xl) 0;
-            background: var(--bg-secondary);
-        }
-
-        .performance-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-2xl);
-            align-items: center;
-        }
-
-        .performance-list {
-            list-style: none;
-            margin-top: var(--spacing-lg);
-        }
-
-        .performance-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--spacing-md);
-            padding: var(--spacing-md) 0;
-            color: var(--text-secondary);
-            font-size: 1.0625rem;
-        }
-
-        .performance-list svg {
-            width: 24px;
-            height: 24px;
-            color: var(--accent-blue);
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .performance-visual {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--spacing-lg);
-        }
-
-        .metric-card {
-            background: var(--bg-card);
-            padding: var(--spacing-xl);
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all var(--transition-normal);
-        }
-
-        .metric-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-blue);
-            box-shadow: var(--shadow-md);
-        }
-
-        .metric-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .metric-label {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         /* CTA Section */
         .cta-section {
             position: relative;
@@ -649,32 +655,8 @@
         .cta-background {
             position: absolute;
             inset: 0;
-        }
-
-        .cta-gradient {
-            position: absolute;
-            inset: 0;
             background: var(--accent-gradient);
             opacity: 0.1;
-        }
-        
-        .cta-gradient::before {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
-            animation: pulseGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.3;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.6;
-            }
         }
 
         .cta-content {
@@ -710,35 +692,18 @@
             border-radius: 12px;
             transition: all var(--transition-normal);
             box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
         }
-        
-        .cta-button:hover::before {
-            opacity: 1;
-        }
 
-        .cta-button svg {
-            width: 20px;
-            height: 20px;
+        .cta-button i {
             transition: transform var(--transition-normal);
         }
 
-        .cta-button:hover svg {
+        .cta-button:hover i {
             transform: translateX(4px);
         }
 
@@ -772,7 +737,6 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
             line-height: 1.7;
-            max-width: 300px;
         }
 
         .footer-heading {
@@ -795,6 +759,9 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: color var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
         }
 
         .footer-links a:hover,
@@ -802,17 +769,9 @@
             color: var(--accent-blue);
         }
 
-        .footer-contact li {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .footer-contact svg {
-            width: 18px;
-            height: 18px;
+        .footer-contact i {
             color: var(--accent-blue);
-            flex-shrink: 0;
+            width: 18px;
         }
 
         .footer-bottom {
@@ -825,15 +784,11 @@
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .performance-content {
-                grid-template-columns: 1fr;
-            }
-            
             .flow-timeline {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
                 gap: var(--spacing-lg);
             }
-            
+
             .flow-connector {
                 display: none;
             }
@@ -843,296 +798,290 @@
             .main-nav {
                 display: none;
             }
-            
+
             .mobile-menu-toggle {
                 display: flex;
             }
-            
-            .mobile-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 400px;
-                height: 100vh;
-                z-index: 999;
-                transition: right var(--transition-normal);
-            }
-            
-            .mobile-menu.active {
-                right: 0;
-            }
-            
-            .mobile-menu-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.8);
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity var(--transition-normal);
-            }
-            
-            .mobile-menu.active .mobile-menu-overlay {
-                opacity: 1;
-                pointer-events: all;
-            }
-            
-            .mobile-menu-content {
-                position: relative;
-                background: var(--bg-secondary);
-                height: 100%;
-                padding: var(--spacing-2xl) var(--spacing-lg);
-                display: flex;
-                flex-direction: column;
-                gap: var(--spacing-lg);
-            }
-            
-            .mobile-nav-link {
-                color: var(--text-secondary);
-                text-decoration: none;
-                font-size: 1.125rem;
-                font-weight: 500;
-                padding: var(--spacing-md) 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                transition: color var(--transition-normal);
-            }
-            
-            .mobile-nav-link:hover,
-            .mobile-nav-link.active {
-                color: var(--accent-blue);
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: var(--spacing-lg);
-            }
-            
-            .features-grid {
+
+            .tutorials-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tabs {
+                justify-content: flex-start;
             }
         }
 
         @media (max-width: 480px) {
-            .filter-tabs {
-                justify-content: flex-start;
+            .unit-header {
+                flex-direction: column;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
+
+            .database-cta-text {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
     <!-- Header -->
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
         <div class="header-container">
             <a href="index.html" class="logo-link">
                 <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo" class="logo-image">
                 <span class="logo-text">QuantumChem</span>
             </a>
-            
+
             <nav class="main-nav">
                 <a href="index.html" class="nav-link">Home</a>
-                
-                <a href="security.html" class="nav-link">Security</a>
-                <a href="privacy.html" class="nav-link">Privacy</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="chemicals.html" class="nav-link">Chemicals</a>
+                <a href="tutorials.html" class="nav-link">Tutorials</a>
+                <a href="lecture.html" class="nav-link">Lectures</a>
+                <a href="features.html" class="nav-link active">Features</a>
             </nav>
 
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu">
-            <div class="mobile-menu-overlay"></div>
-            <div class="mobile-menu-content">
-                <a href="index.html" class="mobile-nav-link">Home</a>
-              
-                <a href="security.html" class="mobile-nav-link">Security</a>
-                <a href="privacy.html" class="mobile-nav-link">Privacy</a>
-                <a href="contact.html" class="mobile-nav-link">Contact</a>
-            </div>
-        </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="chemicals.html" class="mobile-nav-link"><i class="fas fa-flask"></i> Chemicals</a>
+            <a href="tutorials.html" class="mobile-nav-link"><i class="fas fa-graduation-cap"></i> Tutorials</a>
+            <a href="lecture.html" class="mobile-nav-link"><i class="fas fa-chalkboard-teacher"></i> Lectures</a>
+            <a href="features.html" class="mobile-nav-link active"><i class="fas fa-star"></i> Features</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-background">
             <div class="gradient-orb orb-1"></div>
             <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
         </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line">QuantumChem Database</span>
-                </h1>
+                <h1 class="hero-title">QuantumChem Features</h1>
                 <p class="hero-subtitle">
-                    Comprehensive database of 1000+ laboratory chemicals with real-time data, 
-                    safety protocols, and interactive molecular visualization
+                    Comprehensive engineering chemistry courses, laboratory tutorials, and chemical resources for students and researchers
                 </p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="1000">1000</div>
-                        <div class="stat-label">Chemicals</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="8">8</div>
-                        <div class="stat-label">Categories</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-count="4">4</div>
-                        <div class="stat-label">Safety Protocols</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Core Features Grid -->
-    <section class="features-grid-section">
+    <!-- Engineering Chemistry Section -->
+    <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Advanced Features</h2>
-                <p class="section-description">Everything you need for modern chemical research</p>
+                <h2 class="section-title">Engineering Chemistry I</h2>
+                <p class="section-description">Comprehensive Course Materials & Lecture Notes</p>
                 <div class="animated-divider"></div>
             </div>
-            
-            <div class="features-grid">
-                <!-- Feature 1 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
+
+            <div class="course-units-grid">
+                <div class="unit-card">
+                    <div class="unit-header">
+                        <h3 class="unit-number">Unit 01</h3>
+                        <span class="unit-hours">6 Hours</span>
                     </div>
-                    <h3 class="feature-title">Intelligent Search</h3>
-                    <p class="feature-description">
-                        Advanced search with autocomplete, chemical similarity, and property-based filtering
-                    </p>
-                    <div class="feature-highlight"></div>
+                    <p class="unit-topic">Water Technology and Green Chemistry</p>
                 </div>
 
-                <!-- Feature 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v20M2 12h20"></path>
-                            <circle cx="12" cy="12" r="4"></circle>
-                        </svg>
+                <div class="unit-card">
+                    <div class="unit-header">
+                        <h3 class="unit-number">Unit 02</h3>
+                        <span class="unit-hours">6 Hours</span>
                     </div>
-                    <h3 class="feature-title">AI Analysis</h3>
-                    <p class="feature-description">
-                        Predict chemical properties, reactions, and safety hazards using machine learning
-                    </p>
-                    <div class="feature-highlight"></div>
+                    <p class="unit-topic">Fuels and Combustion</p>
                 </div>
 
-                <!-- Feature 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
+                <div class="unit-card">
+                    <div class="unit-header">
+                        <h3 class="unit-number">Unit 03</h3>
+                        <span class="unit-hours">7 Hours</span>
                     </div>
-                    <h3 class="feature-title">3D Visualization</h3>
-                    <p class="feature-description">
-                        Interactive 3D molecular structures with orbital visualization and bonding analysis
-                    </p>
-                    <div class="feature-highlight"></div>
+                    <p class="unit-topic">Corrosion and Corrosion Control</p>
                 </div>
 
-                <!-- Feature 4 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
+                <div class="unit-card">
+                    <div class="unit-header">
+                        <h3 class="unit-number">Unit 04</h3>
+                        <span class="unit-hours">8 Hours</span>
                     </div>
-                    <h3 class="feature-title">Safety Protocol</h3>
-                    <p class="feature-description">
-                        Real-time safety recommendations, MSDS integration, and emergency procedures
-                    </p>
-                    <div class="feature-highlight"></div>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="9" y1="9" x2="15" y2="9"></line>
-                            <line x1="9" y1="15" x2="15" y2="15"></line>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Comprehensive Database</h3>
-                    <p class="feature-description">
-                        Browse and search through our extensive collection of 10000+ laboratory chemicals
-                    </p>
-                    <div class="feature-highlight"></div>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Real-Time Data</h3>
-                    <p class="feature-description">
-                        Access up-to-date chemical properties, safety data, and research information
-                    </p>
-                    <div class="feature-highlight"></div>
+                    <p class="unit-topic">Chemistry of Polymers and Novel Carbon Compounds</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Chemical Database Browser -->
-    <section class="database-section">
+    <!-- Laboratory Tutorials Section -->
+    <section class="section section-alt">
         <div class="container">
-            <div class="database-header">
+            <div class="section-header">
+                <h2 class="section-title">Laboratory Tutorials</h2>
+                <p class="section-description">Practical experiments and hands-on chemistry laboratory guides</p>
+                <div class="animated-divider"></div>
+            </div>
+
+            <div class="tutorials-grid">
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="tutorial-badge">Safety</span>
+                        <h3 class="tutorial-title">Laboratory Safety Protocols</h3>
+                        <p class="tutorial-description">
+                            Comprehensive guide to laboratory safety, equipment handling, and emergency procedures for engineering chemistry labs.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <span class="tutorial-badge">Analysis</span>
+                        <h3 class="tutorial-title">Water Hardness by EDTA Method</h3>
+                        <p class="tutorial-description">
+                            Learn complexometric titration technique to determine calcium and magnesium ions in water samples using EDTA.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <span class="tutorial-badge">Analysis</span>
+                        <h3 class="tutorial-title">Water Alkalinity Testing</h3>
+                        <p class="tutorial-description">
+                            Identify and quantify various forms of alkalinity in water samples through systematic titration methods.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <span class="tutorial-badge">Analysis</span>
+                        <h3 class="tutorial-title">Chloride Ion Determination</h3>
+                        <p class="tutorial-description">
+                            Master precipitation titration technique to determine chloride ion concentration using silver nitrate.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="tutorial-badge">Laboratory</span>
+                        <h3 class="tutorial-title">Dissociation Constant of Acetic Acid</h3>
+                        <p class="tutorial-description">
+                            Use pH meter to measure and calculate the dissociation constant (Ka) of weak acids through systematic measurements.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="tutorial-content">
+                        <div class="tutorial-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <span class="tutorial-badge">Laboratory</span>
+                        <h3 class="tutorial-title">Phenol-Formaldehyde Resin Synthesis</h3>
+                        <p class="tutorial-description">
+                            Synthesize thermosetting phenolic resin through controlled polymerization of phenol and formaldehyde.
+                        </p>
+                        <div class="tutorial-instructor">
+                            <i class="fas fa-user-circle"></i>
+                            <span>By Dr. Amol Kharche • PCCOE Chemistry</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chemical Database Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
                 <h2 class="section-title">Chemical Database</h2>
                 <p class="section-description">Browse and search through our comprehensive chemical collection</p>
+                <div class="animated-divider"></div>
             </div>
 
-            <div class="search-container">
+            <div class="filter-tabs-container">
                 <div class="filter-tabs">
-                    <button class="filter-tab active" data-category="all">All</button>
-                    <button class="filter-tab" data-category="acids">Acids</button>
-                    <button class="filter-tab" data-category="bases">Bases</button>
-                    <button class="filter-tab" data-category="salts">Salts</button>
-                    <button class="filter-tab" data-category="organic">Organic</button>
-                    <button class="filter-tab" data-category="indicators">Indicators</button>
-                    <button class="filter-tab" data-category="solvents">Solvents</button>
-                    <button class="filter-tab" data-category="gases">Gases</button>
+                    <button class="filter-tab active">All</button>
+                    <button class="filter-tab">Acids</button>
+                    <button class="filter-tab">Bases</button>
+                    <button class="filter-tab">Salts</button>
+                    <button class="filter-tab">Organic</button>
+                    <button class="filter-tab">Indicators</button>
+                    <button class="filter-tab">Solvents</button>
+                    <button class="filter-tab">Gases</button>
                 </div>
-                
-                <div style="text-align: center; margin-top: 3rem;">
-                    <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                        Want to explore these chemical categories? Access our full database with advanced search, 3D visualization, and detailed safety information.
-                    </p>
-                    <a href="index.html" class="cta-button">
-                        Explore Main Platform
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
+            </div>
+
+            <div class="database-cta">
+                <p class="database-cta-text">
+                    Want to explore these chemical categories? Access our full database with advanced search, 3D visualization, and detailed safety information.
+                </p>
+                <a href="index.html" class="cta-button">
+                    Explore Main Platform
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Security Flow Visual -->
-    <section class="security-flow-section">
+    <!-- Secure Access Flow Section -->
+    <section class="section section-alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Secure Access Flow</h2>
@@ -1144,10 +1093,7 @@
                 <div class="flow-step">
                     <div class="step-number">01</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
+                        <i class="fas fa-user-plus"></i>
                     </div>
                     <h4 class="step-title">Sign Up</h4>
                     <p class="step-description">Create your account with email verification</p>
@@ -1158,10 +1104,7 @@
                 <div class="flow-step">
                     <div class="step-number">02</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
+                        <i class="fas fa-envelope"></i>
                     </div>
                     <h4 class="step-title">Email Verification</h4>
                     <p class="step-description">Secure verification link sent to your inbox</p>
@@ -1172,10 +1115,7 @@
                 <div class="flow-step">
                     <div class="step-number">03</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
+                        <i class="fas fa-lock"></i>
                     </div>
                     <h4 class="step-title">Temporary Password</h4>
                     <p class="step-description">Auto-generated 4-day access credential</p>
@@ -1186,11 +1126,7 @@
                 <div class="flow-step">
                     <div class="step-number">04</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                            <polyline points="10 17 15 12 10 7"></polyline>
-                            <line x1="15" y1="12" x2="3" y2="12"></line>
-                        </svg>
+                        <i class="fas fa-sign-in-alt"></i>
                     </div>
                     <h4 class="step-title">Secure Login</h4>
                     <p class="step-description">Token-based session management</p>
@@ -1201,10 +1137,7 @@
                 <div class="flow-step">
                     <div class="step-number">05</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
+                        <i class="fas fa-clock"></i>
                     </div>
                     <h4 class="step-title">Auto-Expiry</h4>
                     <p class="step-description">Password expires after 4 days for security</p>
@@ -1215,9 +1148,7 @@
                 <div class="flow-step">
                     <div class="step-number">06</div>
                     <div class="step-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-                        </svg>
+                        <i class="fas fa-key"></i>
                     </div>
                     <h4 class="step-title">Password Reset</h4>
                     <p class="step-description">Reset anytime with instant verification</p>
@@ -1226,77 +1157,18 @@
         </div>
     </section>
 
-    <!-- Performance Section -->
-    <section class="performance-section">
-        <div class="container">
-            <div class="performance-content">
-                <div class="performance-text">
-                    <h2 class="section-title">Performance & Reliability</h2>
-                    <p class="section-description">
-                        Built for speed and scale with modern architecture
-                    </p>
-                    <ul class="performance-list">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Lightweight animations for smooth performance
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Fast loading with optimized assets
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Serverless-friendly architecture
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Motion only when needed for clarity
-                        </li>
-                    </ul>
-                </div>
-                <div class="performance-visual">
-                    <div class="metric-card">
-                        <div class="metric-value">< 1s</div>
-                        <div class="metric-label">Load Time</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">99.9%</div>
-                        <div class="metric-label">Uptime</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-value">A+</div>
-                        <div class="metric-label">Security Grade</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="cta-background">
-            <div class="cta-gradient"></div>
-        </div>
+        <div class="cta-background"></div>
         <div class="container">
             <div class="cta-content">
-                <h2 class="cta-title">Ready to transform your chemical research?</h2>
+                <h2 class="cta-title">Ready to Start Your Chemistry Journey?</h2>
                 <p class="cta-description">
-                    Join thousands of researchers using QuantumChem Database
+                    Access comprehensive course materials, laboratory tutorials, and chemical resources
                 </p>
-                <a href="contact.html" class="cta-button">
+                <a href="index.html" class="cta-button">
                     Get Started
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -1309,27 +1181,27 @@
                 <div class="footer-section">
                     <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem Logo" class="footer-logo">
                     <p class="footer-tagline">
-                        A comprehensive platform for chemical research, safety management, and scientific collaboration.
+                        A comprehensive platform for chemical research, engineering chemistry courses, and scientific collaboration.
                     </p>
                 </div>
 
                 <div class="footer-section">
-                    <h4 class="footer-heading">Platform</h4>
+                    <h4 class="footer-heading">Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
+                        <li><a href="chemicals.html">Chemicals</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="lecture.html">Lectures</a></li>
                         <li><a href="features.html">Features</a></li>
-                        <li><a href="security.html">Security</a></li>
-                        <li><a href="privacy.html">Privacy</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4 class="footer-heading">Legal</h4>
+                    <h4 class="footer-heading">Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="cookie-policy.html">Cookie Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="https://quantumchemblog.wordpress.com/" target="_blank">Blog</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="help.html">Help Center</a></li>
                     </ul>
                 </div>
 
@@ -1337,17 +1209,16 @@
                     <h4 class="footer-heading">Contact</h4>
                     <ul class="footer-contact">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                            <a href="/cdn-cgi/l/email-protection#98e9edf9f6ecedf5fbf0fdf5aaadd8fff5f9f1f4b6fbf7f5"><span class="__cf_email__" data-cfemail="dbaaaebab5afaeb6b8b3beb6e9ee9bbcb6bab2b7f5b8b4b6">[email&#160;protected]</span></a>
+                            <a href="mailto:quantumchem25@gmail.com">
+                                <i class="fas fa-envelope"></i>
+                                quantumchem25@gmail.com
+                            </a>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                            </svg>
-                            <a href="https://wa.me/918149277038" target="_blank" rel="noopener noreferrer">+91 81492 77038</a>
+                            <a href="https://wa.me/918149277038" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-phone"></i>
+                                +91 81492 77038
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -1359,497 +1230,77 @@
         </div>
     </footer>
 
-    <!-- GSAP Scripts -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    
     <script>
-        // GSAP Setup
-        gsap.registerPlugin(ScrollTrigger);
+        // Mobile Menu Functionality - FIXED
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const siteHeader = document.getElementById('siteHeader');
 
-        // Initialize animations on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            initHeaderAnimation();
-            initHeroAnimation();
-            initStatsAnimation();
-            initScrollAnimations();
-            initFeatureCardAnimations();
-            initFlowAnimation();
-            initMobileMenu();
-        });
-
-        // Header scroll behavior with GSAP
-        function initHeaderAnimation() {
-            const header = document.querySelector('.site-header');
-            const logo = document.querySelector('.logo-image');
-            
-            // Logo hover glow effect
-            if (logo) {
-                logo.addEventListener('mouseenter', () => {
-                    gsap.to(logo, {
-                        boxShadow: '0 0 20px rgba(0, 212, 255, 0.6)',
-                        duration: 0.3,
-                        ease: 'power2.out'
-                    });
-                });
-                
-                logo.addEventListener('mouseleave', () => {
-                    gsap.to(logo, {
-                        boxShadow: '0 0 0px rgba(0, 212, 255, 0)',
-                        duration: 0.3,
-                        ease: 'power2.out'
-                    });
-                });
-            }
-            
-            // Header background on scroll
-            ScrollTrigger.create({
-                start: 'top -80',
-                end: 99999,
-                toggleClass: {
-                    className: 'scrolled',
-                    targets: header
-                }
+            // Toggle mobile menu
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             });
-        }
 
-        // Hero section animations
-        function initHeroAnimation() {
-            const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
-            
-            // Animate hero title with stagger
-            const titleLines = document.querySelectorAll('.hero-title .title-line');
-            if (titleLines.length > 0) {
-                timeline.from(titleLines, {
-                    y: 100,
-                    opacity: 0,
-                    duration: 1,
-                    stagger: 0.2
-                });
-            }
-            
-            // Animate subtitle
-            timeline.from('.hero-subtitle', {
-                y: 50,
-                opacity: 0,
-                duration: 0.8
-            }, '-=0.5');
-            
-            // Animate stats
-            timeline.from('.hero-stats .stat-item', {
-                y: 50,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.15
-            }, '-=0.4');
-            
-            // Animate gradient orbs
-            gsap.to('.gradient-orb', {
-                y: '+=30',
-                x: '+=30',
-                duration: 8,
-                ease: 'sine.inOut',
-                yoyo: true,
-                repeat: -1,
-                stagger: {
-                    each: 2,
-                    repeat: -1
-                }
-            });
-        }
-
-        // Animated counter for stats
-        function initStatsAnimation() {
-            const stats = document.querySelectorAll('.stat-number');
-            
-            stats.forEach(stat => {
-                const target = parseInt(stat.getAttribute('data-count'));
-                
-                ScrollTrigger.create({
-                    trigger: stat,
-                    start: 'top 80%',
-                    onEnter: () => {
-                        gsap.to(stat, {
-                            innerHTML: target,
-                            duration: 2,
-                            ease: 'power2.out',
-                            snap: { innerHTML: 1 },
-                            onUpdate: function() {
-                                stat.innerHTML = Math.ceil(stat.innerHTML);
-                            }
-                        });
-                    },
-                    once: true
-                });
-            });
-        }
-
-        // Scroll-triggered animations for sections
-        function initScrollAnimations() {
-            // Section headers animation
-            gsap.utils.toArray('.section-header').forEach(header => {
-                const title = header.querySelector('.section-title');
-                const description = header.querySelector('.section-description');
-                const divider = header.querySelector('.animated-divider');
-                
-                const timeline = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: header,
-                        start: 'top 80%',
-                        once: true
-                    }
-                });
-                
-                if (title) {
-                    timeline.from(title, {
-                        y: 50,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    });
-                }
-                
-                if (description) {
-                    timeline.from(description, {
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.6,
-                        ease: 'power3.out'
-                    }, '-=0.4');
-                }
-                
-                if (divider) {
-                    timeline.from(divider, {
-                        scaleX: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.3');
-                }
-            });
-            
-            // Database header animation
-            const databaseHeader = document.querySelector('.database-header');
-            if (databaseHeader) {
-                gsap.from(databaseHeader, {
-                    scrollTrigger: {
-                        trigger: databaseHeader,
-                        start: 'top 80%',
-                        once: true
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                });
-            }
-            
-            // Search container animation
-            const searchContainer = document.querySelector('.search-container');
-            if (searchContainer) {
-                gsap.from(searchContainer, {
-                    scrollTrigger: {
-                        trigger: searchContainer,
-                        start: 'top 80%',
-                        once: true
-                    },
-                    y: 40,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: 'power3.out'
-                });
-            }
-            
-            // Performance section animation
-            const performanceText = document.querySelector('.performance-text');
-            const performanceVisual = document.querySelector('.performance-visual');
-            
-            if (performanceText && performanceVisual) {
-                const timeline = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.performance-content',
-                        start: 'top 70%',
-                        once: true
-                    }
-                });
-                
-                timeline
-                    .from(performanceText, {
-                        x: -50,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    })
-                    .from(performanceVisual, {
-                        x: 50,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: 'power3.out'
-                    }, '-=0.6');
-            }
-            
-            // CTA section animation
-            const ctaContent = document.querySelector('.cta-content');
-            if (ctaContent) {
-                gsap.from(ctaContent, {
-                    scrollTrigger: {
-                        trigger: ctaContent,
-                        start: 'top 80%',
-                        once: true
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power3.out'
-                });
-            }
-        }
-
-        // Feature cards animation with stagger
-        function initFeatureCardAnimations() {
-            const featureCards = document.querySelectorAll('.feature-card');
-            
-            if (featureCards.length > 0) {
-                gsap.from(featureCards, {
-                    scrollTrigger: {
-                        trigger: '.features-grid',
-                        start: 'top 70%',
-                        once: true
-                    },
-                    y: 80,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: 'power3.out'
-                });
-            }
-        }
-
-        // Security flow timeline animation
-        function initFlowAnimation() {
-            const flowSteps = document.querySelectorAll('.flow-step');
-            const flowConnectors = document.querySelectorAll('.flow-connector');
-            
-            if (flowSteps.length > 0) {
-                const timeline = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: '.flow-timeline',
-                        start: 'top 70%',
-                        once: true
-                    }
-                });
-                
-                // Animate steps with stagger
-                timeline.from(flowSteps, {
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.6,
-                    stagger: 0.15,
-                    ease: 'power3.out'
-                });
-                
-                // Animate connectors
-                if (flowConnectors.length > 0) {
-                    timeline.from(flowConnectors, {
-                        scaleX: 0,
-                        duration: 0.4,
-                        stagger: 0.15,
-                        ease: 'power2.out'
-                    }, '-=0.8');
-                }
-                
-                // Add hover animations for steps
-                flowSteps.forEach(step => {
-                    const icon = step.querySelector('.step-icon');
-                    const number = step.querySelector('.step-number');
-                    
-                    step.addEventListener('mouseenter', () => {
-                        gsap.to(icon, {
-                            scale: 1.1,
-                            duration: 0.3,
-                            ease: 'back.out(2)'
-                        });
-                        
-                        gsap.to(number, {
-                            scale: 1.1,
-                            duration: 0.3,
-                            ease: 'back.out(2)'
-                        });
-                    });
-                    
-                    step.addEventListener('mouseleave', () => {
-                        gsap.to(icon, {
-                            scale: 1,
-                            duration: 0.3,
-                            ease: 'power2.out'
-                        });
-                        
-                        gsap.to(number, {
-                            scale: 1,
-                            duration: 0.3,
-                            ease: 'power2.out'
-                        });
-                    });
-                });
-            }
-        }
-
-        // Mobile menu functionality
-        function initMobileMenu() {
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const mobileOverlay = document.querySelector('.mobile-menu-overlay');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', () => {
-                    const isActive = mobileMenu.classList.contains('active');
-                    
-                    if (isActive) {
-                        closeMobileMenu();
-                    } else {
-                        openMobileMenu();
-                    }
-                });
-                
-                // Close menu when clicking overlay
-                if (mobileOverlay) {
-                    mobileOverlay.addEventListener('click', closeMobileMenu);
-                }
-                
-                // Close menu when clicking a link
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', closeMobileMenu);
-                });
-            }
-            
-            function openMobileMenu() {
-                mobileMenu.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Animate menu items
-                const links = document.querySelectorAll('.mobile-nav-link');
-                gsap.from(links, {
-                    x: 50,
-                    opacity: 0,
-                    duration: 0.4,
-                    stagger: 0.05,
-                    ease: 'power3.out'
-                });
-            }
-            
-            function closeMobileMenu() {
+            // Close menu when clicking overlay
+            mobileMenuOverlay.addEventListener('click', function() {
                 mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
                 document.body.style.overflow = '';
-            }
-        }
+            });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                
-                if (target) {
-                    gsap.to(window, {
-                        duration: 1,
-                        scrollTo: {
-                            y: target,
-                            offsetY: 80
-                        },
-                        ease: 'power3.inOut'
-                    });
+            // Close menu when clicking a link
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && 
+                    !mobileMenuToggle.contains(event.target) && 
+                    mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
-        });
 
-        // Performance optimization: Reduce motion for users who prefer it
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            gsap.globalTimeline.timeScale(10);
-            ScrollTrigger.config({ autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load' });
-        }
-
-        // Footer animation
-        const footerContent = document.querySelector('.footer-content');
-        if (footerContent) {
-            gsap.from(footerContent, {
-                scrollTrigger: {
-                    trigger: footerContent,
-                    start: 'top 90%',
-                    once: true
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power3.out'
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    siteHeader.classList.add('scrolled');
+                } else {
+                    siteHeader.classList.remove('scrolled');
+                }
             });
-        }
 
-        const footerBottom = document.querySelector('.footer-bottom');
-        if (footerBottom) {
-            gsap.from(footerBottom, {
-                scrollTrigger: {
-                    trigger: footerBottom,
-                    start: 'top 95%',
-                    once: true
-                },
-                opacity: 0,
-                duration: 0.6,
-                ease: 'power3.out'
-            });
-        }
-
-        // CTA button ripple effect
-        const ctaButtons = document.querySelectorAll('.cta-button');
-        ctaButtons.forEach(ctaButton => {
-            ctaButton.addEventListener('mouseenter', function(e) {
-                const ripple = document.createElement('span');
-                ripple.classList.add('ripple');
-                this.appendChild(ripple);
-                
-                gsap.fromTo(ripple, {
-                    scale: 0,
-                    opacity: 1
-                }, {
-                    scale: 2,
-                    opacity: 0,
-                    duration: 0.6,
-                    ease: 'power2.out',
-                    onComplete: () => ripple.remove()
-                });
-            });
-        });
-
-        // Add parallax effect to gradient orbs
-        const gradientOrbs = document.querySelectorAll('.gradient-orb');
-        if (gradientOrbs.length > 0) {
-            window.addEventListener('mousemove', (e) => {
-                const mouseX = e.clientX / window.innerWidth;
-                const mouseY = e.clientY / window.innerHeight;
-                
-                gradientOrbs.forEach((orb, index) => {
-                    const speed = (index + 1) * 0.05;
-                    const x = (mouseX - 0.5) * 50 * speed;
-                    const y = (mouseY - 0.5) * 50 * speed;
-                    
-                    gsap.to(orb, {
-                        x: x,
-                        y: y,
-                        duration: 2,
-                        ease: 'power2.out'
-                    });
-                });
-            });
-        }
-
-        // Lazy loading for better performance
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        imageObserver.unobserve(img);
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
             });
+        });
+    </script>
+</body>
+</html>
