@@ -6,18 +6,13 @@
     <title>Documentation | QuantumChem</title>
     <meta name="description" content="QuantumChem documentation - Simple chemical information platform for students.">
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Fonts - Optimized -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    
-    <!-- Particles -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     
     <style>
         * {
@@ -49,6 +44,7 @@
             line-height: 1.6;
         }
 
+        /* Simplified background - No particles for better performance */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -56,37 +52,41 @@
             top: 0;
             left: 0;
             z-index: 0;
+            background: radial-gradient(ellipse at top, #1a1f3a 0%, #0a0e27 100%);
         }
 
+        /* Optimized background orbs */
         .bg-orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(80px);
             z-index: 0;
-            animation: float 20s ease-in-out infinite;
+            opacity: 0.4;
+            will-change: transform;
         }
 
         .orb-1 {
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             background: rgba(0, 212, 255, 0.3);
             top: 10%;
             left: 10%;
+            animation: float 25s ease-in-out infinite;
         }
 
         .orb-2 {
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
             background: rgba(178, 75, 243, 0.3);
             top: 50%;
             right: 10%;
-            animation-delay: 5s;
+            animation: float 25s ease-in-out infinite;
+            animation-delay: 12s;
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -50px) scale(1.1); }
-            66% { transform: translate(-30px, 30px) scale(0.9); }
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
         }
 
         .container {
@@ -97,18 +97,18 @@
             z-index: 1;
         }
 
-        /* Header Styles - COMPLETELY REDESIGNED FOR MOBILE */
+        /* Header Styles */
         .main-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--glass-border);
             z-index: 998;
             padding: 0.7rem 0;
-            transition: all 0.3s ease;
+            transition: padding 0.2s ease;
         }
 
         .navbar {
@@ -133,14 +133,8 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2.5px solid var(--accent);
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
-            animation: rotateLogo 20s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
             flex-shrink: 0;
-        }
-
-        @keyframes rotateLogo {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .logo-text {
@@ -182,7 +176,7 @@
             font-weight: 600;
             position: relative;
             padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
+            transition: color 0.2s ease;
         }
 
         .nav-link::before {
@@ -193,7 +187,7 @@
             width: 0;
             height: 2px;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
-            transition: all 0.3s ease;
+            transition: width 0.2s ease;
             transform: translateX(-50%);
         }
 
@@ -230,13 +224,13 @@
             left: 0;
             width: 100%;
             background: rgba(10, 14, 39, 0.98);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--glass-border);
             z-index: 997;
             padding: 1.5rem;
             transform: translateY(-100%);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             max-height: calc(100vh - 68px);
             overflow-y: auto;
         }
@@ -262,17 +256,16 @@
             border: 2px solid var(--glass-border);
             border-radius: 12px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: block;
         }
 
         .mobile-nav-link:hover {
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             border-color: var(--accent);
-            transform: translateX(5px);
         }
 
-        /* Hero Section - FIXED FOR MOBILE */
+        /* Hero Section */
         .page-hero {
             min-height: 35vh;
             display: flex;
@@ -351,7 +344,7 @@
             text-decoration: none;
             padding: 10px 12px;
             border-radius: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 14px;
             display: flex;
             align-items: center;
@@ -361,7 +354,6 @@
         .sidebar-link:hover {
             background: rgba(0, 212, 255, 0.1);
             color: var(--accent);
-            border-color: var(--glass-border);
         }
 
         .sidebar-link.active {
@@ -370,7 +362,7 @@
             border: 1px solid var(--glass-border);
         }
 
-        /* Documentation Content - FIXED TEXT OVERFLOW */
+        /* Documentation Content */
         .documentation-content {
             padding-right: 20px;
             overflow-x: hidden;
@@ -383,14 +375,13 @@
             border-radius: 20px;
             padding: 2rem;
             border: 2px solid var(--glass-border);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             overflow-x: hidden;
         }
 
         .doc-section:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
         }
 
         .doc-section h2 {
@@ -568,12 +559,11 @@
             border-radius: 15px;
             padding: 1.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .feature-card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
             background: rgba(0, 212, 255, 0.1);
         }
 
@@ -641,7 +631,7 @@
             border-radius: 15px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border: 2px solid;
             background: transparent;
             color: white;
@@ -654,8 +644,6 @@
 
         .btn-primary:hover {
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
         }
 
         .btn-secondary {
@@ -664,8 +652,6 @@
 
         .btn-secondary:hover {
             background: linear-gradient(135deg, #b24bf3 0%, #00d4ff 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(178, 75, 243, 0.3);
         }
 
         /* Footer */
@@ -691,13 +677,12 @@
             font-size: 1rem;
             padding: 0.5rem 1rem;
             border-radius: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .footer-link:hover {
             color: var(--accent);
             background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-3px);
         }
 
         .footer-link.active {
@@ -712,7 +697,7 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design - COMPLETELY REDESIGNED */
+        /* Responsive Design */
         @media (max-width: 992px) {
             .nav-menu {
                 display: none;
@@ -966,6 +951,17 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* Performance optimizations */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
     </style>
 </head>
 <body>
@@ -1207,65 +1203,6 @@
     </footer>
 
     <script>
-        // Initialize Particles.js
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00d4ff' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: false },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#00d4ff',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'repulse' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                }
-            },
-            retina_detect: true
-        });
-
-        // Initialize GSAP animations
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from('.hero-content h1', {
-            duration: 1.2,
-            y: 100,
-            opacity: 0,
-            ease: 'power4.out',
-            delay: 0.2
-        });
-
-        gsap.utils.toArray('.doc-section').forEach((elem, i) => {
-            gsap.from(elem, {
-                scrollTrigger: {
-                    trigger: elem,
-                    start: 'top 85%',
-                },
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                ease: 'power3.out',
-                delay: i * 0.1
-            });
-        });
-
         // Set current year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -1274,19 +1211,19 @@
         const mobileMenu = document.getElementById('mobileMenu');
 
         if (mobileMenuToggle && mobileMenu) {
-            mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.addEventListener('click', function() {
                 mobileMenuToggle.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
             });
 
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.addEventListener('click', () => {
+            document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+                link.addEventListener('click', function() {
                     mobileMenuToggle.classList.remove('active');
                     mobileMenu.classList.remove('active');
                 });
             });
 
-            document.addEventListener('click', (e) => {
+            document.addEventListener('click', function(e) {
                 if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
                     mobileMenuToggle.classList.remove('active');
                     mobileMenu.classList.remove('active');
@@ -1294,35 +1231,39 @@
             });
         }
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.main-header');
-            if (window.pageYOffset > 100) {
-                header.style.padding = '0.4rem 0';
-                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
-            } else {
-                header.style.padding = '0.7rem 0';
-                header.style.boxShadow = 'none';
+        // Header scroll effect - Optimized
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const header = document.querySelector('.main-header');
+                    if (window.pageYOffset > 100) {
+                        header.style.padding = '0.4rem 0';
+                    } else {
+                        header.style.padding = '0.7rem 0';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
-        // Sidebar active link management
+        // Sidebar active link management - Optimized
         const sidebarLinks = document.querySelectorAll('.sidebar-link');
         const sections = document.querySelectorAll('.doc-section');
 
+        let scrollTicking = false;
         function updateActiveLink() {
             let current = '';
             
-            sections.forEach(section => {
+            sections.forEach(function(section) {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (scrollY >= (sectionTop - 150)) {
+                if (window.scrollY >= (sectionTop - 150)) {
                     current = section.getAttribute('id');
                 }
             });
             
-            sidebarLinks.forEach(link => {
+            sidebarLinks.forEach(function(link) {
                 link.classList.remove('active');
                 if (link.getAttribute('data-section') === current) {
                     link.classList.add('active');
@@ -1330,11 +1271,19 @@
             });
         }
 
-        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('scroll', function() {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(function() {
+                    updateActiveLink();
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        });
 
         // Smooth scroll to section
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        sidebarLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const sectionId = link.getAttribute('data-section');
                 const section = document.getElementById(sectionId);
