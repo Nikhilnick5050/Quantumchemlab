@@ -2,25 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Disclaimer | QuantumChem</title>
-    
-    <!-- Meta Tags -->
     <meta name="description" content="QuantumChem disclaimer. Chemical information for educational purposes only.">
     <meta name="keywords" content="chemistry, chemical database, students, learning, safety, disclaimer">
     <meta name="author" content="QuantumChem Team">
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Styles -->
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -28,47 +29,89 @@
         }
 
         :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --success: #10b981;
-            --gray: #94a3b8;
-            --light: #f8fafc;
-            
-            --font-main: 'Inter', sans-serif;
-            --font-heading: 'Poppins', sans-serif;
-            
-            --radius: 8px;
-            --transition: 0.3s ease;
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --danger: #ff4d4d;
+            --warning: #ffaa33;
+            --success: #33ff99;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-main);
+            font-family: 'Inter', sans-serif;
             background: var(--primary);
-            color: var(--light);
-            line-height: 1.6;
-            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* ===== LAYOUT ===== */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== HEADER ===== */
-        .main-header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 0;
+        #particles-js {
             position: fixed;
             width: 100%;
+            height: 100%;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
         }
 
         .navbar {
@@ -77,385 +120,662 @@
             justify-content: space-between;
         }
 
-        .logo {
+        .nav-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 1rem;
             text-decoration: none;
-            color: white;
+            min-width: 0;
+            flex-shrink: 1;
         }
 
-        .logo-img {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: 2px solid var(--accent);
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes rotateLogo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .logo-text h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .logo-text span {
-            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }
 
         .logo-subtitle {
-            font-size: 11px;
-            color: var(--gray);
-            margin-top: 2px;
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* ===== BUTTON ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: var(--radius);
-            font-weight: 500;
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
             text-decoration: none;
-            transition: var(--transition);
-            font-size: 14px;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            color: white;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        .btn:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
-        /* ===== HERO ===== */
-        .hero-section {
-            padding: 120px 0 40px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 60px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
-            padding: 8px 16px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #60a5fa;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(255, 77, 77, 0.2) 0%, rgba(255, 170, 51, 0.2) 100%);
+            border: 2px solid var(--danger);
+            border-radius: 30px;
+            padding: 12px 24px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--danger);
         }
 
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-badge i {
+            font-size: 1.2rem;
         }
 
-        .hero-subtitle {
-            font-size: 16px;
-            color: #cbd5e1;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ===== CONTENT ===== */
         .content-section {
-            padding: 40px 0;
+            padding: 30px 0 80px;
         }
 
         .content-card {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius);
-            padding: 40px;
-            margin-bottom: 30px;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
         }
 
         h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 30px 0 15px;
-            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 2.5rem 0 1.5rem;
         }
 
         h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 20px 0 10px;
-            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: var(--accent-light);
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         p {
-            font-size: 15px;
             color: #cbd5e1;
-            margin-bottom: 15px;
-            line-height: 1.7;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
         strong {
-            color: white;
+            color: var(--accent-light);
             font-weight: 600;
         }
 
-        /* ===== HIGHLIGHT SECTIONS ===== */
         .highlight {
-            padding: 20px;
-            border-radius: var(--radius);
-            margin: 25px 0;
-            background: rgba(239, 68, 68, 0.08);
-            border-left: 4px solid var(--danger);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border-left: 5px solid;
+            background: rgba(255, 77, 77, 0.1);
+            border-color: var(--danger);
         }
 
         .highlight.warning {
-            background: rgba(239, 68, 68, 0.08);
-            border-left-color: var(--danger);
+            background: rgba(255, 77, 77, 0.1);
+            border-color: var(--danger);
         }
 
         .highlight.important {
-            background: rgba(245, 158, 11, 0.08);
-            border-left-color: var(--warning);
+            background: rgba(255, 170, 51, 0.1);
+            border-color: var(--warning);
         }
 
         .highlight.info {
-            background: rgba(14, 165, 233, 0.08);
-            border-left-color: #0ea5e9;
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent);
         }
 
         .highlight.legal {
-            background: rgba(16, 185, 129, 0.08);
-            border-left-color: var(--success);
+            background: rgba(51, 255, 153, 0.1);
+            border-color: var(--success);
         }
 
         .highlight i {
-            margin-right: 10px;
-            font-size: 16px;
+            font-size: 1.5rem;
+            margin-right: 15px;
         }
 
-        /* ===== TERMS LIST ===== */
+        .highlight h3 {
+            color: white;
+            margin-top: 0;
+        }
+
         .terms-list {
-            margin: 25px 0;
+            margin: 2.5rem 0;
         }
 
         .term-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
         }
 
-        .term-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .term-item:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+            background: rgba(0, 212, 255, 0.1);
         }
 
         .term-number {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent);
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            text-align: center;
-            line-height: 28px;
-            font-weight: 600;
-            margin-right: 10px;
-            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
         }
 
-        /* ===== ACTION BUTTONS ===== */
+        .term-item h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .action-buttons {
-            text-align: center;
-            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: 2px solid var(--accent);
+            background: transparent;
+            color: white;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: white;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             border: none;
-            padding: 12px 24px;
-            font-weight: 500;
         }
 
         .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #00c4ff 0%, #a23be3 100%);
+            transform: translateY(-5px) scale(1.05);
         }
 
-        /* ===== CLEAN FOOTER ===== */
+        .btn i {
+            font-size: 1.2rem;
+        }
+
         .main-footer {
-            background: var(--secondary);
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
+            gap: 3rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: var(--gray);
+            color: var(--accent-light);
             text-decoration: none;
-            font-size: 14px;
-            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
         }
 
         .footer-links a:hover {
             color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
         }
 
         .copyright {
-            color: var(--gray);
-            font-size: 13px;
-            margin-top: 10px;
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+            font-size: 0.9rem;
         }
 
-        .copyright i {
-            color: #ef4444;
-            margin: 0 3px;
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+
+            .footer-links {
+                gap: 2rem;
+            }
+
+            .action-buttons {
+                gap: 1rem;
+            }
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .container {
-                padding: 0 15px;
+                padding: 0 1rem;
             }
-            
-            h1 { font-size: 26px; }
-            h2 { font-size: 20px; }
-            h3 { font-size: 17px; }
-            
-            .hero-section {
-                padding: 100px 0 30px;
+
+            .nav-brand {
+                gap: 0.75rem;
             }
-            
-            .content-card {
-                padding: 25px;
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
             }
-            
-            .footer-links {
-                gap: 20px;
-            }
-            
-            .logo-img {
-                width: 35px;
-                height: 35px;
-            }
-            
+
             .logo-text h1 {
-                font-size: 18px;
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .highlight {
+                padding: 1.5rem;
+            }
+
+            .term-item {
+                padding: 1.5rem;
+            }
+
+            .footer-links {
+                gap: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                min-width: 160px;
             }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 22px; }
-            h2 { font-size: 18px; }
-            
-            .content-card {
-                padding: 20px;
+            .container {
+                padding: 0 0.75rem;
             }
-            
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.6rem;
+                letter-spacing: 0.5px;
+            }
+
+            .mobile-menu-toggle {
+                padding: 0.25rem;
+                margin-left: 0.5rem;
+            }
+
+            .page-hero {
+                padding: 120px 0 40px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
             .footer-links {
                 flex-direction: column;
-                gap: 15px;
+                gap: 1rem;
             }
-            
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .btn {
-                padding: 8px 16px;
-                font-size: 13px;
+                width: 100%;
+                max-width: 280px;
             }
-            
-            .hero-badge {
-                font-size: 12px;
-                padding: 6px 12px;
+        }
+
+        @media (max-width: 375px) {
+            .logo-text h1 {
+                font-size: 0.9rem;
             }
-            
-            .hero-subtitle {
-                font-size: 14px;
+
+            .logo-subtitle {
+                font-size: 0.55rem;
+            }
+
+            .nav-logo {
+                width: 36px;
+                height: 36px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-  <header class="main-header">
-  <div class="container">
-    <nav class="navbar">
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
 
-      <div class="nav-brand">
-        <a href="index.html" class="logo">
-          <img 
-            src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg"
-            alt="QuantumChem logo"
-            class="logo-img"
-          >
-          <div class="logo-text">
-            <h1>Quantum<span>Chem</span></h1>
-            <p class="logo-subtitle"></p>
-          </div>
-        </a>
-      </div>
-
-      <div class="nav-actions">
-        <a href="index.html" class="btn">
-          <i class="fas fa-arrow-left"></i>
-          Back
-        </a>
-      </div>
-
-    </nav>
-  </div>
-</header>
-
-    <!-- Hero -->
-    <section class="hero-section">
+    <header class="main-header">
         <div class="container">
-            <div class="hero-badge">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Legal Notice</span>
+            <nav class="navbar">
+                <a href="index.html" class="nav-brand">
+                    <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="Quantumchem Logo" class="nav-logo">
+                    <div class="logo-text">
+                        <h1>QUANTUMCHEM</h1>
+                        <p class="logo-subtitle">Chemistry Platform</p>
+                    </div>
+                </a>
+                
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="team.html" class="nav-link">Team</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index.html" class="mobile-nav-link">🏠 Home</a>
+            <a href="team.html" class="mobile-nav-link">👥 Team</a>
+            <a href="contact.html" class="mobile-nav-link">📞 Contact</a>
+        </div>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>LEGAL NOTICE</span>
+                </div>
+                <h1><i class="fas fa-shield-alt"></i> DISCLAIMER</h1>
+                <p>Important legal information about using the QuantumChem chemical database</p>
             </div>
-            
-            <h1>Disclaimer</h1>
-            
-            <p class="hero-subtitle">
-                Important information about using QuantumChem chemical database
-            </p>
         </div>
     </section>
 
-    <!-- Content -->
     <section class="content-section">
         <div class="container">
             <div class="content-card">
                 <div class="highlight warning">
                     <i class="fas fa-radiation-alt"></i>
-                    <h3>Important Warning</h3>
+                    <h3>⚠️ IMPORTANT WARNING</h3>
                     <p>
                         The information in this database is for <strong>EDUCATIONAL PURPOSES ONLY</strong>. 
                         It is NOT for professional advice or lab use without proper supervision.
                     </p>
                 </div>
 
-                <h2>General Disclaimer</h2>
+                <h2>📜 General Disclaimer</h2>
                 <p>
                     QuantumChem is a student project to help understand chemical concepts. 
-                    We try to provide accurate information but make no guarantees about completeness or accuracy.
+                    We strive to provide accurate information but make no guarantees about completeness or accuracy.
                 </p>
 
                 <div class="highlight legal">
                     <i class="fas fa-balance-scale"></i>
-                    <h3>Governing Law & Jurisdiction</h3>
+                    <h3>⚖️ Governing Law & Jurisdiction</h3>
                     <p>
                         <strong>Governing Law:</strong> India<br>
                         <strong>Jurisdiction:</strong> Pune, Maharashtra
@@ -464,19 +784,19 @@
 
                 <div class="highlight important">
                     <i class="fas fa-skull-crossbones"></i>
-                    <h3>No Liability for Chemical Handling</h3>
+                    <h3>🚫 No Liability for Chemical Handling</h3>
                     <p>
                         QuantumChem and its creators <strong>ARE NOT LIABLE</strong> for any damages, 
                         injuries, or losses from using information in this database.
                     </p>
                 </div>
 
-                <h2>Terms of Use</h2>
+                <h2>📋 Terms of Use</h2>
                 
                 <div class="terms-list">
                     <div class="term-item">
                         <span class="term-number">1</span>
-                        <h3>Educational Purpose Only</h3>
+                        <h3><i class="fas fa-graduation-cap"></i> Educational Purpose Only</h3>
                         <p>
                             For educational and informational purposes only. 
                             Not a replacement for professional safety training.
@@ -485,7 +805,7 @@
 
                     <div class="term-item">
                         <span class="term-number">2</span>
-                        <h3>Professional Consultation Required</h3>
+                        <h3><i class="fas fa-user-md"></i> Professional Consultation Required</h3>
                         <p>
                             Always consult qualified professionals before handling chemicals. 
                             Follow safety protocols.
@@ -494,7 +814,7 @@
 
                     <div class="term-item">
                         <span class="term-number">3</span>
-                        <h3>Accuracy of Information</h3>
+                        <h3><i class="fas fa-check-circle"></i> Accuracy of Information</h3>
                         <p>
                             We try to keep information correct but make no warranties 
                             about accuracy.
@@ -503,7 +823,7 @@
 
                     <div class="term-item">
                         <span class="term-number">4</span>
-                        <h3>Service Availability</h3>
+                        <h3><i class="fas fa-server"></i> Service Availability</h3>
                         <p>
                             We don't guarantee uninterrupted service. May modify or 
                             discontinue service without notice.
@@ -512,7 +832,7 @@
 
                     <div class="term-item">
                         <span class="term-number">5</span>
-                        <h3>User Responsibility</h3>
+                        <h3><i class="fas fa-user-shield"></i> User Responsibility</h3>
                         <p>
                             You are responsible for how you use QuantumChem information. 
                             Use caution and common sense.
@@ -521,7 +841,7 @@
 
                     <div class="term-item">
                         <span class="term-number">6</span>
-                        <h3>Account & Data Responsibility</h3>
+                        <h3><i class="fas fa-key"></i> Account & Data Responsibility</h3>
                         <p>
                             If you create an account, you're responsible for its security. 
                             Not responsible for data loss from user negligence.
@@ -530,7 +850,7 @@
 
                     <div class="term-item">
                         <span class="term-number">7</span>
-                        <h3>Independent Project</h3>
+                        <h3><i class="fas fa-university"></i> Independent Project</h3>
                         <p>
                             QuantumChem is an independent academic project. 
                             Does not represent official PCCOE lab protocols.
@@ -540,20 +860,20 @@
 
                 <div class="highlight info">
                     <i class="fas fa-shield-alt"></i>
-                    <h3>Safety First</h3>
+                    <h3>🛡️ Safety First</h3>
                     <p>
                         Always: <strong>Read safety sheets, Use ventilation, Wear protection, 
                         Follow safety rules, Have emergency equipment ready.</strong>
                     </p>
                 </div>
 
-                <h2>Limitation of Liability</h2>
+                <h2>⚖️ Limitation of Liability</h2>
                 <p>
                     QuantumChem, its developers, or contributors are not liable for 
                     damages from using this database.
                 </p>
 
-                <h2>Acceptance of Terms</h2>
+                <h2>✅ Acceptance of Terms</h2>
                 <p>
                     By using QuantumChem, you agree to this disclaimer. 
                     If you don't agree, don't use the database.
@@ -561,7 +881,7 @@
 
                 <div class="highlight warning">
                     <i class="fas fa-file-contract"></i>
-                    <h3>Official Documentation Required</h3>
+                    <h3>📄 Official Documentation Required</h3>
                     <p>
                         For actual lab work, always use: 
                         <strong>Official MSDS sheets, Manufacturer instructions, 
@@ -569,7 +889,7 @@
                     </p>
                 </div>
 
-                <h2>Contact for Corrections</h2>
+                <h2>📧 Contact for Corrections</h2>
                 <p>
                     Found errors? Contact: <strong>quantumchem25@gmail.com</strong>
                 </p>
@@ -578,7 +898,7 @@
                 </p>
 
                 <div class="action-buttons">
-                    <a href="index.html" class="btn btn-primary" style="margin-right: 10px;">
+                    <a href="index.html" class="btn btn-primary">
                         <i class="fas fa-home"></i>
                         Back to Home
                     </a>
@@ -591,28 +911,161 @@
         </div>
     </section>
 
-    <!-- Clean Footer -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="team.html">Team</a>
                 <a href="privacy.html">Privacy</a>
-            
                 <a href="disclaimer.html">Disclaimer</a>
                 <a href="contact.html">Contact</a>
             </div>
             
             <div class="copyright">
                 <p>&copy; <span id="currentYear"></span> QuantumChem. All rights reserved.</p>
-            
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // Current Year
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.2
+        });
+
+        gsap.from('.hero-badge', {
+            duration: 0.8,
+            scale: 0,
+            opacity: 0,
+            ease: 'back.out(1.7)',
+            delay: 0.5
+        });
+
+        gsap.from('.hero-content p', {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 0.8
+        });
+
+        gsap.from('.content-card', {
+            scrollTrigger: {
+                trigger: '.content-card',
+                start: 'top 85%',
+            },
+            duration: 1,
+            y: 80,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.utils.toArray('.term-item').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 90%',
+                },
+                duration: 0.6,
+                y: 30,
+                opacity: 0,
+                ease: 'back.out(1.7)',
+                delay: i * 0.1
+            });
+        });
+
+        gsap.utils.toArray('.highlight').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 85%',
+                },
+                duration: 0.8,
+                x: -50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: i * 0.1
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.pageYOffset > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Set Current Year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>

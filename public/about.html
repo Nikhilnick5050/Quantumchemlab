@@ -120,6 +120,8 @@
             align-items: center;
             gap: 1rem;
             text-decoration: none;
+            min-width: 0;
+            flex-shrink: 1;
         }
 
         .nav-logo {
@@ -130,6 +132,7 @@
             border: 3px solid var(--accent);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
             animation: rotateLogo 20s linear infinite;
+            flex-shrink: 0;
         }
 
         @keyframes rotateLogo {
@@ -137,14 +140,25 @@
             to { transform: rotate(360deg); }
         }
 
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+        }
+
         .logo-text h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }
 
         .logo-subtitle {
@@ -152,6 +166,9 @@
             color: var(--accent-light);
             text-transform: uppercase;
             letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .nav-menu {
@@ -166,6 +183,7 @@
             position: relative;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-link::before {
@@ -194,6 +212,7 @@
             gap: 5px;
             cursor: pointer;
             padding: 0.5rem;
+            margin-left: 1rem;
         }
 
         .mobile-menu-toggle span {
@@ -202,6 +221,18 @@
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             border-radius: 3px;
             transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         .mobile-menu {
@@ -519,13 +550,19 @@
                 display: block;
             }
 
-            .logo-text h1 {
-                font-size: 1.3rem;
-            }
-
             .nav-logo {
                 width: 50px;
                 height: 50px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
             }
 
             .feature-grid {
@@ -538,6 +575,24 @@
                 padding: 0 1rem;
             }
 
+            .nav-brand {
+                gap: 0.75rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+
             .about-card {
                 padding: 1.5rem;
             }
@@ -548,6 +603,47 @@
 
             .team-card {
                 padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.6rem;
+                letter-spacing: 0.5px;
+            }
+
+            .mobile-menu-toggle {
+                padding: 0.25rem;
+                margin-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .logo-text h1 {
+                font-size: 0.9rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.55rem;
+            }
+
+            .nav-logo {
+                width: 36px;
+                height: 36px;
             }
         }
     </style>
