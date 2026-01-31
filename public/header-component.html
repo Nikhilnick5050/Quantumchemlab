@@ -1,0 +1,565 @@
+<!-- Enhanced Header Component for QuantumChem -->
+<!-- Include this file in all pages for consistent navigation -->
+
+<style>
+/* Enhanced Header Styles */
+.main-header {
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    height: 80px;
+}
+
+/* Perfect Logo Circle - Enhanced */
+.nav-brand {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-brand:hover {
+    transform: translateY(-2px);
+}
+
+.logo-container {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: 3px solid #3b82f6;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover .logo-container {
+    border-color: #60a5fa;
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+    transform: rotate(5deg) scale(1.05);
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.logo-text h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: white;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.logo-text span {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
+}
+
+/* Navigation Menu - Enhanced */
+.nav-menu {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 6px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #94a3b8;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    width: 100%;
+}
+
+.nav-link i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+}
+
+.nav-link:hover i,
+.nav-link.active i {
+    transform: scale(1.15);
+    color: #60a5fa;
+}
+
+/* User Dropdown - Enhanced */
+.user-dropdown {
+    position: relative;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+}
+
+.user-btn:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user-btn:hover .user-avatar img {
+    transform: scale(1.05);
+}
+
+#userName {
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+}
+
+#dropdownArrow {
+    font-size: 12px;
+    color: #9CA3AF;
+    transition: transform 0.3s, color 0.3s;
+    margin-left: 4px;
+}
+
+.user-btn:hover #dropdownArrow {
+    color: #3B82F6;
+}
+
+.fa-chevron-down.rotate {
+    transform: rotate(180deg);
+    color: #3B82F6;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #0F1B2E;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    min-width: 240px;
+    display: none;
+    z-index: 1001;
+    overflow: hidden;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    backdrop-filter: blur(20px);
+    animation: dropdownSlide 0.3s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Dropdown Items */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: #D1D5DB;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(31, 41, 55, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(37, 99, 235, 0.1);
+    color: #3B82F6;
+    padding-left: 22px;
+}
+
+.dropdown-item:hover::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #3B82F6;
+    border-radius: 0 2px 2px 0;
+}
+
+.dropdown-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-item:hover i {
+    transform: scale(1.1);
+}
+
+.dropdown-item span {
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Mobile Toggle */
+.mobile-toggle {
+    display: none;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle:hover {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+.mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mobile-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 88px;
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        background: rgba(30, 41, 59, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem;
+        border-radius: 16px;
+        display: none;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .nav-link {
+        padding: 15px 20px;
+        justify-content: flex-start;
+    }
+    
+    #userName {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-container {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .logo-text h1 {
+        font-size: 22px;
+    }
+}
+</style>
+
+<!-- User Dropdown -->
+<div class="user-dropdown" id="userDropdown">
+    <button class="user-btn" id="userBtn">
+        <div class="user-avatar">
+            <img src="https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff&size=32" 
+                 alt="Account" 
+                 id="userAvatar">
+        </div>
+        <span id="userName">Account</span>
+        <i class="fas fa-chevron-down" id="dropdownArrow"></i>
+    </button>
+    <div class="dropdown-menu" id="userDropdownMenu">
+        <div id="dropdownContent">
+            <!-- Content will be dynamically generated -->
+        </div>
+    </div>
+</div>
+
+<script>
+// User Management
+const USER_STORAGE_KEY = "qc_user";
+const JWT_TOKEN_KEY = "jwt_token";
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateUserDropdown();
+    setupHeaderEventListeners();
+    checkJWTLoginStatus();
+});
+
+function setupHeaderEventListeners() {
+    const userBtn = document.getElementById('userBtn');
+    const dropdown = document.getElementById('userDropdownMenu');
+    const arrow = document.getElementById('dropdownArrow');
+    
+    if (userBtn) {
+        userBtn.addEventListener('click', toggleUserDropdown);
+    }
+    
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    document.addEventListener('click', function(event) {
+        if (userBtn && !userBtn.contains(event.target) && dropdown && !dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+            if (arrow) arrow.classList.remove('rotate');
+        }
+        
+        if (mobileToggle && !mobileToggle.contains(event.target) && navMenu && !navMenu.contains(event.target)) {
+            navMenu.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        }
+    });
+}
+
+function toggleUserDropdown(event) {
+    if (event) event.stopPropagation();
+    const dropdown = document.getElementById('userDropdownMenu');
+    const arrow = document.getElementById('dropdownArrow');
+    dropdown.classList.toggle('show');
+    arrow.classList.toggle('rotate');
+}
+
+function checkJWTLoginStatus() {
+    const jwtToken = localStorage.getItem(JWT_TOKEN_KEY);
+    const userData = getUserData();
+    
+    if (jwtToken && !userData) {
+        const tempUser = {
+            logged: true,
+            name: "User",
+            email: "",
+            photoURL: `https://ui-avatars.com/api/?name=User&background=3B82F6&color=fff`,
+            jwt: true
+        };
+        
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(tempUser));
+        updateUserDropdown();
+    }
+}
+
+function getUserData() {
+    try {
+        const userStr = localStorage.getItem(USER_STORAGE_KEY);
+        return userStr ? JSON.parse(userStr) : null;
+    } catch (e) {
+        console.error("Error parsing user data:", e);
+        return null;
+    }
+}
+
+function updateUserDropdown() {
+    const userData = getUserData();
+    const isLoggedIn = userData && userData.logged === true;
+    const dropdownMenu = document.getElementById('dropdownContent');
+    const userNameElement = document.getElementById('userName');
+    const userAvatarElement = document.getElementById('userAvatar');
+    
+    if (isLoggedIn) {
+        const name = userData.name || 'User';
+        const email = userData.email || '';
+        const avatarUrl = userData.photoURL || 
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&bold=true`;
+        
+        userNameElement.textContent = name;
+        userAvatarElement.src = avatarUrl;
+        userAvatarElement.alt = name;
+        
+        dropdownMenu.innerHTML = `
+            <a href="profile.html" class="dropdown-item">
+                <i class="fas fa-user-circle" style="color: #8B5CF6;"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="dropdown-item" onclick="logoutUser(); return false;">
+                <i class="fas fa-sign-out-alt" style="color: #EF4444;"></i>
+                <span>Logout</span>
+            </a>
+        `;
+        
+    } else {
+        userNameElement.textContent = 'Account';
+        userAvatarElement.src = 'https://ui-avatars.com/api/?name=Account&background=3B82F6&color=fff';
+        userAvatarElement.alt = 'Account';
+        
+        dropdownMenu.innerHTML = `
+            <a href="login.html" class="dropdown-item">
+                <i class="fas fa-user-plus" style="color: #10B981;"></i>
+                <span>Create Account</span>
+            </a>
+            <a href="https://quantumchem.vercel.app/api/auth/google" class="dropdown-item">
+                <i class="fab fa-google" style="color: #3B82F6;"></i>
+                <span>Login with Google</span>
+            </a>
+        `;
+    }
+}
+
+function logoutUser() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem(USER_STORAGE_KEY);
+        localStorage.removeItem(JWT_TOKEN_KEY);
+        
+        updateUserDropdown();
+        
+        const dropdown = document.getElementById('userDropdownMenu');
+        const arrow = document.getElementById('dropdownArrow');
+        if (dropdown) dropdown.classList.remove('show');
+        if (arrow) arrow.classList.remove('rotate');
+        
+        if (window.location.pathname.includes('profile.html')) {
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        }
+    }
+    return false;
+}
+
+window.addEventListener('storage', function(e) {
+    if (e.key === USER_STORAGE_KEY || e.key === JWT_TOKEN_KEY) {
+        updateUserDropdown();
+    }
+});
+</script>
