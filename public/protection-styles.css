@@ -1,0 +1,502 @@
+/**
+ * QuantumChem Premium Protection Styles
+ * Glassmorphism lock overlays, modals, and animations
+ */
+
+/* ============================================
+   TUTORIAL LOCK OVERLAY STYLES
+============================================ */
+
+.tutorial-card {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Locked tutorials (with visual overlay) */
+.tutorial-card.locked {
+    cursor: not-allowed;
+}
+
+.tutorial-lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: overlayFadeIn 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        inset 0 0 60px rgba(255, 255, 255, 0.1),
+        0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.lock-icon-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.lock-icon-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 70%);
+    border-radius: 50%;
+    animation: lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.tutorial-lock-overlay .lock-icon-container i {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.95);
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    animation: lockFloat 3s ease-in-out infinite;
+}
+
+@keyframes lockFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.lock-message {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+/* Hover effect on locked tutorials */
+.tutorial-card.locked:hover .tutorial-lock-overlay {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+}
+
+.tutorial-card.locked:hover .lock-icon-bg {
+    animation: lockPulseHover 1s ease-in-out infinite;
+}
+
+@keyframes lockPulseHover {
+    0%, 100% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Visibly locked but no overlay (first 6 tutorials) */
+.tutorial-card.locked-visible {
+    cursor: pointer;
+}
+
+/* Shake animation for denied access */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+.tutorial-card.shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* Unlock animation */
+@keyframes unlockScale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.tutorial-card.unlock-animation {
+    animation: unlockScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tutorial-card.unlock-animation .tutorial-lock-overlay {
+    animation: unlockFade 0.6s forwards;
+}
+
+@keyframes unlockFade {
+    to {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+/* ============================================
+   LOGIN MODAL STYLES
+============================================ */
+
+.login-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 1rem;
+}
+
+.login-modal-overlay.active {
+    opacity: 1;
+}
+
+.login-modal-content {
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.95) 0%, rgba(10, 14, 39, 0.95) 100%);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 0 60px rgba(0, 212, 255, 0.05);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.login-modal-overlay.active .login-modal-content {
+    transform: scale(1);
+}
+
+.login-modal-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: modalIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes modalIconPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 20px rgba(0, 212, 255, 0);
+    }
+}
+
+.login-modal-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.login-modal-content h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.login-modal-content p {
+    color: var(--text-secondary, #cbd5e1);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.login-modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.login-modal-btn {
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    font-family: 'Inter', sans-serif;
+}
+
+.login-modal-btn i {
+    font-size: 1.1rem;
+}
+
+.login-modal-btn.primary {
+    background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+    color: white;
+}
+
+.login-modal-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+}
+
+.login-modal-btn.google {
+    background: white;
+    color: #333;
+}
+
+.login-modal-btn.google:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.login-modal-btn.outline {
+    background: transparent;
+    border: 2px solid rgba(0, 212, 255, 0.4);
+    color: var(--text-primary, #f8fafc);
+}
+
+.login-modal-btn.outline:hover {
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+.login-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text-secondary, #cbd5e1);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.login-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+============================================ */
+
+.qc-toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: white;
+    color: #333;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    z-index: 99999;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 400px;
+    border: 2px solid transparent;
+}
+
+.qc-toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.qc-toast i {
+    font-size: 1.3rem;
+}
+
+.qc-toast.success {
+    background: #10B981;
+    color: white;
+    border-color: #059669;
+}
+
+.qc-toast.error {
+    background: #EF4444;
+    color: white;
+    border-color: #DC2626;
+}
+
+.qc-toast.warning {
+    background: #F59E0B;
+    color: white;
+    border-color: #D97706;
+}
+
+.qc-toast.info {
+    background: #3B82F6;
+    color: white;
+    border-color: #2563EB;
+}
+
+/* ============================================
+   NAVBAR USER AVATAR
+============================================ */
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+============================================ */
+
+@media (max-width: 768px) {
+    .login-modal-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+
+    .login-modal-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-modal-content p {
+        font-size: 0.95rem;
+    }
+
+    .login-modal-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+
+    .login-modal-icon i {
+        font-size: 2rem;
+    }
+
+    .lock-icon-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .tutorial-lock-overlay .lock-icon-container i {
+        font-size: 2rem;
+    }
+
+    .lock-message {
+        font-size: 0.95rem;
+    }
+
+    .qc-toast {
+        top: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-modal-btn {
+        font-size: 0.9rem;
+        padding: 0.75rem 1.25rem;
+    }
+
+    .tutorial-lock-overlay {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .tutorial-lock-overlay,
+    .login-modal-overlay,
+    .login-modal-content,
+    .qc-toast,
+    .tutorial-card {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tutorial-lock-overlay {
+        border: 3px solid white;
+    }
+
+    .login-modal-content {
+        border: 3px solid #00d4ff;
+    }
+}
