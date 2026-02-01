@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorials | QuantumChem - Premium Chemistry Learning Platform</title>
+    <title>Tutorials | QuantumChem - Chemistry Learning Platform</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,13 +97,13 @@
             66% { transform: translate(-30px, 30px) scale(0.9); }
         }
 
-        /* Navigation */
+        /* Navigation - Enhanced Mobile */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(10, 14, 39, 0.95);
+            background: rgba(10, 14, 39, 0.98);
             backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--glass-border);
             padding: 1rem 0;
@@ -115,7 +114,7 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -127,11 +126,12 @@
             gap: 0.6rem;
             text-decoration: none;
             color: var(--text-primary);
+            z-index: 1001;
         }
 
         .logo img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--accent);
@@ -147,17 +147,17 @@
         .logo-text {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
             list-style: none;
             align-items: center;
         }
@@ -196,18 +196,22 @@
         .user-nav-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .user-avatar-nav {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             border: 2px solid var(--accent);
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            background: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .user-avatar-nav:hover {
@@ -286,27 +290,145 @@
             transform: translateY(-2px);
         }
 
+        /* Mobile Menu - Enhanced */
         .mobile-menu-btn {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
             padding: 0.5rem;
-            background: none;
-            border: none;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--glass-border);
+            border-radius: 10px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--accent);
         }
 
         .mobile-menu-btn span {
-            width: 30px;
+            width: 25px;
             height: 3px;
             background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
 
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .mobile-nav-links a,
+        .mobile-nav-links button {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1.25rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links button:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .mobile-user-section {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .mobile-user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            background: #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mobile-user-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-user-email {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
         /* Hero Section */
         .page-hero {
-            padding: 150px 0 80px;
+            padding: 130px 0 60px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             text-align: center;
             position: relative;
@@ -852,6 +974,97 @@
             transform: rotate(90deg);
         }
 
+        /* Footer */
+        .footer {
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 2px solid var(--glass-border);
+            padding: 2.5rem 0 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-tagline {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .footer-column h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: var(--accent-light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
         /* Toast Notification */
         .toast {
             position: fixed;
@@ -886,34 +1099,51 @@
         /* Responsive */
         @media (max-width: 1024px) {
             .nav-links {
-                display: none;
+                display: none !important;
             }
             
             .mobile-menu-btn {
-                display: flex;
+                display: flex !important;
             }
 
-            .logo-text {
-                font-size: 1.3rem;
+            .mobile-menu-overlay {
+                display: block;
             }
 
-            .logo img {
-                width: 50px;
-                height: 50px;
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .logo img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .page-hero {
+                padding: 110px 0 50px;
+            }
+
             .page-hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                letter-spacing: 3px;
             }
             
             .tutorials-grid {
                 grid-template-columns: 1fr;
             }
 
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+
             .hero-stats {
-                gap: 2rem;
+                gap: 1.5rem;
             }
 
             .category-filter {
@@ -926,19 +1156,41 @@
             }
 
             .login-modal-content {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
             }
 
             .login-modal h2 {
                 font-size: 1.5rem;
             }
 
-            .user-nav-section {
-                gap: 0.5rem;
+            .toast {
+                right: 15px;
+                left: 15px;
+                top: 90px;
             }
 
-            .user-name-nav {
-                display: none;
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .page-hero h1 {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -974,23 +1226,33 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div id="mobileAuthSection"></div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="Lectures.html"><i class="fas fa-book"></i> Lectures</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </div>
+
     <!-- Hero -->
     <section class="page-hero">
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fas fa-lock"></i>
-                <span>Premium Access Required</span>
+                <i class="fas fa-graduation-cap"></i>
+                <span>Interactive Learning Platform</span>
             </div>
-            <h1>Master Chemistry</h1>
-            <p>Professional tutorials for chemical concepts, laboratory techniques, and database mastery. Login to unlock full access to our premium learning resources.</p>
+            <h1>Practicals</h1>
+            <p>Professional tutorials for chemical concepts, laboratory techniques, and database mastery. Learn at your own pace with expert guidance.</p>
             
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">11</span>
-                    <span class="stat-label">Premium Tutorials</span>
+                    <span class="stat-label">Practical Tutorials</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">Advanced</span>
+                    <span class="stat-number">Expert</span>
                     <span class="stat-label">Lab Manuals</span>
                 </div>
                 <div class="stat-item">
@@ -1019,6 +1281,59 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
+                        <div class="logo-text"><span>Quantum</span>Chem</div>
+                    </a>
+                    <p class="footer-tagline">
+                        Advanced Chemical Database Platform for research and learning. Empowering students with professional tools.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="Lectures.html">Lectures</a></li>
+                        <li><a href="features.html">Features</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank">Videos</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="help.html">Safety</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="mailto:quantumchem25@gmail.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 QuantumChem. All rights reserved. Developed with 💙 by QuantumChem Team</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/profile.php?id=61585853281971" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/quantumchem25/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:quantumchem25@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.youtube.com/channel/UC_AUeNAjYEFKSSUvaRVqDOQ" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Login Required Modal -->
     <div class="login-modal" id="loginModal">
         <div class="login-modal-content" style="position: relative;">
@@ -1031,16 +1346,16 @@
             </div>
             
             <h2>Login Required</h2>
-            <p>Please login to access our premium chemistry tutorials and learning resources. Join 1000+ students already learning with QuantumChem!</p>
+            <p>Please login to access our chemistry tutorials and learning resources. Join 1000+ students already learning with QuantumChem!</p>
             
             <div class="login-modal-actions">
-                <a href="login.html" class="modal-btn modal-btn-primary">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account / Login
-                </a>
-                <a href="#" id="googleLoginBtn" class="modal-btn modal-btn-google">
+                <a href="#" id="googleLoginModalBtn" class="modal-btn modal-btn-google">
                     <i class="fab fa-google"></i>
                     Login with Google
+                </a>
+                <a href="login.html" class="modal-btn modal-btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign Up / Login
                 </a>
                 <button onclick="closeLoginModal()" class="modal-btn modal-btn-outline">
                     <i class="fas fa-arrow-left"></i>
@@ -1051,7 +1366,9 @@
     </div>
 
     <!-- Toast Container -->
-    <div id="toastContainer"></div><script>
+    <div id="toastContainer"></div>
+
+    <script>
         // =====================================================
         // CONFIGURATION & CONSTANTS
         // =====================================================
@@ -1249,7 +1566,7 @@
         function showLoginModal() {
             const modal = document.getElementById('loginModal');
             modal.classList.add('active');
-            showToast('Please login to access premium tutorials', 'info');
+            showToast('Please login to access tutorials', 'info');
         }
 
         function closeLoginModal() {
@@ -1276,8 +1593,8 @@
                             <div class="lock-icon">
                                 <i class="fas fa-lock"></i>
                             </div>
-                            <div class="lock-text">Premium Content</div>
-                            <div class="lock-subtext">Login to Unlock</div>
+                            <div class="lock-text">Login Required</div>
+                            <div class="lock-subtext">Click to Unlock</div>
                         </div>
                     ` : ''}
                     
@@ -1359,18 +1676,21 @@
         
         function updateNavAuth() {
             const navAuthSection = document.getElementById('navAuthSection');
+            const mobileAuthSection = document.getElementById('mobileAuthSection');
             const isLoggedIn = isUserLoggedIn();
             
             if (isLoggedIn) {
                 const userData = getUserData();
                 const name = userData.name || 'User';
+                const email = userData.email || '';
                 const avatarUrl = userData.photoURL || 
                     `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&bold=true`;
                 
+                // Desktop Nav
                 navAuthSection.innerHTML = `
                     <div class="user-nav-section">
                         <a href="profile.html" class="user-avatar-nav">
-                            <img src="${avatarUrl}" alt="${name}">
+                            <img src="${avatarUrl}" alt="${name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&bold=true'">
                         </a>
                         <span class="user-name-nav">${name}</span>
                         <button onclick="logoutUser()" class="logout-btn-nav">
@@ -1378,17 +1698,51 @@
                         </button>
                     </div>
                 `;
+
+                // Mobile Nav
+                mobileAuthSection.innerHTML = `
+                    <div class="mobile-user-section">
+                        <div class="mobile-user-avatar">
+                            <img src="${avatarUrl}" alt="${name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&bold=true'">
+                        </div>
+                        <div class="mobile-user-name">${name}</div>
+                        <div class="mobile-user-email">${email || 'QuantumChem User'}</div>
+                    </div>
+                `;
+
+                // Add logout to mobile menu
+                const mobileLinks = document.querySelector('.mobile-nav-links');
+                const logoutBtn = document.createElement('li');
+                logoutBtn.innerHTML = '<button onclick="logoutUser()" style="background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Logout</button>';
+                mobileLinks.appendChild(logoutBtn);
+
             } else {
+                // Desktop Nav
                 navAuthSection.innerHTML = `
                     <div class="auth-buttons">
-                        <a href="login.html" class="auth-btn auth-btn-outline">
-                            <i class="fas fa-sign-in-alt"></i> Login
+                        <a href="#" id="googleLoginBtn" class="auth-btn auth-btn-outline">
+                            <i class="fab fa-google"></i> Login
                         </a>
                         <a href="login.html" class="auth-btn auth-btn-primary">
                             <i class="fas fa-user-plus"></i> Sign Up
                         </a>
                     </div>
                 `;
+
+                // Mobile Nav
+                mobileAuthSection.innerHTML = `
+                    <div style="margin-bottom: 1.5rem;">
+                        <a href="#" id="googleLoginMobileBtn" style="background: white; color: #1a1f3a; margin-bottom: 1rem;">
+                            <i class="fab fa-google"></i> Login with Google
+                        </a>
+                        <a href="login.html" style="background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);">
+                            <i class="fas fa-user-plus"></i> Sign Up / Login
+                        </a>
+                    </div>
+                `;
+
+                // Setup Google login buttons
+                setTimeout(setupGoogleLogin, 100);
             }
         }
 
@@ -1519,9 +1873,14 @@
         
         function setupGoogleLogin() {
             const googleLoginBtn = document.getElementById('googleLoginBtn');
-            if (googleLoginBtn) {
-                googleLoginBtn.href = `${API_BASE}/api/auth/google`;
-            }
+            const googleLoginMobileBtn = document.getElementById('googleLoginMobileBtn');
+            const googleLoginModalBtn = document.getElementById('googleLoginModalBtn');
+            
+            const googleUrl = `${API_BASE}/api/auth/google`;
+            
+            if (googleLoginBtn) googleLoginBtn.href = googleUrl;
+            if (googleLoginMobileBtn) googleLoginMobileBtn.href = googleUrl;
+            if (googleLoginModalBtn) googleLoginModalBtn.href = googleUrl;
         }
 
         // =====================================================
@@ -1530,19 +1889,31 @@
         
         function initializeMobileMenu() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.querySelector('.nav-links');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-            if (mobileMenuBtn && navLinks) {
+            if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     this.classList.toggle('active');
-                    navLinks.classList.toggle('active');
+                    mobileMenu.classList.toggle('active');
+                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
                 });
 
-                document.addEventListener('click', (e) => {
-                    if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                // Close menu when clicking on a link
+                document.querySelectorAll('.mobile-nav-links a, .mobile-nav-links button').forEach(link => {
+                    link.addEventListener('click', () => {
                         mobileMenuBtn.classList.remove('active');
-                        navLinks.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        mobileMenuBtn.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
                     }
                 });
             }
@@ -1577,7 +1948,7 @@
                 }
             });
 
-            console.log('QuantumChem Tutorials - Login-gated system initialized ✅');
+            console.log('QuantumChem Practicals - System initialized ✅');
         });
 
         // =====================================================
