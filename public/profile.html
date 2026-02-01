@@ -5,20 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Dashboard | QuantumChem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Dark Blue / Navy Gradient Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #1E40AF;
+            --secondary: #8B5CF6;
+            --dark-bg: #0B1220;
+            --dark-secondary: #1E293B;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
+            --gray-900: #0F172A;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+        }
+
+        /* ==================== PROFESSIONAL HEADER ==================== */
         .main-header {
-            background: linear-gradient(135deg, #0B1220 0%, #0F1B2E 100%);
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-secondary) 100%);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            border-bottom: 2px solid rgba(37, 99, 235, 0.3);
         }
 
-        .container {
-            max-width: 1200px;
+        .header-container {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -27,90 +62,182 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 0;
+            padding: 12px 0;
+            gap: 20px;
         }
 
+        /* Logo Section */
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
         }
 
-        .logo i {
-            font-size: 28px;
-            color: #3B82F6;
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            border: 2px solid rgba(37, 99, 235, 0.5);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-text h1 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 24px;
-            color: #FFFFFF;
-            margin: 0;
+            font-size: 26px;
+            color: var(--white);
             line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
-        .logo-text span {
-            color: #3B82F6;
+        .logo-text h1 .highlight {
+            color: var(--primary);
         }
 
         .logo-subtitle {
-            font-size: 12px;
-            color: #9CA3AF;
-            margin: 0;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+            font-size: 11px;
+            color: var(--gray-400);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
+        /* Navigation Menu */
         .nav-menu {
             display: flex;
-            gap: 25px;
-            margin-left: auto;
-            margin-right: 30px;
+            gap: 8px;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+            margin: 0 20px;
         }
 
         .nav-link {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            color: var(--gray-300);
             text-decoration: none;
-            color: #9CA3AF;
-            padding: 10px 15px;
             border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-link i {
-            font-size: 18px;
-            margin-bottom: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link span {
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 16px;
         }
 
         .nav-link:hover {
-            color: #FFFFFF;
-            background: rgba(37, 99, 235, 0.1);
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* User Dropdown */
         .user-dropdown {
             position: relative;
         }
 
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-btn:hover {
+            background: rgba(37, 99, 235, 0.2);
+            border-color: rgba(37, 99, 235, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--white);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            color: var(--gray-300);
+            transition: transform 0.3s;
+        }
+
+        .dropdown-arrow.rotate {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
         .dropdown-menu {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 10px);
             right: 0;
-            margin-top: 10px;
-            background: #0F1B2E;
+            background: var(--dark-secondary);
             border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            min-width: 220px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            min-width: 240px;
             display: none;
             z-index: 1000;
             overflow: hidden;
@@ -119,28 +246,40 @@
 
         .dropdown-menu.show {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeInDown 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0; 
+                transform: translateY(-15px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         .dropdown-header {
-            padding: 16px;
-            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
         .dropdown-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dropdown-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .dropdown-user-info {
@@ -150,1313 +289,1405 @@
 
         .dropdown-user-info strong {
             display: block;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: white;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .dropdown-user-info small {
             display: block;
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 2px;
-            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 3px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .dropdown-divider {
             height: 1px;
-            background: linear-gradient(to right, transparent, #374151, transparent);
-            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 6px 0;
         }
 
         .dropdown-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
-            color: #D1D5DB;
+            padding: 14px 18px;
+            color: var(--gray-300);
             text-decoration: none;
             transition: all 0.2s ease;
             cursor: pointer;
-            border-bottom: 1px solid #1F2937;
+            font-size: 14px;
         }
 
         .dropdown-item:hover {
-            background: rgba(37, 99, 235, 0.1);
-            color: #3B82F6;
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--white);
         }
 
         .dropdown-item i {
-            width: 18px;
+            width: 20px;
             text-align: center;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        .user-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            min-width: 120px;
-            justify-content: flex-end;
-            backdrop-filter: blur(10px);
+        /* ==================== MOBILE RESPONSIVE ==================== */
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 74px;
+                left: -100%;
+                width: 280px;
+                height: calc(100vh - 74px);
+                background: var(--dark-secondary);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 4px;
+                margin: 0;
+                transition: left 0.3s ease;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 14px 18px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .logo-text h1 {
+                font-size: 22px;
+            }
+
+            .logo-subtitle {
+                font-size: 10px;
+            }
+
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+            }
         }
 
-        .user-btn:hover {
-            background: rgba(37, 99, 235, 0.2);
-            border-color: rgba(37, 99, 235, 0.4);
-            transform: translateY(-2px);
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 10px 0;
+            }
+
+            .logo-text h1 {
+                font-size: 18px;
+            }
+
+            .logo-subtitle {
+                display: none;
+            }
+
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .header-container {
+                padding: 0 15px;
+            }
         }
 
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(59, 130, 246, 0.5);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        #userName {
-            font-weight: 500;
-            font-size: 14px;
-            color: #FFFFFF;
-            white-space: nowrap;
-        }
-
-        #dropdownArrow {
-            font-size: 12px;
-            color: #9CA3AF;
-            transition: transform 0.3s;
-            margin-left: 4px;
-        }
-
-        .fa-chevron-down.rotate {
-            transform: rotate(180deg);
-            color: #3B82F6;
-        }
-
-        /* PROFILE CONTENT STYLES */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 100vh;
-            color: #334155;
-        }
-
+        /* ==================== PROFILE DASHBOARD ==================== */
         .dashboard-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
-        .profile-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .profile-header-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 20px;
+            padding: 40px;
             margin-bottom: 30px;
-        }
-
-        .back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: #3b82f6;
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .back-home:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .refresh-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .refresh-btn:hover {
-            background-color: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .dashboard {
-            display: flex;
-            gap: 30px;
-            width: 100%;
-        }
-
-        .profile-sidebar {
-            flex: 0 0 320px;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            border-radius: 16px;
-            padding: 30px;
-            color: white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .profile-img-container {
             position: relative;
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
+            overflow: hidden;
         }
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
+        .profile-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translate(30%, -30%);
         }
 
-        .profile-img-overlay {
+        .profile-header-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar-section {
+            position: relative;
+        }
+
+        .profile-avatar-large {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .avatar-edit-btn {
             position: absolute;
             bottom: 5px;
             right: 5px;
-            background: #3b82f6;
             width: 40px;
             height: 40px;
+            background: var(--white);
+            color: var(--primary);
+            border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: 3px solid white;
-        }
-
-        .profile-name {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .profile-title {
-            font-size: 14px;
-            color: #cbd5e1;
-            margin-bottom: 10px;
-            background-color: rgba(59, 130, 246, 0.2);
-            padding: 6px 16px;
-            border-radius: 20px;
-        }
-
-        .profile-email {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-        }
-
-        .member-since {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #94a3b8;
-            margin-top: 10px;
-        }
-
-        .member-since i {
-            color: #8b5cf6;
-        }
-
-        .profile-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px 0;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #3b82f6;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #cbd5e1;
-            margin-top: 5px;
-        }
-
-        .last-login-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .login-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(59, 130, 246, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #3b82f6;
-        }
-
-        .login-details {
-            flex: 1;
-        }
-
-        .login-label {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 5px;
-        }
-
-        .login-time {
-            font-size: 16px;
-            font-weight: 600;
-            color: white;
-        }
-
-        .login-session {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: #10b981;
-            margin-top: 5px;
-        }
-
-        #session-status-icon {
-            font-size: 8px;
-        }
-
-        .account-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 25px;
-        }
-
-        .action-btn {
-            padding: 10px 15px;
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #3b82f6;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
-        .action-btn:hover {
-            background: rgba(59, 130, 246, 0.3);
-            transform: translateY(-2px);
+        .avatar-edit-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: var(--white);
         }
 
-        .action-btn.secondary {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.3);
-            color: #8b5cf6;
-        }
-
-        .action-btn.secondary:hover {
-            background: rgba(139, 92, 246, 0.3);
-        }
-
-        .profile-main {
+        .profile-info {
             flex: 1;
-            background-color: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
-        .welcome-section {
-            margin-bottom: 40px;
-        }
-
-        .welcome-title {
-            font-size: 32px;
+        .profile-name-section h1 {
+            font-size: 36px;
             font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-family: 'Poppins', sans-serif;
         }
 
-        .welcome-subtitle {
-            color: #64748b;
-            font-size: 16px;
-            line-height: 1.6;
+        .profile-role {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
         }
 
-        .info-grid {
+        .profile-email-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 16px;
+        }
+
+        .profile-stats-inline {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-inline i {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .stat-inline-content strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .stat-inline-content span {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .profile-actions-header {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ==================== INFO CARDS ==================== */
+        .info-cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
 
         .info-card {
-            background-color: #f8fafc;
-            border-radius: 12px;
-            padding: 25px;
-            border-left: 4px solid #3b82f6;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
         }
 
         .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .last-login-card {
-            background-color: #fef3c7;
-            border-left-color: #f59e0b;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .card-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #e0f2fe;
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            color: #0369a1;
+            margin-right: 16px;
+            font-size: 20px;
         }
 
-        .last-login-card .card-icon {
-            background-color: #fef3c7;
-            color: #d97706;
+        .card-icon.blue {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .card-icon.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .card-icon.purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+
+        .card-icon.orange {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
         }
 
         .card-title {
+            font-size: 18px;
             font-weight: 600;
-            color: #1e293b;
-            font-size: 16px;
+            color: var(--gray-800);
         }
 
         .card-content {
+            color: var(--gray-600);
             font-size: 15px;
-            color: #475569;
-            line-height: 1.5;
-            margin-bottom: 15px;
+            line-height: 1.6;
         }
 
-        .last-login-time {
+        .card-value {
             font-size: 24px;
             font-weight: 700;
-            color: #92400e;
-            margin: 10px 0;
+            color: var(--gray-900);
+            margin: 12px 0;
         }
 
-        .verification-status {
+        .card-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #d1fae5;
-            color: #065f46;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-top: 10px;
-        }
-
-        .verification-status i {
-            color: #10b981;
-        }
-
-        .login-details .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 13px;
-            color: #475569;
-            margin-top: 8px;
+            font-weight: 500;
+            margin-top: 12px;
         }
 
-        .account-created-date {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 10px;
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
         }
 
-        .account-age {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #6b7280;
-            margin-top: 10px;
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
         }
 
-        .account-age i {
-            color: #f59e0b;
+        .badge-info {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
         }
 
-        .security-items {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .security-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #4b5563;
-        }
-
-        .security-item i {
-            color: #10b981;
-            font-size: 16px;
-        }
-
-        .activity-stats .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px;
-            background: rgba(59, 130, 246, 0.05);
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            background: #e0f2fe;
-            border-radius: 10px;
-            display: flex;
+        /* ==================== EDIT PROFILE MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
             align-items: center;
             justify-content: center;
-            color: #0369a1;
-            font-size: 18px;
+            z-index: 2000;
+            backdrop-filter: blur(4px);
         }
 
-        .activity-info {
-            flex: 1;
-        }
-
-        .activity-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        .activity-label {
-            font-size: 12px;
-            color: #64748b;
-        }
-
-        .activity-chart {
+        .modal-overlay.active {
             display: flex;
-            align-items: flex-end;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .modal-header {
+            padding: 28px 32px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
             justify-content: space-between;
-            height: 120px;
-            margin-top: 20px;
-            padding: 0 10px;
+            align-items: center;
         }
 
-        .chart-bar {
-            width: 30px;
-            background: linear-gradient(to top, #3b82f6, #8b5cf6);
-            border-radius: 6px 6px 0 0;
-            position: relative;
-            transition: height 0.3s ease;
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+            font-family: 'Poppins', sans-serif;
         }
 
-        .chart-bar::after {
-            content: attr(data-day);
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: #64748b;
-        }
-
-        .loading {
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            color: var(--gray-400);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 36px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 400px;
-        }
-
-        .spinner {
-            border: 5px solid #f1f5f9;
-            border-top: 5px solid #3b82f6;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error-message {
-            background-color: #fee2e2;
-            border: 1px solid #fca5a5;
-            color: #dc2626;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .error-message i {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #ef4444;
-        }
-
-        .error-message h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .error-message p {
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .retry-btn {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            padding: 12px 24px;
             border-radius: 8px;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
             font-weight: 600;
-            cursor: pointer;
+            margin-bottom: 8px;
+            color: var(--gray-700);
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-input:disabled {
+            background: var(--gray-100);
+            cursor: not-allowed;
+        }
+
+        .avatar-upload-section {
+            text-align: center;
+            padding: 24px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-input-label {
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
             transition: all 0.3s ease;
         }
 
-        .retry-btn:hover {
-            background-color: #2563eb;
+        .file-input-label:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
         }
 
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #64748b;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        .modal-footer {
+            padding: 20px 32px;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            padding: 12px 24px;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-save {
+            padding: 12px 32px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-save:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-save:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ==================== LOADING & ALERTS ==================== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
         }
 
-        @media (max-width: 992px) {
-            .dashboard {
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner-container {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .alert {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            z-index: 2500;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            min-width: 320px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(100px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .alert-error {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .alert-info {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .alert i {
+            font-size: 20px;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .alert-message {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px 15px;
+            }
+
+            .profile-header-section {
+                padding: 28px 20px;
+            }
+
+            .profile-header-content {
                 flex-direction: column;
+                text-align: center;
             }
-            
-            .profile-sidebar {
-                flex: 1;
-            }
-        }
 
-        @media (max-width: 576px) {
-            .profile-main {
-                padding: 25px;
+            .profile-avatar-large {
+                width: 120px;
+                height: 120px;
             }
-            
-            .info-grid {
+
+            .profile-name-section h1 {
+                font-size: 28px;
+            }
+
+            .profile-stats-inline {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .profile-actions-header {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .info-cards-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .nav-menu {
-                display: none;
+
+            .modal-content {
+                width: 95%;
             }
+
+            .modal-header, .modal-body, .modal-footer {
+                padding: 20px;
+            }
+
+            .alert {
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+
+        /* ==================== COPYRIGHT ==================== */
+        .copyright {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .copyright strong {
+            color: var(--gray-700);
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER SECTION -->
+    <!-- ==================== HEADER ==================== -->
     <header class="main-header">
-        <div class="container">
+        <div class="header-container">
             <nav class="navbar">
-                <div class="nav-brand">
-                    <div class="logo" onclick="window.location.href='index.html'">
-                        <i class="fas fa-atom"></i>
-                        <div class="logo-text">
-                            <h1>Quantum<span>Chem</span></h1>
-                            <p class="logo-subtitle">Laboratory Database</p>
-                        </div>
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <img src="https://i.pinimg.com/736x/77/62/b6/7762b6ce59d776fa162b9c2d53f60d1d.jpg" alt="QuantumChem">
                     </div>
-                </div>
-                
+                    <div class="logo-text">
+                        <h1>Quantum<span class="highlight">Chem</span></h1>
+                        <p class="logo-subtitle">Laboratory Database</p>
+                    </div>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Navigation Menu -->
                 <div class="nav-menu" id="navMenu">
-                    <a href="index.html" class="nav-link" data-text="Home">
+                    <a href="index.html" class="nav-link">
                         <i class="fas fa-home"></i>
                         <span>Home</span>
                     </a>
-                    <a href="index.html#Chemicals" class="nav-link" data-text="Chemicals">
-                        <i class="fas fa-database"></i>
+                    <a href="tutorial.html" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Tutorials</span>
+                    </a>
+                    <a href="lecture.html" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Lectures</span>
+                    </a>
+                    <a href="feature.html" class="nav-link">
+                        <i class="fas fa-star"></i>
+                        <span>Features</span>
+                    </a>
+                    <a href="chemicals.html" class="nav-link">
+                        <i class="fas fa-flask"></i>
                         <span>Chemicals</span>
                     </a>
-                    <a href="https://quantumchemblog.wordpress.com/" class="nav-link" data-text="Blog" target="_blank">
-                        <i class="fas fa-blog"></i>
-                        <span>Blog</span>
-                    </a>
-                    <a href="textbook and book.html" class="nav-link" data-text="Textbooks" target="_blank">
-                        <i class="fas fa-book"></i>
-                        <span>Textbooks</span>
+                    <a href="contact.html" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
                     </a>
                 </div>
-                
-                <div class="user-dropdown" id="userDropdown">
-                    <button class="user-btn" id="userBtn" onclick="toggleUserDropdown(event)">
+
+                <!-- User Dropdown -->
+                <div class="user-dropdown">
+                    <button class="user-btn" id="userBtn">
                         <div class="user-avatar">
-                            <img src="https://ui-avatars.com/api/?name=Account&background=2563EB&color=fff" 
-                                 alt="Account" 
-                                 id="userAvatar">
+                            <img src="https://ui-avatars.com/api/?name=User&background=2563EB&color=fff" alt="User" id="headerAvatar">
                         </div>
-                        <span id="userName">Account</span>
-                        <i class="fas fa-chevron-down" id="dropdownArrow"></i>
+                        <span class="user-name" id="headerUserName">Account</span>
+                        <i class="fas fa-chevron-down dropdown-arrow" id="dropdownArrow"></i>
                     </button>
-                    <div class="dropdown-menu" id="userDropdownMenu">
-                        <div id="dropdownContent">
-                            <!-- Will be populated by JavaScript -->
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar">
+                                <img src="https://ui-avatars.com/api/?name=User&background=2563EB&color=fff" alt="User" id="dropdownAvatar">
+                            </div>
+                            <div class="dropdown-user-info">
+                                <strong id="dropdownUserName">Loading...</strong>
+                                <small id="dropdownUserEmail">Loading...</small>
+                            </div>
                         </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user-circle"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" onclick="logoutUser(event)">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- PROFILE CONTENT -->
+    <!-- ==================== PROFILE DASHBOARD ==================== -->
     <div class="dashboard-container">
-        <div class="profile-nav">
-            <a href="index.html" class="back-home">
-                <i class="fas fa-arrow-left"></i> Back to Home
-            </a>
-            <button onclick="refreshProfile()" class="refresh-btn">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
+        <!-- Profile Header Section -->
+        <div class="profile-header-section">
+            <div class="profile-header-content">
+                <div class="profile-avatar-section">
+                    <img src="https://ui-avatars.com/api/?name=User&background=2563EB&color=fff&size=140" alt="Profile" class="profile-avatar-large" id="profileAvatar">
+                    <button class="avatar-edit-btn" onclick="openEditModal()">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name-section">
+                        <h1 id="profileName">Loading...</h1>
+                        <div class="profile-role" id="profileRole">QuantumChem Researcher</div>
+                    </div>
+                    <div class="profile-email-display">
+                        <i class="fas fa-envelope"></i>
+                        <span id="profileEmail">Loading...</span>
+                    </div>
+                    <div class="profile-stats-inline">
+                        <div class="stat-inline">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="stat-inline-content">
+                                <strong id="memberSince">Jan 2026</strong>
+                                <span>Member Since</span>
+                            </div>
+                        </div>
+                        <div class="stat-inline">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <div class="stat-inline-content">
+                                <strong id="loginCount">0</strong>
+                                <span>Total Logins</span>
+                            </div>
+                        </div>
+                        <div class="stat-inline">
+                            <i class="fas fa-shield-alt"></i>
+                            <div class="stat-inline-content">
+                                <strong id="accountStatus">Active</strong>
+                                <span>Status</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-actions-header">
+                    <button class="btn-primary" onclick="openEditModal()">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </button>
+                    <button class="btn-secondary" onclick="refreshProfile()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <main class="dashboard">
-            <aside class="profile-sidebar">
-                <div class="profile-header">
-                    <div class="profile-img-container">
-                        <img id="profile-img" class="profile-img" 
-                             src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff&size=150" 
-                             alt="Profile Image">
-                        <div class="profile-img-overlay" onclick="changeProfilePicture()">
-                            <i class="fas fa-camera"></i>
-                        </div>
+        <!-- Info Cards Grid -->
+        <div class="info-cards-grid">
+            <!-- Email Card -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon blue">
+                        <i class="fas fa-envelope"></i>
                     </div>
-                    <h1 id="name" class="profile-name">Loading...</h1>
-                    <div class="profile-title" id="user-title">QuantumChem Researcher</div>
-                    <div class="profile-email" id="profile-email">Loading...</div>
-                    <div class="member-since" id="member-since">
-                        <i class="fas fa-calendar-alt"></i>
-                        Member since: <span id="member-since-date">Loading...</span>
+                    <h3 class="card-title">Email Address</h3>
+                </div>
+                <div class="card-content">
+                    <div class="card-value" id="emailCard">Loading...</div>
+                    <div class="card-badge badge-success">
+                        <i class="fas fa-check-circle"></i>
+                        Verified
                     </div>
                 </div>
+            </div>
 
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-value" id="auth-provider-badge">-</div>
-                        <div class="stat-label">Login Method</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="login-count">0</div>
-                        <div class="stat-label">Total Logins</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value" id="account-status">Active</div>
-                        <div class="stat-label">Status</div>
-                    </div>
-                </div>
-
-                <div class="last-login-info">
-                    <div class="login-icon">
+            <!-- Last Login Card -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon orange">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="login-details">
-                        <div class="login-label">Last Login</div>
-                        <div class="login-time" id="sidebar-last-login">Loading...</div>
-                        <div class="login-session">
-                            <i class="fas fa-circle" id="session-status-icon"></i>
-                            <span id="session-status-text">Session Active</span>
-                        </div>
+                    <h3 class="card-title">Last Login</h3>
+                </div>
+                <div class="card-content">
+                    <div class="card-value" id="lastLoginCard">Loading...</div>
+                    <div class="card-badge badge-info">
+                        <i class="fas fa-globe"></i>
+                        <span id="authProviderBadge">Loading...</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="account-actions">
-                    <button class="action-btn" onclick="editProfile()">
-                        <i class="fas fa-edit"></i> Edit Profile
-                    </button>
-                    <button class="action-btn secondary" onclick="logoutUser()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
+            <!-- Account Created Card -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon green">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <h3 class="card-title">Account Created</h3>
                 </div>
-            </aside>
-
-            <section class="profile-main">
-                <div class="welcome-section">
-                    <h2 class="welcome-title" id="welcome-message">Welcome to QuantumChem</h2>
-                    <p class="welcome-subtitle">Your secure research dashboard for quantum chemistry tools and databases.</p>
-                </div>
-
-                <div id="loading" class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading your profile information...</p>
-                </div>
-
-                <div id="profile-content" style="display: none;">
-                    <div class="info-grid">
-                        <div class="info-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <h3 class="card-title">Email Address</h3>
-                            </div>
-                            <p class="card-content" id="email">Loading...</p>
-                            <div class="verification-status" id="email-verified">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Verified</span>
-                            </div>
-                        </div>
-
-                        <div class="info-card last-login-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <h3 class="card-title">Last Login</h3>
-                            </div>
-                            <p class="card-content">Your last successful login was:</p>
-                            <p class="last-login-time" id="last-login">Loading...</p>
-                            <div class="login-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-sign-in-alt"></i>
-                                    <span id="auth-provider">Loading...</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-calendar-plus"></i>
-                                </div>
-                                <h3 class="card-title">Account Created</h3>
-                            </div>
-                            <p class="card-content">Your QuantumChem account was created:</p>
-                            <p class="account-created-date" id="account-created">Loading...</p>
-                            <div class="account-age" id="account-age">
-                                <i class="fas fa-birthday-cake"></i>
-                                <span>Account age: <strong id="account-age-text">Loading...</strong></span>
-                            </div>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-user-shield"></i>
-                                </div>
-                                <h3 class="card-title">Account Security</h3>
-                            </div>
-                            <div class="security-items">
-                                <div class="security-item">
-                                    <i class="fas fa-user-check"></i>
-                                    <span>Authentication: <strong id="auth-method">Loading...</strong></span>
-                                </div>
-                                <div class="security-item">
-                                    <i class="fas fa-history"></i>
-                                    <span>Last session: <strong id="current-session">Active now</strong></span>
-                                </div>
-                                <div class="security-item">
-                                    <i class="fas fa-shield-alt"></i>
-                                    <span>Session status: <strong id="session-security">Secure</strong></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="card-header">
-                                <div class="card-icon">
-                                    <i class="fas fa-user-circle"></i>
-                                </div>
-                                <h3 class="card-title">Profile Information</h3>
-                            </div>
-                            <div class="activity-stats">
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-id-card"></i>
-                                    </div>
-                                    <div class="activity-info">
-                                        <div class="activity-value" id="user-role">Researcher</div>
-                                        <div class="activity-label">Account Role</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-key"></i>
-                                    </div>
-                                    <div class="activity-info">
-                                        <div class="activity-value" id="token-status">Valid</div>
-                                        <div class="activity-label">Token Status</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon">
-                                        <i class="fas fa-calendar-check"></i>
-                                    </div>
-                                    <div class="activity-info">
-                                        <div class="activity-value" id="days-active">1</div>
-                                        <div class="activity-label">Days Active</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-content">
+                    <div class="card-value" id="accountCreatedCard">Loading...</div>
+                    <div class="card-badge badge-success">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span id="accountAge">0 days old</span>
                     </div>
                 </div>
+            </div>
 
-                <div id="error-message" class="error-message" style="display: none;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Unable to load profile</h3>
-                    <p id="error-text">There was an error loading your profile information.</p>
-                    <button onclick="retryLoadProfile()" class="retry-btn">
-                        <i class="fas fa-redo"></i> Try Again
-                    </button>
+            <!-- Security Card -->
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon purple">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="card-title">Account Security</h3>
                 </div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <p>© 2026 QuantumChem. All rights reserved. | Secure Research Platform v3.2</p>
-        </footer>
+                <div class="card-content">
+                    <div style="margin-bottom: 12px;">
+                        <strong style="color: var(--gray-700);">Authentication Method:</strong><br>
+                        <span id="authMethod">Loading...</span>
+                    </div>
+                    <div class="card-badge badge-success">
+                        <i class="fas fa-lock"></i>
+                        Secure Session
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-<script>
-    // Configuration
-    function getApiBaseUrl() {
-      const currentOrigin = window.location.origin;
-      
-      if (currentOrigin === 'http://localhost:3000') {
-        return 'http://localhost:3000';
-      }
-      
-      if (currentOrigin === 'https://www.quantumchem.site' || 
-          currentOrigin === 'https://quantumchem.vercel.app') {
-        return 'https://quantumchem.vercel.app';
-      }
-      
-      return currentOrigin;
-    }
 
-    const API_BASE_URL = getApiBaseUrl();
-    const PROFILE_API = `${API_BASE_URL}/api/user/profile`;
-    const TOKEN_KEY = 'jwt_token';
-    const USER_KEY = 'qc_user';
-    const LOGIN_URL = 'login.html';
+    <!-- ==================== EDIT PROFILE MODAL ==================== -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Profile</h2>
+                <button class="modal-close" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="avatar-upload-section">
+                    <img src="https://ui-avatars.com/api/?name=User&background=2563EB&color=fff&size=120" alt="Avatar" class="avatar-preview" id="avatarPreview">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="avatarInput" class="file-input" accept="image/*" onchange="handleAvatarChange(event)">
+                        <label for="avatarInput" class="file-input-label">
+                            <i class="fas fa-camera"></i>
+                            Change Avatar
+                        </label>
+                    </div>
+                </div>
 
-    // Main initialization
-    document.addEventListener('DOMContentLoaded', async () => {
-        console.log('=== Profile Page Initialization ===');
-        
-        try {
-            // 1. Handle Google OAuth redirect with token in URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlToken = urlParams.get('token');
-            const googleAuth = urlParams.get('google_auth');
-            
-            if (urlToken) {
-                console.log('🔗 Token found in URL (Google OAuth flow)');
-                localStorage.setItem(TOKEN_KEY, urlToken);
-                
-                // Clean URL - remove token from address bar
-                const cleanUrl = window.location.origin + window.location.pathname;
-                window.history.replaceState({}, document.title, cleanUrl);
-                
-                // Show welcome message
-                showMessage(googleAuth === 'true' ? 
-                    'Google authentication successful!' : 
-                    'Login successful!', 'success');
+                <form id="editProfileForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="editName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="editEmail" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number (Optional)</label>
+                        <input type="tel" class="form-input" id="editPhone" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Bio (Optional)</label>
+                        <textarea class="form-input" id="editBio" rows="4" placeholder="Tell us about yourself..." style="resize: vertical;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+                <button class="btn-save" onclick="saveProfile()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== LOADING OVERLAY ==================== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+    <!-- ==================== ALERT ==================== -->
+    <div class="alert" id="alert">
+        <i class="fas fa-check-circle"></i>
+        <div class="alert-content">
+            <div class="alert-title" id="alertTitle">Success</div>
+            <div class="alert-message" id="alertMessage">Operation completed successfully</div>
+        </div>
+    </div>
+
+    <!-- ==================== COPYRIGHT ==================== -->
+    <div class="copyright">
+        <p>© <strong>2026 QuantumChem</strong>. All rights reserved. | Secure Research Platform</p>
+    </div>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        const API_CONFIG = {
+            baseUrl: (() => {
+                const origin = window.location.origin;
+                if (origin.includes('localhost')) return 'http://localhost:3000';
+                if (origin.includes('quantumchem')) return 'https://quantumchem.vercel.app';
+                return origin;
+            })(),
+            endpoints: {
+                profile: '/api/user/profile',
+                updateProfile: '/api/user/update-profile'
             }
+        };
+
+        const STORAGE_KEYS = {
+            token: 'jwt_token',
+            user: 'qc_user'
+        };
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function showAlert(title, message, type = 'success') {
+            const alert = document.getElementById('alert');
+            const alertTitle = document.getElementById('alertTitle');
+            const alertMessage = document.getElementById('alertMessage');
             
-            // 2. Get token from storage
-            const token = localStorage.getItem(TOKEN_KEY);
+            alert.className = `alert alert-${type} show`;
+            alertTitle.textContent = title;
+            alertMessage.textContent = message;
             
-            if (!token) {
-                console.error('❌ No authentication token found');
-                redirectToLogin('Please login to access your profile');
-                return;
-            }
-            
-            // 3. Fetch user profile
-            await fetchUserProfile(token);
-            
-            // 4. Setup UI
-            setupEventListeners();
-            
-        } catch (error) {
-            console.error('❌ Initialization error:', error);
-            showError('Failed to load profile. Please try again.');
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 4000);
         }
-    });
 
-    // Setup event listeners
-    function setupEventListeners() {
-        // User dropdown
-        const userBtn = document.getElementById('userBtn');
-        const dropdown = document.getElementById('userDropdownMenu');
-        const arrow = document.getElementById('dropdownArrow');
-        
-        if (userBtn) {
-            userBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('show');
-                arrow.classList.toggle('rotate');
-            });
+        function showLoading(text = 'Loading...') {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = overlay.querySelector('.loading-text');
+            loadingText.textContent = text;
+            overlay.classList.add('active');
         }
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!userBtn.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('show');
-                arrow.classList.remove('rotate');
-            }
-        });
-    }
 
-    // Fetch user profile
-    async function fetchUserProfile(token) {
-        showLoading();
-        
-        try {
-            const response = await fetch(PROFILE_API, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (response.status === 401 || response.status === 403) {
-                redirectToLogin('Session expired. Please login again.');
-                return;
-            }
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (!data.user) {
-                throw new Error('Invalid API response');
-            }
-            
-            // Update UI with user data
-            updateProfileUI(data.user);
-            
-            // Save user data
-            saveUserData(data.user);
-            
-        } catch (error) {
-            console.error('❌ Profile fetch error:', error);
-            
-            if (error.message.includes('Failed to fetch')) {
-                showError('Cannot connect to server. Please check your connection.');
-            } else {
-                showError(error.message || 'Failed to load profile data');
-            }
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
         }
-    }
 
-    // Update UI with user data
-    function updateProfileUI(user) {
-        hideLoading();
-        document.getElementById('profile-content').style.display = 'block';
-        
-        // 1. Basic info
-        document.getElementById('name').textContent = user.name || 'User';
-        document.getElementById('profile-email').textContent = user.email;
-        document.getElementById('email').textContent = user.email;
-        
-        // 2. Profile picture
-        const profileImg = document.getElementById('profile-img');
-        if (profileImg) {
-            profileImg.src = user.picture || user.avatarUrl || 
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=3b82f6&color=fff&size=150`;
-        }
-        
-        // 3. Welcome message
-        document.getElementById('welcome-message').textContent = `Welcome back, ${user.name}!`;
-        
-        // 4. Dates
-        const formatDate = (dateString) => {
+        function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', {
-                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function formatDateTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
             });
-        };
-        
-        document.getElementById('last-login').textContent = 
-            formatDate(user.lastLoginAt || new Date().toISOString());
-        document.getElementById('sidebar-last-login').textContent = 
-            new Date(user.lastLoginAt || new Date()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        document.getElementById('account-created').textContent = 
-            formatDate(user.createdAt || new Date().toISOString());
-        document.getElementById('member-since-date').textContent = 
-            new Date(user.createdAt || new Date()).toLocaleDateString('en-US', {year: 'numeric', month: 'long'});
-        
-        // 5. Auth provider
-        const providerDisplay = user.authProvider === 'google' ? 'Google' : 'Manual';
-        document.getElementById('auth-provider').innerHTML = 
-            `<i class="${user.authProvider === 'google' ? 'fab fa-google' : 'fas fa-envelope'}"></i> ${providerDisplay}`;
-        document.getElementById('auth-provider-badge').textContent = providerDisplay.charAt(0);
-        document.getElementById('auth-method').textContent = providerDisplay;
-        document.getElementById('user-title').textContent = 
-            user.authProvider === 'google' ? 'Google Authenticated User' : 'Manual Login User';
-        
-        // 6. Account age
-        const created = new Date(user.createdAt || new Date());
-        const now = new Date();
-        const diffDays = Math.ceil((now - created) / (1000 * 60 * 60 * 24));
-        document.getElementById('account-age-text').textContent = `${diffDays} day${diffDays !== 1 ? 's' : ''}`;
-        document.getElementById('days-active').textContent = diffDays;
-        
-        // 7. Update header
-        updateHeaderDropdown(user);
-    }
-
-    // Update header dropdown
-    function updateHeaderDropdown(user) {
-        document.getElementById('userName').textContent = user.name || 'User';
-        
-        const avatarUrl = user.picture || user.avatarUrl || 
-            `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=3B82F6&color=fff&size=32`;
-        document.getElementById('userAvatar').src = avatarUrl;
-        
-        document.getElementById('dropdownContent').innerHTML = `
-            <div class="dropdown-header">
-                <div class="dropdown-avatar">
-                    <img src="${avatarUrl}" alt="${user.name}">
-                </div>
-                <div class="dropdown-user-info">
-                    <strong>${user.name}</strong>
-                    <small>${user.email}</small>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <a href="profile.html" class="dropdown-item profile-item">
-                <i class="fas fa-user-circle"></i>
-                <span>Profile</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item logout-item" onclick="logoutUser()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
-        `;
-    }
-
-    // Save user data
-    function saveUserData(user) {
-        localStorage.setItem(USER_KEY, JSON.stringify({
-            ...user,
-            logged: true,
-            lastSync: new Date().toISOString()
-        }));
-    }
-
-    // Show message
-    function showMessage(text, type = 'info') {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `user-message message-${type}`;
-        messageDiv.textContent = text;
-        
-        messageDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            background: ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#3B82F6'};
-            color: white;
-            border-radius: 12px;
-            z-index: 9999;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
-            max-width: 400px;
-        `;
-        
-        document.body.appendChild(messageDiv);
-        
-        setTimeout(() => {
-            messageDiv.style.opacity = '0';
-            setTimeout(() => messageDiv.remove(), 300);
-        }, 3000);
-    }
-
-    // Loading states
-    function showLoading() {
-        document.getElementById('loading').style.display = 'flex';
-        document.getElementById('profile-content').style.display = 'none';
-        document.getElementById('error-message').style.display = 'none';
-    }
-    
-    function hideLoading() {
-        document.getElementById('loading').style.display = 'none';
-    }
-    
-    function showError(message) {
-        hideLoading();
-        document.getElementById('profile-content').style.display = 'none';
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('error-text').textContent = message;
-    }
-
-    // Redirect to login
-    function redirectToLogin(message = '') {
-        if (message) showMessage(message, 'error');
-        
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-        
-        setTimeout(() => {
-            window.location.href = LOGIN_URL;
-        }, 1500);
-    }
-
-    // Logout
-    function logoutUser() {
-        if (confirm('Are you sure you want to logout?')) {
-            localStorage.removeItem(TOKEN_KEY);
-            localStorage.removeItem(USER_KEY);
-            showMessage('Logged out successfully', 'success');
-            setTimeout(() => {
-                window.location.href = LOGIN_URL;
-            }, 1000);
         }
-    }
 
-    // Export functions
-    window.refreshProfile = () => {
-        const token = localStorage.getItem(TOKEN_KEY);
-        if (!token) {
-            redirectToLogin('Please login again');
-            return;
+        function calculateDaysOld(dateString) {
+            const created = new Date(dateString);
+            const now = new Date();
+            const diffDays = Math.ceil((now - created) / (1000 * 60 * 60 * 24));
+            return diffDays;
         }
-        showMessage('Refreshing profile...', 'info');
-        fetchUserProfile(token);
-    };
-    
-    window.retryLoadProfile = () => {
-        const token = localStorage.getItem(TOKEN_KEY);
-        if (!token) {
-            redirectToLogin('Session expired');
-            return;
-        }
-        fetchUserProfile(token);
-    };
-    
-    window.logoutUser = logoutUser;
-    window.toggleUserDropdown = (e) => {
-        if (e) e.stopPropagation();
-        const dropdown = document.getElementById('userDropdownMenu');
-        const arrow = document.getElementById('dropdownArrow');
-        if (dropdown && arrow) {
+
+        // ==================== MOBILE MENU ====================
+        document.getElementById('mobileMenuToggle').addEventListener('click', () => {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+            
+            const icon = document.querySelector('.mobile-menu-toggle i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navMenu = document.getElementById('navMenu');
+            const toggle = document.getElementById('mobileMenuToggle');
+            
+            if (!navMenu.contains(e.target) && !toggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                document.querySelector('.mobile-menu-toggle i').classList.remove('fa-times');
+                document.querySelector('.mobile-menu-toggle i').classList.add('fa-bars');
+            }
+        });
+
+        // ==================== USER DROPDOWN ====================
+        document.getElementById('userBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const dropdown = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            
             dropdown.classList.toggle('show');
             arrow.classList.toggle('rotate');
-        }
-    };
+        });
 
-    // Add CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('dropdownMenu');
+            const userBtn = document.getElementById('userBtn');
+            
+            if (!dropdown.contains(e.target) && !userBtn.contains(e.target)) {
+                dropdown.classList.remove('show');
+                document.getElementById('dropdownArrow').classList.remove('rotate');
+            }
+        });
+
+        // ==================== PROFILE FUNCTIONS ====================
+        async function fetchUserProfile() {
+            showLoading('Loading your profile...');
+            
+            try {
+                const token = localStorage.getItem(STORAGE_KEYS.token);
+                
+                if (!token) {
+                    showAlert('Error', 'Please login to access your profile', 'error');
+                    setTimeout(() => window.location.href = 'login.html', 1500);
+                    return;
+                }
+
+                const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.profile}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 401 || response.status === 403) {
+                    showAlert('Session Expired', 'Please login again', 'error');
+                    setTimeout(() => window.location.href = 'login.html', 1500);
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile');
+                }
+
+                const data = await response.json();
+                
+                if (data.user) {
+                    updateProfileUI(data.user);
+                    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(data.user));
+                }
+
+            } catch (error) {
+                console.error('Profile fetch error:', error);
+                showAlert('Error', 'Failed to load profile data', 'error');
+            } finally {
+                hideLoading();
+            }
         }
-    `;
-    document.head.appendChild(style);
-</script>
+
+        function updateProfileUI(user) {
+            // Avatar URLs
+            const avatarUrl = user.picture || user.avatarUrl || 
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=2563EB&color=fff`;
+
+            // Update all avatars
+            document.getElementById('profileAvatar').src = avatarUrl + '&size=140';
+            document.getElementById('headerAvatar').src = avatarUrl + '&size=36';
+            document.getElementById('dropdownAvatar').src = avatarUrl + '&size=44';
+            document.getElementById('avatarPreview').src = avatarUrl + '&size=120';
+
+            // Update profile header
+            document.getElementById('profileName').textContent = user.name || 'User';
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('headerUserName').textContent = user.name || 'User';
+
+            // Update dropdown
+            document.getElementById('dropdownUserName').textContent = user.name || 'User';
+            document.getElementById('dropdownUserEmail').textContent = user.email;
+
+            // Update stats
+            const createdDate = new Date(user.createdAt || Date.now());
+            document.getElementById('memberSince').textContent = createdDate.toLocaleDateString('en-US', { 
+                month: 'short', 
+                year: 'numeric' 
+            });
+            document.getElementById('loginCount').textContent = user.loginCount || 0;
+            document.getElementById('accountStatus').textContent = user.accountStatus || 'Active';
+
+            // Update cards
+            document.getElementById('emailCard').textContent = user.email;
+            document.getElementById('lastLoginCard').textContent = formatDateTime(user.lastLoginAt || Date.now());
+            document.getElementById('accountCreatedCard').textContent = formatDate(user.createdAt || Date.now());
+
+            // Account age
+            const daysOld = calculateDaysOld(user.createdAt || Date.now());
+            document.getElementById('accountAge').textContent = `${daysOld} day${daysOld !== 1 ? 's' : ''} old`;
+
+            // Auth provider
+            const provider = user.authProvider === 'google' ? 'Google OAuth' : 'Email Login';
+            document.getElementById('authProviderBadge').textContent = provider;
+            document.getElementById('authMethod').textContent = provider;
+
+            // Update edit form
+            document.getElementById('editName').value = user.name || '';
+            document.getElementById('editEmail').value = user.email;
+            document.getElementById('editPhone').value = user.phone || '';
+            document.getElementById('editBio').value = user.bio || '';
+        }
+
+        // ==================== EDIT PROFILE MODAL ====================
+        function openEditModal() {
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function handleAvatarChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function saveProfile() {
+            showLoading('Saving changes...');
+            
+            try {
+                const token = localStorage.getItem(STORAGE_KEYS.token);
+                const name = document.getElementById('editName').value.trim();
+                const phone = document.getElementById('editPhone').value.trim();
+                const bio = document.getElementById('editBio').value.trim();
+                const avatarFile = document.getElementById('avatarInput').files[0];
+
+                if (!name) {
+                    showAlert('Error', 'Name is required', 'error');
+                    hideLoading();
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('name', name);
+                if (phone) formData.append('phone', phone);
+                if (bio) formData.append('bio', bio);
+                if (avatarFile) formData.append('avatar', avatarFile);
+
+                const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.updateProfile}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update profile');
+                }
+
+                const data = await response.json();
+                
+                if (data.user) {
+                    updateProfileUI(data.user);
+                    localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(data.user));
+                    closeEditModal();
+                    showAlert('Success', 'Profile updated successfully!', 'success');
+                }
+
+            } catch (error) {
+                console.error('Save profile error:', error);
+                showAlert('Error', 'Failed to save changes', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // ==================== OTHER FUNCTIONS ====================
+        function refreshProfile() {
+            fetchUserProfile();
+        }
+
+        function logoutUser(event) {
+            if (event) event.preventDefault();
+            
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem(STORAGE_KEYS.token);
+                localStorage.removeItem(STORAGE_KEYS.user);
+                showAlert('Success', 'Logged out successfully', 'success');
+                setTimeout(() => window.location.href = 'login.html', 1000);
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle OAuth redirect
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlToken = urlParams.get('token');
+            
+            if (urlToken) {
+                localStorage.setItem(STORAGE_KEYS.token, urlToken);
+                const cleanUrl = window.location.origin + window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+                showAlert('Success', 'Login successful!', 'success');
+            }
+
+            // Load profile
+            fetchUserProfile();
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEditModal();
+            }
+        });
+    </script>
 </body>
 </html>
